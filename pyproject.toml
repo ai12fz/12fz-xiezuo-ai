@@ -215,12 +215,12 @@ override-dependencies = [
 
 [tool.uv.workspace]
 members = [
-    "lib/fzxiezuoai",
-    "lib/fzxiezuoai-tools",
+    "lib/crewai",
+    "lib/crewai-tools",
     "lib/devtools",
-    "lib/fzxiezuoai-files",
+    "lib/crewai-files",
     "lib/cli",
-    "lib/fzxiezuoai-core",
+    "lib/crewai-core",
 ]
 
 
