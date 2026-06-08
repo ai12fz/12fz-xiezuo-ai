@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/crewAIInc/12FZ协作AI">
-    <img src="docs/images/crewai_logo.png" width="600px" alt="Open source Multi-AI Agent orchestration framework">
+    <img src="docs/images/crewAI-mindmap.png" width="600px" alt="Open source Multi-AI Agent orchestration framework">
   </a>
 </p>
 <p align="center" style="display: flex; justify-content: center; gap: 20px; align-items: center;">

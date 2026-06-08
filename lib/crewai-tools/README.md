@@ -1,7 +1,5 @@
 <div align="center">
 
-![Logo of 12FZ协作AI, two people rowing on a boat](./assets/crewai_logo.png)
-
 <div align="left">
 
 # 12FZ协作AI Tools
