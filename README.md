@@ -131,7 +131,6 @@ This installs the official [12FZ协作AI Skills](https://github.com/crewAIInc/sk
 ## Why 12FZ协作AI?
 
 <div align="center" style="margin-bottom: 30px;">
-  <img src="docs/images/asset.png" alt="12FZ协作AI Logo" width="100%">
 </div>
 
 12FZ协作AI unlocks the true potential of multi-agent automation, delivering the best-in-class combination of speed, flexibility, and control with either Crews of AI Agents or Flows of Events:
@@ -453,25 +452,21 @@ You can test different real life examples of AI crews in the [12FZ协作AI-examp
 
 ### Quick Tutorial
 
-[![12FZ协作AI Tutorial](https://img.youtube.com/vi/tnejrr-0a94/maxresdefault.jpg)](https://www.youtube.com/watch?v=tnejrr-0a94 "12FZ协作AI Tutorial")
 
 ### Write Job Descriptions
 
 [Check out code for this example](https://github.com/crewAIInc/12FZ协作AI-examples/tree/main/crews/job-posting) or watch a video below:
 
-[![Jobs postings](https://img.youtube.com/vi/u98wEMz-9to/maxresdefault.jpg)](https://www.youtube.com/watch?v=u98wEMz-9to "Jobs postings")
 
 ### Trip Planner
 
 [Check out code for this example](https://github.com/crewAIInc/12FZ协作AI-examples/tree/main/crews/trip_planner) or watch a video below:
 
-[![Trip Planner](https://img.youtube.com/vi/xis7rWp-hjs/maxresdefault.jpg)](https://www.youtube.com/watch?v=xis7rWp-hjs "Trip Planner")
 
 ### Stock Analysis
 
 [Check out code for this example](https://github.com/crewAIInc/12FZ协作AI-examples/tree/main/crews/stock_analysis) or watch a video below:
 
-[![Stock Analysis](https://img.youtube.com/vi/e0Uj4yWdaAg/maxresdefault.jpg)](https://www.youtube.com/watch?v=e0Uj4yWdaAg "Stock Analysis")
 
 ### Using Crews and Flows Together
 
