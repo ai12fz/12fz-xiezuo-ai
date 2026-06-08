@@ -11,7 +11,7 @@ import requests
 
 def get_enterprise_api_base_url() -> str:
     """Get the enterprise API base URL from environment or use default."""
-    base_url = os.getenv("CREWAI_PLUS_URL", "https://app.fzxiezuoai.com")
+    base_url = os.getenv("CREWAI_PLUS_URL", "https://ai.12fz.com")
     return f"{base_url}/crewai_plus/api/v1/integrations"
 
 

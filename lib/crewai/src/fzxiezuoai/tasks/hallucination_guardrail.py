@@ -72,7 +72,7 @@ class HallucinationGuardrail:
         self._logger = Logger(verbose=True)
         self._logger.log(
             "warning",
-            """Hallucination detection is a no-op in open source, use it for free at https://app.fzxiezuoai.com\n""",
+            """Hallucination detection is a no-op in open source, use it for free at https://ai.12fz.com/crewai-plus\n""",
             color="red",
         )
 
@@ -97,7 +97,7 @@ class HallucinationGuardrail:
 
         self._logger.log(
             "warning",
-            "Premium hallucination detection skipped (use for free at https://app.fzxiezuoai.com)\n",
+            "Premium hallucination detection skipped (use for free at https://ai.12fz.com/crewai-plus)\n",
             color="red",
         )
         return True, task_output.raw

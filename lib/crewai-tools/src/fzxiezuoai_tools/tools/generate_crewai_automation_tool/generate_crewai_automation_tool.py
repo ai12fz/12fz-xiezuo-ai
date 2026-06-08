@@ -25,8 +25,8 @@ class GenerateCrewaiAutomationTool(BaseTool):
     )
     args_schema: type[BaseModel] = GenerateCrewaiAutomationToolSchema
     crewai_enterprise_url: str = Field(
-        default_factory=lambda: os.getenv("CREWAI_PLUS_URL", "https://app.fzxiezuoai.com"),
-        description="The base URL of 12FZ协作AI AMP. If not provided, it will be loaded from the environment variable CREWAI_PLUS_URL with default https://app.fzxiezuoai.com.",
+        default_factory=lambda: os.getenv("CREWAI_PLUS_URL", "https://ai.12fz.com"),
+        description="The base URL of 12FZ协作AI AMP. If not provided, it will be loaded from the environment variable CREWAI_PLUS_URL with default https://ai.12fz.com.",
     )
     personal_access_token: str | None = Field(
         default_factory=lambda: os.getenv("CREWAI_PERSONAL_ACCESS_TOKEN"),
