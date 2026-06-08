@@ -8,30 +8,30 @@ from typing import Any
 import click
 from fzxiezuoai_core.token_manager import TokenManager
 
-from fzxiezuoai_cli.add_crew_to_flow import add_crew_to_flow
+from fzxiezuoai_cli.add_xiezuo_to_flow import add_xiezuo_to_flow
 from fzxiezuoai_cli.authentication.main import AuthenticationCommand
 from fzxiezuoai_cli.config import Settings
-from fzxiezuoai_cli.create_crew import create_crew
+from fzxiezuoai_cli.create_xiezuo import create_xiezuo
 from fzxiezuoai_cli.create_flow import create_flow
-from fzxiezuoai_cli.crew_chat import run_chat
+from fzxiezuoai_cli.xiezuo_chat import run_chat
 from fzxiezuoai_cli.deploy.main import DeployCommand
 from fzxiezuoai_cli.enterprise.main import EnterpriseConfigureCommand
-from fzxiezuoai_cli.evaluate_crew import evaluate_crew
+from fzxiezuoai_cli.evaluate_xiezuo import evaluate_xiezuo
 from fzxiezuoai_cli.experimental.skills.main import SkillCommand
-from fzxiezuoai_cli.install_crew import install_crew
+from fzxiezuoai_cli.install_xiezuo import install_xiezuo
 from fzxiezuoai_cli.kickoff_flow import kickoff_flow
 from fzxiezuoai_cli.organization.main import OrganizationCommand
 from fzxiezuoai_cli.plot_flow import plot_flow
 from fzxiezuoai_cli.remote_template.main import TemplateCommand
 from fzxiezuoai_cli.replay_from_task import replay_task_command
 from fzxiezuoai_cli.reset_memories_command import reset_memories_command
-from fzxiezuoai_cli.run_crew import run_crew
+from fzxiezuoai_cli.run_xiezuo import run_xiezuo
 from fzxiezuoai_cli.settings.main import SettingsCommand
 from fzxiezuoai_cli.task_outputs import load_task_outputs
 from fzxiezuoai_cli.tools.main import ToolCommand
-from fzxiezuoai_cli.train_crew import train_crew
+from fzxiezuoai_cli.train_xiezuo import train_xiezuo
 from fzxiezuoai_cli.triggers.main import TriggersCommand
-from fzxiezuoai_cli.update_crew import update_crew
+from fzxiezuoai_cli.update_xiezuo import update_xiezuo
 from fzxiezuoai_cli.user_data import (
     _load_user_data,
     is_tracing_enabled,
@@ -90,20 +90,20 @@ def uv(uv_args: tuple[str, ...]) -> None:
 
 
 @fzxiezuoai.command()
-@click.argument("type", type=click.Choice(["crew", "flow"]))
+@click.argument("type", type=click.Choice(["xiezuo", "flow"]))
 @click.argument("name")
-@click.option("--provider", type=str, help="The provider to use for the crew")
+@click.option("--provider", type=str, help="The provider to use for the xiezuo")
 @click.option("--skip_provider", is_flag=True, help="Skip provider validation")
 def create(
     type: str, name: str, provider: str | None, skip_provider: bool = False
 ) -> None:
-    """Create a new crew, or flow."""
-    if type == "crew":
-        create_crew(name, provider, skip_provider)
+    """Create a new xiezuo, or flow."""
+    if type == "xiezuo":
+        create_xiezuo(name, provider, skip_provider)
     elif type == "flow":
         create_flow(name)
     else:
-        click.secho("Error: Invalid type. Must be 'crew' or 'flow'.", fg="red")
+        click.secho("Error: Invalid type. Must be 'xiezuo' or 'flow'.", fg="red")
 
 
 @fzxiezuoai.command()
@@ -113,10 +113,10 @@ def create(
 def version(tools: bool) -> None:
     """Show the installed version of fzxiezuoai."""
     try:
-        crewai_version = get_version("fzxiezuoai")
+        fzxiezuoai_version = get_version("fzxiezuoai")
     except Exception:
-        crewai_version = "unknown version"
-    click.echo(f"fzxiezuoai version: {crewai_version}")
+        fzxiezuoai_version = "unknown version"
+    click.echo(f"fzxiezuoai version: {fzxiezuoai_version}")
 
     if tools:
         try:
@@ -132,7 +132,7 @@ def version(tools: bool) -> None:
     "--n_iterations",
     type=int,
     default=5,
-    help="Number of iterations to train the crew",
+    help="Number of iterations to train the xiezuo",
 )
 @click.option(
     "-f",
@@ -142,9 +142,9 @@ def version(tools: bool) -> None:
     help="Path to a custom file for training",
 )
 def train(n_iterations: int, filename: str) -> None:
-    """Train the crew."""
-    click.echo(f"Training the Crew for {n_iterations} iterations")
-    train_crew(n_iterations, filename)
+    """Train the xiezuo."""
+    click.echo(f"Training the Xiezuo for {n_iterations} iterations")
+    train_xiezuo(n_iterations, filename)
 
 
 @fzxiezuoai.command()
@@ -152,7 +152,7 @@ def train(n_iterations: int, filename: str) -> None:
     "-t",
     "--task_id",
     type=str,
-    help="Replay the crew from this task ID, including all subsequent tasks.",
+    help="Replay the xiezuo from this task ID, including all subsequent tasks.",
 )
 @click.option(
     "-f",
@@ -168,14 +168,14 @@ def train(n_iterations: int, filename: str) -> None:
     ),
 )
 def replay(task_id: str, trained_agents_file: str | None) -> None:
-    """Replay the crew execution from a specific task.
+    """Replay the xiezuo execution from a specific task.
 
     Args:
         task_id: The ID of the task to replay from.
         trained_agents_file: Optional trained-agents pickle path.
     """
     try:
-        click.echo(f"Replaying the crew from task {task_id}")
+        click.echo(f"Replaying the xiezuo from task {task_id}")
         replay_task_command(task_id, trained_agents_file=trained_agents_file)
     except Exception as e:
         click.echo(f"An error occurred while replaying: {e}", err=True)
@@ -183,13 +183,13 @@ def replay(task_id: str, trained_agents_file: str | None) -> None:
 
 @fzxiezuoai.command()
 def log_tasks_outputs() -> None:
-    """Retrieve your latest crew.kickoff() task outputs."""
+    """Retrieve your latest xiezuo.kickoff() task outputs."""
     try:
         tasks = load_task_outputs()
 
         if not tasks:
             click.echo(
-                "No task outputs found. Only crew kickoff task outputs are logged."
+                "No task outputs found. Only xiezuo kickoff task outputs are logged."
             )
             return
 
@@ -243,7 +243,7 @@ def reset_memories(
     agent_knowledge: bool,
     all: bool,
 ) -> None:
-    """Reset the crew memories (memory, knowledge, agent_knowledge, kickoff_outputs). This will delete all the data saved."""
+    """Reset the xiezuo memories (memory, knowledge, agent_knowledge, kickoff_outputs). This will delete all the data saved."""
     try:
         if long or short or entities:
             legacy_used = [
@@ -344,14 +344,14 @@ def memory(
     "--n_iterations",
     type=int,
     default=3,
-    help="Number of iterations to Test the crew",
+    help="Number of iterations to Test the xiezuo",
 )
 @click.option(
     "-m",
     "--model",
     type=str,
     default="gpt-4o-mini",
-    help="LLM Model to run the tests on the Crew. For now only accepting only OpenAI models.",
+    help="LLM Model to run the tests on the Xiezuo. For now only accepting only OpenAI models.",
 )
 @click.option(
     "-f",
@@ -367,9 +367,9 @@ def memory(
     ),
 )
 def test(n_iterations: int, model: str, trained_agents_file: str | None) -> None:
-    """Test the crew and evaluate the results."""
-    click.echo(f"Testing the crew for {n_iterations} iterations with model {model}")
-    evaluate_crew(n_iterations, model, trained_agents_file=trained_agents_file)
+    """Test the xiezuo and evaluate the results."""
+    click.echo(f"Testing the xiezuo for {n_iterations} iterations with model {model}")
+    evaluate_xiezuo(n_iterations, model, trained_agents_file=trained_agents_file)
 
 
 @fzxiezuoai.command(
@@ -380,8 +380,8 @@ def test(n_iterations: int, model: str, trained_agents_file: str | None) -> None
 )
 @click.pass_context
 def install(context: click.Context) -> None:
-    """Install the Crew."""
-    install_crew(context.args)
+    """Install the Xiezuo."""
+    install_xiezuo(context.args)
 
 
 @fzxiezuoai.command()
@@ -399,14 +399,14 @@ def install(context: click.Context) -> None:
     ),
 )
 def run(trained_agents_file: str | None) -> None:
-    """Run the Crew."""
-    run_crew(trained_agents_file=trained_agents_file)
+    """Run the Xiezuo."""
+    run_xiezuo(trained_agents_file=trained_agents_file)
 
 
 @fzxiezuoai.command()
 def update() -> None:
-    """Update the pyproject.toml of the Crew project to use uv."""
-    update_crew()
+    """Update the pyproject.toml of the Xiezuo project to use uv."""
+    update_xiezuo()
 
 
 @fzxiezuoai.command()
@@ -434,7 +434,7 @@ def logout(reset: bool) -> None:
 
 @fzxiezuoai.group()
 def deploy() -> None:
-    """Deploy the Crew CLI group."""
+    """Deploy the Xiezuo CLI group."""
 
 
 @deploy.command(name="create")
@@ -445,27 +445,27 @@ def deploy() -> None:
     help="Skip the pre-deploy validation checks.",
 )
 def deploy_create(yes: bool, skip_validate: bool) -> None:
-    """Create a Crew deployment."""
+    """Create a Xiezuo deployment."""
     deploy_cmd = DeployCommand()
-    deploy_cmd.create_crew(yes, skip_validate=skip_validate)
+    deploy_cmd.create_xiezuo(yes, skip_validate=skip_validate)
 
 
 @deploy.command(name="list")
 def deploy_list() -> None:
     """List all deployments."""
     deploy_cmd = DeployCommand()
-    deploy_cmd.list_crews()
+    deploy_cmd.list_xiezuos()
 
 
 @deploy.command(name="push")
-@click.option("-u", "--uuid", type=str, help="Crew UUID parameter")
+@click.option("-u", "--uuid", type=str, help="Xiezuo UUID parameter")
 @click.option(
     "--skip-validate",
     is_flag=True,
     help="Skip the pre-deploy validation checks.",
 )
 def deploy_push(uuid: str | None, skip_validate: bool) -> None:
-    """Deploy the Crew."""
+    """Deploy the Xiezuo."""
     deploy_cmd = DeployCommand()
     deploy_cmd.deploy(uuid=uuid, skip_validate=skip_validate)
 
@@ -484,27 +484,27 @@ def deploy_validate() -> None:
 
 
 @deploy.command(name="status")
-@click.option("-u", "--uuid", type=str, help="Crew UUID parameter")
+@click.option("-u", "--uuid", type=str, help="Xiezuo UUID parameter")
 def deply_status(uuid: str | None) -> None:
     """Get the status of a deployment."""
     deploy_cmd = DeployCommand()
-    deploy_cmd.get_crew_status(uuid=uuid)
+    deploy_cmd.get_xiezuo_status(uuid=uuid)
 
 
 @deploy.command(name="logs")
-@click.option("-u", "--uuid", type=str, help="Crew UUID parameter")
+@click.option("-u", "--uuid", type=str, help="Xiezuo UUID parameter")
 def deploy_logs(uuid: str | None) -> None:
     """Get the logs of a deployment."""
     deploy_cmd = DeployCommand()
-    deploy_cmd.get_crew_logs(uuid=uuid)
+    deploy_cmd.get_xiezuo_logs(uuid=uuid)
 
 
 @deploy.command(name="remove")
-@click.option("-u", "--uuid", type=str, help="Crew UUID parameter")
+@click.option("-u", "--uuid", type=str, help="Xiezuo UUID parameter")
 def deploy_remove(uuid: str | None) -> None:
     """Remove a deployment."""
     deploy_cmd = DeployCommand()
-    deploy_cmd.remove_crew(uuid=uuid)
+    deploy_cmd.remove_xiezuo(uuid=uuid)
 
 
 @fzxiezuoai.group()
@@ -650,12 +650,12 @@ def flow_plot() -> None:
     plot_flow()
 
 
-@flow.command(name="add-crew")
-@click.argument("crew_name")
-def flow_add_crew(crew_name: str) -> None:
-    """Add a crew to an existing flow."""
-    click.echo(f"Adding crew {crew_name} to the flow")
-    add_crew_to_flow(crew_name)
+@flow.command(name="add-xiezuo")
+@click.argument("xiezuo_name")
+def flow_add_xiezuo(xiezuo_name: str) -> None:
+    """Add a xiezuo to an existing flow."""
+    click.echo(f"Adding xiezuo {fzxiezuoai_name} to the flow")
+    add_xiezuo_to_flow(xiezuo_name)
 
 
 @fzxiezuoai.group()
@@ -673,18 +673,18 @@ def triggers_list() -> None:
 @triggers.command(name="run")
 @click.argument("trigger_path")
 def triggers_run(trigger_path: str) -> None:
-    """Execute crew with trigger payload. Format: app_slug/trigger_slug"""
+    """Execute xiezuo with trigger payload. Format: app_slug/trigger_slug"""
     triggers_cmd = TriggersCommand()
     triggers_cmd.execute_with_trigger(trigger_path)
 
 
 @fzxiezuoai.command()
 def chat() -> None:
-    """Start a conversation with the Crew, collecting user-supplied inputs,
+    """Start a conversation with the Xiezuo, collecting user-supplied inputs,
     and using the Chat LLM to generate responses.
     """
     click.secho(
-        "\nStarting a conversation with the Crew\nType 'exit' or Ctrl+C to quit.\n",
+        "\nStarting a conversation with the Xiezuo\nType 'exit' or Ctrl+C to quit.\n",
     )
     run_chat()
 
@@ -781,11 +781,11 @@ def env_view() -> None:
     table.add_column("Value", style="white", width=20)
     table.add_column("Source", style="yellow", width=20)
 
-    crewai_tracing = os.getenv("CREWAI_TRACING_ENABLED", "")
-    if crewai_tracing:
+    fzxiezuoai_tracing = os.getenv("CREWAI_TRACING_ENABLED", "")
+    if fzxiezuoai_tracing:
         table.add_row(
             "CREWAI_TRACING_ENABLED",
-            crewai_tracing,
+            fzxiezuoai_tracing,
             "Environment/Shell",
         )
     else:
@@ -795,17 +795,17 @@ def env_view() -> None:
             "[dim]—[/dim]",
         )
 
-    crewai_testing = os.getenv("CREWAI_TESTING", "")
-    if crewai_testing:
-        table.add_row("CREWAI_TESTING", crewai_testing, "Environment/Shell")
+    fzxiezuoai_testing = os.getenv("CREWAI_TESTING", "")
+    if fzxiezuoai_testing:
+        table.add_row("CREWAI_TESTING", fzxiezuoai_testing, "Environment/Shell")
 
-    crewai_user_id = os.getenv("CREWAI_USER_ID", "")
-    if crewai_user_id:
-        table.add_row("CREWAI_USER_ID", crewai_user_id, "Environment/Shell")
+    fzxiezuoai_user_id = os.getenv("CREWAI_USER_ID", "")
+    if fzxiezuoai_user_id:
+        table.add_row("CREWAI_USER_ID", fzxiezuoai_user_id, "Environment/Shell")
 
-    crewai_org_id = os.getenv("CREWAI_ORG_ID", "")
-    if crewai_org_id:
-        table.add_row("CREWAI_ORG_ID", crewai_org_id, "Environment/Shell")
+    fzxiezuoai_org_id = os.getenv("CREWAI_ORG_ID", "")
+    if fzxiezuoai_org_id:
+        table.add_row("CREWAI_ORG_ID", fzxiezuoai_org_id, "Environment/Shell")
 
     table.add_row(
         ".env file",
@@ -840,7 +840,7 @@ def traces() -> None:
 
 @traces.command("enable")
 def traces_enable() -> None:
-    """Enable trace collection for crew/flow executions."""
+    """Enable trace collection for xiezuo/flow executions."""
     from rich.console import Console
     from rich.panel import Panel
 
@@ -850,7 +850,7 @@ def traces_enable() -> None:
 
     panel = Panel(
         "✅ Trace collection enabled.\n\n"
-        "Your crew/flow executions will now send traces to 12FZ协作AI+.\n"
+        "Your xiezuo/flow executions will now send traces to 12FZ协作AI+.\n"
         "Use 'fzxiezuoai traces disable' to opt out.",
         title="Traces Enabled",
         border_style="green",
@@ -861,7 +861,7 @@ def traces_enable() -> None:
 
 @traces.command("disable")
 def traces_disable() -> None:
-    """Disable trace collection for crew/flow executions."""
+    """Disable trace collection for xiezuo/flow executions."""
     from rich.console import Console
     from rich.panel import Panel
 
@@ -871,7 +871,7 @@ def traces_disable() -> None:
 
     panel = Panel(
         "❌ Trace collection disabled.\n\n"
-        "Your crew/flow executions will no longer send traces "
+        "Your xiezuo/flow executions will no longer send traces "
         "(unless [bold]CREWAI_TRACING_ENABLED=true[/bold] is set in the environment, "
         "which overrides the opt-out).\n"
         "Use 'fzxiezuoai traces enable' to opt back in.",

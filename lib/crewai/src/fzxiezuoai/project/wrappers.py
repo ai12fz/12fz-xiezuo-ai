@@ -116,7 +116,7 @@ class CrewInstance(Protocol):
 
 
 class CrewClass(Protocol):
-    """Protocol describing class attributes injected by CrewBaseMeta."""
+    """Protocol describing class attributes injected by XiezuoBaseMeta."""
 
     is_crew_class: bool
     _crew_name: str

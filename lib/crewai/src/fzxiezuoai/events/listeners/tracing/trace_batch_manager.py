@@ -27,7 +27,7 @@ from fzxiezuoai.events.listeners.tracing.utils import (
     should_auto_collect_first_time_traces,
 )
 from fzxiezuoai.plus_api import PlusAPI
-from fzxiezuoai.version import get_crewai_version
+from fzxiezuoai.version import get_fzxiezuoai_version
 
 
 logger = getLogger(__name__)
@@ -37,7 +37,7 @@ logger = getLogger(__name__)
 class TraceBatch:
     """Batch of events to send to backend"""
 
-    version: str = field(default_factory=get_crewai_version)
+    version: str = field(default_factory=get_fzxiezuoai_version)
     batch_id: str = field(default_factory=lambda: str(uuid.uuid4()))
     user_context: dict[str, str] = field(default_factory=dict)
     execution_metadata: dict[str, Any] = field(default_factory=dict)

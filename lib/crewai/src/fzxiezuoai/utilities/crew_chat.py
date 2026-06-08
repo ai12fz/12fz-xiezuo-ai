@@ -22,7 +22,7 @@ from fzxiezuoai.types.crew_chat import ChatInputField, ChatInputs
 from fzxiezuoai.utilities.llm_utils import create_llm
 from fzxiezuoai.utilities.project_utils import read_toml
 from fzxiezuoai.utilities.types import LLMMessage
-from fzxiezuoai.version import get_crewai_version
+from fzxiezuoai.version import get_fzxiezuoai_version
 
 
 MIN_REQUIRED_VERSION: Final[Literal["0.98.0"]] = "0.98.0"
@@ -63,7 +63,7 @@ def run_chat() -> None:
     Incorporates crew_name, crew_description, and input fields to build a tool schema.
     Exits if crew_name or crew_description are missing.
     """
-    crewai_version = get_crewai_version()
+    crewai_version = get_fzxiezuoai_version()
     pyproject_data = read_toml()
 
     if not check_conversational_crews_version(crewai_version, pyproject_data):

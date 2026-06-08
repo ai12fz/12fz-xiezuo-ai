@@ -190,7 +190,7 @@ def _is_string_value(value: str | CacheHandler) -> TypeGuard[str]:
     return isinstance(value, str)
 
 
-class CrewBaseMeta(type):
+class XiezuoBaseMeta(type):
     """Metaclass that adds crew functionality to classes."""
 
     def __new__(
@@ -237,7 +237,7 @@ class CrewBaseMeta(type):
             Initialized crew instance.
         """
         instance: CrewInstance = super().__call__(*args, **kwargs)
-        CrewBaseMeta._initialize_crew_instance(instance, cls)
+        XiezuoBaseMeta._initialize_crew_instance(instance, cls)
         return instance
 
     @staticmethod
@@ -759,17 +759,17 @@ _METHODS_TO_INJECT = (
 )
 
 
-class _CrewBaseType(type):
-    """Metaclass for CrewBase that makes it callable as a decorator."""
+class _XiezuoBaseType(type):
+    """Metaclass for XiezuoBase that makes it callable as a decorator."""
 
     def __call__(cls, decorated_cls: type) -> type[CrewClass]:
-        """Apply CrewBaseMeta to the decorated class.
+        """Apply XiezuoBaseMeta to the decorated class.
 
         Args:
-            decorated_cls: Class to transform with CrewBaseMeta metaclass.
+            decorated_cls: Class to transform with XiezuoBaseMeta metaclass.
 
         Returns:
-            New class with CrewBaseMeta metaclass applied.
+            New class with XiezuoBaseMeta metaclass applied.
         """
         __name = str(decorated_cls.__name__)
         __bases = tuple(decorated_cls.__bases__)
@@ -780,16 +780,16 @@ class _CrewBaseType(type):
         }
         for slot in __dict.get("__slots__", tuple()):
             __dict.pop(slot, None)
-        __dict["__metaclass__"] = CrewBaseMeta
-        return cast(type[CrewClass], CrewBaseMeta(__name, __bases, __dict))
+        __dict["__metaclass__"] = XiezuoBaseMeta
+        return cast(type[CrewClass], XiezuoBaseMeta(__name, __bases, __dict))
 
 
-class CrewBase(metaclass=_CrewBaseType):
-    """Class decorator that applies CrewBaseMeta metaclass.
+class XiezuoBase(metaclass=_XiezuoBaseType):
+    """Class decorator that applies XiezuoBaseMeta metaclass.
 
-    Applies CrewBaseMeta metaclass to a class via decorator syntax rather than
-    explicit metaclass declaration. Use as @CrewBase instead of
-    class Foo(metaclass=CrewBaseMeta).
+    Applies XiezuoBaseMeta metaclass to a class via decorator syntax rather than
+    explicit metaclass declaration. Use as @XiezuoBase instead of
+    class Foo(metaclass=XiezuoBaseMeta).
 
     Note:
         Reference: https://stackoverflow.com/questions/11091609/setting-a-class-metaclass-using-a-decorator
@@ -801,9 +801,9 @@ class CrewBase(metaclass=_CrewBaseType):
             """Type stub for decorator usage.
 
             Args:
-                decorated_cls: Class to transform with CrewBaseMeta metaclass.
+                decorated_cls: Class to transform with XiezuoBaseMeta metaclass.
 
             Returns:
-                New class with CrewBaseMeta metaclass applied.
+                New class with XiezuoBaseMeta metaclass applied.
             """
             ...

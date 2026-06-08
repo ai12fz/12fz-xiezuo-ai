@@ -3,9 +3,9 @@ from pathlib import Path
 
 from pydantic import BaseModel
 
-from crewai.flow import Flow, listen, start
+from fzxiezuoai.flow import Flow, listen, start
 
-from {{folder_name}}.crews.content_crew.content_crew import ContentCrew
+from {{folder_name}}.xiezuos.content_xiezuo.content_xiezuo import ContentXiezuo
 
 
 class ContentState(BaseModel):
@@ -18,12 +18,12 @@ class ContentState(BaseModel):
 class ContentFlow(Flow[ContentState]):
 
     @start()
-    def plan_content(self, crewai_trigger_payload: dict = None):
+    def plan_content(self, fzxiezuoai_trigger_payload: dict = None):
         print("Planning content")
 
-        if crewai_trigger_payload:
-            self.state.topic = crewai_trigger_payload.get("topic", "AI Agents")
-            print(f"Using trigger payload: {crewai_trigger_payload}")
+        if fzxiezuoai_trigger_payload:
+            self.state.topic = fzxiezuoai_trigger_payload.get("topic", "AI Agents")
+            print(f"Using trigger payload: {fzxiezuoai_trigger_payload}")
         else:
             self.state.topic = "AI Agents"
 
@@ -33,8 +33,8 @@ class ContentFlow(Flow[ContentState]):
     def generate_content(self):
         print(f"Generating content on: {self.state.topic}")
         result = (
-            ContentCrew()
-            .crew()
+            ContentXiezuo()
+            .xiezuo()
             .kickoff(inputs={"topic": self.state.topic})
         )
 
@@ -79,7 +79,7 @@ def run_with_trigger():
     content_flow = ContentFlow()
 
     try:
-        result = content_flow.kickoff({"crewai_trigger_payload": trigger_payload})
+        result = content_flow.kickoff({"fzxiezuoai_trigger_payload": trigger_payload})
         return result
     except Exception as e:
         raise Exception(f"An error occurred while running the flow with trigger: {e}")

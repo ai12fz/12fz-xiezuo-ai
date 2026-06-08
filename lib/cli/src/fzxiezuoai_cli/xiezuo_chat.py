@@ -1,6 +1,6 @@
-"""Wrapper for the crew chat command.
+"""Wrapper for the xiezuo chat command.
 
-Delegates to ``fzxiezuoai.utilities.crew_chat.run_chat`` when the full fzxiezuoai
+Delegates to ``fzxiezuoai.utilities.xiezuo_chat.run_chat`` when the full fzxiezuoai
 package is installed, otherwise prints a helpful error message.
 """
 
@@ -11,7 +11,7 @@ import click
 
 def run_chat() -> None:
     try:
-        from fzxiezuoai.utilities.crew_chat import run_chat as _run_chat
+        from fzxiezuoai.utilities.xiezuo_chat import run_chat as _run_chat
     except ImportError:
         click.secho(
             "The 'chat' command requires the full fzxiezuoai package.\n"

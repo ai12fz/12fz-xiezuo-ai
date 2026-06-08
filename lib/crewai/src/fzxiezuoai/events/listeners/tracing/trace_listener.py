@@ -130,7 +130,7 @@ from fzxiezuoai.events.types.tool_usage_events import (
     ToolUsageStartedEvent,
 )
 from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
-from fzxiezuoai.version import get_crewai_version
+from fzxiezuoai.version import get_fzxiezuoai_version
 
 
 class TraceCollectionListener(BaseEventListener):
@@ -769,7 +769,7 @@ class TraceCollectionListener(BaseEventListener):
         execution_metadata = {
             "crew_name": getattr(event, "crew_name", "Unknown Crew"),
             "execution_start": event.timestamp,
-            "crewai_version": get_crewai_version(),
+            "crewai_version": get_fzxiezuoai_version(),
         }
 
         self.batch_manager.batch_owner_type = "crew"
@@ -796,7 +796,7 @@ class TraceCollectionListener(BaseEventListener):
         execution_metadata = {
             "flow_name": current_flow_name.get() or "Unknown Flow",
             "execution_start": started_at,
-            "crewai_version": get_crewai_version(),
+            "crewai_version": get_fzxiezuoai_version(),
             "execution_type": "flow",
         }
         self.batch_manager.batch_owner_type = "flow"
@@ -815,7 +815,7 @@ class TraceCollectionListener(BaseEventListener):
         execution_metadata = {
             "flow_name": getattr(event, "flow_name", "Unknown Flow"),
             "execution_start": event.timestamp,
-            "crewai_version": get_crewai_version(),
+            "crewai_version": get_fzxiezuoai_version(),
             "execution_type": "flow",
         }
 
@@ -874,7 +874,7 @@ class TraceCollectionListener(BaseEventListener):
                 user_context = self._get_user_context()
                 execution_metadata = {
                     "crew_name": getattr(source, "name", "Unknown Crew"),
-                    "crewai_version": get_crewai_version(),
+                    "crewai_version": get_fzxiezuoai_version(),
                 }
                 self.batch_manager.batch_owner_type = "crew"
                 self.batch_manager.batch_owner_id = getattr(

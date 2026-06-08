@@ -35,7 +35,7 @@ class TriggersCommand(BaseCommand, PlusAPIMixin):
             raise SystemExit(1) from e
 
     def execute_with_trigger(self, trigger_path: str) -> None:
-        """Execute crew with trigger payload."""
+        """Execute xiezuo with trigger payload."""
         try:
             if "/" not in trigger_path:
                 console.print(
@@ -62,11 +62,11 @@ class TriggersCommand(BaseCommand, PlusAPIMixin):
             trigger_data = response.json()
             self._display_trigger_info(trigger_data)
 
-            self._run_crew_with_payload(trigger_data.get("sample_payload", {}))
+            self._run_xiezuo_with_payload(trigger_data.get("sample_payload", {}))
 
         except Exception as e:
             console.print(
-                f"[bold red]Error executing crew with trigger: {e}[/bold red]"
+                f"[bold red]Error executing xiezuo with trigger: {e}[/bold red]"
             )
             raise SystemExit(1) from e
 
@@ -121,8 +121,8 @@ class TriggersCommand(BaseCommand, PlusAPIMixin):
             console.print("\n[bold yellow]Sample Payload:[/bold yellow]")
             console.print(json.dumps(sample_payload, indent=2))
 
-    def _run_crew_with_payload(self, payload: dict[str, Any]) -> None:
-        """Run the crew with the trigger payload using the run_with_trigger method."""
+    def _run_xiezuo_with_payload(self, payload: dict[str, Any]) -> None:
+        """Run the xiezuo with the trigger payload using the run_with_trigger method."""
         try:
             subprocess.run(  # noqa: S603
                 ["uv", "run", "run_with_trigger", json.dumps(payload)],  # noqa: S607

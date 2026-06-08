@@ -48,7 +48,7 @@ def copy_template(
         content = file.read()
 
     content = content.replace("{{name}}", name)
-    content = content.replace("{{crew_name}}", class_name)
+    content = content.replace("{{xiezuo_name}}", class_name)
     content = content.replace("{{folder_name}}", folder_name)
 
     with open(dst, "w") as file:

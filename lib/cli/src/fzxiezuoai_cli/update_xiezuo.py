@@ -7,8 +7,8 @@ import tomli_w
 from fzxiezuoai_cli.utils import read_toml
 
 
-def update_crew() -> None:
-    """Update the pyproject.toml of the Crew project to use uv."""
+def update_xiezuo() -> None:
+    """Update the pyproject.toml of the Xiezuo project to use uv."""
     migrate_pyproject("pyproject.toml", "pyproject.toml")
 
 
@@ -70,7 +70,7 @@ def migrate_pyproject(input_file: str, output_file: str) -> None:
         new_pyproject["project"]["scripts"] = {}
 
     if (
-        "run_crew" not in new_pyproject["project"]["scripts"]
+        "run_xiezuo" not in new_pyproject["project"]["scripts"]
         and len(new_pyproject["project"]["scripts"]) > 0
     ):
         existing_scripts = new_pyproject["project"]["scripts"]
@@ -78,7 +78,7 @@ def migrate_pyproject(input_file: str, output_file: str) -> None:
             (value.split(".")[0] for value in existing_scripts.values() if "." in value)
         )
 
-        new_pyproject["project"]["scripts"]["run_crew"] = f"{module_name}.main:run"
+        new_pyproject["project"]["scripts"]["run_xiezuo"] = f"{module_name}.main:run"
 
     if poetry_data and "extras" in poetry_data:
         new_pyproject["project"]["optional-dependencies"] = poetry_data["extras"]

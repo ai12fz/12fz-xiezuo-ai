@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import warnings
 
-from fzxiezuoai_core.version import get_crewai_version as get_crewai_version
+from fzxiezuoai_core.version import get_fzxiezuoai_version as get_fzxiezuoai_version
 
 
-__all__ = ["get_crewai_version"]
+__all__ = ["get_fzxiezuoai_version"]
 
 
 warnings.warn(

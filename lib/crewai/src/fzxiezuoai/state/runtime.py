@@ -14,7 +14,7 @@ import time
 from typing import TYPE_CHECKING, Any
 import uuid
 
-from fzxiezuoai_core.version import get_crewai_version
+from fzxiezuoai_core.version import get_fzxiezuoai_version
 from packaging.version import Version
 from pydantic import (
     ModelWrapValidatorHandler,
@@ -100,7 +100,7 @@ def _migrate(data: dict[str, Any]) -> dict[str, Any]:
         The migrated checkpoint dict.
     """
     raw = data.get("crewai_version")
-    current = Version(get_crewai_version())
+    current = Version(get_fzxiezuoai_version())
     stored = Version(raw) if isinstance(raw, str) and raw else Version("0.0.0")
 
     if raw is None:
@@ -190,7 +190,7 @@ class RuntimeState(RootModel):  # type: ignore[type-arg]
     @model_serializer(mode="plain")
     def _serialize(self) -> dict[str, Any]:
         return {
-            "crewai_version": get_crewai_version(),
+            "crewai_version": get_fzxiezuoai_version(),
             "parent_id": self._parent_id,
             "branch": self._branch,
             "entities": [e.model_dump(mode="json") for e in self.root],

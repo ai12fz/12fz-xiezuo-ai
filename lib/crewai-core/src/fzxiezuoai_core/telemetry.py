@@ -258,12 +258,12 @@ class Telemetry:
 
     def template_installed_span(self, template_name: str) -> None:
         """Records when a template is downloaded and installed."""
-        from fzxiezuoai_core.version import get_crewai_version
+        from fzxiezuoai_core.version import get_fzxiezuoai_version
 
         def _operation() -> None:
             tracer = trace.get_tracer("fzxiezuoai.telemetry")
             span = tracer.start_span("Template Installed")
-            self._add_attribute(span, "crewai_version", get_crewai_version())
+            self._add_attribute(span, "crewai_version", get_fzxiezuoai_version())
             self._add_attribute(span, "template_name", template_name)
             close_span(span)
 

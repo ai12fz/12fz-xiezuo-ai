@@ -6,14 +6,14 @@ from fzxiezuoai_core.constants import CREWAI_TRAINED_AGENTS_FILE_ENV
 from fzxiezuoai_cli.utils import build_env_with_all_tool_credentials
 
 
-def evaluate_crew(
+def evaluate_xiezuo(
     n_iterations: int, model: str, trained_agents_file: str | None = None
 ) -> None:
-    """Test and Evaluate the crew by running a command in the UV environment.
+    """Test and Evaluate the xiezuo by running a command in the UV environment.
 
     Args:
-        n_iterations: The number of iterations to test the crew.
-        model: The model to test the crew with.
+        n_iterations: The number of iterations to test the xiezuo.
+        model: The model to test the xiezuo with.
         trained_agents_file: Optional trained-agents pickle path forwarded to
             the subprocess via the ``CREWAI_TRAINED_AGENTS_FILE`` env var.
     """
@@ -34,7 +34,7 @@ def evaluate_crew(
             click.echo(result.stderr, err=True)
 
     except subprocess.CalledProcessError as e:
-        click.echo(f"An error occurred while testing the crew: {e}", err=True)
+        click.echo(f"An error occurred while testing the xiezuo: {e}", err=True)
         click.echo(e.output, err=True)
 
     except Exception as e:

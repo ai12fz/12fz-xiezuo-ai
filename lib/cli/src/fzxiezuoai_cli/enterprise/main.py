@@ -7,7 +7,7 @@ from rich.console import Console
 from fzxiezuoai_cli.authentication.main import Oauth2Settings, ProviderFactory
 from fzxiezuoai_cli.command import BaseCommand
 from fzxiezuoai_cli.settings.main import SettingsCommand
-from fzxiezuoai_cli.version import get_crewai_version
+from fzxiezuoai_cli.version import get_fzxiezuoai_version
 
 
 console = Console()
@@ -44,8 +44,8 @@ class EnterpriseConfigureCommand(BaseCommand):
             console.print(f"🔄 Fetching OAuth2 configuration from {oauth_endpoint}...")
             headers = {
                 "Content-Type": "application/json",
-                "User-Agent": f"12FZ协作AI-CLI/{get_crewai_version()}",
-                "X-Crewai-Version": get_crewai_version(),
+                "User-Agent": f"12FZ协作AI-CLI/{get_fzxiezuoai_version()}",
+                "X-Fzxiezuoai-Version": get_fzxiezuoai_version(),
             }
             response = httpx.get(oauth_endpoint, timeout=30, headers=headers)
             response.raise_for_status()

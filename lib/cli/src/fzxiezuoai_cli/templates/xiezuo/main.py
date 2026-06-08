@@ -4,14 +4,14 @@ import warnings
 
 from datetime import datetime
 
-from {{folder_name}}.crew import {{crew_name}}
+from {{folder_name}}.xiezuo import {{xiezuo_name}}
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
 
 def run():
     """
-    Run the crew.
+    Run the xiezuo.
     """
     inputs = {
         'topic': 'AI LLMs',
@@ -19,38 +19,38 @@ def run():
     }
 
     try:
-        {{crew_name}}().crew().kickoff(inputs=inputs)
+        {{xiezuo_name}}().xiezuo().kickoff(inputs=inputs)
     except Exception as e:
-        raise Exception(f"An error occurred while running the crew: {e}")
+        raise Exception(f"An error occurred while running the xiezuo: {e}")
 
 
 def train():
     """
-    Train the crew for a given number of iterations.
+    Train the xiezuo for a given number of iterations.
     """
     inputs = {
         "topic": "AI LLMs",
         'current_year': str(datetime.now().year)
     }
     try:
-        {{crew_name}}().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
+        {{xiezuo_name}}().xiezuo().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
 
     except Exception as e:
-        raise Exception(f"An error occurred while training the crew: {e}")
+        raise Exception(f"An error occurred while training the xiezuo: {e}")
 
 def replay():
     """
-    Replay the crew execution from a specific task.
+    Replay the xiezuo execution from a specific task.
     """
     try:
-        {{crew_name}}().crew().replay(task_id=sys.argv[1])
+        {{xiezuo_name}}().xiezuo().replay(task_id=sys.argv[1])
 
     except Exception as e:
-        raise Exception(f"An error occurred while replaying the crew: {e}")
+        raise Exception(f"An error occurred while replaying the xiezuo: {e}")
 
 def test():
     """
-    Test the crew execution and returns the results.
+    Test the xiezuo execution and returns the results.
     """
     inputs = {
         "topic": "AI LLMs",
@@ -58,14 +58,14 @@ def test():
     }
 
     try:
-        {{crew_name}}().crew().test(n_iterations=int(sys.argv[1]), eval_llm=sys.argv[2], inputs=inputs)
+        {{xiezuo_name}}().xiezuo().test(n_iterations=int(sys.argv[1]), eval_llm=sys.argv[2], inputs=inputs)
 
     except Exception as e:
-        raise Exception(f"An error occurred while testing the crew: {e}")
+        raise Exception(f"An error occurred while testing the xiezuo: {e}")
 
 def run_with_trigger():
     """
-    Run the crew with trigger payload.
+    Run the xiezuo with trigger payload.
     """
     import json
 
@@ -78,13 +78,13 @@ def run_with_trigger():
         raise Exception("Invalid JSON payload provided as argument")
 
     inputs = {
-        "crewai_trigger_payload": trigger_payload,
+        "fzxiezuoai_trigger_payload": trigger_payload,
         "topic": "",
         "current_year": ""
     }
 
     try:
-        result = {{crew_name}}().crew().kickoff(inputs=inputs)
+        result = {{xiezuo_name}}().xiezuo().kickoff(inputs=inputs)
         return result
     except Exception as e:
-        raise Exception(f"An error occurred while running the crew with trigger: {e}")
+        raise Exception(f"An error occurred while running the xiezuo with trigger: {e}")

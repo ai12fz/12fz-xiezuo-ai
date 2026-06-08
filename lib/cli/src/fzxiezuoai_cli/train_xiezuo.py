@@ -3,12 +3,12 @@ import subprocess
 import click
 
 
-def train_crew(n_iterations: int, filename: str) -> None:
+def train_xiezuo(n_iterations: int, filename: str) -> None:
     """
-    Train the crew by running a command in the UV environment.
+    Train the xiezuo by running a command in the UV environment.
 
     Args:
-        n_iterations (int): The number of iterations to train the crew.
+        n_iterations (int): The number of iterations to train the xiezuo.
     """
     command = ["uv", "run", "train", str(n_iterations), filename]
 
@@ -25,7 +25,7 @@ def train_crew(n_iterations: int, filename: str) -> None:
             click.echo(result.stderr, err=True)
 
     except subprocess.CalledProcessError as e:
-        click.echo(f"An error occurred while training the crew: {e}", err=True)
+        click.echo(f"An error occurred while training the xiezuo: {e}", err=True)
         click.echo(e.output, err=True)
 
     except Exception as e:

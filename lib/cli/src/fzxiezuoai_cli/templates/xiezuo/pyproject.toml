@@ -21,4 +21,4 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.crewai]
-type = "crew"
+type = "xiezuo"

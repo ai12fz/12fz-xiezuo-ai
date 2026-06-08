@@ -41,13 +41,13 @@ _PENDING = "#e3b341"
 
 _ENTITY_ICONS: dict[str, str] = {
     "flow": "◆",
-    "crew": "●",
+    "xiezuo": "●",
     "agent": "◈",
     "unknown": "○",
 }
 _ENTITY_COLORS: dict[str, str] = {
     "flow": _ACCENT,
-    "crew": _SECONDARY,
+    "xiezuo": _SECONDARY,
     "agent": _PRIMARY,
     "unknown": _DIM,
 }
@@ -123,7 +123,7 @@ _TuiResult = (
         str,
         dict[str, Any] | None,
         dict[int, str] | None,
-        Literal["crew", "flow", "agent"],
+        Literal["xiezuo", "flow", "agent"],
     ]
     | None
 )
@@ -134,7 +134,7 @@ class CheckpointTUI(App[_TuiResult]):
 
     Returns ``(location, action, inputs, task_overrides, entity_type)``
     where action is ``"resume"`` or ``"fork"``, inputs is a parsed dict
-    or ``None``, and entity_type is ``"crew"`` or ``"flow"``;
+    or ``None``, and entity_type is ``"xiezuo"`` or ``"flow"``;
     or ``None`` if the user quit without selecting.
     """
 
@@ -327,8 +327,8 @@ class CheckpointTUI(App[_TuiResult]):
             t = ent.get("type", "unknown")
             if t == "flow":
                 return "flow", ent.get("name") or ""
-            if t == "crew" and etype != "crew":
-                etype, ename = "crew", ent.get("name") or ""
+            if t == "xiezuo" and etype != "xiezuo":
+                etype, ename = "xiezuo", ent.get("name") or ""
         return etype, ename
 
     def _refresh_tree(self) -> None:
@@ -399,7 +399,7 @@ class CheckpointTUI(App[_TuiResult]):
                 node = parent_node.add_leaf(_make_label(e), data=e)
             node_by_name[cp_id] = node
 
-        type_order = {"flow": 0, "crew": 1}
+        type_order = {"flow": 0, "xiezuo": 1}
         sorted_keys = sorted(
             grouped.keys(), key=lambda k: (type_order.get(k[0], 9), k[1])
         )
@@ -678,13 +678,13 @@ class CheckpointTUI(App[_TuiResult]):
 
     def _detect_entity_type(
         self, entry: dict[str, Any]
-    ) -> Literal["crew", "flow", "agent"]:
+    ) -> Literal["xiezuo", "flow", "agent"]:
         for ent in entry.get("entities", []):
             if ent.get("type") == "flow":
                 return "flow"
             if ent.get("type") == "agent":
                 return "agent"
-        return "crew"
+        return "xiezuo"
 
     def _resolve_location(self, entry: dict[str, Any]) -> str:
         if "path" in entry:
@@ -721,26 +721,26 @@ class CheckpointTUI(App[_TuiResult]):
         self._refresh_tree()
 
 
-def _apply_task_overrides(crew: Any, task_overrides: dict[int, str]) -> None:
-    """Apply task output overrides to a restored Crew and print modifications."""
+def _apply_task_overrides(xiezuo: Any, task_overrides: dict[int, str]) -> None:
+    """Apply task output overrides to a restored Xiezuo and print modifications."""
     import click
 
     click.echo("Modifications:")
     overridden_agents: set[int] = set()
     for task_idx, new_output in task_overrides.items():
-        if task_idx < len(crew.tasks) and crew.tasks[task_idx].output is not None:
-            desc = crew.tasks[task_idx].description or f"Task {task_idx + 1}"
+        if task_idx < len(xiezuo.tasks) and xiezuo.tasks[task_idx].output is not None:
+            desc = xiezuo.tasks[task_idx].description or f"Task {task_idx + 1}"
             if len(desc) > 60:
                 desc = desc[:57] + "..."
-            crew.tasks[task_idx].output.raw = new_output
+            xiezuo.tasks[task_idx].output.raw = new_output
             preview = new_output.replace("\n", " ")
             if len(preview) > 80:
                 preview = preview[:77] + "..."
             click.echo(f"  Task {task_idx + 1}: {desc}")
             click.echo(f"    -> {preview}")
-            agent = crew.tasks[task_idx].agent
+            agent = xiezuo.tasks[task_idx].agent
             if agent and agent.agent_executor:
-                nth = sum(1 for t in crew.tasks[:task_idx] if t.agent is agent)
+                nth = sum(1 for t in xiezuo.tasks[:task_idx] if t.agent is agent)
                 messages = agent.agent_executor.messages
                 system_positions = [
                     i for i, m in enumerate(messages) if m.get("role") == "system"
@@ -759,7 +759,7 @@ def _apply_task_overrides(crew: Any, task_overrides: dict[int, str]) -> None:
                 overridden_agents.add(id(agent))
 
     earliest = min(task_overrides)
-    for offset, subsequent in enumerate(crew.tasks[earliest + 1 :], start=earliest + 1):
+    for offset, subsequent in enumerate(xiezuo.tasks[earliest + 1 :], start=earliest + 1):
         if subsequent.output and offset not in task_overrides:
             subsequent.output = None
         if subsequent.agent and subsequent.agent.agent_executor:
@@ -786,7 +786,7 @@ async def _run_checkpoint_tui_async(location: str) -> None:
     config = CheckpointConfig(restore_from=selected)
 
     if entity_type == "flow":
-        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.event_bus import fzxiezuoai_event_bus
         from fzxiezuoai.flow.flow import Flow
 
         if action == "fork":
@@ -797,13 +797,13 @@ async def _run_checkpoint_tui_async(location: str) -> None:
             flow = Flow.from_checkpoint(config)
 
         if task_overrides:
-            from fzxiezuoai.crew import Crew as CrewCls
+            from fzxiezuoai.xiezuo import Xiezuo as XiezuoCls
 
-            state = crewai_event_bus._runtime_state
+            state = fzxiezuoai_event_bus._runtime_state
             if state is not None:
                 flat_offset = 0
                 for entity in state.root:
-                    if not isinstance(entity, CrewCls) or not entity.tasks:
+                    if not isinstance(entity, XiezuoCls) or not entity.tasks:
                         continue
                     n = len(entity.tasks)
                     local = {
@@ -840,17 +840,17 @@ async def _run_checkpoint_tui_async(location: str) -> None:
         click.echo(f"\nResult: {getattr(result, 'raw', result)}")
         return
 
-    from fzxiezuoai.crew import Crew
+    from fzxiezuoai.xiezuo import Xiezuo
 
     if action == "fork":
         click.echo(f"\nForking from: {selected}\n")
-        crew = Crew.fork(config)
+        xiezuo = Xiezuo.fork(config)
     else:
         click.echo(f"\nResuming from: {selected}\n")
-        crew = Crew.from_checkpoint(config)
+        xiezuo = Xiezuo.from_checkpoint(config)
 
     if task_overrides:
-        _apply_task_overrides(crew, task_overrides)
+        _apply_task_overrides(xiezuo, task_overrides)
 
     if inputs:
         click.echo("Inputs:")
@@ -858,7 +858,7 @@ async def _run_checkpoint_tui_async(location: str) -> None:
             click.echo(f"  {k}: {v}")
         click.echo()
 
-    result = await crew.akickoff(inputs=inputs)
+    result = await xiezuo.akickoff(inputs=inputs)
     click.echo(f"\nResult: {getattr(result, 'raw', result)}")
 
 

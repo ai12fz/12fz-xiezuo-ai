@@ -22,7 +22,7 @@ from packaging.version import InvalidVersion, Version, parse
 
 
 @cache
-def get_crewai_version() -> str:
+def get_fzxiezuoai_version() -> str:
     """Return the installed 12FZ协作AI version string.
 
     Falls back to ``"unknown"`` when neither fzxiezuoai nor fzxiezuoai-core are
@@ -129,7 +129,7 @@ def get_latest_version_from_pypi(timeout: int = 2) -> str | None:
             releases: dict[str, list[dict[str, Any]]] = data["releases"]
             latest_version = _find_latest_non_yanked_version(releases)
 
-            current_version = get_crewai_version()
+            current_version = get_fzxiezuoai_version()
             is_yanked, yanked_reason = _is_version_yanked(current_version, releases)
 
             cache_data = {
@@ -153,7 +153,7 @@ def is_current_version_yanked() -> tuple[bool, str]:
         try:
             cache_data = json.loads(cache_file.read_text())
             if _is_cache_valid(cache_data) and "current_version" in cache_data:
-                current = get_crewai_version()
+                current = get_fzxiezuoai_version()
                 if cache_data.get("current_version") == current:
                     return (
                         bool(cache_data.get("current_version_yanked", False)),
@@ -176,7 +176,7 @@ def is_current_version_yanked() -> tuple[bool, str]:
 
 def check_version() -> tuple[str, str | None]:
     """Return ``(current_version, latest_version)``; latest is ``None`` on fetch failure."""
-    current = get_crewai_version()
+    current = get_fzxiezuoai_version()
     latest = get_latest_version_from_pypi()
     return current, latest
 

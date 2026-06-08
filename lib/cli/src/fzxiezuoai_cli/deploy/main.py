@@ -64,7 +64,7 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
         Args:
             json_response (Dict[str, Any]): The deployment information to display.
         """
-        console.print("Deploying the crew...\n", style="bold blue")
+        console.print("Deploying the xiezuo...\n", style="bold blue")
         for key, value in json_response.items():
             console.print(f"{key.title()}: [green]{value}[/green]")
         console.print("\nTo check the status of the deployment, run:")
@@ -86,10 +86,10 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
 
     def deploy(self, uuid: str | None = None, skip_validate: bool = False) -> None:
         """
-        Deploy a crew using either UUID or project name.
+        Deploy a xiezuo using either UUID or project name.
 
         Args:
-            uuid (Optional[str]): The UUID of the crew to deploy.
+            uuid (Optional[str]): The UUID of the xiezuo to deploy.
             skip_validate (bool): Skip pre-deploy validation checks.
         """
         if not _run_predeploy_validation(skip_validate):
@@ -107,9 +107,9 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
         self._validate_response(response)
         self._display_deployment_info(response.json())
 
-    def create_crew(self, confirm: bool = False, skip_validate: bool = False) -> None:
+    def create_xiezuo(self, confirm: bool = False, skip_validate: bool = False) -> None:
         """
-        Create a new crew deployment.
+        Create a new xiezuo deployment.
 
         Args:
             confirm (bool): Whether to skip the interactive confirmation prompt.
@@ -117,7 +117,7 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
         """
         if not _run_predeploy_validation(skip_validate):
             return
-        self._telemetry.create_crew_deployment_span()
+        self._telemetry.create_xiezuo_deployment_span()
         console.print("Creating deployment...", style="bold blue")
         env_vars = fetch_and_json_env_file()
 
@@ -136,7 +136,7 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
 
         self._confirm_input(env_vars, remote_repo_url, confirm)
         payload = self._create_payload(env_vars, remote_repo_url)
-        response = self.plus_api_client.create_crew(payload)
+        response = self.plus_api_client.create_xiezuo(payload)
 
         self._validate_response(response)
         self._display_creation_success(response.json())
@@ -164,14 +164,14 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
         remote_repo_url: str,
     ) -> CreateCrewPayload:
         """
-        Create the payload for crew creation.
+        Create the payload for xiezuo creation.
 
         Args:
             remote_repo_url (str): Remote repository URL.
             env_vars (Dict[str, str]): Environment variables.
 
         Returns:
-            Dict[str, Any]: The payload for crew creation.
+            Dict[str, Any]: The payload for xiezuo creation.
         """
         if not self.project_name:
             raise ValueError("project_name is required to create a deployment payload")
@@ -185,59 +185,59 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
 
     def _display_creation_success(self, json_response: dict[str, Any]) -> None:
         """
-        Display success message after crew creation.
+        Display success message after xiezuo creation.
 
         Args:
-            json_response (Dict[str, Any]): The response containing crew information.
+            json_response (Dict[str, Any]): The response containing xiezuo information.
         """
         console.print("Deployment created successfully!\n", style="bold green")
         console.print(
             f"Name: {self.project_name} ({json_response['uuid']})", style="bold green"
         )
         console.print(f"Status: {json_response['status']}", style="bold green")
-        console.print("\nTo (re)deploy the crew, run:")
+        console.print("\nTo (re)deploy the xiezuo, run:")
         console.print("fzxiezuoai deploy push")
         console.print(" or")
         console.print(f"fzxiezuoai deploy push --uuid {json_response['uuid']}")
 
-    def list_crews(self) -> None:
+    def list_xiezuos(self) -> None:
         """
-        List all available crews.
+        List all available xiezuos.
         """
-        console.print("Listing all Crews\n", style="bold blue")
+        console.print("Listing all Xiezuos\n", style="bold blue")
 
-        response = self.plus_api_client.list_crews()
+        response = self.plus_api_client.list_xiezuos()
         json_response = response.json()
         if response.status_code == 200:
-            self._display_crews(json_response)
+            self._display_xiezuos(json_response)
         else:
-            self._display_no_crews_message()
+            self._display_no_xiezuos_message()
 
-    def _display_crews(self, crews_data: list[dict[str, Any]]) -> None:
+    def _display_xiezuos(self, crews_data: list[dict[str, Any]]) -> None:
         """
-        Display the list of crews.
+        Display the list of xiezuos.
 
         Args:
-            crews_data (List[Dict[str, Any]]): List of crew data to display.
+            crews_data (List[Dict[str, Any]]): List of xiezuo data to display.
         """
         for crew_data in crews_data:
             console.print(
                 f"- {crew_data['name']} ({crew_data['uuid']}) [blue]{crew_data['status']}[/blue]"
             )
 
-    def _display_no_crews_message(self) -> None:
+    def _display_no_xiezuos_message(self) -> None:
         """
-        Display a message when no crews are available.
+        Display a message when no xiezuos are available.
         """
-        console.print("You don't have any Crews yet. Let's create one!", style="yellow")
-        console.print("  fzxiezuoai create crew <crew_name>", style="green")
+        console.print("You don't have any Xiezuos yet. Let's create one!", style="yellow")
+        console.print("  fzxiezuoai create xiezuo <crew_name>", style="green")
 
-    def get_crew_status(self, uuid: str | None = None) -> None:
+    def get_xiezuo_status(self, uuid: str | None = None) -> None:
         """
-        Get the status of a crew.
+        Get the status of a xiezuo.
 
         Args:
-            uuid (Optional[str]): The UUID of the crew to check.
+            uuid (Optional[str]): The UUID of the xiezuo to check.
         """
         console.print("Fetching deployment status...", style="bold blue")
         if uuid:
@@ -249,11 +249,11 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
             return
 
         self._validate_response(response)
-        self._display_crew_status(response.json())
+        self._display_xiezuo_status(response.json())
 
-    def _display_crew_status(self, status_data: dict[str, str]) -> None:
+    def _display_xiezuo_status(self, status_data: dict[str, str]) -> None:
         """
-        Display the status of a crew.
+        Display the status of a xiezuo.
 
         Args:
             status_data (Dict[str, str]): The status data to display.
@@ -261,15 +261,15 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
         console.print(f"Name:\t {status_data['name']}")
         console.print(f"Status:\t {status_data['status']}")
 
-    def get_crew_logs(self, uuid: str | None, log_type: str = "deployment") -> None:
+    def get_xiezuo_logs(self, uuid: str | None, log_type: str = "deployment") -> None:
         """
-        Get logs for a crew.
+        Get logs for a xiezuo.
 
         Args:
-            uuid (Optional[str]): The UUID of the crew to get logs for.
+            uuid (Optional[str]): The UUID of the xiezuo to get logs for.
             log_type (str): The type of logs to retrieve (default: "deployment").
         """
-        self._telemetry.get_crew_logs_span(uuid, log_type)
+        self._telemetry.get_xiezuo_logs_span(uuid, log_type)
         console.print(f"Fetching {log_type} logs...", style="bold blue")
 
         if uuid:
@@ -283,29 +283,29 @@ class DeployCommand(BaseCommand, PlusAPIMixin):
         self._validate_response(response)
         self._display_logs(response.json())
 
-    def remove_crew(self, uuid: str | None) -> None:
+    def remove_xiezuo(self, uuid: str | None) -> None:
         """
-        Remove a crew deployment.
+        Remove a xiezuo deployment.
 
         Args:
-            uuid (Optional[str]): The UUID of the crew to remove.
+            uuid (Optional[str]): The UUID of the xiezuo to remove.
         """
-        self._telemetry.remove_crew_span(uuid)
+        self._telemetry.remove_xiezuo_span(uuid)
         console.print("Removing deployment...", style="bold blue")
 
         if uuid:
-            response = self.plus_api_client.delete_crew_by_uuid(uuid)
+            response = self.plus_api_client.delete_xiezuo_by_uuid(uuid)
         elif self.project_name:
-            response = self.plus_api_client.delete_crew_by_name(self.project_name)
+            response = self.plus_api_client.delete_xiezuo_by_name(self.project_name)
         else:
             self._standard_no_param_error_message()
             return
 
         if response.status_code == 204:
             console.print(
-                f"Crew '{self.project_name}' removed successfully.", style="green"
+                f"Xiezuo '{self.project_name}' removed successfully.", style="green"
             )
         else:
             console.print(
-                f"Failed to remove crew '{self.project_name}'", style="bold red"
+                f"Failed to remove xiezuo '{self.project_name}'", style="bold red"
             )

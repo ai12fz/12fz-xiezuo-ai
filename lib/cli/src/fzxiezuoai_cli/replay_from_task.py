@@ -7,7 +7,7 @@ from fzxiezuoai_cli.utils import build_env_with_all_tool_credentials
 
 
 def replay_task_command(task_id: str, trained_agents_file: str | None = None) -> None:
-    """Replay the crew execution from a specific task.
+    """Replay the xiezuo execution from a specific task.
 
     Args:
         task_id: The ID of the task to replay from.

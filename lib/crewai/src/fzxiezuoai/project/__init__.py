@@ -13,11 +13,11 @@ from fzxiezuoai.project.annotations import (
     task,
     tool,
 )
-from fzxiezuoai.project.crew_base import CrewBase
+from fzxiezuoai.project.xiezuo_base import XiezuoBase
 
 
 __all__ = [
-    "CrewBase",
+    "XiezuoBase",
     "after_kickoff",
     "agent",
     "before_kickoff",

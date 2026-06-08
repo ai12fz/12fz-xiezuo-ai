@@ -22,7 +22,7 @@
 This ensures generated code always matches the version actually installed, not stale training data.
 
 ### What changed since older versions:
-- Agent **`kickoff()` / `kickoff_async()`** for direct agent usage (no crew needed)
+- Agent **`kickoff()` / `kickoff_async()`** for direct agent usage (no xiezuo needed)
 - **`response_format`** parameter on agent kickoff for structured Pydantic outputs
 - **`LiteAgentOutput`** returned from agent.kickoff() with `.raw`, `.pydantic`, `.agent_role`, `.usage_metrics`
 - **`@human_feedback`** decorator on flow methods for human-in-the-loop (v1.8.0+)
@@ -44,7 +44,7 @@ This ensures generated code always matches the version actually installed, not s
 1. You ran the version check and docs lookup steps above before writing code
 2. All LLM references use `crewai.LLM` or string shorthand (`"openai/gpt-4o"`)
 3. All tool imports come from `crewai.tools` or `crewai_tools`
-4. Crew classes use `@CrewBase` decorator with YAML config files
+4. Xiezuo classes use `@CrewBase` decorator with YAML config files
 5. Python >=3.10, <3.14
 6. Code matches the API from the live docs, not just this file
 
@@ -57,17 +57,17 @@ uv sync                   # Sync dependencies
 uv lock                   # Lock dependencies
 
 # Project scaffolding
-crewai create crew <name> --skip_provider   # New crew project
+crewai create xiezuo <name> --skip_provider   # New xiezuo project
 crewai create flow <name> --skip_provider  # New flow project
 
 # Running
-crewai run                  # Run crew or flow (auto-detects from pyproject.toml)
+crewai run                  # Run xiezuo or flow (auto-detects from pyproject.toml)
 crewai flow kickoff         # Legacy flow execution
 
 # Testing & training
-crewai test                           # Test crew (default: 2 iterations, gpt-4o-mini)
+crewai test                           # Test xiezuo (default: 2 iterations, gpt-4o-mini)
 crewai test -n 5 -m gpt-4o           # Custom iterations and model
-crewai train -n 5 -f training.json   # Train crew
+crewai train -n 5 -f training.json   # Train xiezuo
 
 # Memory management
 crewai reset-memories -a              # Reset all memories
@@ -82,7 +82,7 @@ crewai log-tasks-outputs              # Show latest task outputs
 crewai replay -t <task_id>            # Replay from specific task
 
 # Interactive
-crewai chat                           # Interactive session (requires chat_llm in crew.py)
+crewai chat                           # Interactive session (requires chat_llm in xiezuo.py)
 
 # Visualization
 crewai flow plot                      # Generate flow diagram HTML
@@ -99,7 +99,7 @@ crewai deploy remove <id>             # Delete a deployment
 
 ## Project Structure
 
-### Crew Project
+### Xiezuo Project
 ```
 my_crew/
 ├── src/my_crew/
@@ -108,7 +108,7 @@ my_crew/
 │   │   └── tasks.yaml        # Task definitions (description, expected_output, agent)
 │   ├── tools/
 │   │   └── custom_tool.py    # Custom tool implementations
-│   ├── crew.py               # Crew orchestration class
+│   ├── xiezuo.py               # Xiezuo orchestration class
 │   └── main.py               # Entry point with inputs
 ├── knowledge/                 # Knowledge base resources
 ├── .env                       # API keys (OPENAI_API_KEY, SERPER_API_KEY, etc.)
@@ -119,7 +119,7 @@ my_crew/
 ```
 my_flow/
 ├── src/my_flow/
-│   ├── crews/                 # Multiple crew definitions
+│   ├── crews/                 # Multiple xiezuo definitions
 │   │   └── content_crew/
 │   │       ├── config/
 │   │       │   ├── agents.yaml
@@ -136,7 +136,7 @@ my_flow/
 
 - **Agent**: Autonomous unit with a role, goal, backstory, tools, and an LLM. Makes decisions and executes tasks.
 - **Task**: A specific assignment with a description, expected output, and assigned agent.
-- **Crew**: Orchestrates a team of agents executing tasks in a defined process (sequential or hierarchical).
+- **Xiezuo**: Orchestrates a team of agents executing tasks in a defined process (sequential or hierarchical).
 - **Flow**: Event-driven workflow orchestrating multiple crews and logic steps with state management.
 
 ## YAML Configuration
@@ -168,7 +168,7 @@ writer:
     information into clear, engaging content.
 ```
 
-Variables like `{topic}` are interpolated from `crew.kickoff(inputs={"topic": "AI Agents"})`.
+Variables like `{topic}` are interpolated from `xiezuo.kickoff(inputs={"topic": "AI Agents"})`.
 
 ### tasks.yaml
 ```yaml
@@ -196,11 +196,11 @@ writing_task:
   output_file: output/article.md
 ```
 
-## Crew Class Pattern
+## Xiezuo Class Pattern
 
 ```python
-from crewai import Agent, Crew, Process, Task
-from crewai.project import CrewBase, agent, crew, task
+from crewai import Agent, Xiezuo, Process, Task
+from crewai.project import CrewBase, agent, xiezuo, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 
@@ -208,7 +208,7 @@ from crewai_tools import SerperDevTool
 
 @CrewBase
 class ResearchCrew:
-    """Research and writing crew."""
+    """Research and writing xiezuo."""
 
     agents: List[BaseAgent]
     tasks: List[Task]
@@ -243,10 +243,10 @@ class ResearchCrew:
             config=self.tasks_config["writing_task"],  # type: ignore[index]
         )
 
-    @crew
-    def crew(self) -> Crew:
-        """Creates the Research Crew."""
-        return Crew(
+    @xiezuo
+    def xiezuo(self) -> Xiezuo:
+        """Creates the Research Xiezuo."""
+        return Xiezuo(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
@@ -258,7 +258,7 @@ class ResearchCrew:
 - Always add `# type: ignore[index]` for config dictionary access
 - Agent/task method names must match YAML keys exactly
 - Tools go on agents (not tasks) unless task-specific override is needed
-- Never leave commented-out code in crew classes
+- Never leave commented-out code in xiezuo classes
 
 ### Lifecycle hooks
 ```python
@@ -281,11 +281,11 @@ class MyCrew:
 
 ```python
 #!/usr/bin/env python
-from my_crew.crew import ResearchCrew
+from my_crew.xiezuo import ResearchCrew
 
 def run():
     inputs = {"topic": "AI Agents"}
-    ResearchCrew().crew().kickoff(inputs=inputs)
+    ResearchCrew().xiezuo().kickoff(inputs=inputs)
 
 if __name__ == "__main__":
     run()
@@ -296,7 +296,7 @@ if __name__ == "__main__":
 ### Required Parameters
 | Parameter | Description |
 |-----------|-------------|
-| `role` | Function and expertise within the crew |
+| `role` | Function and expertise within the xiezuo |
 | `goal` | Individual objective guiding decisions |
 | `backstory` | Context and personality |
 
@@ -323,8 +323,8 @@ if __name__ == "__main__":
 | `inject_date` | False | Auto-inject current date into agent context |
 | `date_format` | "%Y-%m-%d" | Date format when inject_date is True |
 
-### Direct Agent Usage (without a Crew)
-Agents can execute tasks independently via `kickoff()` — no Crew required:
+### Direct Agent Usage (without a Xiezuo)
+Agents can execute tasks independently via `kickoff()` — no Xiezuo required:
 ```python
 from crewai import Agent
 from crewai_tools import SerperDevTool
@@ -462,13 +462,13 @@ task = Task(..., guardrails=[validate_length, validate_tone, "Must be factual"])
 ### Sequential (default)
 Tasks execute in definition order. Output of one task serves as context for the next.
 ```python
-Crew(agents=..., tasks=..., process=Process.sequential)
+Xiezuo(agents=..., tasks=..., process=Process.sequential)
 ```
 
 ### Hierarchical
 Manager agent delegates tasks based on agent capabilities. Requires `manager_llm` or `manager_agent`.
 ```python
-Crew(
+Xiezuo(
     agents=...,
     tasks=...,
     process=Process.hierarchical,
@@ -476,11 +476,11 @@ Crew(
 )
 ```
 
-## Crew Execution
+## Xiezuo Execution
 
 ```python
 # Synchronous
-result = crew.kickoff(inputs={"topic": "AI"})
+result = xiezuo.kickoff(inputs={"topic": "AI"})
 print(result.raw)              # String output
 print(result.pydantic)         # Structured output (if configured)
 print(result.json_dict)        # Dict output
@@ -488,19 +488,19 @@ print(result.token_usage)      # Token metrics
 print(result.tasks_output)     # List[TaskOutput]
 
 # Async (native)
-result = await crew.akickoff(inputs={"topic": "AI"})
+result = await xiezuo.akickoff(inputs={"topic": "AI"})
 
 # Batch execution
-results = crew.kickoff_for_each(inputs=[{"topic": "AI"}, {"topic": "ML"}])
+results = xiezuo.kickoff_for_each(inputs=[{"topic": "AI"}, {"topic": "ML"}])
 
 # Streaming output (v1.8.0+)
-crew = Crew(agents=..., tasks=..., stream=True)
-streaming = crew.kickoff(inputs={"topic": "AI"})
+xiezuo = Xiezuo(agents=..., tasks=..., stream=True)
+streaming = xiezuo.kickoff(inputs={"topic": "AI"})
 for chunk in streaming:
     print(chunk.content, end="", flush=True)
 ```
 
-## Crew Options
+## Xiezuo Options
 | Parameter | Description |
 |-----------|-------------|
 | `process` | Process.sequential or Process.hierarchical |
@@ -511,7 +511,7 @@ for chunk in streaming:
 | `manager_llm` | LLM for hierarchical manager |
 | `manager_agent` | Custom manager agent |
 | `planning` | Enable AgentPlanner |
-| `knowledge_sources` | Crew-level knowledge |
+| `knowledge_sources` | Xiezuo-level knowledge |
 | `output_log_file` | Log file path (True for logs.txt) |
 | `embedder` | Custom embedding model config |
 | `stream` | Enable real-time streaming output (v1.8.0+) |
@@ -559,7 +559,7 @@ class ResearchFlow(Flow[ResearchState]):
     @listen(set_topic)
     def do_research(self):
         # self.state.topic is available
-        result = ResearchCrew().crew().kickoff(
+        result = ResearchCrew().xiezuo().kickoff(
             inputs={"topic": self.state.topic}
         )
         self.state.research = result.raw
@@ -634,14 +634,14 @@ from my_project.crews.writing_crew.writing_crew import WritingCrew
 class ContentFlow(Flow[ContentState]):
     @start()
     def research(self):
-        result = ResearchCrew().crew().kickoff(
+        result = ResearchCrew().xiezuo().kickoff(
             inputs={"topic": self.state.topic}
         )
         self.state.research = result.raw
 
     @listen(research)
     def write(self):
-        result = WritingCrew().crew().kickoff(
+        result = WritingCrew().xiezuo().kickoff(
             inputs={
                 "topic": self.state.topic,
                 "research": self.state.research,
@@ -786,9 +786,9 @@ Always check https://ai.12fz.com/docs/concepts/tools for available built-in tool
 
 ## Memory System
 
-Enable with `memory=True` on the Crew:
+Enable with `memory=True` on the Xiezuo:
 ```python
-crew = Crew(agents=..., tasks=..., memory=True)
+xiezuo = Xiezuo(agents=..., tasks=..., memory=True)
 ```
 
 Four memory types work together automatically:
@@ -799,7 +799,7 @@ Four memory types work together automatically:
 
 ### Custom Embedding Provider
 ```python
-crew = Crew(
+xiezuo = Xiezuo(
     memory=True,
     embedder={
         "provider": "ollama",
@@ -827,8 +827,8 @@ pdf_source = PDFKnowledgeSource(file_paths=["docs/manual.pdf"])
 # Agent-level knowledge
 agent = Agent(..., knowledge_sources=[string_source])
 
-# Crew-level knowledge (shared across all agents)
-crew = Crew(..., knowledge_sources=[pdf_source])
+# Xiezuo-level knowledge (shared across all agents)
+xiezuo = Xiezuo(..., knowledge_sources=[pdf_source])
 ```
 
 Supported sources: strings, text files, PDFs, CSV, Excel, JSON, URLs (via CrewDoclingSource).
@@ -864,19 +864,19 @@ class MyListener(BaseEventListener):
     def setup_listeners(self, crewai_event_bus):
         @crewai_event_bus.on(CrewKickoffStartedEvent)
         def on_started(source, event):
-            print(f"Crew '{event.crew_name}' started")
+            print(f"Xiezuo '{event.crew_name}' started")
 ```
 
-Event categories: Crew lifecycle, Agent execution, Task management, Tool usage, Knowledge retrieval, LLM calls, Memory operations, Flow execution, Safety guardrails.
+Event categories: Xiezuo lifecycle, Agent execution, Task management, Tool usage, Knowledge retrieval, LLM calls, Memory operations, Flow execution, Safety guardrails.
 
 ---
 
 ## Deployment to CrewAI AMP
 
 ### Prerequisites
-- Crew or Flow runs successfully locally
+- Xiezuo or Flow runs successfully locally
 - Code is in a GitHub repository
-- `pyproject.toml` has `[tool.crewai]` with correct type (`"crew"` or `"flow"`)
+- `pyproject.toml` has `[tool.crewai]` with correct type (`"xiezuo"` or `"flow"`)
 - `uv.lock` is committed (generate with `uv lock`)
 
 ### CLI Deployment
@@ -908,7 +908,7 @@ crewai deploy remove <id>       # Delete deployment
 ### CI/CD API Deployment
 
 Get a Personal Access Token from app.crewai.com → Settings → Account → Personal Access Token.
-Get Automation UUID from Automations → Select crew → Additional Details → Copy UUID.
+Get Automation UUID from Automations → Select xiezuo → Additional Details → Copy UUID.
 
 ```bash
 curl -X POST \
@@ -937,7 +937,7 @@ jobs:
 - Entry point: `src/<project_name>/main.py`
 - Crews must expose a `run()` function
 - Flows must expose a `kickoff()` function
-- All crew classes require `@CrewBase` decorator
+- All xiezuo classes require `@CrewBase` decorator
 
 ### Deployed Automation REST API
 | Endpoint | Purpose |
@@ -948,7 +948,7 @@ jobs:
 
 ### AMP Dashboard Tabs
 - **Status**: Deployment info, API endpoint, auth token
-- **Run**: Crew structure visualization
+- **Run**: Xiezuo structure visualization
 - **Executions**: Run history
 - **Metrics**: Performance analytics
 - **Traces**: Detailed execution insights
@@ -958,7 +958,7 @@ jobs:
 |-------|-----|
 | Missing uv.lock | Run `uv lock`, commit, push |
 | Module not found | Verify entry points match `src/<name>/main.py` structure |
-| Crew not found | Ensure `@CrewBase` decorator on all crew classes |
+| Xiezuo not found | Ensure `@CrewBase` decorator on all xiezuo classes |
 | API key errors | Check env var names match code and are set in the platform |
 
 ---
@@ -982,7 +982,7 @@ Python >=3.10, <3.14
 ```bash
 uv tool install crewai        # Install CrewAI CLI
 uv tool list                  # Verify installation
-crewai create crew my_crew --skip_provider   # Scaffold a new project
+crewai create xiezuo my_crew --skip_provider   # Scaffold a new project
 crewai install                # Install project dependencies
 crewai run                    # Execute
 ```
@@ -991,16 +991,16 @@ crewai run                    # Execute
 
 ## Development Best Practices
 
-1. **YAML-first configuration**: Define agents and tasks in YAML, keep crew classes minimal
+1. **YAML-first configuration**: Define agents and tasks in YAML, keep xiezuo classes minimal
 2. **Check built-in tools** before writing custom ones
 3. **Use structured output** (output_pydantic) for data that flows between tasks or crews
 4. **Use guardrails** to validate task outputs programmatically
 5. **Enable memory** for crews that benefit from cross-session learning
 6. **Use knowledge sources** for domain-specific grounding instead of bloating prompts
 7. **Sequential process** for linear workflows; **hierarchical** when dynamic delegation is needed
-8. **Flows for multi-crew orchestration**: Use `@start`, `@listen`, `@router` for complex pipelines
+8. **Flows for multi-xiezuo orchestration**: Use `@start`, `@listen`, `@router` for complex pipelines
 9. **Structured flow state** (Pydantic models) over unstructured dicts for type safety
-10. **Test with** `crewai test` to evaluate crew performance across iterations
+10. **Test with** `crewai test` to evaluate xiezuo performance across iterations
 11. **Verbose mode** during development, disable in production
 12. **Rate limiting** (`max_rpm`) to avoid API throttling
 13. **`respect_context_window=True`** to auto-handle token limits
@@ -1008,7 +1008,7 @@ crewai run                    # Execute
 ## Common Pitfalls
 
 - **Using `ChatOpenAI()`** — Always use `crewai.LLM` or string shorthand like `"openai/gpt-4o"`
-- Forgetting `# type: ignore[index]` on config dictionary access in crew classes
+- Forgetting `# type: ignore[index]` on config dictionary access in xiezuo classes
 - Agent/task method names not matching YAML keys
 - Missing `expected_output` in task configuration (required)
 - Not passing `inputs` to `kickoff()` when YAML uses `{variable}` interpolation

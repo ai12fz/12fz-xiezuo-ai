@@ -1,11 +1,11 @@
-from crewai import Agent, Crew, Process, Task
-from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai.project import CrewBase, agent, crew, task
+from fzxiezuoai import Agent, Xiezuo, Process, Task
+from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
+from fzxiezuoai.project import CrewBase, agent, xiezuo, task
 
 
-@CrewBase
-class ContentCrew:
-    """Content Crew"""
+@XiezuoBase
+class ContentXiezuo:
+    """Content Xiezuo"""
 
     agents: list[BaseAgent]
     tasks: list[Task]
@@ -49,10 +49,10 @@ class ContentCrew:
             config=self.tasks_config["editing_task"],  # type: ignore[index]
         )
 
-    @crew
-    def crew(self) -> Crew:
-        """Creates the Content Crew"""
-        return Crew(
+    @xiezuo
+    def xiezuo(self) -> Xiezuo:
+        """Creates the Content Xiezuo"""
+        return Xiezuo(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,

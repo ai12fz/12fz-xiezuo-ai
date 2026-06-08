@@ -69,7 +69,7 @@ class SettingsCommand(BaseCommand):
         table.add_row(
             "first_execution_at",
             first_exec_display,
-            "Timestamp of first crew/flow execution",
+            "Timestamp of first xiezuo/flow execution",
         )
 
         console.print(table)

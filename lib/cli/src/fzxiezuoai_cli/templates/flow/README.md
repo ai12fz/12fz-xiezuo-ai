@@ -1,6 +1,6 @@
-# {{crew_name}} Crew
+# {{crew_name}} Xiezuo
 
-Welcome to the {{crew_name}} Crew project, powered by [crewAI](https://ai.12fz.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
+Welcome to the {{crew_name}} Xiezuo project, powered by [crewAI](https://ai.12fz.com). This template is designed to help you set up a multi-agent AI system with ease, leveraging the powerful and flexible framework provided by crewAI. Our goal is to enable your agents to collaborate effectively on complex tasks, maximizing their collective intelligence and capabilities.
 
 ## Installation
 
@@ -25,7 +25,7 @@ crewai install
 
 - Modify `src/{{folder_name}}/config/agents.yaml` to define your agents
 - Modify `src/{{folder_name}}/config/tasks.yaml` to define your tasks
-- Modify `src/{{folder_name}}/crew.py` to add your own logic, tools and specific args
+- Modify `src/{{folder_name}}/xiezuo.py` to add your own logic, tools and specific args
 - Modify `src/{{folder_name}}/main.py` to add custom inputs for your agents and tasks
 
 ## Running the Project
@@ -40,13 +40,13 @@ This command initializes the {{name}} Flow as defined in your configuration.
 
 This example, unmodified, will run a content creation flow on AI Agents and save the output to `output/post.md`.
 
-## Understanding Your Crew
+## Understanding Your Xiezuo
 
-The {{name}} Crew is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your crew.
+The {{name}} Xiezuo is composed of multiple AI agents, each with unique roles, goals, and tools. These agents collaborate on a series of tasks, defined in `config/tasks.yaml`, leveraging their collective skills to achieve complex objectives. The `config/agents.yaml` file outlines the capabilities and configurations of each agent in your xiezuo.
 
 ## Support
 
-For support, questions, or feedback regarding the {{crew_name}} Crew or crewAI.
+For support, questions, or feedback regarding the {{crew_name}} Xiezuo or crewAI.
 
 - Visit our [documentation](https://ai.12fz.com/docs)
 - Reach out to us through our [GitHub repository](https://github.com/joaomdmoura/crewai)

@@ -18,10 +18,10 @@ def get_reserved_script_names() -> set[str]:
     """Get reserved script names from pyproject.toml template.
 
     Returns:
-        Set of reserved script names that would conflict with crew folder names.
+        Set of reserved script names that would conflict with xiezuo folder names.
     """
     package_dir = Path(__file__).parent
-    template_path = package_dir / "templates" / "crew" / "pyproject.toml"
+    template_path = package_dir / "templates" / "xiezuo" / "pyproject.toml"
 
     with open(template_path, "r") as f:
         template_content = f.read()
@@ -129,7 +129,7 @@ def create_folder_structure(
         shutil.rmtree(folder_path)
 
     click.secho(
-        f"Creating {'crew' if parent_folder else 'folder'} {folder_name}...",
+        f"Creating {'xiezuo' if parent_folder else 'folder'} {folder_name}...",
         fg="green",
         bold=True,
     )
@@ -154,7 +154,7 @@ def copy_template_files(
     folder_path: Path, name: str, class_name: str, parent_folder: str | None
 ) -> None:
     package_dir = Path(__file__).parent
-    templates_dir = package_dir / "templates" / "crew"
+    templates_dir = package_dir / "templates" / "xiezuo"
 
     root_template_files = (
         [
@@ -169,7 +169,7 @@ def copy_template_files(
     tools_template_files = ["tools/custom_tool.py", "tools/__init__.py"]
     config_template_files = ["config/agents.yaml", "config/tasks.yaml"]
     src_template_files = (
-        ["__init__.py", "main.py", "crew.py"] if not parent_folder else ["crew.py"]
+        ["__init__.py", "main.py", "xiezuo.py"] if not parent_folder else ["xiezuo.py"]
     )
 
     for file_name in root_template_files:
@@ -193,7 +193,7 @@ def copy_template_files(
             copy_template(src_file, dst_file, name, class_name, folder_path.name)
 
 
-def create_crew(
+def create_xiezuo(
     name: str,
     provider: str | None = None,
     skip_provider: bool = False,
@@ -278,7 +278,7 @@ def create_crew(
         click.secho(f"Selected model: {env_vars.get('MODEL', 'N/A')}", fg="green")
 
     package_dir = Path(__file__).parent
-    templates_dir = package_dir / "templates" / "crew"
+    templates_dir = package_dir / "templates" / "xiezuo"
 
     root_template_files = (
         [".gitignore", "pyproject.toml", "README.md", "knowledge/user_preference.txt"]
@@ -288,7 +288,7 @@ def create_crew(
     tools_template_files = ["tools/custom_tool.py", "tools/__init__.py"]
     config_template_files = ["config/agents.yaml", "config/tasks.yaml"]
     src_template_files = (
-        ["__init__.py", "main.py", "crew.py"] if not parent_folder else ["crew.py"]
+        ["__init__.py", "main.py", "xiezuo.py"] if not parent_folder else ["xiezuo.py"]
     )
 
     for file_name in root_template_files:
@@ -309,4 +309,4 @@ def create_crew(
             dst_file = src_folder / file_name
             copy_template(src_file, dst_file, name, class_name, folder_name)
 
-    click.secho(f"Crew {name} created successfully!", fg="green", bold=True)
+    click.secho(f"Xiezuo {name} created successfully!", fg="green", bold=True)

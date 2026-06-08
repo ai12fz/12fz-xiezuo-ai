@@ -2,7 +2,7 @@ from typing import Type
 
 from pydantic import BaseModel, Field
 
-from crewai.tools import BaseTool
+from fzxiezuoai.tools import BaseTool
 
 
 class MyCustomToolInput(BaseModel):

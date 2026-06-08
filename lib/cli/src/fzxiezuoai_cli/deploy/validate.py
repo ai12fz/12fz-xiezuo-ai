@@ -14,10 +14,10 @@ deployment-failure logs:
 1. pyproject.toml present with ``[project].name``
 2. lockfile (``uv.lock`` or ``poetry.lock``) present and not stale
 3. package directory at ``src/<package>/`` exists (no empty name, no egg-info)
-4. standard crew files: ``crew.py``, ``config/agents.yaml``, ``config/tasks.yaml``
+4. standard xiezuo files: ``xiezuo.py``, ``config/agents.yaml``, ``config/tasks.yaml``
 5. flow entrypoint: ``main.py`` with a Flow subclass
 6. hatch wheel target resolves (packages = [...] or default dir matches name)
-7. crew/flow module imports cleanly (catches ``@CrewBase not found``,
+7. xiezuo/flow module imports cleanly (catches ``@CrewBase not found``,
    ``No Flow subclass found``, provider import errors)
 8. environment variables referenced in code vs ``.env`` / deployment env
 9. installed fzxiezuoai vs lockfile pin (catches missing-attribute failures from
@@ -101,7 +101,7 @@ _KNOWN_API_KEY_HINTS: dict[str, str] = {
 def normalize_package_name(project_name: str) -> str:
     """Normalize a pyproject project.name into a Python package directory name.
 
-    Mirrors the rules in ``fzxiezuoai.cli.create_crew.create_crew`` so the
+    Mirrors the rules in ``fzxiezuoai.cli.create_xiezuo.create_xiezuo`` so the
     validator agrees with the scaffolder about where ``src/<pkg>/`` should
     live.
     """
@@ -166,7 +166,7 @@ class DeployValidator:
         if self._is_flow:
             self._check_flow_entrypoint()
         else:
-            self._check_crew_entrypoint()
+            self._check_xiezuo_entrypoint()
             self._check_config_yamls()
 
         self._check_hatch_wheel_target()
@@ -187,7 +187,7 @@ class DeployValidator:
                     f"Expected pyproject.toml at {pyproject_path}. "
                     "12FZ协作AI projects must be installable Python packages."
                 ),
-                hint="Run `fzxiezuoai create crew <name>` to scaffold a valid project layout.",
+                hint="Run `fzxiezuoai create xiezuo <name>` to scaffold a valid project layout.",
             )
             return False
 
@@ -212,7 +212,7 @@ class DeployValidator:
                 detail=(
                     "Without a project name the platform cannot resolve your "
                     "package directory (this produces errors like "
-                    "'Cannot find src//crew.py')."
+                    "'Cannot find src//xiezuo.py')."
                 ),
                 hint='Set a `name = "..."` field under `[project]` in pyproject.toml.',
             )
@@ -271,9 +271,9 @@ class DeployValidator:
                 "Missing src/ directory",
                 detail=(
                     "12FZ协作AI deployments expect a src-layout project: "
-                    f"src/{self._package_name}/crew.py (or main.py for flows)."
+                    f"src/{self._package_name}/xiezuo.py (or main.py for flows)."
                 ),
-                hint="Run `fzxiezuoai create crew <name>` to see the expected layout.",
+                hint="Run `fzxiezuoai create xiezuo <name>` to see the expected layout.",
             )
             return False
 
@@ -307,7 +307,7 @@ class DeployValidator:
                 "missing_package_dir",
                 f"Cannot find src/{self._package_name}/",
                 detail=(
-                    "The platform looks for your crew source under "
+                    "The platform looks for your xiezuo source under "
                     "src/<package_name>/, derived from [project].name."
                 ),
                 hint=" ".join(hint_parts),
@@ -322,7 +322,7 @@ class DeployValidator:
                     f"Stale build artifact in src/: {p.name}",
                     detail=(
                         ".egg-info directories can be mistaken for your package "
-                        "and cause 'Cannot find src/<name>.egg-info/crew.py' errors."
+                        "and cause 'Cannot find src/<name>.egg-info/xiezuo.py' errors."
                     ),
                     hint=f"Delete {p} and add `*.egg-info/` to .gitignore.",
                 )
@@ -330,21 +330,21 @@ class DeployValidator:
         self._package_dir = package_dir
         return True
 
-    def _check_crew_entrypoint(self) -> None:
+    def _check_xiezuo_entrypoint(self) -> None:
         if self._package_dir is None:
             return
-        crew_py = self._package_dir / "crew.py"
+        crew_py = self._package_dir / "xiezuo.py"
         if not crew_py.is_file():
             self._add(
                 Severity.ERROR,
-                "missing_crew_py",
+                "missing_xiezuo_py",
                 f"Cannot find {crew_py.relative_to(self.project_root)}",
                 detail=(
-                    "Standard crew projects must define a Crew class decorated "
-                    "with @CrewBase inside crew.py."
+                    "Standard xiezuo projects must define a Xiezuo class decorated "
+                    "with @CrewBase inside xiezuo.py."
                 ),
                 hint=(
-                    "Create crew.py with an @CrewBase-annotated class, or set "
+                    "Create xiezuo.py with an @CrewBase-annotated class, or set "
                     '`[tool.fzxiezuoai] type = "flow"` in pyproject.toml if this is a flow.'
                 ),
             )
@@ -430,21 +430,21 @@ class DeployValidator:
         )
 
     def _check_module_imports(self) -> None:
-        """Import the user's crew/flow via `uv run` so the check sees the same
+        """Import the user's xiezuo/flow via `uv run` so the check sees the same
         package versions as `fzxiezuoai run` would. Result is reported as JSON on
         the subprocess's stdout."""
         script = (
             "import json, sys, traceback, os\n"
             "os.chdir(sys.argv[1])\n"
             "try:\n"
-            "    from fzxiezuoai.utilities.project_utils import get_crews, get_flows\n"
+            "    from fzxiezuoai.utilities.project_utils import get_xiezuos, get_flows\n"
             "    is_flow = sys.argv[2] == 'flow'\n"
             "    if is_flow:\n"
             "        instances = get_flows()\n"
             "        kind = 'flow'\n"
             "    else:\n"
-            "        instances = get_crews()\n"
-            "        kind = 'crew'\n"
+            "        instances = get_xiezuos()\n"
+            "        kind = 'xiezuo'\n"
             "    print(json.dumps({'ok': True, 'kind': kind, 'count': len(instances)}))\n"
             "except BaseException as e:\n"
             "    print(json.dumps({\n"
@@ -474,7 +474,7 @@ class DeployValidator:
                     "-c",
                     script,
                     str(self.project_root),
-                    "flow" if self._is_flow else "crew",
+                    "flow" if self._is_flow else "xiezuo",
                 ],
                 cwd=self.project_root,
                 capture_output=True,
@@ -486,7 +486,7 @@ class DeployValidator:
             self._add(
                 Severity.ERROR,
                 "import_timeout",
-                "Importing your crew/flow module timed out after 120s",
+                "Importing your xiezuo/flow module timed out after 120s",
                 detail=(
                     "User code may be making network calls or doing heavy work "
                     "at import time. Move that work into agent methods."
@@ -510,7 +510,7 @@ class DeployValidator:
             self._add(
                 Severity.ERROR,
                 "import_failed",
-                "Could not import your crew/flow module",
+                "Could not import your xiezuo/flow module",
                 detail=(proc.stderr or proc.stdout or "").strip()[:1500],
                 hint="Run `fzxiezuoai run` locally first to reproduce the error.",
             )
@@ -518,7 +518,7 @@ class DeployValidator:
 
         if payload.get("ok"):
             if payload.get("count", 0) == 0:
-                kind = payload.get("kind", "crew")
+                kind = payload.get("kind", "xiezuo")
                 if kind == "flow":
                     self._add(
                         Severity.ERROR,
@@ -532,11 +532,11 @@ class DeployValidator:
                 else:
                     self._add(
                         Severity.ERROR,
-                        "no_crewbase_class",
-                        "Crew class annotated with @CrewBase not found",
+                        "no_xiezuobase_class",
+                        "Xiezuo class annotated with @CrewBase not found",
                         hint=(
-                            "Decorate your crew class with @CrewBase from "
-                            "fzxiezuoai.project (see `fzxiezuoai create crew` template)."
+                            "Decorate your xiezuo class with @CrewBase from "
+                            "fzxiezuoai.project (see `fzxiezuoai create xiezuo` template)."
                         ),
                     )
             return
@@ -577,8 +577,8 @@ class DeployValidator:
                     "llm_init_missing_key",
                     f"LLM is constructed at import time but {missing_key} is not set",
                     detail=(
-                        f"Your crew instantiates a {provider} LLM during module "
-                        "load (e.g. in a class field default or @crew method). "
+                        f"Your xiezuo instantiates a {provider} LLM during module "
+                        "load (e.g. in a class field default or @xiezuo method). "
                         f"The {provider} provider currently requires {missing_key} "
                         "at construction time, so this will fail on the platform "
                         "unless the key is set in your deployment environment."
@@ -620,11 +620,11 @@ class DeployValidator:
                 )
                 return
 
-        if "Crew class annotated with @CrewBase not found" in err_msg:
+        if "Xiezuo class annotated with @CrewBase not found" in err_msg:
             self._add(
                 Severity.ERROR,
-                "no_crewbase_class",
-                "Crew class annotated with @CrewBase not found",
+                "no_xiezuobase_class",
+                "Xiezuo class annotated with @CrewBase not found",
                 detail=err_msg,
             )
             return
@@ -643,7 +643,7 @@ class DeployValidator:
         ):
             self._add(
                 Severity.ERROR,
-                "stale_crewai_pin",
+                "stale_xiezuoai_pin",
                 "Your lockfile pins a fzxiezuoai version missing `_load_response_format`",
                 detail=err_msg,
                 hint=(
@@ -657,7 +657,7 @@ class DeployValidator:
             self._add(
                 Severity.ERROR,
                 "pydantic_validation_error",
-                "Pydantic validation failed while loading your crew",
+                "Pydantic validation failed while loading your xiezuo",
                 detail=err_msg[:800],
                 hint=(
                     "Check agent/task configuration fields. `fzxiezuoai run` locally "
@@ -669,7 +669,7 @@ class DeployValidator:
         self._add(
             Severity.ERROR,
             "import_failed",
-            f"Importing your crew failed: {err_type}",
+            f"Importing your xiezuo failed: {err_type}",
             detail=err_msg[:800],
             hint="Run `fzxiezuoai run` locally to see the full traceback.",
         )
@@ -780,7 +780,7 @@ class DeployValidator:
             if Version(locked) < Version("1.13.0"):
                 self._add(
                     Severity.WARNING,
-                    "old_crewai_pin",
+                    "old_xiezuoai_pin",
                     f"Lockfile pins fzxiezuoai=={locked} (older than 1.13.0)",
                     detail=(
                         "Older pinned versions are missing API surface the "

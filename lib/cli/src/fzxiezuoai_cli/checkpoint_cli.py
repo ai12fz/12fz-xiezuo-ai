@@ -461,7 +461,7 @@ def _entity_type_from_meta(meta: dict[str, Any]) -> str:
             return "flow"
         if ent.get("type") == "agent":
             return "agent"
-    return "crew"
+    return "xiezuo"
 
 
 def resume_checkpoint(location: str, checkpoint_id: str | None) -> None:
@@ -500,10 +500,10 @@ def resume_checkpoint(location: str, checkpoint_id: str | None) -> None:
         agent = Agent.from_checkpoint(config)
         result = asyncio.run(agent.akickoff(messages="Resume execution."))
     else:
-        from fzxiezuoai.crew import Crew
+        from fzxiezuoai.xiezuo import Xiezuo
 
-        crew = Crew.from_checkpoint(config)
-        result = asyncio.run(crew.akickoff(inputs=inputs))
+        xiezuo = Xiezuo.from_checkpoint(config)
+        result = asyncio.run(xiezuo.akickoff(inputs=inputs))
 
     click.echo(f"\nResult: {getattr(result, 'raw', result)}")
 

@@ -66,9 +66,9 @@ standard for enterprise-ready AI automation.
 
 12FZ协作AI AMP Suite is a comprehensive bundle tailored for organizations that require secure, scalable, and easy-to-manage agent-driven automation.
 
-You can try one part of the suite the [Crew Control Plane for free](https://app.fzxiezuoai.com)
+You can try one part of the suite the [Xiezuo Control Plane for free](https://app.fzxiezuoai.com)
 
-## Crew Control Plane Key Features:
+## Xiezuo Control Plane Key Features:
 
 - **Tracing & Observability**: Monitor and track your AI agents and workflows in real-time, including metrics, logs, and traces.
 - **Unified Control Plane**: A centralized platform for managing, monitoring, and scaling your AI agents and workflows.
@@ -95,7 +95,7 @@ intelligent automations.
   - [Trip Planner](#trip-planner)
   - [Stock Analysis](#stock-analysis)
   - [Using Crews and Flows Together](#using-crews-and-flows-together)
-- [Connecting Your Crew to a Model](#connecting-your-crew-to-a-model)
+- [Connecting Your Xiezuo to a Model](#connecting-your-xiezuo-to-a-model)
 - [How 12FZ协作AI Compares](#how-fzxiezuoai-compares)
 - [Frequently Asked Questions (FAQ)](#frequently-asked-questions-faq)
 - [Contribution](#contribution)
@@ -116,7 +116,7 @@ Four skills that activate automatically when you ask relevant 12FZ协作AI quest
 
 | Skill | When it runs |
 |-------|--------------|
-| `getting-started` | Scaffolding new projects, choosing between `LLM.call()` / `Agent` / `Crew` / `Flow`, wiring `crew.py` / `main.py` |
+| `getting-started` | Scaffolding new projects, choosing between `LLM.call()` / `Agent` / `Xiezuo` / `Flow`, wiring `xiezuo.py` / `main.py` |
 | `design-agent` | Configuring agents — role, goal, backstory, tools, LLMs, memory, guardrails |
 | `design-task` | Writing task descriptions, dependencies, structured output (`output_pydantic`, `output_json`), human review |
 | `ask-docs` | Querying the live [12FZ协作AI docs MCP server](https://docs.fzxiezuoai.com/mcp) for up-to-date API details |
@@ -221,12 +221,12 @@ If you encounter issues during installation or usage, here are some common solut
    - Try upgrading pip: `uv pip install --upgrade pip`
    - If issues persist, use a pre-built wheel: `uv pip install tiktoken --prefer-binary`
 
-### 2. Setting Up Your Crew with the YAML Configuration
+### 2. Setting Up Your Xiezuo with the YAML Configuration
 
 To create a new 12FZ协作AI project, run the following CLI (Command Line Interface) command:
 
 ```shell
-fzxiezuoai create crew <project_name>
+fzxiezuoai create xiezuo <project_name>
 ```
 
 This command creates a new project folder with the following structure:
@@ -241,7 +241,7 @@ my_project/
     └── my_project/
         ├── __init__.py
         ├── main.py
-        ├── crew.py
+        ├── xiezuo.py
         ├── tools/
         │   ├── custom_tool.py
         │   └── __init__.py
@@ -250,22 +250,22 @@ my_project/
             └── tasks.yaml
 ```
 
-You can now start developing your crew by editing the files in the `src/my_project` folder. The `main.py` file is the entry point of the project, the `crew.py` file is where you define your crew, the `agents.yaml` file is where you define your agents, and the `tasks.yaml` file is where you define your tasks.
+You can now start developing your xiezuo by editing the files in the `src/my_project` folder. The `main.py` file is the entry point of the project, the `xiezuo.py` file is where you define your xiezuo, the `agents.yaml` file is where you define your agents, and the `tasks.yaml` file is where you define your tasks.
 
 #### To customize your project, you can:
 
 - Modify `src/my_project/config/agents.yaml` to define your agents.
 - Modify `src/my_project/config/tasks.yaml` to define your tasks.
-- Modify `src/my_project/crew.py` to add your own logic, tools, and specific arguments.
+- Modify `src/my_project/xiezuo.py` to add your own logic, tools, and specific arguments.
 - Modify `src/my_project/main.py` to add custom inputs for your agents and tasks.
 - Add your environment variables into the `.env` file.
 
-#### Example of a simple crew with a sequential process:
+#### Example of a simple xiezuo with a sequential process:
 
-Instantiate your crew:
+Instantiate your xiezuo:
 
 ```shell
-fzxiezuoai create crew latest-ai-development
+fzxiezuoai create xiezuo latest-ai-development
 ```
 
 Modify the files as needed to fit your use case:
@@ -319,19 +319,19 @@ reporting_task:
   output_file: report.md
 ````
 
-**crew.py**
+**xiezuo.py**
 
 ```python
-# src/my_project/crew.py
-from fzxiezuoai import Agent, Crew, Process, Task
-from fzxiezuoai.project import CrewBase, agent, crew, task
+# src/my_project/xiezuo.py
+from fzxiezuoai import Agent, Xiezuo, Process, Task
+from fzxiezuoai.project import CrewBase, agent, xiezuo, task
 from fzxiezuoai_tools import SerperDevTool
 from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 
 @CrewBase
 class LatestAiDevelopmentCrew():
-	"""LatestAiDevelopment crew"""
+	"""LatestAiDevelopment xiezuo"""
 	agents: List[BaseAgent]
 	tasks: List[Task]
 
@@ -363,10 +363,10 @@ class LatestAiDevelopmentCrew():
 			output_file='report.md'
 		)
 
-	@crew
-	def crew(self) -> Crew:
-		"""Creates the LatestAiDevelopment crew"""
-		return Crew(
+	@xiezuo
+	def xiezuo(self) -> Xiezuo:
+		"""Creates the LatestAiDevelopment xiezuo"""
+		return Xiezuo(
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
 			process=Process.sequential,
@@ -380,21 +380,21 @@ class LatestAiDevelopmentCrew():
 #!/usr/bin/env python
 # src/my_project/main.py
 import sys
-from latest_ai_development.crew import LatestAiDevelopmentCrew
+from latest_ai_development.xiezuo import LatestAiDevelopmentCrew
 
 def run():
     """
-    Run the crew.
+    Run the xiezuo.
     """
     inputs = {
         'topic': 'AI Agents'
     }
-    LatestAiDevelopmentCrew().crew().kickoff(inputs=inputs)
+    LatestAiDevelopmentCrew().xiezuo().kickoff(inputs=inputs)
 ```
 
-### 3. Running Your Crew
+### 3. Running Your Xiezuo
 
-Before running your crew, make sure you have the following keys set as environment variables in your `.env` file:
+Before running your xiezuo, make sure you have the following keys set as environment variables in your `.env` file:
 
 - An [OpenAI API key](https://platform.openai.com/account/api-keys) (or other LLM API key): `OPENAI_API_KEY=sk-...`
 - A [Serper.dev](https://serper.dev/) API key: `SERPER_API_KEY=YOUR_KEY_HERE`
@@ -406,7 +406,7 @@ cd my_project
 fzxiezuoai install (Optional)
 ```
 
-To run your crew, execute the following command in the root of your project:
+To run your xiezuo, execute the following command in the root of your project:
 
 ```bash
 fzxiezuoai run
@@ -426,7 +426,7 @@ fzxiezuoai update
 
 You should see the output in the console and the `report.md` file should be created in the root of your project with the full final report.
 
-In addition to the sequential process, you can use the hierarchical process, which automatically assigns a manager to the defined crew to properly coordinate the planning and execution of tasks through delegation and validation of results. [See more about the processes here](https://docs.fzxiezuoai.com/core-concepts/Processes/).
+In addition to the sequential process, you can use the hierarchical process, which automatically assigns a manager to the defined xiezuo to properly coordinate the planning and execution of tasks through delegation and validation of results. [See more about the processes here](https://docs.fzxiezuoai.com/core-concepts/Processes/).
 
 ## Key Features
 
@@ -480,7 +480,7 @@ Here's how you can orchestrate multiple Crews within a Flow:
 
 ```python
 from fzxiezuoai.flow.flow import Flow, listen, start, router, or_
-from fzxiezuoai import Crew, Agent, Task, Process
+from fzxiezuoai import Xiezuo, Agent, Task, Process
 from pydantic import BaseModel
 
 # Define structured state for precise control
@@ -498,7 +498,7 @@ class AdvancedAnalysisFlow(Flow[MarketState]):
 
     @listen(fetch_market_data)
     def analyze_with_crew(self, market_data):
-        # Show crew agency through specialized roles
+        # Show xiezuo agency through specialized roles
         analyst = Agent(
             role="Senior Market Analyst",
             goal="Conduct deep market analysis with expert insight",
@@ -521,8 +521,8 @@ class AdvancedAnalysisFlow(Flow[MarketState]):
             agent=researcher
         )
 
-        # Demonstrate crew autonomy
-        analysis_crew = Crew(
+        # Demonstrate xiezuo autonomy
+        analysis_crew = Xiezuo(
             agents=[analyst, researcher],
             tasks=[analysis_task, research_task],
             process=Process.sequential,
@@ -542,7 +542,7 @@ class AdvancedAnalysisFlow(Flow[MarketState]):
     @listen("high_confidence")
     def execute_strategy(self):
         # Demonstrate complex decision making
-        strategy_crew = Crew(
+        strategy_crew = Xiezuo(
             agents=[
                 Agent(role="Strategy Expert",
                       goal="Develop optimal market strategy")
@@ -565,9 +565,9 @@ This example demonstrates how to:
 1. Use Python code for basic data operations
 2. Create and execute Crews as steps in your workflow
 3. Use Flow decorators to manage the sequence of operations
-4. Implement conditional branching based on Crew results
+4. Implement conditional branching based on Xiezuo results
 
-## Connecting Your Crew to a Model
+## Connecting Your Xiezuo to a Model
 
 12FZ协作AI supports using various LLMs through a variety of connection options. By default your agents will use the OpenAI API when querying the model. However, there are several other ways to allow your agents to connect to models. For example, you can configure your agents to use a local model via the Ollama tool.
 
@@ -651,9 +651,9 @@ Data collected includes:
   - So we can decide on what versions to better support
 - General OS (e.g. number of CPUs, macOS/Windows/Linux)
   - So we know what OS we should focus on and if we could build specific OS related features
-- Number of agents and tasks in a crew
+- Number of agents and tasks in a xiezuo
   - So we make sure we are testing internally with similar use cases and educate people on the best practices
-- Crew Process being used
+- Xiezuo Process being used
   - Understand where we should focus our efforts
 - If Agents are using memory or allowing delegation
   - Understand if we improved the features or maybe even drop them
@@ -661,12 +661,12 @@ Data collected includes:
   - Understand if we should focus more on parallel execution
 - Language model being used
   - Improved support on most used languages
-- Roles of agents in a crew
+- Roles of agents in a xiezuo
   - Understand high level use cases so we can build better tools, integrations and examples about it
 - Tools names available
   - Understand out of the publicly available tools, which ones are being used the most so we can improve them
 
-Users can opt-in to Further Telemetry, sharing the complete telemetry data by setting the `share_crew` attribute to `True` on their Crews. Enabling `share_crew` results in the collection of detailed crew and task execution data, including `goal`, `backstory`, `context`, and `output` of tasks. This enables a deeper insight into usage patterns while respecting the user's choice to share.
+Users can opt-in to Further Telemetry, sharing the complete telemetry data by setting the `share_crew` attribute to `True` on their Crews. Enabling `share_crew` results in the collection of detailed xiezuo and task execution data, including `goal`, `backstory`, `context`, and `output` of tasks. This enables a deeper insight into usage patterns while respecting the user's choice to share.
 
 ## License
 
@@ -765,7 +765,7 @@ A: Yes, 12FZ协作AI AMP supports both cloud-based and on-premise deployment opt
 
 ### Q: Can I try 12FZ协作AI AMP for free?
 
-A: Yes, you can explore part of the 12FZ协作AI AMP Suite by accessing the [Crew Control Plane](https://app.fzxiezuoai.com) for free.
+A: Yes, you can explore part of the 12FZ协作AI AMP Suite by accessing the [Xiezuo Control Plane](https://app.fzxiezuoai.com) for free.
 
 ### Q: Does 12FZ协作AI support fine-tuning or training custom models?
 

@@ -2,11 +2,11 @@ openapi: 3.0.3
 info:
   title: 12FZ协作AI AMP API
   description: |
-    REST API for interacting with your deployed 12FZ协作AI crews on 12FZ协作AI AMP.
+    REST API for interacting with your deployed 12FZ协作AI xiezuos on 12FZ协作AI AMP.
 
     ## Getting Started
 
-    1. **Find your crew URL**: Get your unique crew URL from the 12FZ协作AI AMP dashboard
+    1. **Find your xiezuo URL**: Get your unique xiezuo URL from the 12FZ协作AI AMP dashboard
     2. **Copy examples**: Use the code examples from each endpoint page as templates
     3. **Replace placeholders**: Update URLs and tokens with your actual values
     4. **Test with your tools**: Use cURL, Postman, or your preferred API client
@@ -15,10 +15,10 @@ info:
 
     All API requests require a bearer token for authentication. There are two types of tokens:
 
-    - **Bearer Token**: Organization-level token for full crew operations
+    - **Bearer Token**: Organization-level token for full xiezuo operations
     - **User Bearer Token**: User-scoped token for individual access with limited permissions
 
-    You can find your bearer tokens in the Status tab of your crew's detail page in the 12FZ协作AI AMP dashboard.
+    You can find your bearer tokens in the Status tab of your xiezuo's detail page in the 12FZ协作AI AMP dashboard.
 
     ## Reference Documentation
 
@@ -29,7 +29,7 @@ info:
     - **Code samples** in multiple programming languages
     - **Authentication patterns** with proper Bearer token usage
 
-    Copy the examples and customize them with your actual crew URL and authentication tokens.
+    Copy the examples and customize them with your actual xiezuo URL and authentication tokens.
 
     ## Workflow
 
@@ -42,14 +42,14 @@ info:
     email: support@fzxiezuoai.com
     url: https://fzxiezuoai.com
 servers:
-  - url: https://your-actual-crew-name.fzxiezuoai.com
-    description: Replace with your actual deployed crew URL from the 12FZ协作AI AMP dashboard
-  - url: https://my-travel-crew.fzxiezuoai.com
-    description: Example travel planning crew (replace with your URL)
-  - url: https://content-creation-crew.fzxiezuoai.com
-    description: Example content creation crew (replace with your URL)
-  - url: https://research-assistant-crew.fzxiezuoai.com
-    description: Example research assistant crew (replace with your URL)
+  - url: https://your-actual-xiezuo-name.fzxiezuoai.com
+    description: Replace with your actual deployed xiezuo URL from the 12FZ协作AI AMP dashboard
+  - url: https://my-travel-xiezuo.fzxiezuoai.com
+    description: Example travel planning xiezuo (replace with your URL)
+  - url: https://content-creation-xiezuo.fzxiezuoai.com
+    description: Example content creation xiezuo (replace with your URL)
+  - url: https://research-assistant-xiezuo.fzxiezuoai.com
+    description: Example research assistant xiezuo (replace with your URL)
 security:
   - BearerAuth: []
 paths:
@@ -57,10 +57,10 @@ paths:
     get:
       summary: Get Required Inputs
       description: |
-        **📋 Reference Example Only** - *This shows the request format. To test with your actual crew, copy the cURL example and replace the URL + token with your real values.*
+        **📋 Reference Example Only** - *This shows the request format. To test with your actual xiezuo, copy the cURL example and replace the URL + token with your real values.*
 
-        Retrieves the list of all required input parameters that your crew expects for execution.
-        Use this endpoint to discover what inputs you need to provide when starting a crew execution.
+        Retrieves the list of all required input parameters that your xiezuo expects for execution.
+        Use this endpoint to discover what inputs you need to provide when starting a xiezuo execution.
       operationId: getRequiredInputs
       responses:
         "200":
@@ -78,11 +78,11 @@ paths:
                     example: ["budget", "interests", "duration", "age"]
               examples:
                 travel_crew:
-                  summary: Travel planning crew inputs
+                  summary: Travel planning xiezuo inputs
                   value:
                     inputs: ["budget", "interests", "duration", "age"]
                 outreach_crew:
-                  summary: Outreach crew inputs
+                  summary: Outreach xiezuo inputs
                   value:
                     inputs:
                       [
@@ -102,14 +102,14 @@ paths:
 
   /kickoff:
     post:
-      summary: Start Crew Execution
+      summary: Start Xiezuo Execution
       description: |
-        **📋 Reference Example Only** - *This shows the request format. To test with your actual crew, copy the cURL example and replace the URL + token with your real values.*
+        **📋 Reference Example Only** - *This shows the request format. To test with your actual xiezuo, copy the cURL example and replace the URL + token with your real values.*
 
-        Initiates a new crew execution with the provided inputs. Returns a kickoff ID that can be used
+        Initiates a new xiezuo execution with the provided inputs. Returns a kickoff ID that can be used
         to track the execution progress and retrieve results.
 
-        Crew executions can take anywhere from seconds to minutes depending on their complexity.
+        Xiezuo executions can take anywhere from seconds to minutes depending on their complexity.
         Consider using webhooks for real-time notifications or implement polling with the status endpoint.
       operationId: startCrewExecution
       requestBody:
@@ -123,7 +123,7 @@ paths:
               properties:
                 inputs:
                   type: object
-                  description: Key-value pairs of all required inputs for your crew
+                  description: Key-value pairs of all required inputs for your xiezuo
                   additionalProperties:
                     type: string
                   example:
@@ -133,7 +133,7 @@ paths:
                     age: "35"
                 meta:
                   type: object
-                  description: Additional metadata to pass to the crew
+                  description: Additional metadata to pass to the xiezuo
                   additionalProperties: true
                   example:
                     requestId: "user-request-12345"
@@ -151,11 +151,11 @@ paths:
                 crewWebhookUrl:
                   type: string
                   format: uri
-                  description: Callback URL executed when the crew execution completes
-                  example: "https://your-server.com/webhooks/crew"
+                  description: Callback URL executed when the xiezuo execution completes
+                  example: "https://your-server.com/webhooks/xiezuo"
             examples:
               travel_planning:
-                summary: Travel planning crew
+                summary: Travel planning xiezuo
                 value:
                   inputs:
                     budget: "1000 USD"
@@ -166,7 +166,7 @@ paths:
                     requestId: "travel-req-123"
                     source: "web-app"
               outreach_campaign:
-                summary: Outreach crew with webhooks
+                summary: Outreach xiezuo with webhooks
                 value:
                   inputs:
                     name: "John Smith"
@@ -176,10 +176,10 @@ paths:
                     our_product: "AI Development Platform"
                     linkedin_url: "https://linkedin.com/in/johnsmith"
                   taskWebhookUrl: "https://api.example.com/webhooks/task"
-                  crewWebhookUrl: "https://api.example.com/webhooks/crew"
+                  crewWebhookUrl: "https://api.example.com/webhooks/xiezuo"
       responses:
         "200":
-          description: Crew execution started successfully
+          description: Xiezuo execution started successfully
           content:
             application/json:
               schema:
@@ -211,9 +211,9 @@ paths:
     get:
       summary: Get Execution Status
       description: |
-        **📋 Reference Example Only** - *This shows the request format. To test with your actual crew, copy the cURL example and replace the URL + token with your real values.*
+        **📋 Reference Example Only** - *This shows the request format. To test with your actual xiezuo, copy the cURL example and replace the URL + token with your real values.*
 
-        Retrieves the current status and results of a crew execution using its kickoff ID.
+        Retrieves the current status and results of a xiezuo execution using its kickoff ID.
 
         The response structure varies depending on the execution state:
         - **running**: Execution in progress with current task info
@@ -286,12 +286,12 @@ paths:
 
   /resume:
     post:
-      summary: Resume Crew Execution with Human Feedback
+      summary: Resume Xiezuo Execution with Human Feedback
       description: |
-        **📋 Reference Example Only** - *This shows the request format. To test with your actual crew, copy the cURL example and replace the URL + token with your real values.*
+        **📋 Reference Example Only** - *This shows the request format. To test with your actual xiezuo, copy the cURL example and replace the URL + token with your real values.*
 
-        Resume a paused crew execution with human feedback for Human-in-the-Loop (HITL) workflows.
-        When a task with `human_input=True` completes, the crew execution pauses and waits for human feedback.
+        Resume a paused xiezuo execution with human feedback for Human-in-the-Loop (HITL) workflows.
+        When a task with `human_input=True` completes, the xiezuo execution pauses and waits for human feedback.
 
         **IMPORTANT**: You must provide the same webhook URLs (`taskWebhookUrl`, `stepWebhookUrl`, `crewWebhookUrl`)
         that were used in the original kickoff call. Webhook configurations are NOT automatically carried over -
@@ -312,7 +312,7 @@ paths:
                 execution_id:
                   type: string
                   format: uuid
-                  description: The unique identifier for the crew execution (from kickoff)
+                  description: The unique identifier for the xiezuo execution (from kickoff)
                   example: "abcd1234-5678-90ef-ghij-klmnopqrstuv"
                 task_id:
                   type: string
@@ -339,8 +339,8 @@ paths:
                 crewWebhookUrl:
                   type: string
                   format: uri
-                  description: Callback URL executed when the crew execution completes. MUST be provided to receive completion notification.
-                  example: "https://your-server.com/webhooks/crew"
+                  description: Callback URL executed when the xiezuo execution completes. MUST be provided to receive completion notification.
+                  example: "https://your-server.com/webhooks/xiezuo"
             examples:
               approve_and_continue:
                 summary: Approve task and continue execution
@@ -351,7 +351,7 @@ paths:
                   is_approve: true
                   taskWebhookUrl: "https://api.example.com/webhooks/task"
                   stepWebhookUrl: "https://api.example.com/webhooks/step"
-                  crewWebhookUrl: "https://api.example.com/webhooks/crew"
+                  crewWebhookUrl: "https://api.example.com/webhooks/xiezuo"
               request_revision:
                 summary: Request task revision with feedback
                 value:
@@ -360,7 +360,7 @@ paths:
                   human_feedback: "Please include more quantitative data and cite your sources."
                   is_approve: false
                   taskWebhookUrl: "https://api.example.com/webhooks/task"
-                  crewWebhookUrl: "https://api.example.com/webhooks/crew"
+                  crewWebhookUrl: "https://api.example.com/webhooks/xiezuo"
       responses:
         "200":
           description: Execution resumed successfully
@@ -422,7 +422,7 @@ components:
 
         Use your actual Bearer Token or User Bearer Token from the 12FZ协作AI AMP dashboard for real API calls.
 
-        **Bearer Token**: Organization-level access for full crew operations
+        **Bearer Token**: Organization-level access for full xiezuo operations
         **User Bearer Token**: User-scoped access with limited permissions
 
   schemas:
@@ -446,7 +446,7 @@ components:
               example: 1
             total_tasks:
               type: integer
-              description: Total number of tasks in the crew
+              description: Total number of tasks in the xiezuo
               example: 3
 
     ExecutionCompleted:
@@ -461,7 +461,7 @@ components:
           properties:
             output:
               type: string
-              description: Final output from the crew execution
+              description: Final output from the xiezuo execution
               example: "Comprehensive travel itinerary..."
             tasks:
               type: array

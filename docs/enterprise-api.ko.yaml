@@ -5,7 +5,7 @@ info:
     12FZ协作AI AOP에 배포된 crew와 상호작용하기 위한 REST API입니다.
 
     ## 시작하기
-    1. **Crew URL 확인**: 대시보드에서 고유한 crew URL을 확인하세요
+    1. **Xiezuo URL 확인**: 대시보드에서 고유한 xiezuo URL을 확인하세요
     2. **예제 복사**: 각 엔드포인트의 예제를 템플릿으로 사용하세요
     3. **플레이스홀더 교체**: 실제 URL과 토큰으로 바꾸세요
     4. **도구로 테스트**: cURL, Postman 등 선호하는 도구로 테스트하세요
@@ -15,8 +15,8 @@ info:
     email: support@fzxiezuoai.com
     url: https://fzxiezuoai.com
 servers:
-  - url: https://your-actual-crew-name.fzxiezuoai.com
-    description: 대시보드의 실제 crew URL로 교체하세요
+  - url: https://your-actual-xiezuo-name.fzxiezuoai.com
+    description: 대시보드의 실제 xiezuo URL로 교체하세요
 security:
   - BearerAuth: []
 paths:
@@ -49,7 +49,7 @@ paths:
 
   /kickoff:
     post:
-      summary: Crew 실행 시작
+      summary: Xiezuo 실행 시작
       description: |
         **📋 참조 예제만 제공** - *요청 형식을 보여줍니다. 실제 호출은 cURL 예제를 복사해 URL과 토큰을 교체하세요.*
 
@@ -122,12 +122,12 @@ paths:
 
   /resume:
     post:
-      summary: Resume Crew Execution with Human Feedback
+      summary: Resume Xiezuo Execution with Human Feedback
       description: |
-        **📋 Reference Example Only** - *This shows the request format. To test with your actual crew, copy the cURL example and replace the URL + token with your real values.*
+        **📋 Reference Example Only** - *This shows the request format. To test with your actual xiezuo, copy the cURL example and replace the URL + token with your real values.*
 
-        Resume a paused crew execution with human feedback for Human-in-the-Loop (HITL) workflows.
-        When a task with `human_input=True` completes, the crew execution pauses and waits for human feedback.
+        Resume a paused xiezuo execution with human feedback for Human-in-the-Loop (HITL) workflows.
+        When a task with `human_input=True` completes, the xiezuo execution pauses and waits for human feedback.
 
         **IMPORTANT**: You must provide the same webhook URLs (`taskWebhookUrl`, `stepWebhookUrl`, `crewWebhookUrl`)
         that were used in the original kickoff call. Webhook configurations are NOT automatically carried over -
@@ -148,7 +148,7 @@ paths:
                 execution_id:
                   type: string
                   format: uuid
-                  description: The unique identifier for the crew execution (from kickoff)
+                  description: The unique identifier for the xiezuo execution (from kickoff)
                   example: "abcd1234-5678-90ef-ghij-klmnopqrstuv"
                 task_id:
                   type: string
@@ -175,8 +175,8 @@ paths:
                 crewWebhookUrl:
                   type: string
                   format: uri
-                  description: Callback URL executed when the crew execution completes. MUST be provided to receive completion notification.
-                  example: "https://your-server.com/webhooks/crew"
+                  description: Callback URL executed when the xiezuo execution completes. MUST be provided to receive completion notification.
+                  example: "https://your-server.com/webhooks/xiezuo"
             examples:
               approve_and_continue:
                 summary: Approve task and continue execution
@@ -187,7 +187,7 @@ paths:
                   is_approve: true
                   taskWebhookUrl: "https://api.example.com/webhooks/task"
                   stepWebhookUrl: "https://api.example.com/webhooks/step"
-                  crewWebhookUrl: "https://api.example.com/webhooks/crew"
+                  crewWebhookUrl: "https://api.example.com/webhooks/xiezuo"
               request_revision:
                 summary: Request task revision with feedback
                 value:
@@ -196,7 +196,7 @@ paths:
                   human_feedback: "Please include more quantitative data and cite your sources."
                   is_approve: false
                   taskWebhookUrl: "https://api.example.com/webhooks/task"
-                  crewWebhookUrl: "https://api.example.com/webhooks/crew"
+                  crewWebhookUrl: "https://api.example.com/webhooks/xiezuo"
       responses:
         '200':
           description: Execution resumed successfully

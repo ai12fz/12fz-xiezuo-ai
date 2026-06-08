@@ -21,7 +21,7 @@ def create_flow(name: str) -> None:
     telemetry.flow_creation_span(class_name)
 
     (project_root / "src" / folder_name).mkdir(parents=True)
-    (project_root / "src" / folder_name / "crews").mkdir(parents=True)
+    (project_root / "src" / folder_name / "xiezuos").mkdir(parents=True)
     (project_root / "src" / folder_name / "tools").mkdir(parents=True)
     (project_root / "tests").mkdir(exist_ok=True)
 
@@ -39,8 +39,8 @@ def create_flow(name: str) -> None:
     src_template_files = ["__init__.py", "main.py"]
     tools_template_files = ["tools/__init__.py", "tools/custom_tool.py"]
 
-    crew_folders = [
-        "content_crew",
+    xiezuo_folders = [
+        "content_xiezuo",
     ]
 
     def process_file(src_file: Path, dst_file: Path) -> None:
@@ -76,19 +76,19 @@ def create_flow(name: str) -> None:
         dst_file = project_root / "src" / folder_name / file_name
         process_file(src_file, dst_file)
 
-    for crew_folder in crew_folders:
-        src_crew_folder = templates_dir / "crews" / crew_folder
-        dst_crew_folder = project_root / "src" / folder_name / "crews" / crew_folder
-        if src_crew_folder.exists():
-            for src_file in src_crew_folder.rglob("*"):
+    for xiezuo_folder in xiezuo_folders:
+        src_xiezuo_folder = templates_dir / "xiezuos" / xiezuo_folder
+        dst_xiezuo_folder = project_root / "src" / folder_name / "xiezuos" / xiezuo_folder
+        if src_xiezuo_folder.exists():
+            for src_file in src_xiezuo_folder.rglob("*"):
                 if src_file.is_file():
-                    relative_path = src_file.relative_to(src_crew_folder)
-                    dst_file = dst_crew_folder / relative_path
+                    relative_path = src_file.relative_to(src_xiezuo_folder)
+                    dst_file = dst_xiezuo_folder / relative_path
                     dst_file.parent.mkdir(parents=True, exist_ok=True)
                     process_file(src_file, dst_file)
         else:
             click.secho(
-                f"Warning: Crew folder {crew_folder} not found in template.",
+                f"Warning: Xiezuo folder {xiezuo_folder} not found in template.",
                 fg="yellow",
             )
 

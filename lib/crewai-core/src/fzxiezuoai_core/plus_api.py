@@ -11,7 +11,7 @@ from typing_extensions import NotRequired
 
 from fzxiezuoai_core.constants import DEFAULT_CREWAI_ENTERPRISE_URL
 from fzxiezuoai_core.settings import Settings
-from fzxiezuoai_core.version import get_crewai_version
+from fzxiezuoai_core.version import get_fzxiezuoai_version
 
 
 HttpMethod = Literal["GET", "POST", "PATCH", "DELETE"]
@@ -149,7 +149,7 @@ class PlusAPI:
     INTEGRATIONS_RESOURCE: Final = "/crewai_plus/api/v1/integrations"
 
     def __init__(self, api_key: str | None = None) -> None:
-        version = get_crewai_version()
+        version = get_fzxiezuoai_version()
         self.api_key = api_key
         self.headers: Headers = {
             "Content-Type": "application/json",

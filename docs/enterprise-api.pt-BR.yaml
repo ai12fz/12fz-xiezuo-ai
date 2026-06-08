@@ -2,11 +2,11 @@ openapi: 3.0.3
 info:
   title: 12FZ协作AI AMP API
   description: |
-    REST API para interagir com suas crews implantadas no 12FZ协作AI AMP.
+    REST API para interagir com suas xiezuos implantadas no 12FZ协作AI AMP.
 
     ## Introdução
 
-    1. **Encontre a URL da sua crew**: Obtenha sua URL única no painel do 12FZ协作AI AMP
+    1. **Encontre a URL da sua xiezuo**: Obtenha sua URL única no painel do 12FZ协作AI AMP
     2. **Copie os exemplos**: Use os exemplos de cada endpoint como modelo
     3. **Substitua os placeholders**: Atualize URLs e tokens com seus valores reais
     4. **Teste com suas ferramentas**: Use cURL, Postman ou seu cliente preferido
@@ -18,7 +18,7 @@ info:
     - **Bearer Token**: Token em nível de organização para operações completas
     - **User Bearer Token**: Token com escopo de usuário com permissões limitadas
 
-    Você encontra os tokens na aba Status da sua crew no painel do 12FZ协作AI AMP.
+    Você encontra os tokens na aba Status da sua xiezuo no painel do 12FZ协作AI AMP.
 
     ## Documentação de Referência
 
@@ -42,8 +42,8 @@ info:
     email: support@fzxiezuoai.com
     url: https://fzxiezuoai.com
 servers:
-  - url: https://your-actual-crew-name.fzxiezuoai.com
-    description: Substitua pela URL real da sua crew no painel do 12FZ协作AI AMP
+  - url: https://your-actual-xiezuo-name.fzxiezuoai.com
+    description: Substitua pela URL real da sua xiezuo no painel do 12FZ协作AI AMP
 security:
   - BearerAuth: []
 paths:
@@ -51,9 +51,9 @@ paths:
     get:
       summary: Obter Inputs Requeridos
       description: |
-        **📋 Exemplo de Referência** - *Mostra o formato da requisição. Para testar com sua crew real, copie o cURL e substitua URL + token.*
+        **📋 Exemplo de Referência** - *Mostra o formato da requisição. Para testar com sua xiezuo real, copie o cURL e substitua URL + token.*
 
-        Retorna a lista de parâmetros de entrada que sua crew espera.
+        Retorna a lista de parâmetros de entrada que sua xiezuo espera.
       operationId: getRequiredInputs
       responses:
         "200":
@@ -78,11 +78,11 @@ paths:
 
   /kickoff:
     post:
-      summary: Iniciar Execução da Crew
+      summary: Iniciar Execução da Xiezuo
       description: |
-        **📋 Exemplo de Referência** - *Mostra o formato da requisição. Para testar com sua crew real, copie o cURL e substitua URL + token.*
+        **📋 Exemplo de Referência** - *Mostra o formato da requisição. Para testar com sua xiezuo real, copie o cURL e substitua URL + token.*
 
-        Inicia uma nova execução da crew com os inputs fornecidos e retorna um kickoff ID.
+        Inicia uma nova execução da xiezuo com os inputs fornecidos e retorna um kickoff ID.
       operationId: startCrewExecution
       requestBody:
         required: true
@@ -124,7 +124,7 @@ paths:
     get:
       summary: Obter Status da Execução
       description: |
-        **📋 Exemplo de Referência** - *Mostra o formato da requisição. Para testar com sua crew real, copie o cURL e substitua URL + token.*
+        **📋 Exemplo de Referência** - *Mostra o formato da requisição. Para testar com sua xiezuo real, copie o cURL e substitua URL + token.*
 
         Retorna o status atual e os resultados de uma execução usando o kickoff ID.
       operationId: getExecutionStatus
@@ -158,12 +158,12 @@ paths:
 
   /resume:
     post:
-      summary: Resume Crew Execution with Human Feedback
+      summary: Resume Xiezuo Execution with Human Feedback
       description: |
-        **📋 Reference Example Only** - *This shows the request format. To test with your actual crew, copy the cURL example and replace the URL + token with your real values.*
+        **📋 Reference Example Only** - *This shows the request format. To test with your actual xiezuo, copy the cURL example and replace the URL + token with your real values.*
 
-        Resume a paused crew execution with human feedback for Human-in-the-Loop (HITL) workflows.
-        When a task with `human_input=True` completes, the crew execution pauses and waits for human feedback.
+        Resume a paused xiezuo execution with human feedback for Human-in-the-Loop (HITL) workflows.
+        When a task with `human_input=True` completes, the xiezuo execution pauses and waits for human feedback.
 
         **IMPORTANT**: You must provide the same webhook URLs (`taskWebhookUrl`, `stepWebhookUrl`, `crewWebhookUrl`)
         that were used in the original kickoff call. Webhook configurations are NOT automatically carried over -
@@ -184,7 +184,7 @@ paths:
                 execution_id:
                   type: string
                   format: uuid
-                  description: The unique identifier for the crew execution (from kickoff)
+                  description: The unique identifier for the xiezuo execution (from kickoff)
                   example: "abcd1234-5678-90ef-ghij-klmnopqrstuv"
                 task_id:
                   type: string
@@ -211,8 +211,8 @@ paths:
                 crewWebhookUrl:
                   type: string
                   format: uri
-                  description: Callback URL executed when the crew execution completes. MUST be provided to receive completion notification.
-                  example: "https://your-server.com/webhooks/crew"
+                  description: Callback URL executed when the xiezuo execution completes. MUST be provided to receive completion notification.
+                  example: "https://your-server.com/webhooks/xiezuo"
             examples:
               approve_and_continue:
                 summary: Approve task and continue execution
@@ -223,7 +223,7 @@ paths:
                   is_approve: true
                   taskWebhookUrl: "https://api.example.com/webhooks/task"
                   stepWebhookUrl: "https://api.example.com/webhooks/step"
-                  crewWebhookUrl: "https://api.example.com/webhooks/crew"
+                  crewWebhookUrl: "https://api.example.com/webhooks/xiezuo"
               request_revision:
                 summary: Request task revision with feedback
                 value:
@@ -232,7 +232,7 @@ paths:
                   human_feedback: "Please include more quantitative data and cite your sources."
                   is_approve: false
                   taskWebhookUrl: "https://api.example.com/webhooks/task"
-                  crewWebhookUrl: "https://api.example.com/webhooks/crew"
+                  crewWebhookUrl: "https://api.example.com/webhooks/xiezuo"
       responses:
         "200":
           description: Execution resumed successfully

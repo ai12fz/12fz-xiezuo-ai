@@ -45,7 +45,7 @@ class SkillCommand(BaseCommand, PlusAPIMixin):
     def create(self, name: str, in_project: bool = True) -> None:
         """Scaffold a new skill directory.
 
-        If pyproject.toml is present (crew project), creates ./skills/{name}/.
+        If pyproject.toml is present (xiezuo project), creates ./skills/{name}/.
         Otherwise creates ./{name}/.
         """
         if in_project and os.path.isfile("pyproject.toml"):
@@ -75,7 +75,7 @@ class SkillCommand(BaseCommand, PlusAPIMixin):
 
         Format: @org/name
 
-        Inside a crew project (pyproject.toml present): installs to ./skills/{name}/
+        Inside a xiezuo project (pyproject.toml present): installs to ./skills/{name}/
         Outside a project: installs to ~/.fzxiezuoai/skills/{org}/{name}/
         """
         if not ref.startswith("@"):
@@ -170,7 +170,7 @@ class SkillCommand(BaseCommand, PlusAPIMixin):
                     "version": version,
                     "installed_at": datetime.now(tz=timezone.utc).isoformat(),
                 }
-                (cache_dir / ".crewai_meta.json").write_text(json.dumps(meta, indent=2))
+                (cache_dir / ".fzxiezuoai_meta.json").write_text(json.dumps(meta, indent=2))
             console.print(
                 f"[green]Installed [bold]{ref}[/bold]{' (' + version + ')' if version else ''} to global cache.[/green]"
             )
@@ -245,7 +245,7 @@ class SkillCommand(BaseCommand, PlusAPIMixin):
             f"[green]Published [bold]{effective_org}/{name}[/bold] v{version}.\n\n"
             "Security checks are running in the background. "
             "Your skill will be available once checks complete.\n"
-            f"Monitor status at: {base_url}/crewai_plus/skills/{effective_org}/{name}[/green]"
+            f"Monitor status at: {base_url}/fzxiezuoai_plus/skills/{effective_org}/{name}[/green]"
         )
 
     def list_cached(self) -> None:
@@ -274,7 +274,7 @@ class SkillCommand(BaseCommand, PlusAPIMixin):
                 if not org_dir.is_dir():
                     continue
                 for skill_dir in sorted(org_dir.iterdir()):
-                    meta_file = skill_dir / ".crewai_meta.json"
+                    meta_file = skill_dir / ".fzxiezuoai_meta.json"
                     if meta_file.exists():
                         try:
                             meta = json.loads(meta_file.read_text())

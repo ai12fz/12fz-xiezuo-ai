@@ -1,11 +1,11 @@
-from crewai import Agent, Crew, Process, Task
-from crewai.project import CrewBase, agent, crew, task
-from crewai.agents.agent_builder.base_agent import BaseAgent
+from fzxiezuoai import Agent, Xiezuo, Process, Task
+from fzxiezuoai.project import CrewBase, agent, xiezuo, task
+from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
 
 
-@CrewBase
-class {{crew_name}}():
-    """{{crew_name}} crew"""
+@XiezuoBase
+class {{xiezuo_name}}():
+    """{{xiezuo_name}} xiezuo"""
 
     agents: list[BaseAgent]
     tasks: list[Task]
@@ -37,10 +37,10 @@ class {{crew_name}}():
             output_file='report.md'
         )
 
-    @crew
-    def crew(self) -> Crew:
-        """Creates the {{crew_name}} crew"""
-        return Crew(
+    @xiezuo
+    def xiezuo(self) -> Xiezuo:
+        """Creates the {{xiezuo_name}} xiezuo"""
+        return Xiezuo(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.sequential,
