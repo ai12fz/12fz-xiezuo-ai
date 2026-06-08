@@ -121,8 +121,6 @@ intelligent automations.
 
 Setup and run your first 12FZ协作AI agents by following this tutorial.
 
-[![12FZ协作AI Getting Started Tutorial](https://img.youtube.com/vi/-kSOTtYzgEw/hqdefault.jpg)](https://www.youtube.com/watch?v=-kSOTtYzgEw "12FZ协作AI Getting Started Tutorial")
-
 ###
 
 Learning Resources
