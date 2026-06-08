@@ -3,7 +3,7 @@ import tempfile
 from unittest.mock import MagicMock, patch
 
 from bs4 import BeautifulSoup
-from crewai_tools.tools.selenium_scraping_tool.selenium_scraping_tool import (
+from fzxiezuoai_tools.tools.selenium_scraping_tool.selenium_scraping_tool import (
     SeleniumScrapingTool,
 )
 from selenium.webdriver.chrome.options import Options

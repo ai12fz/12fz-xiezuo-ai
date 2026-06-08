@@ -9,8 +9,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from pydantic import BaseModel, Field
 
-from crewai.tools.base_tool import BaseTool
-from crewai.utilities.agent_utils import (
+from fzxiezuoai.tools.base_tool import BaseTool
+from fzxiezuoai.utilities.agent_utils import (
     _asummarize_chunks,
     _estimate_token_count,
     _extract_summary_tags,
@@ -808,7 +808,7 @@ class TestParallelSummarization:
         assert results[0]["content"] == "Result A"
         assert results[1]["content"] == "Result B"
 
-    @patch("crewai.utilities.agent_utils.is_inside_event_loop", return_value=True)
+    @patch("fzxiezuoai.utilities.agent_utils.is_inside_event_loop", return_value=True)
     def test_works_inside_existing_event_loop(self, _mock_loop: Any) -> None:
         """When called from inside a running event loop (e.g. a Flow),
         the ThreadPoolExecutor fallback should still work."""
@@ -916,13 +916,13 @@ class TestParallelSummarizationVCR:
     multiple chunks, exercising the asyncio.gather + acall parallel path.
 
     To record cassettes:
-        PYTEST_VCR_RECORD_MODE=all uv run pytest lib/crewai/tests/utilities/test_agent_utils.py::TestParallelSummarizationVCR -v
+        PYTEST_VCR_RECORD_MODE=all uv run pytest lib/fzxiezuoai/tests/utilities/test_agent_utils.py::TestParallelSummarizationVCR -v
     """
 
     @pytest.mark.vcr()
     def test_parallel_summarize_openai(self) -> None:
         """Test that parallel summarization with gpt-4o-mini produces a valid summary."""
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm = LLM(model="gpt-4o-mini", temperature=0)
         messages = _build_long_conversation()
@@ -953,7 +953,7 @@ class TestParallelSummarizationVCR:
     @pytest.mark.vcr()
     def test_parallel_summarize_preserves_files(self) -> None:
         """Test that file references survive parallel summarization."""
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm = LLM(model="gpt-4o-mini", temperature=0)
         messages = _build_long_conversation()
@@ -1033,7 +1033,7 @@ class TestExecuteSingleNativeToolCall:
     def test_result_as_answer_false_on_tool_error(self) -> None:
         """When a tool with result_as_answer=True raises, result_as_answer must be False.
 
-        Regression test for https://github.com/crewAIInc/crewAI/issues/5156
+        Regression test for https://github.com/crewAIInc/12FZ协作AI/issues/5156
         """
         from unittest.mock import MagicMock
 
@@ -1073,7 +1073,7 @@ class TestExecuteSingleNativeToolCall:
         """When a before-hook blocks a tool with result_as_answer=True, result_as_answer must be False."""
         from unittest.mock import MagicMock
 
-        from crewai.hooks.tool_hooks import (
+        from fzxiezuoai.hooks.tool_hooks import (
             clear_before_tool_call_hooks,
             register_before_tool_call_hook,
         )

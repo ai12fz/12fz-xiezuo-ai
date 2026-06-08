@@ -3,10 +3,10 @@
 import io
 from unittest.mock import patch
 
-from crewai_files import ImageFile, PDFFile, TextFile
-from crewai_files.core.sources import FileBytes
-from crewai_files.processing.exceptions import ProcessingDependencyError
-from crewai_files.processing.transformers import (
+from fzxiezuoai_files import ImageFile, PDFFile, TextFile
+from fzxiezuoai_files.core.sources import FileBytes
+from fzxiezuoai_files.processing.exceptions import ProcessingDependencyError
+from fzxiezuoai_files.processing.transformers import (
     chunk_pdf,
     chunk_text,
     get_image_dimensions,
@@ -111,7 +111,7 @@ class TestResizeImage:
                 # Force reimport to trigger ImportError
                 import importlib
 
-                import crewai_files.processing.transformers as t
+                import fzxiezuoai_files.processing.transformers as t
 
                 importlib.reload(t)
                 t.resize_image(img, 100, 100)

@@ -14,7 +14,7 @@ pytest.importorskip("sqlalchemy")
 
 from sqlalchemy import create_engine, text  # noqa: E402
 
-from crewai_tools.tools.nl2sql.nl2sql_tool import NL2SQLTool  # noqa: E402
+from fzxiezuoai_tools.tools.nl2sql.nl2sql_tool import NL2SQLTool  # noqa: E402
 
 
 SQLITE_URI = "sqlite://"  # in-memory
@@ -177,9 +177,9 @@ class TestNoCommitForReadOnly:
         mock_session_cls = MagicMock(return_value=mock_session)
 
         with (
-            patch("crewai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
+            patch("fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
             patch(
-                "crewai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
+                "fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
                 return_value=mock_session_cls,
             ),
         ):
@@ -198,9 +198,9 @@ class TestNoCommitForReadOnly:
         mock_session_cls = MagicMock(return_value=mock_session)
 
         with (
-            patch("crewai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
+            patch("fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
             patch(
-                "crewai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
+                "fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
                 return_value=mock_session_cls,
             ),
         ):
@@ -430,9 +430,9 @@ class TestMultiStatementCommit:
         mock_session_cls = MagicMock(return_value=mock_session)
 
         with (
-            patch("crewai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
+            patch("fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
             patch(
-                "crewai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
+                "fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
                 return_value=mock_session_cls,
             ),
         ):
@@ -453,9 +453,9 @@ class TestMultiStatementCommit:
         mock_session_cls = MagicMock(return_value=mock_session)
 
         with (
-            patch("crewai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
+            patch("fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
             patch(
-                "crewai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
+                "fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
                 return_value=mock_session_cls,
             ),
         ):
@@ -474,9 +474,9 @@ class TestMultiStatementCommit:
         mock_session_cls = MagicMock(return_value=mock_session)
 
         with (
-            patch("crewai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
+            patch("fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
             patch(
-                "crewai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
+                "fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
                 return_value=mock_session_cls,
             ),
         ):
@@ -559,9 +559,9 @@ class TestExplainAnalyzeCommit:
         mock_session_cls = MagicMock(return_value=mock_session)
 
         with (
-            patch("crewai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
+            patch("fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.create_engine"),
             patch(
-                "crewai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
+                "fzxiezuoai_tools.tools.nl2sql.nl2sql_tool.sessionmaker",
                 return_value=mock_session_cls,
             ),
         ):

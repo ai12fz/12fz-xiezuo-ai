@@ -1,10 +1,10 @@
 from datetime import datetime
 from unittest.mock import patch
 
-from crewai.agent import Agent
-from crewai.task import Task
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
 
-MOCK_TARGET = "crewai.agent.core.datetime"
+MOCK_TARGET = "fzxiezuoai.agent.core.datetime"
 
 
 def test_agent_inject_date():

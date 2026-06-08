@@ -18,7 +18,7 @@ from typing import Any
 import pytest
 from pydantic import BaseModel
 
-from crewai.utilities.pydantic_schema_utils import (
+from fzxiezuoai.utilities.pydantic_schema_utils import (
     build_rich_field_description,
     convert_oneof_to_anyof,
     create_model_from_schema,
@@ -915,7 +915,7 @@ MUTUAL_RECURSION_SCHEMA: dict = {
 
 class TestResolveRefsRecursive:
     def test_circular_ref_preserves_type(self) -> None:
-        from crewai.utilities.pydantic_schema_utils import resolve_refs
+        from fzxiezuoai.utilities.pydantic_schema_utils import resolve_refs
 
         resolved = resolve_refs(deepcopy(RECURSIVE_NODE_SCHEMA))
         items = resolved["properties"]["children"]["items"]
@@ -923,7 +923,7 @@ class TestResolveRefsRecursive:
         assert items.get("type") == "object"
 
     def test_non_recursive_schema_still_resolves(self) -> None:
-        from crewai.utilities.pydantic_schema_utils import resolve_refs
+        from fzxiezuoai.utilities.pydantic_schema_utils import resolve_refs
 
         schema = {
             "$defs": {"Foo": {"type": "object", "properties": {"x": {"type": "integer"}}}},
@@ -935,7 +935,7 @@ class TestResolveRefsRecursive:
 
 class TestSanitizeRecursiveSchemas:
     def test_anthropic_strict_preserves_recursive_type(self) -> None:
-        from crewai.utilities.pydantic_schema_utils import sanitize_tool_params_for_anthropic_strict
+        from fzxiezuoai.utilities.pydantic_schema_utils import sanitize_tool_params_for_anthropic_strict
 
         san = sanitize_tool_params_for_anthropic_strict(deepcopy(RECURSIVE_NODE_SCHEMA))
         items = san["properties"]["children"]["items"]
@@ -943,7 +943,7 @@ class TestSanitizeRecursiveSchemas:
         assert items.get("type") == "object"
 
     def test_openai_strict_preserves_recursive_type(self) -> None:
-        from crewai.utilities.pydantic_schema_utils import sanitize_tool_params_for_openai_strict
+        from fzxiezuoai.utilities.pydantic_schema_utils import sanitize_tool_params_for_openai_strict
 
         san = sanitize_tool_params_for_openai_strict(deepcopy(RECURSIVE_NODE_SCHEMA))
         items = san["properties"]["children"]["items"]

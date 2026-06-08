@@ -1,8 +1,8 @@
 from typing import List
 from unittest.mock import MagicMock, patch
 
-from crewai.utilities.converter import ConverterError
-from crewai.utilities.training_converter import TrainingConverter
+from fzxiezuoai.utilities.converter import ConverterError
+from fzxiezuoai.utilities.training_converter import TrainingConverter
 from pydantic import BaseModel, Field
 
 
@@ -24,7 +24,7 @@ class TestTrainingConverter:
             instructions=self.test_instructions,
         )
 
-    @patch("crewai.utilities.converter.Converter.to_pydantic")
+    @patch("fzxiezuoai.utilities.converter.Converter.to_pydantic")
     def test_fallback_to_field_by_field(self, parent_to_pydantic_mock):
         parent_to_pydantic_mock.side_effect = ConverterError(
             "Failed to convert directly"
@@ -86,7 +86,7 @@ class TestTrainingConverter:
 
     def test_process_field_value_list_with_json(self):
         response = '["Item 1", "Item 2", "Item 3"]'
-        with patch("crewai.utilities.training_converter.json.loads") as json_mock:
+        with patch("fzxiezuoai.utilities.training_converter.json.loads") as json_mock:
             json_mock.return_value = ["Item 1", "Item 2", "Item 3"]
             result = self.converter._process_field_value(response, List[str])
             assert result == ["Item 1", "Item 2", "Item 3"]

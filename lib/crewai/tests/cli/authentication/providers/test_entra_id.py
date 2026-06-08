@@ -1,7 +1,7 @@
 import pytest
 
-from crewai.auth.oauth2 import Oauth2Settings
-from crewai.auth.providers.entra_id import EntraIdProvider
+from fzxiezuoai.auth.oauth2 import Oauth2Settings
+from fzxiezuoai.auth.providers.entra_id import EntraIdProvider
 
 
 class TestEntraIdProvider:
@@ -13,7 +13,7 @@ class TestEntraIdProvider:
             client_id="test-client-id",
             audience="test-audience",
             extra={
-                "scope": "openid profile email api://crewai-cli-dev/read"
+                "scope": "openid profile email api://fzxiezuoai-cli-dev/read"
             }
         )
         self.provider = EntraIdProvider(self.valid_settings)
@@ -118,11 +118,11 @@ class TestEntraIdProvider:
             client_id="test-client-id",
             audience="test-audience",
             extra={
-                "scope": "api://crewai-cli-dev/read"
+                "scope": "api://fzxiezuoai-cli-dev/read"
             }
         )
         provider = EntraIdProvider(settings)
-        assert provider.get_oauth_scopes() == ["openid", "profile", "email", "api://crewai-cli-dev/read"]
+        assert provider.get_oauth_scopes() == ["openid", "profile", "email", "api://fzxiezuoai-cli-dev/read"]
     
     def test_get_oauth_scopes_with_multiple_custom_scopes(self):
         settings = Oauth2Settings(  
@@ -131,11 +131,11 @@ class TestEntraIdProvider:
             client_id="test-client-id",
             audience="test-audience",
             extra={
-                "scope": "api://crewai-cli-dev/read api://crewai-cli-dev/write custom-scope1 custom-scope2"
+                "scope": "api://fzxiezuoai-cli-dev/read api://fzxiezuoai-cli-dev/write custom-scope1 custom-scope2"
             }
         )
         provider = EntraIdProvider(settings)
-        assert provider.get_oauth_scopes() == ["openid", "profile", "email", "api://crewai-cli-dev/read", "api://crewai-cli-dev/write", "custom-scope1", "custom-scope2"]
+        assert provider.get_oauth_scopes() == ["openid", "profile", "email", "api://fzxiezuoai-cli-dev/read", "api://fzxiezuoai-cli-dev/write", "custom-scope1", "custom-scope2"]
 
     def test_base_url(self):
         assert self.provider._base_url() == "https://login.microsoftonline.com/tenant-id-abcdef123456"

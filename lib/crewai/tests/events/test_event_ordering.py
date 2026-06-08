@@ -2,34 +2,34 @@
 
 import pytest
 
-from crewai.agent import Agent
-from crewai.crew import Crew
-from crewai.events.base_events import BaseEvent
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.agent_events import (
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.events.base_events import BaseEvent
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.agent_events import (
     AgentExecutionCompletedEvent,
     AgentExecutionStartedEvent,
 )
-from crewai.events.types.crew_events import (
+from fzxiezuoai.events.types.crew_events import (
     CrewKickoffCompletedEvent,
     CrewKickoffStartedEvent,
 )
-from crewai.events.types.flow_events import (
+from fzxiezuoai.events.types.flow_events import (
     FlowFinishedEvent,
     FlowStartedEvent,
     MethodExecutionFinishedEvent,
     MethodExecutionStartedEvent,
 )
-from crewai.events.types.llm_events import (
+from fzxiezuoai.events.types.llm_events import (
     LLMCallCompletedEvent,
     LLMCallStartedEvent,
 )
-from crewai.events.types.task_events import (
+from fzxiezuoai.events.types.task_events import (
     TaskCompletedEvent,
     TaskStartedEvent,
 )
-from crewai.flow.flow import Flow, listen, start
-from crewai.task import Task
+from fzxiezuoai.flow.flow import Flow, listen, start
+from fzxiezuoai.task import Task
 
 
 class EventCollector:
@@ -524,8 +524,8 @@ class TestPreviousEventIdChain:
     @pytest.mark.asyncio
     async def test_previous_event_id_chain(self) -> None:
         """Events should have previous_event_id pointing to the prior event."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -582,8 +582,8 @@ class TestPreviousEventIdChain:
     @pytest.mark.asyncio
     async def test_first_event_has_previous_pointing_back(self) -> None:
         """Non-first events should have previous_event_id set."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         events: list[BaseEvent] = []
 
@@ -632,8 +632,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_triggered_by_event_id_for_listeners(self) -> None:
         """Listener events should have triggered_by_event_id pointing to the triggering method_execution_finished event."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -683,8 +683,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_start_method_has_no_triggered_by(self) -> None:
         """Start method events should have triggered_by_event_id=None."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -715,8 +715,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_chained_listeners_triggered_by(self) -> None:
         """Chained listeners should have triggered_by_event_id pointing to their triggering method."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -777,8 +777,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_parallel_listeners_same_trigger(self) -> None:
         """Parallel listeners should all have triggered_by_event_id pointing to the same triggering event."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -844,9 +844,9 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_or_condition_triggered_by(self) -> None:
         """Listener with OR condition should have triggered_by_event_id pointing to whichever method triggered it."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
-        from crewai.flow.flow import or_
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
+        from fzxiezuoai.flow.flow import or_
 
         reset_emission_counter()
         reset_last_event_id()
@@ -895,9 +895,9 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_router_triggered_by(self) -> None:
         """Events from router-triggered paths should have correct triggered_by_event_id."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
-        from crewai.flow.flow import router
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
+        from fzxiezuoai.flow.flow import router
 
         reset_emission_counter()
         reset_last_event_id()
@@ -960,8 +960,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_multiple_kickoffs_maintain_chains(self) -> None:
         """Multiple akickoff() calls should maintain correct triggered_by chains for each execution."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1053,8 +1053,8 @@ class TestTriggeredByEventId:
         """Parallel flow executions should maintain correct triggered_by chains independently."""
         import asyncio
 
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1130,9 +1130,9 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_and_condition_triggered_by_last_method(self) -> None:
         """AND condition listener should have triggered_by_event_id pointing to the last completing method."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
-        from crewai.flow.flow import and_
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
+        from fzxiezuoai.flow.flow import and_
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1185,9 +1185,9 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_exception_handling_triggered_by(self) -> None:
         """Events emitted after exception should still have correct triggered_by."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
-        from crewai.events.types.flow_events import MethodExecutionFailedEvent
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.types.flow_events import MethodExecutionFailedEvent
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1234,8 +1234,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_sync_method_in_flow_triggered_by(self) -> None:
         """Synchronous methods should still have correct triggered_by."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1282,8 +1282,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_multiple_start_methods_triggered_by(self) -> None:
         """Multiple start methods should each have triggered_by_event_id=None."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1327,8 +1327,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_none_return_triggered_by(self) -> None:
         """Methods returning None should still have correct triggered_by chain."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1375,8 +1375,8 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_deeply_nested_chain_triggered_by(self) -> None:
         """Deeply nested listener chains (5+) should maintain correct triggered_by."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1442,9 +1442,9 @@ class TestTriggeredByEventId:
     @pytest.mark.asyncio
     async def test_router_conditional_path_triggered_by(self) -> None:
         """Router with conditional paths should have correct triggered_by for the selected path."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
-        from crewai.flow.flow import router
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
+        from fzxiezuoai.flow.flow import router
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1510,8 +1510,8 @@ class TestCrewEventsInFlowTriggeredBy:
     @pytest.mark.asyncio
     async def test_flow_listener_triggered_by_in_nested_context(self) -> None:
         """Nested listener contexts should maintain correct triggered_by chains."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()
@@ -1577,8 +1577,8 @@ class TestCrewEventsInFlowTriggeredBy:
 
     def test_sync_kickoff_triggered_by(self) -> None:
         """Synchronous kickoff() should maintain correct triggered_by chains."""
-        from crewai.events.base_events import reset_emission_counter
-        from crewai.events.event_context import reset_last_event_id
+        from fzxiezuoai.events.base_events import reset_emission_counter
+        from fzxiezuoai.events.event_context import reset_last_event_id
 
         reset_emission_counter()
         reset_last_event_id()

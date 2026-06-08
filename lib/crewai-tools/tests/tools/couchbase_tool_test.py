@@ -42,7 +42,7 @@ sys.modules["couchbase.options"] = mock_couchbase.options
 sys.modules["couchbase.vector_search"] = mock_couchbase.vector_search
 sys.modules["couchbase.exceptions"] = mock_couchbase.exceptions
 
-from crewai_tools.tools.couchbase_tool.couchbase_tool import (
+from fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool import (
     CouchbaseFTSVectorSearchTool,
 )
 
@@ -150,7 +150,7 @@ def tool_config(mock_cluster, mock_embedding_function):
 @pytest.fixture
 def couchbase_tool(tool_config):
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         tool = CouchbaseFTSVectorSearchTool(**tool_config)
         return tool
@@ -199,7 +199,7 @@ def test_initialization_missing_required_args(mock_cluster, mock_embedding_funct
     required_keys = base_config.keys()
 
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         for key in required_keys:
             incomplete_config = base_config.copy()
@@ -211,7 +211,7 @@ def test_initialization_missing_required_args(mock_cluster, mock_embedding_funct
 def test_initialization_couchbase_unavailable():
     """Test behavior when couchbase library is not available."""
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", False
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", False
     ):
         with patch("click.confirm", return_value=False) as mock_confirm:
             with pytest.raises(
@@ -239,16 +239,16 @@ def test_run_success_scoped_index(
     # Mock the VectorQuery/VectorSearch/SearchRequest creation using runtime patching
     with (
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.VectorQuery"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.VectorQuery"
         ) as mock_vq,
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.VectorSearch"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.VectorSearch"
         ) as mock_vs,
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.search.SearchRequest"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.search.SearchRequest"
         ) as mock_sr,
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.SearchOptions"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.SearchOptions"
         ) as mock_so,
     ):
         # Set up the mock objects and their return values
@@ -293,7 +293,7 @@ def test_run_success_global_index(
     """Test successful _run execution with a global (non-scoped) index."""
     tool_config["scoped_index"] = False
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         couchbase_tool = CouchbaseFTSVectorSearchTool(**tool_config)
 
@@ -304,16 +304,16 @@ def test_run_success_global_index(
     # Mock the VectorQuery/VectorSearch/SearchRequest creation using runtime patching
     with (
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.VectorQuery"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.VectorQuery"
         ) as mock_vq,
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.VectorSearch"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.VectorSearch"
         ) as mock_vs,
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.search.SearchRequest"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.search.SearchRequest"
         ) as mock_sr,
         patch(
-            "crewai_tools.tools.couchbase_tool.couchbase_tool.SearchOptions"
+            "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.SearchOptions"
         ) as mock_so,
     ):
         # Set up the mock objects and their return values
@@ -357,7 +357,7 @@ def test_check_bucket_exists_fail(tool_config):
     )
 
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         with pytest.raises(ValueError, match="Bucket test_bucket does not exist."):
             CouchbaseFTSVectorSearchTool(**tool_config)
@@ -372,7 +372,7 @@ def test_check_scope_exists_fail(tool_config):
     mock_cluster.bucket().collections().get_all_scopes.return_value = [mock_scope_spec]
 
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         with pytest.raises(ValueError, match="Scope test_scope not found"):
             CouchbaseFTSVectorSearchTool(**tool_config)
@@ -390,7 +390,7 @@ def test_check_collection_exists_fail(tool_config):
     mock_cluster.bucket().collections().get_all_scopes.return_value = [mock_scope_spec]
 
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         with pytest.raises(ValueError, match="Collection test_collection not found"):
             CouchbaseFTSVectorSearchTool(**tool_config)
@@ -403,7 +403,7 @@ def test_check_index_exists_fail_scoped(tool_config):
     mock_cluster.bucket().scope().search_indexes().get_all_indexes.return_value = []
 
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         with pytest.raises(ValueError, match="Index test_index does not exist"):
             CouchbaseFTSVectorSearchTool(**tool_config)
@@ -417,7 +417,7 @@ def test_check_index_exists_fail_global(tool_config):
     mock_cluster.search_indexes().get_all_indexes.return_value = []
 
     with patch(
-        "crewai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
+        "fzxiezuoai_tools.tools.couchbase_tool.couchbase_tool.COUCHBASE_AVAILABLE", True
     ):
         with pytest.raises(ValueError, match="Index test_index does not exist"):
             CouchbaseFTSVectorSearchTool(**tool_config)

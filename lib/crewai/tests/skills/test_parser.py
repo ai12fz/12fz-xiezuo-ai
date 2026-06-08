@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from crewai.skills.models import INSTRUCTIONS, METADATA, RESOURCES
-from crewai.skills.parser import (
+from fzxiezuoai.skills.models import INSTRUCTIONS, METADATA, RESOURCES
+from fzxiezuoai.skills.parser import (
     SkillParseError,
     load_skill_instructions,
     load_skill_metadata,

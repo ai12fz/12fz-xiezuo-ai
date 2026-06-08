@@ -2,10 +2,10 @@ import asyncio
 from collections.abc import Callable
 from unittest.mock import patch
 
-from crewai.agent import Agent
-from crewai.crew import Crew
-from crewai.task import Task
-from crewai.tools import BaseTool, tool
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.task import Task
+from fzxiezuoai.tools import BaseTool, tool
 from pydantic import BaseModel, Field
 import pytest
 

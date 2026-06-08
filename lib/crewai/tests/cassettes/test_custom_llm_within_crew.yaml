@@ -78,7 +78,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '19'
       openai-version:
@@ -181,7 +181,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '25'
       openai-version:
@@ -284,7 +284,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '56'
       openai-version:

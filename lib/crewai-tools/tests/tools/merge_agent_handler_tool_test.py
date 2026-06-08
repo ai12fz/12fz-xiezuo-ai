@@ -5,7 +5,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from crewai_tools import MergeAgentHandlerTool
+from fzxiezuoai_tools import MergeAgentHandlerTool
 
 
 @pytest.fixture(autouse=True)
@@ -431,7 +431,7 @@ def test_tool_parameters_are_passed_in_request(mock_post):
 
 @patch("requests.post")
 def test_tool_run_method_passes_parameters(mock_post, mock_tool_pack_response):
-    """Test that parameters are passed when using the .run() method (how CrewAI calls it)."""
+    """Test that parameters are passed when using the .run() method (how 12FZ协作AI calls it)."""
     mock_response = Mock()
     mock_response.status_code = 200
 
@@ -451,7 +451,7 @@ def test_tool_run_method_passes_parameters(mock_post, mock_tool_pack_response):
         registered_user_id="test-user-id",
     )
 
-    # Call using .run() method (this is how CrewAI invokes tools)
+    # Call using .run() method (this is how 12FZ协作AI invokes tools)
     result = tool.run(title="Test Issue", description="Test description", priority=2)
 
     # Verify two calls were made: tools/list and tools/call

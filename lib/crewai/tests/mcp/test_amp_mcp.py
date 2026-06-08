@@ -3,10 +3,10 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from crewai.agent.core import Agent
-from crewai.mcp.config import MCPServerHTTP, MCPServerSSE
-from crewai.mcp.tool_resolver import MCPToolResolver
-from crewai.tools.base_tool import BaseTool
+from fzxiezuoai.agent.core import Agent
+from fzxiezuoai.mcp.config import MCPServerHTTP, MCPServerSSE
+from fzxiezuoai.mcp.tool_resolver import MCPToolResolver
+from fzxiezuoai.tools.base_tool import BaseTool
 
 
 @pytest.fixture
@@ -102,8 +102,8 @@ class TestBuildMCPConfigFromDict:
 
 
 class TestFetchAmpMCPConfigs:
-    @patch("crewai.plus_api.PlusAPI")
-    @patch("crewai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
+    @patch("fzxiezuoai.plus_api.PlusAPI")
+    @patch("fzxiezuoai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
     def test_fetches_configs_successfully(self, mock_get_token, mock_plus_api_class, resolver):
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -133,8 +133,8 @@ class TestFetchAmpMCPConfigs:
         mock_plus_api_class.assert_called_once_with(api_key="test-api-key")
         mock_plus_api.get_mcp_configs.assert_called_once_with(["notion", "github"])
 
-    @patch("crewai.plus_api.PlusAPI")
-    @patch("crewai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
+    @patch("fzxiezuoai.plus_api.PlusAPI")
+    @patch("fzxiezuoai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
     def test_omits_missing_slugs(self, mock_get_token, mock_plus_api_class, resolver):
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -150,8 +150,8 @@ class TestFetchAmpMCPConfigs:
         assert "notion" in result
         assert "missing-server" not in result
 
-    @patch("crewai.plus_api.PlusAPI")
-    @patch("crewai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
+    @patch("fzxiezuoai.plus_api.PlusAPI")
+    @patch("fzxiezuoai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
     def test_returns_empty_on_http_error(self, mock_get_token, mock_plus_api_class, resolver):
         mock_response = MagicMock()
         mock_response.status_code = 500
@@ -163,8 +163,8 @@ class TestFetchAmpMCPConfigs:
 
         assert result == {}
 
-    @patch("crewai.plus_api.PlusAPI")
-    @patch("crewai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
+    @patch("fzxiezuoai.plus_api.PlusAPI")
+    @patch("fzxiezuoai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", return_value="test-api-key")
     def test_returns_empty_on_network_error(self, mock_get_token, mock_plus_api_class, resolver):
         import httpx
 
@@ -176,7 +176,7 @@ class TestFetchAmpMCPConfigs:
 
         assert result == {}
 
-    @patch("crewai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", side_effect=Exception("No token"))
+    @patch("fzxiezuoai_tools.tools.crewai_platform_tools.misc.get_platform_integration_token", side_effect=Exception("No token"))
     def test_returns_empty_when_no_token(self, mock_get_token, resolver):
         result = resolver._fetch_amp_mcp_configs(["notion"])
 
@@ -200,18 +200,18 @@ class TestParseAmpRef:
         assert tool is None
 
     def test_legacy_prefix_slug(self):
-        slug, tool = MCPToolResolver._parse_amp_ref("crewai-amp:notion")
+        slug, tool = MCPToolResolver._parse_amp_ref("fzxiezuoai-amp:notion")
         assert slug == "notion"
         assert tool is None
 
     def test_legacy_prefix_with_tool(self):
-        slug, tool = MCPToolResolver._parse_amp_ref("crewai-amp:notion#search")
+        slug, tool = MCPToolResolver._parse_amp_ref("fzxiezuoai-amp:notion#search")
         assert slug == "notion"
         assert tool == "search"
 
 
 class TestGetMCPToolsAmpIntegration:
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     @patch.object(MCPToolResolver, "_fetch_amp_mcp_configs")
     def test_single_request_for_multiple_amp_refs(
         self, mock_fetch, mock_client_class, agent, mock_tool_definitions
@@ -242,7 +242,7 @@ class TestGetMCPToolsAmpIntegration:
         mock_fetch.assert_called_once_with(["notion", "github"])
         assert len(tools) == 4  # 2 tools per server
 
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     @patch.object(MCPToolResolver, "_fetch_amp_mcp_configs")
     def test_tool_filter_with_hash_syntax(
         self, mock_fetch, mock_client_class, agent, mock_tool_definitions
@@ -268,7 +268,7 @@ class TestGetMCPToolsAmpIntegration:
         assert len(tools) == 1
         assert tools[0].name == "mcp_notion_so_sse_search"
 
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     @patch.object(MCPToolResolver, "_fetch_amp_mcp_configs")
     def test_tool_filter_with_hyphenated_hash_syntax(
         self, mock_fetch, mock_client_class, agent
@@ -316,7 +316,7 @@ class TestGetMCPToolsAmpIntegration:
         assert len(tools) == 1
         assert tools[0].name.endswith("_get_page")
 
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     @patch.object(MCPToolResolver, "_fetch_amp_mcp_configs")
     def test_deduplicates_slugs(
         self, mock_fetch, mock_client_class, agent, mock_tool_definitions
@@ -349,7 +349,7 @@ class TestGetMCPToolsAmpIntegration:
 
         assert tools == []
 
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     @patch.object(MCPToolResolver, "_fetch_amp_mcp_configs")
     def test_legacy_crewai_amp_prefix_still_works(
         self, mock_fetch, mock_client_class, agent, mock_tool_definitions
@@ -369,12 +369,12 @@ class TestGetMCPToolsAmpIntegration:
         mock_client.disconnect = AsyncMock()
         mock_client_class.return_value = mock_client
 
-        tools = agent.get_mcp_tools(["crewai-amp:notion"])
+        tools = agent.get_mcp_tools(["fzxiezuoai-amp:notion"])
 
         mock_fetch.assert_called_once_with(["notion"])
         assert len(tools) == 2
 
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     @patch.object(MCPToolResolver, "_fetch_amp_mcp_configs")
     @patch.object(MCPToolResolver, "_resolve_external")
     def test_non_amp_items_unaffected(

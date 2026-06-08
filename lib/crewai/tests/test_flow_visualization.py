@@ -7,9 +7,9 @@ from pathlib import Path
 
 import pytest
 
-from crewai.flow.flow import Flow, and_, listen, or_, router, start
-from crewai.flow.flow_definition import FlowDefinition
-from crewai.flow.visualization import (
+from fzxiezuoai.flow.flow import Flow, and_, listen, or_, router, start
+from fzxiezuoai.flow.flow_definition import FlowDefinition
+from fzxiezuoai.flow.visualization import (
     build_flow_structure,
     visualize_flow_structure,
 )
@@ -80,7 +80,7 @@ class ComplexFlow(Flow):
 def _attach_flow_definition(flow_class: type[Flow], methods: dict[str, object]) -> None:
     flow_class._flow_definition = FlowDefinition.from_dict(
         {
-            "schema": "crewai.flow/v1",
+            "schema": "fzxiezuoai.flow/v1",
             "name": flow_class.__name__,
             "methods": methods,
         }
@@ -122,7 +122,7 @@ def test_build_flow_structure_from_flow_definition():
     """Test building visualization directly from a FlowDefinition."""
     definition = FlowDefinition.from_dict(
         {
-            "schema": "crewai.flow/v1",
+            "schema": "fzxiezuoai.flow/v1",
             "name": "DefinedFlow",
             "methods": {
                 "begin": {"start": True},
@@ -205,7 +205,7 @@ def test_visualize_flow_structure_creates_html():
 
     assert "<!DOCTYPE html>" in html_content
     assert "<html" in html_content
-    assert "CrewAI Flow Visualization" in html_content
+    assert "12FZ协作AI Flow Visualization" in html_content
     assert "network-container" in html_content
     assert "drawer" in html_content
     assert "nav-controls" in html_content

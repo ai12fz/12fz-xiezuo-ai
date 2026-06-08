@@ -1,13 +1,13 @@
 from unittest.mock import MagicMock, patch
 
-from crewai.utilities.converter import ConverterError
-from crewai.utilities.evaluators.task_evaluator import (
+from fzxiezuoai.utilities.converter import ConverterError
+from fzxiezuoai.utilities.evaluators.task_evaluator import (
     TaskEvaluator,
     TrainingTaskEvaluation,
 )
 
 
-@patch("crewai.utilities.evaluators.task_evaluator.TrainingConverter")
+@patch("fzxiezuoai.utilities.evaluators.task_evaluator.TrainingConverter")
 def test_evaluate_training_data(converter_mock):
     training_data = {
         "agent_id": {
@@ -64,8 +64,8 @@ def test_evaluate_training_data(converter_mock):
     converter_mock.return_value.to_pydantic.assert_called_once()
 
 
-@patch("crewai.utilities.converter.Converter.to_pydantic")
-@patch("crewai.utilities.training_converter.TrainingConverter._convert_field_by_field")
+@patch("fzxiezuoai.utilities.converter.Converter.to_pydantic")
+@patch("fzxiezuoai.utilities.training_converter.TrainingConverter._convert_field_by_field")
 def test_training_converter_fallback_mechanism(
     convert_field_by_field_mock, to_pydantic_mock
 ):

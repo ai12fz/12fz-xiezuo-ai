@@ -48,7 +48,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -182,7 +182,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '2375'
       openai-version:
@@ -325,7 +325,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '4874'
       openai-version:
@@ -369,7 +369,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -641,7 +641,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '18290'
       openai-version:
@@ -826,7 +826,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1666'
       openai-version:
@@ -1021,7 +1021,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1985'
       openai-version:
@@ -1066,7 +1066,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -1194,7 +1194,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '6152'
       openai-version:
@@ -1453,7 +1453,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '3600'
       openai-version:
@@ -1497,7 +1497,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -1656,7 +1656,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '11062'
       openai-version:
@@ -1700,7 +1700,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -2055,7 +2055,7 @@ interactions:
       access-control-expose-headers:
       - X-Request-ID
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '11105'
       openai-version:

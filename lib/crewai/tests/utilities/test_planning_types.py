@@ -3,7 +3,7 @@
 import pytest
 from uuid import UUID
 
-from crewai.utilities.planning_types import (
+from fzxiezuoai.utilities.planning_types import (
     PlanStep,
     TodoItem,
     TodoList,

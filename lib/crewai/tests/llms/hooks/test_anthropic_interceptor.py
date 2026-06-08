@@ -5,8 +5,8 @@ import os
 import httpx
 import pytest
 
-from crewai.llm import LLM
-from crewai.llms.hooks.base import BaseInterceptor
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.hooks.base import BaseInterceptor
 
 
 @pytest.fixture(autouse=True)
@@ -206,7 +206,7 @@ class AnthropicHeaderInterceptor(BaseInterceptor[httpx.Request, httpx.Response])
         """
         message.headers["X-Workspace-ID"] = self.workspace_id
         message.headers["X-User-ID"] = self.user_id
-        message.headers["X-Custom-Client"] = "crewai-interceptor"
+        message.headers["X-Custom-Client"] = "fzxiezuoai-interceptor"
         return message
 
     def on_inbound(self, message: httpx.Response) -> httpx.Response:
@@ -247,7 +247,7 @@ class TestAnthropicHeaderInterceptor:
         assert "X-User-ID" in modified_request.headers
         assert modified_request.headers["X-User-ID"] == "u-456"
         assert "X-Custom-Client" in modified_request.headers
-        assert modified_request.headers["X-Custom-Client"] == "crewai-interceptor"
+        assert modified_request.headers["X-Custom-Client"] == "fzxiezuoai-interceptor"
 
     @pytest.mark.vcr()
     def test_header_interceptor_with_real_call(self) -> None:

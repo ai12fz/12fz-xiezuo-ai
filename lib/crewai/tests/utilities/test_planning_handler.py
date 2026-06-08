@@ -4,13 +4,13 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai.agent import Agent
-from crewai.crew import Crew
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from crewai.task import Task
-from crewai.tasks.task_output import TaskOutput
-from crewai.tools.base_tool import BaseTool
-from crewai.utilities.planning_handler import (
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from fzxiezuoai.task import Task
+from fzxiezuoai.tasks.task_output import TaskOutput
+from fzxiezuoai.tools.base_tool import BaseTool
+from fzxiezuoai.utilities.planning_handler import (
     CrewPlanner,
     PlannerTaskPydanticOutput,
     PlanPerTask,
@@ -101,8 +101,8 @@ class TestInternalCrewPlanner:
         # Knowledge field should not be present when empty
         assert '"agent_knowledge"' not in tasks_summary
 
-    @patch("crewai.knowledge.knowledge.Knowledge.add_sources")
-    @patch("crewai.knowledge.storage.knowledge_storage.KnowledgeStorage")
+    @patch("fzxiezuoai.knowledge.knowledge.Knowledge.add_sources")
+    @patch("fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage")
     def test_create_tasks_summary_with_knowledge_and_tools(
         self, mock_storage, mock_add_sources
     ):

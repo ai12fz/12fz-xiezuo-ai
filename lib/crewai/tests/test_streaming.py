@@ -7,11 +7,11 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai import Agent, Crew, Task
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.llm_events import LLMStreamChunkEvent, ToolCall, FunctionCall
-from crewai.flow.flow import Flow, start
-from crewai.types.streaming import (
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.llm_events import LLMStreamChunkEvent, ToolCall, FunctionCall
+from fzxiezuoai.flow.flow import Flow, start
+from fzxiezuoai.types.streaming import (
     CrewStreamingOutput,
     FlowStreamingOutput,
     StreamChunk,
@@ -863,8 +863,8 @@ class TestStreamingImports:
     """Tests for correct imports of streaming types."""
 
     def test_streaming_types_importable_from_types_module(self) -> None:
-        """Test that streaming types can be imported from crewai.types.streaming."""
-        from crewai.types.streaming import (
+        """Test that streaming types can be imported from fzxiezuoai.types.streaming."""
+        from fzxiezuoai.types.streaming import (
             CrewStreamingOutput,
             FlowStreamingOutput,
             StreamChunk,
@@ -892,7 +892,7 @@ class TestConcurrentStreamIsolation:
         import contextvars
         import threading
 
-        from crewai.utilities.streaming import (
+        from fzxiezuoai.utilities.streaming import (
             TaskInfo,
             _current_stream_ids,
             _unregister_handler,

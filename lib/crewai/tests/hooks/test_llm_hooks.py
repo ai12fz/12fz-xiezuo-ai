@@ -4,12 +4,12 @@ from __future__ import annotations
 
 from unittest.mock import Mock
 
-from crewai.hooks import (
+from fzxiezuoai.hooks import (
     clear_all_llm_call_hooks,
     unregister_after_llm_call_hook,
     unregister_before_llm_call_hook,
 )
-from crewai.hooks.llm_hooks import (
+from fzxiezuoai.hooks.llm_hooks import (
     LLMCallHookContext,
     get_after_llm_call_hooks,
     get_before_llm_call_hooks,
@@ -35,7 +35,7 @@ def mock_executor():
 @pytest.fixture(autouse=True)
 def clear_hooks():
     """Clear global hooks before and after each test."""
-    from crewai.hooks import llm_hooks
+    from fzxiezuoai.hooks import llm_hooks
 
     original_before = llm_hooks._before_llm_call_hooks.copy()
     original_after = llm_hooks._after_llm_call_hooks.copy()
@@ -308,7 +308,7 @@ class TestLLMHooksIntegration:
         """Test that LiteAgent executes before/after LLM call hooks and prints messages correctly."""
         import os
 
-        from crewai.lite_agent import LiteAgent
+        from fzxiezuoai.lite_agent import LiteAgent
 
         if not os.environ.get("OPENAI_API_KEY"):
             pytest.skip("OPENAI_API_KEY not set - skipping real LLM test")
@@ -395,7 +395,7 @@ class TestLLMHooksIntegration:
         """Test that hooks work for direct llm.call() without agents."""
         import os
 
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         if not os.environ.get("OPENAI_API_KEY"):
             pytest.skip("OPENAI_API_KEY not set - skipping real LLM test")

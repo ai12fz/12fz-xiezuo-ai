@@ -4,10 +4,10 @@ import types
 from unittest.mock import patch, MagicMock
 import pytest
 
-from crewai.llm import LLM
-from crewai.crew import Crew
-from crewai.agent import Agent
-from crewai.task import Task
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
 
 
 def _create_bedrock_mocks():
@@ -55,7 +55,7 @@ def mock_aws_credentials():
         "AWS_DEFAULT_REGION": "us-east-1"
     }):
         # Mock boto3 Session to prevent actual AWS connections
-        with patch('crewai.llms.providers.bedrock.completion.Session') as mock_session_class:
+        with patch('fzxiezuoai.llms.providers.bedrock.completion.Session') as mock_session_class:
             mock_session_instance = MagicMock()
             mock_client = MagicMock()
 
@@ -96,7 +96,7 @@ def bedrock_mocks():
         "AWS_SECRET_ACCESS_KEY": "test-secret-key",
         "AWS_DEFAULT_REGION": "us-east-1"
     }):
-        with patch('crewai.llms.providers.bedrock.completion.Session') as mock_session_class:
+        with patch('fzxiezuoai.llms.providers.bedrock.completion.Session') as mock_session_class:
             mock_session_instance = MagicMock()
             mock_client = MagicMock()
 
@@ -138,7 +138,7 @@ def test_bedrock_completion_module_is_imported():
     """
     Test that the completion module is properly imported when using Bedrock provider
     """
-    module_name = "crewai.llms.providers.bedrock.completion"
+    module_name = "fzxiezuoai.llms.providers.bedrock.completion"
 
     if module_name in sys.modules:
         del sys.modules[module_name]
@@ -160,7 +160,7 @@ def test_native_bedrock_raises_error_when_initialization_fails():
     but fails to instantiate, we raise an ImportError instead of silently falling back.
     This provides clearer error messages to users about missing dependencies.
     """
-    with patch('crewai.llm.LLM._get_native_provider') as mock_get_provider:
+    with patch('fzxiezuoai.llm.LLM._get_native_provider') as mock_get_provider:
 
         class FailingCompletion:
             def __init__(self, *args, **kwargs):
@@ -188,7 +188,7 @@ def test_bedrock_completion_initialization_parameters():
         region_name="us-west-2"
     )
 
-    from crewai.llms.providers.bedrock.completion import BedrockCompletion
+    from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
     assert isinstance(llm, BedrockCompletion)
     assert llm.model == "anthropic.claude-3-5-sonnet-20241022-v2:0"
     assert llm.temperature == 0.7
@@ -209,7 +209,7 @@ def test_bedrock_specific_parameters():
         region_name="us-east-1"
     )
 
-    from crewai.llms.providers.bedrock.completion import BedrockCompletion
+    from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
     assert isinstance(llm, BedrockCompletion)
     assert llm.stop_sequences == ["Human:", "Assistant:"]
     assert llm.stream == True
@@ -343,7 +343,7 @@ def test_bedrock_completion_with_tools():
     """
     Test that BedrockCompletion.call is invoked with tools when agent has tools
     """
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def sample_tool(query: str) -> str:
@@ -419,7 +419,7 @@ def test_bedrock_aws_credentials_configuration():
     }):
         llm = LLM(model="bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0")
 
-        from crewai.llms.providers.bedrock.completion import BedrockCompletion
+        from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
         assert isinstance(llm, BedrockCompletion)
         assert llm.region_name == aws_region_name
         assert llm.aws_access_key_id == aws_access_key_id
@@ -433,7 +433,7 @@ def test_bedrock_aws_credentials_configuration():
     }):
         llm = LLM(model="bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0")
 
-        from crewai.llms.providers.bedrock.completion import BedrockCompletion
+        from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
         assert isinstance(llm, BedrockCompletion)
         assert llm.region_name == aws_region_name
 
@@ -452,7 +452,7 @@ def test_bedrock_model_capabilities():
     Test that model capabilities are correctly identified
     """
     llm_claude = LLM(model="bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0")
-    from crewai.llms.providers.bedrock.completion import BedrockCompletion
+    from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
     assert isinstance(llm_claude, BedrockCompletion)
     assert llm_claude.is_claude_model == True
     assert llm_claude.supports_tools == True
@@ -475,7 +475,7 @@ def test_bedrock_inference_config():
         max_tokens=1000
     )
 
-    from crewai.llms.providers.bedrock.completion import BedrockCompletion
+    from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
     assert isinstance(llm, BedrockCompletion)
 
     config = llm._get_inference_config()
@@ -504,7 +504,7 @@ def test_bedrock_model_detection():
 
     for model_name in bedrock_test_cases:
         llm = LLM(model=model_name)
-        from crewai.llms.providers.bedrock.completion import BedrockCompletion
+        from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
         assert isinstance(llm, BedrockCompletion), f"Failed for model: {model_name}"
 
 
@@ -575,7 +575,7 @@ def test_bedrock_tool_conversion():
     """
     llm = LLM(model="bedrock/anthropic.claude-3-5-sonnet-20241022-v2:0")
 
-    crewai_tools = [{
+    fzxiezuoai_tools = [{
         "type": "function",
         "function": {
             "name": "test_tool",
@@ -590,7 +590,7 @@ def test_bedrock_tool_conversion():
         }
     }]
 
-    bedrock_tools = llm._format_tools_for_converse(crewai_tools)
+    bedrock_tools = llm._format_tools_for_converse(fzxiezuoai_tools)
 
     assert len(bedrock_tools) == 1
     # Bedrock tools should have toolSpec structure
@@ -868,7 +868,7 @@ def test_bedrock_agent_kickoff_structured_output_with_tools():
     This tests post-tool-call structured output handling for Bedrock models.
     """
     from pydantic import BaseModel, Field
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     class CalculationResult(BaseModel):
         """Structured output for calculation results."""

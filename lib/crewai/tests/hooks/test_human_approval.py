@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from unittest.mock import Mock, patch
 
-from crewai.hooks.llm_hooks import LLMCallHookContext
-from crewai.hooks.tool_hooks import ToolCallHookContext
+from fzxiezuoai.hooks.llm_hooks import LLMCallHookContext
+from fzxiezuoai.hooks.tool_hooks import ToolCallHookContext
 import pytest
 
 
@@ -51,7 +51,7 @@ class TestLLMHookHumanInput:
     """Test request_human_input() on LLMCallHookContext."""
 
     @patch("builtins.input", return_value="test response")
-    @patch("crewai.hooks.llm_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.llm_hooks.event_listener")
     def test_request_human_input_returns_user_response(
         self, mock_event_listener, mock_input, mock_executor
     ):
@@ -69,7 +69,7 @@ class TestLLMHookHumanInput:
         mock_input.assert_called_once()
 
     @patch("builtins.input", return_value="")
-    @patch("crewai.hooks.llm_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.llm_hooks.event_listener")
     def test_request_human_input_returns_empty_string_on_enter(
         self, mock_event_listener, mock_input, mock_executor
     ):
@@ -85,7 +85,7 @@ class TestLLMHookHumanInput:
         mock_input.assert_called_once()
 
     @patch("builtins.input", return_value="test")
-    @patch("crewai.hooks.llm_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.llm_hooks.event_listener")
     def test_request_human_input_pauses_and_resumes_live_updates(
         self, mock_event_listener, mock_input, mock_executor
     ):
@@ -102,7 +102,7 @@ class TestLLMHookHumanInput:
         mock_formatter.resume_live_updates.assert_called_once()
 
     @patch("builtins.input", side_effect=Exception("Input error"))
-    @patch("crewai.hooks.llm_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.llm_hooks.event_listener")
     def test_request_human_input_resumes_on_exception(
         self, mock_event_listener, mock_input, mock_executor
     ):
@@ -118,7 +118,7 @@ class TestLLMHookHumanInput:
         mock_formatter.resume_live_updates.assert_called_once()
 
     @patch("builtins.input", return_value="  test response  ")
-    @patch("crewai.hooks.llm_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.llm_hooks.event_listener")
     def test_request_human_input_strips_whitespace(
         self, mock_event_listener, mock_input, mock_executor
     ):
@@ -137,7 +137,7 @@ class TestToolHookHumanInput:
     """Test request_human_input() on ToolCallHookContext."""
 
     @patch("builtins.input", return_value="approve")
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_request_human_input_returns_user_response(
         self, mock_event_listener, mock_input, mock_tool, mock_agent, mock_task
     ):
@@ -161,7 +161,7 @@ class TestToolHookHumanInput:
         mock_input.assert_called_once()
 
     @patch("builtins.input", return_value="")
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_request_human_input_handles_empty_input(
         self, mock_event_listener, mock_input, mock_tool
     ):
@@ -180,7 +180,7 @@ class TestToolHookHumanInput:
         assert response == ""
 
     @patch("builtins.input", return_value="test")
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_request_human_input_pauses_and_resumes(
         self, mock_event_listener, mock_input, mock_tool
     ):
@@ -200,7 +200,7 @@ class TestToolHookHumanInput:
         mock_formatter.resume_live_updates.assert_called_once()
 
     @patch("builtins.input", side_effect=KeyboardInterrupt)
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_request_human_input_resumes_on_keyboard_interrupt(
         self, mock_event_listener, mock_input, mock_tool
     ):
@@ -224,7 +224,7 @@ class TestApprovalHookIntegration:
     """Test integration scenarios with approval hooks."""
 
     @patch("builtins.input", return_value="approve")
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_approval_hook_allows_execution(
         self, mock_event_listener, mock_input, mock_tool
     ):
@@ -250,7 +250,7 @@ class TestApprovalHookIntegration:
         assert mock_input.called
 
     @patch("builtins.input", return_value="deny")
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_approval_hook_blocks_execution(
         self, mock_event_listener, mock_input, mock_tool
     ):
@@ -276,7 +276,7 @@ class TestApprovalHookIntegration:
         assert mock_input.called
 
     @patch("builtins.input", return_value="modified result")
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_review_hook_modifies_result(
         self, mock_event_listener, mock_input, mock_tool
     ):
@@ -304,7 +304,7 @@ class TestApprovalHookIntegration:
         assert mock_input.called
 
     @patch("builtins.input", return_value="")
-    @patch("crewai.hooks.tool_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.tool_hooks.event_listener")
     def test_review_hook_keeps_original_on_enter(
         self, mock_event_listener, mock_input, mock_tool
     ):
@@ -334,7 +334,7 @@ class TestCostControlApproval:
     """Test cost control approval hook scenarios."""
 
     @patch("builtins.input", return_value="yes")
-    @patch("crewai.hooks.llm_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.llm_hooks.event_listener")
     def test_cost_control_allows_when_approved(
         self, mock_event_listener, mock_input, mock_executor
     ):
@@ -360,7 +360,7 @@ class TestCostControlApproval:
         assert mock_input.called
 
     @patch("builtins.input", return_value="no")
-    @patch("crewai.hooks.llm_hooks.event_listener")
+    @patch("fzxiezuoai.hooks.llm_hooks.event_listener")
     def test_cost_control_logs_when_denied(
         self, mock_event_listener, mock_input, mock_executor
     ):

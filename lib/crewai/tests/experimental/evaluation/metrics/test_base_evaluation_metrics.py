@@ -1,8 +1,8 @@
 from unittest.mock import MagicMock
 
 import pytest
-from crewai.agent import Agent
-from crewai.task import Task
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
 
 
 class BaseEvaluationMetricsTest:

@@ -13,8 +13,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai.flow import Flow, human_feedback, listen, persist, start
-from crewai.flow.human_feedback import (
+from fzxiezuoai.flow import Flow, human_feedback, listen, persist, start
+from fzxiezuoai.flow.human_feedback import (
     HumanFeedbackConfig,
     HumanFeedbackResult,
 )
@@ -366,7 +366,7 @@ class TestCollapseToOutcome:
         """Test exact match returns the correct outcome."""
         flow = Flow()
 
-        with patch("crewai.llm.LLM") as MockLLM:
+        with patch("fzxiezuoai.llm.LLM") as MockLLM:
             mock_llm = MagicMock()
             mock_llm.call.return_value = "approved"
             MockLLM.return_value = mock_llm
@@ -383,7 +383,7 @@ class TestCollapseToOutcome:
         """Test partial match finds the outcome in the response."""
         flow = Flow()
 
-        with patch("crewai.llm.LLM") as MockLLM:
+        with patch("fzxiezuoai.llm.LLM") as MockLLM:
             mock_llm = MagicMock()
             mock_llm.call.return_value = "The outcome is approved based on the feedback"
             MockLLM.return_value = mock_llm
@@ -400,7 +400,7 @@ class TestCollapseToOutcome:
         """Test that unmatched response falls back to first outcome."""
         flow = Flow()
 
-        with patch("crewai.llm.LLM") as MockLLM:
+        with patch("fzxiezuoai.llm.LLM") as MockLLM:
             mock_llm = MagicMock()
             mock_llm.call.return_value = "something completely different"
             MockLLM.return_value = mock_llm
@@ -417,7 +417,7 @@ class TestCollapseToOutcome:
         """When both structured and simple prompting fail, return outcomes[0]."""
         flow = Flow()
 
-        with patch("crewai.llm.LLM") as MockLLM:
+        with patch("fzxiezuoai.llm.LLM") as MockLLM:
             mock_llm = MagicMock()
             # Both calls raise — simulates wrong provider / auth failure
             mock_llm.call.side_effect = RuntimeError("Model not found")
@@ -435,7 +435,7 @@ class TestCollapseToOutcome:
         """When structured output fails but simple prompting works, use that."""
         flow = Flow()
 
-        with patch("crewai.llm.LLM") as MockLLM:
+        with patch("fzxiezuoai.llm.LLM") as MockLLM:
             mock_llm = MagicMock()
             mock_llm.call.side_effect = [
                 RuntimeError("Function calling not supported"),
@@ -495,9 +495,9 @@ class TestHumanFeedbackLearn:
             patch.object(
                 flow, "_request_human_feedback", return_value="Always add citations"
             ),
-            patch("crewai.llm.LLM") as MockLLM,
+            patch("fzxiezuoai.llm.LLM") as MockLLM,
         ):
-            from crewai.flow.human_feedback import DistilledLessons
+            from fzxiezuoai.flow.human_feedback import DistilledLessons
 
             mock_llm = MagicMock()
             mock_llm.supports_function_calling.return_value = True
@@ -519,7 +519,7 @@ class TestHumanFeedbackLearn:
 
     def test_learn_true_pre_reviews_with_past_lessons(self):
         """When learn=True and past lessons exist, output is pre-reviewed before human sees it."""
-        from crewai.memory.types import MemoryMatch, MemoryRecord
+        from fzxiezuoai.memory.types import MemoryMatch, MemoryRecord
 
         class LearnFlow(Flow):
             @start()
@@ -548,9 +548,9 @@ class TestHumanFeedbackLearn:
 
         with (
             patch.object(flow, "_request_human_feedback", side_effect=capture_feedback),
-            patch("crewai.llm.LLM") as MockLLM,
+            patch("fzxiezuoai.llm.LLM") as MockLLM,
         ):
-            from crewai.flow.human_feedback import DistilledLessons, PreReviewResult
+            from fzxiezuoai.flow.human_feedback import DistilledLessons, PreReviewResult
 
             mock_llm = MagicMock()
             mock_llm.supports_function_calling.return_value = True
@@ -602,7 +602,7 @@ class TestHumanFeedbackLearn:
 
     def test_pre_review_failure_logs_and_returns_raw_output(self, caplog):
         """Pre-review LLM failure falls back to raw output AND logs a warning."""
-        from crewai.memory.types import MemoryMatch, MemoryRecord
+        from fzxiezuoai.memory.types import MemoryMatch, MemoryRecord
 
         class LearnFlow(Flow):
             @start()
@@ -628,8 +628,8 @@ class TestHumanFeedbackLearn:
 
         with (
             patch.object(flow, "_request_human_feedback", side_effect=capture_feedback),
-            patch("crewai.llm.LLM") as MockLLM,
-            caplog.at_level("WARNING", logger="crewai.flow.human_feedback"),
+            patch("fzxiezuoai.llm.LLM") as MockLLM,
+            caplog.at_level("WARNING", logger="fzxiezuoai.flow.human_feedback"),
         ):
             mock_llm = MagicMock()
             mock_llm.supports_function_calling.return_value = True
@@ -648,7 +648,7 @@ class TestHumanFeedbackLearn:
 
     def test_pre_review_failure_strict_reraises(self):
         """When learn_strict=True, pre-review failures propagate instead of falling back."""
-        from crewai.memory.types import MemoryMatch, MemoryRecord
+        from fzxiezuoai.memory.types import MemoryMatch, MemoryRecord
 
         class LearnFlow(Flow):
             @start()
@@ -673,7 +673,7 @@ class TestHumanFeedbackLearn:
 
         with (
             patch.object(flow, "_request_human_feedback", return_value=""),
-            patch("crewai.llm.LLM") as MockLLM,
+            patch("fzxiezuoai.llm.LLM") as MockLLM,
         ):
             mock_llm = MagicMock()
             mock_llm.supports_function_calling.return_value = True
@@ -700,8 +700,8 @@ class TestHumanFeedbackLearn:
             patch.object(
                 flow, "_request_human_feedback", return_value="please add citations"
             ),
-            patch("crewai.llm.LLM") as MockLLM,
-            caplog.at_level("WARNING", logger="crewai.flow.human_feedback"),
+            patch("fzxiezuoai.llm.LLM") as MockLLM,
+            caplog.at_level("WARNING", logger="fzxiezuoai.flow.human_feedback"),
         ):
             mock_llm = MagicMock()
             mock_llm.supports_function_calling.return_value = True

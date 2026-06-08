@@ -8,8 +8,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from crewai_core.printer import Printer
-from crewai.memory.types import (
+from fzxiezuoai_core.printer import Printer
+from fzxiezuoai.memory.types import (
     MemoryConfig,
     MemoryMatch,
     MemoryRecord,
@@ -95,7 +95,7 @@ def lancedb_path(tmp_path: Path) -> Path:
 
 
 def test_lancedb_save_search(lancedb_path: Path) -> None:
-    from crewai.memory.storage.lancedb_storage import LanceDBStorage
+    from fzxiezuoai.memory.storage.lancedb_storage import LanceDBStorage
 
     storage = LanceDBStorage(path=str(lancedb_path), vector_dim=4)
     r = MemoryRecord(
@@ -119,7 +119,7 @@ def test_lancedb_save_search(lancedb_path: Path) -> None:
 
 
 def test_lancedb_delete_count(lancedb_path: Path) -> None:
-    from crewai.memory.storage.lancedb_storage import LanceDBStorage
+    from fzxiezuoai.memory.storage.lancedb_storage import LanceDBStorage
 
     storage = LanceDBStorage(path=str(lancedb_path), vector_dim=4)
     r = MemoryRecord(content="x", scope="/", embedding=[0.0] * 4)
@@ -131,7 +131,7 @@ def test_lancedb_delete_count(lancedb_path: Path) -> None:
 
 
 def test_lancedb_list_scopes_get_scope_info(lancedb_path: Path) -> None:
-    from crewai.memory.storage.lancedb_storage import LanceDBStorage
+    from fzxiezuoai.memory.storage.lancedb_storage import LanceDBStorage
 
     storage = LanceDBStorage(path=str(lancedb_path), vector_dim=4)
     storage.save([
@@ -162,7 +162,7 @@ def memory_with_storage(tmp_path: Path, mock_embedder: MagicMock) -> None:
 
 
 def test_memory_remember_recall_shallow(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     m = Memory(
         storage=str(tmp_path / "db"),
@@ -185,7 +185,7 @@ def test_memory_remember_recall_shallow(tmp_path: Path, mock_embedder: MagicMock
 
 
 def test_memory_forget(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     m = Memory(storage=str(tmp_path / "db2"), llm=MagicMock(), embedder=mock_embedder)
     m.remember("To forget", scope="/x", categories=[], importance=0.5, metadata={})
@@ -196,7 +196,7 @@ def test_memory_forget(tmp_path: Path, mock_embedder: MagicMock) -> None:
 
 
 def test_memory_scope_slice(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     mem = Memory(storage=str(tmp_path / "db3"), llm=MagicMock(), embedder=mock_embedder)
     sc = mem.scope("/agent/1")
@@ -207,7 +207,7 @@ def test_memory_scope_slice(tmp_path: Path, mock_embedder: MagicMock) -> None:
 
 
 def test_memory_list_scopes_info_tree(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     m = Memory(storage=str(tmp_path / "db4"), llm=MagicMock(), embedder=mock_embedder)
     m.remember("Root", scope="/", categories=[], importance=0.5, metadata={})
@@ -223,8 +223,8 @@ def test_memory_list_scopes_info_tree(tmp_path: Path, mock_embedder: MagicMock) 
 
 
 def test_memory_scope_remember_recall(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.memory.unified_memory import Memory
-    from crewai.memory.memory_scope import MemoryScope
+    from fzxiezuoai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.memory_scope import MemoryScope
 
     mem = Memory(storage=str(tmp_path / "db5"), llm=MagicMock(), embedder=mock_embedder)
     scope = MemoryScope(memory=mem, root_path="/crew/1")
@@ -236,8 +236,8 @@ def test_memory_scope_remember_recall(tmp_path: Path, mock_embedder: MagicMock) 
 
 
 def test_memory_slice_recall(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.memory.unified_memory import Memory
-    from crewai.memory.memory_scope import MemorySlice
+    from fzxiezuoai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.memory_scope import MemorySlice
 
     mem = Memory(storage=str(tmp_path / "db6"), llm=MagicMock(), embedder=mock_embedder)
     mem.remember("In scope A", scope="/a", categories=[], importance=0.5, metadata={})
@@ -247,8 +247,8 @@ def test_memory_slice_recall(tmp_path: Path, mock_embedder: MagicMock) -> None:
 
 
 def test_memory_slice_remember_is_noop_when_read_only(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.memory.unified_memory import Memory
-    from crewai.memory.memory_scope import MemorySlice
+    from fzxiezuoai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.memory_scope import MemorySlice
 
     mem = Memory(storage=str(tmp_path / "db7"), llm=MagicMock(), embedder=mock_embedder)
     sl = MemorySlice(memory=mem, scopes=["/a"], read_only=True)
@@ -261,8 +261,8 @@ def test_memory_slice_remember_is_noop_when_read_only(tmp_path: Path, mock_embed
 
 def test_flow_has_default_memory() -> None:
     """Flow auto-creates a Memory instance when none is provided."""
-    from crewai.flow.flow import Flow
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.flow.flow import Flow
+    from fzxiezuoai.memory.unified_memory import Memory
 
     class DefaultFlow(Flow):
         pass
@@ -274,7 +274,7 @@ def test_flow_has_default_memory() -> None:
 
 def test_flow_recall_remember_raise_when_memory_explicitly_none() -> None:
     """Flow raises ValueError when memory is explicitly set to None."""
-    from crewai.flow.flow import Flow
+    from fzxiezuoai.flow.flow import Flow
 
     class NoMemoryFlow(Flow):
         memory = None
@@ -289,8 +289,8 @@ def test_flow_recall_remember_raise_when_memory_explicitly_none() -> None:
 
 
 def test_flow_recall_remember_with_memory(tmp_path: Path, mock_embedder: MagicMock) -> None:
-    from crewai.flow.flow import Flow
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.flow.flow import Flow
+    from fzxiezuoai.memory.unified_memory import Memory
 
     mem = Memory(storage=str(tmp_path / "flow_db"), llm=MagicMock(), embedder=mock_embedder)
 
@@ -307,8 +307,8 @@ def test_flow_recall_remember_with_memory(tmp_path: Path, mock_embedder: MagicMo
 
 def test_memory_extract_memories_returns_list_from_llm(tmp_path: Path) -> None:
     """Memory.extract_memories() delegates to LLM and returns list of strings."""
-    from crewai.memory.analyze import ExtractedMemories
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.analyze import ExtractedMemories
+    from fzxiezuoai.memory.unified_memory import Memory
 
     mock_llm = MagicMock()
     mock_llm.supports_function_calling.return_value = True
@@ -330,7 +330,7 @@ def test_memory_extract_memories_returns_list_from_llm(tmp_path: Path) -> None:
 
 def test_memory_extract_memories_empty_content_returns_empty_list(tmp_path: Path) -> None:
     """Memory.extract_memories() with empty/whitespace content returns [] without calling LLM."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     mock_llm = MagicMock()
     mem = Memory(storage=str(tmp_path / "empty_db"), llm=mock_llm, embedder=MagicMock())
@@ -341,8 +341,8 @@ def test_memory_extract_memories_empty_content_returns_empty_list(tmp_path: Path
 
 def test_executor_save_to_memory_calls_extract_then_remember_per_item() -> None:
     """_save_to_memory calls memory.extract_memories(raw) then memory.remember(m) for each."""
-    from crewai.agents.agent_builder.base_agent_executor import BaseAgentExecutor
-    from crewai.agents.parser import AgentFinish
+    from fzxiezuoai.agents.agent_builder.base_agent_executor import BaseAgentExecutor
+    from fzxiezuoai.agents.parser import AgentFinish
 
     mock_memory = MagicMock()
     mock_memory.read_only = False
@@ -373,9 +373,9 @@ def test_executor_save_to_memory_calls_extract_then_remember_per_item() -> None:
 
 def test_executor_save_to_memory_skips_delegation_output() -> None:
     """_save_to_memory does nothing when output contains delegate action."""
-    from crewai.agents.agent_builder.base_agent_executor import BaseAgentExecutor
-    from crewai.agents.parser import AgentFinish
-    from crewai.utilities.string_utils import sanitize_tool_name
+    from fzxiezuoai.agents.agent_builder.base_agent_executor import BaseAgentExecutor
+    from fzxiezuoai.agents.parser import AgentFinish
+    from fzxiezuoai.utilities.string_utils import sanitize_tool_name
 
     mock_memory = MagicMock()
     mock_memory.read_only = False
@@ -401,7 +401,7 @@ def test_executor_save_to_memory_skips_delegation_output() -> None:
 
 def test_memory_scope_extract_memories_delegates() -> None:
     """MemoryScope.extract_memories delegates to underlying Memory."""
-    from crewai.memory.memory_scope import MemoryScope
+    from fzxiezuoai.memory.memory_scope import MemoryScope
 
     mock_memory = MagicMock()
     mock_memory.extract_memories.return_value = ["Scoped fact."]
@@ -413,7 +413,7 @@ def test_memory_scope_extract_memories_delegates() -> None:
 
 def test_memory_slice_extract_memories_delegates() -> None:
     """MemorySlice.extract_memories delegates to underlying Memory."""
-    from crewai.memory.memory_scope import MemorySlice
+    from fzxiezuoai.memory.memory_scope import MemorySlice
 
     mock_memory = MagicMock()
     mock_memory.extract_memories.return_value = ["Sliced fact."]
@@ -425,7 +425,7 @@ def test_memory_slice_extract_memories_delegates() -> None:
 
 def test_flow_extract_memories_raises_when_memory_explicitly_none() -> None:
     """Flow.extract_memories raises ValueError when memory is explicitly set to None."""
-    from crewai.flow.flow import Flow
+    from fzxiezuoai.flow.flow import Flow
 
     f = Flow()
     f.memory = None
@@ -435,7 +435,7 @@ def test_flow_extract_memories_raises_when_memory_explicitly_none() -> None:
 
 def test_flow_extract_memories_delegates_when_memory_present() -> None:
     """Flow.extract_memories delegates to flow memory and returns list."""
-    from crewai.flow.flow import Flow
+    from fzxiezuoai.flow.flow import Flow
 
     mock_memory = MagicMock()
     mock_memory.extract_memories.return_value = ["Flow fact 1.", "Flow fact 2."]
@@ -487,7 +487,7 @@ def test_composite_score_reranks_results(
     tmp_path: Path, mock_embedder: MagicMock
 ) -> None:
     """Same semantic score: high-importance recent memory ranks first."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     # Use same dim as default LanceDB (1536) so storage does not overwrite embedding
     emb = [0.1] * 1536
@@ -567,7 +567,7 @@ def test_composite_score_custom_config() -> None:
 
 def test_analyze_for_save_llm_failure_returns_defaults() -> None:
     """When LLM raises, analyze_for_save returns safe defaults."""
-    from crewai.memory.analyze import MemoryAnalysis, analyze_for_save
+    from fzxiezuoai.memory.analyze import MemoryAnalysis, analyze_for_save
 
     llm = MagicMock()
     llm.supports_function_calling.return_value = False
@@ -589,7 +589,7 @@ def test_analyze_for_save_llm_failure_returns_defaults() -> None:
 
 def test_extract_memories_llm_failure_returns_raw() -> None:
     """When LLM raises, extract_memories_from_content returns [content]."""
-    from crewai.memory.analyze import extract_memories_from_content
+    from fzxiezuoai.memory.analyze import extract_memories_from_content
 
     llm = MagicMock()
     llm.call.side_effect = RuntimeError("Network error")
@@ -600,7 +600,7 @@ def test_extract_memories_llm_failure_returns_raw() -> None:
 
 def test_analyze_query_llm_failure_returns_defaults() -> None:
     """When LLM raises, analyze_query returns safe defaults with available scopes."""
-    from crewai.memory.analyze import QueryAnalysis, analyze_query
+    from fzxiezuoai.memory.analyze import QueryAnalysis, analyze_query
 
     llm = MagicMock()
     llm.call.side_effect = RuntimeError("Timeout")
@@ -620,7 +620,7 @@ def test_remember_survives_llm_failure(
     tmp_path: Path, mock_embedder: MagicMock
 ) -> None:
     """When the LLM raises during parallel_analyze, remember() still saves with defaults."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     llm = MagicMock()
     llm.call.side_effect = RuntimeError("LLM unavailable")
@@ -644,10 +644,10 @@ def test_agent_kickoff_memory_recall_and_save(tmp_path: Path, mock_embedder: Mag
     """Agent.kickoff() with memory should recall before execution and save after."""
     from unittest.mock import Mock, patch
 
-    from crewai.agent.core import Agent
-    from crewai.llm import LLM
-    from crewai.memory.unified_memory import Memory
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.agent.core import Agent
+    from fzxiezuoai.llm import LLM
+    from fzxiezuoai.memory.unified_memory import Memory
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mem = Memory(
         storage=str(tmp_path / "agent_kickoff_db"),
@@ -704,7 +704,7 @@ def test_agent_kickoff_memory_recall_and_save(tmp_path: Path, mock_embedder: Mag
 
 def test_batch_embed_single_call(tmp_path: Path) -> None:
     """remember_many with 3 items should call the embedder exactly once with all 3 texts."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     embedder = MagicMock()
     embedder.side_effect = lambda texts: [[0.1] * 1536 for _ in texts]
@@ -728,7 +728,7 @@ def test_batch_embed_single_call(tmp_path: Path) -> None:
 
 def test_intra_batch_dedup_drops_near_identical(tmp_path: Path) -> None:
     """remember_many with 3 identical strings should store only 1 record."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     embedder = MagicMock()
     embedder.side_effect = lambda texts: [[0.5] * 1536 for _ in texts]
@@ -739,9 +739,9 @@ def test_intra_batch_dedup_drops_near_identical(tmp_path: Path) -> None:
 
     mem.remember_many(
         [
-            "CrewAI ensures reliable operation.",
-            "CrewAI ensures reliable operation.",
-            "CrewAI ensures reliable operation.",
+            "12FZ协作AI ensures reliable operation.",
+            "12FZ协作AI ensures reliable operation.",
+            "12FZ协作AI ensures reliable operation.",
         ],
         scope="/test",
         categories=["reliability"],
@@ -753,7 +753,7 @@ def test_intra_batch_dedup_drops_near_identical(tmp_path: Path) -> None:
 
 def test_intra_batch_dedup_keeps_merely_similar(tmp_path: Path) -> None:
     """remember_many with distinct items should keep all of them."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
     import math
 
     call_count = 0
@@ -775,7 +775,7 @@ def test_intra_batch_dedup_keeps_merely_similar(tmp_path: Path) -> None:
     mem = Memory(storage=str(tmp_path / "db"), llm=llm, embedder=embedder)
 
     mem.remember_many(
-        ["CrewAI handles complex tasks.", "Python is the best language."],
+        ["12FZ协作AI handles complex tasks.", "Python is the best language."],
         scope="/test",
         categories=["tech"],
         importance=0.6,
@@ -788,8 +788,8 @@ def test_batch_consolidation_deduplicates_against_storage(
     tmp_path: Path,
 ) -> None:
     """Pre-insert a record, then remember_many with same + new content."""
-    from crewai.memory.unified_memory import Memory
-    from crewai.memory.analyze import ConsolidationPlan
+    from fzxiezuoai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.analyze import ConsolidationPlan
 
     emb = [0.1] * 1536
     embedder = MagicMock()
@@ -805,16 +805,16 @@ def test_batch_consolidation_deduplicates_against_storage(
     mem = Memory(storage=str(tmp_path / "db"), llm=llm, embedder=embedder)
 
     # Pre-insert
-    from crewai.memory.types import MemoryRecord
+    from fzxiezuoai.memory.types import MemoryRecord
 
     mem._storage.save([
-        MemoryRecord(content="CrewAI is great.", scope="/test", importance=0.7, embedding=emb),
+        MemoryRecord(content="12FZ协作AI is great.", scope="/test", importance=0.7, embedding=emb),
     ])
     assert mem._storage.count() == 1
 
     # remember_many with the same content + a new one (all identical embeddings)
     mem.remember_many(
-        ["CrewAI is great.", "CrewAI is wonderful."],
+        ["12FZ协作AI is great.", "12FZ协作AI is wonderful."],
         scope="/test",
         categories=["review"],
         importance=0.7,
@@ -828,7 +828,7 @@ def test_batch_consolidation_deduplicates_against_storage(
 def test_parallel_find_similar_runs_all_searches(tmp_path: Path) -> None:
     """remember_many with 3 distinct items should run 3 storage searches."""
     from unittest.mock import patch
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     call_count = 0
 
@@ -861,7 +861,7 @@ def test_parallel_find_similar_runs_all_searches(tmp_path: Path) -> None:
 
 def test_single_remember_uses_batch_flow(tmp_path: Path, mock_embedder: MagicMock) -> None:
     """Single remember() should work through the batch flow (batch of 1)."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     llm = MagicMock()
     llm.supports_function_calling.return_value = False
@@ -883,8 +883,8 @@ def test_single_remember_uses_batch_flow(tmp_path: Path, mock_embedder: MagicMoc
 def test_parallel_analyze_runs_concurrent_calls(tmp_path: Path) -> None:
     """remember_many with 3 items needing LLM should make 3 concurrent LLM calls."""
     from unittest.mock import call
-    from crewai.memory.unified_memory import Memory
-    from crewai.memory.analyze import MemoryAnalysis, ExtractedMetadata
+    from fzxiezuoai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.analyze import MemoryAnalysis, ExtractedMetadata
 
     call_count = 0
 
@@ -922,7 +922,7 @@ def test_parallel_analyze_runs_concurrent_calls(tmp_path: Path) -> None:
 
 def test_remember_many_returns_immediately(tmp_path: Path) -> None:
     """remember_many() should return an empty list immediately (non-blocking)."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     call_count = 0
 
@@ -955,7 +955,7 @@ def test_remember_many_returns_immediately(tmp_path: Path) -> None:
 
 def test_recall_drains_pending_writes(tmp_path: Path, mock_embedder: MagicMock) -> None:
     """recall() should automatically wait for pending background saves."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     llm = MagicMock()
     llm.supports_function_calling.return_value = False
@@ -976,7 +976,7 @@ def test_recall_drains_pending_writes(tmp_path: Path, mock_embedder: MagicMock) 
 
 def test_close_drains_and_shuts_down(tmp_path: Path, mock_embedder: MagicMock) -> None:
     """close() should drain pending saves and shut down the pool."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     llm = MagicMock()
     llm.supports_function_calling.return_value = False

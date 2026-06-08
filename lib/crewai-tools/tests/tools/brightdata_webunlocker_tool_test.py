@@ -1,6 +1,6 @@
 from unittest.mock import Mock, patch
 
-from crewai_tools.tools.brightdata_tool.brightdata_unlocker import (
+from fzxiezuoai_tools.tools.brightdata_tool.brightdata_unlocker import (
     BrightDataWebUnlockerTool,
 )
 import requests
@@ -10,7 +10,7 @@ import requests
     "os.environ",
     {"BRIGHT_DATA_API_KEY": "test_api_key", "BRIGHT_DATA_ZONE": "test_zone"},
 )
-@patch("crewai_tools.tools.brightdata_tool.brightdata_unlocker.requests.post")
+@patch("fzxiezuoai_tools.tools.brightdata_tool.brightdata_unlocker.requests.post")
 def test_run_success_html(mock_post):
     mock_response = Mock()
     mock_response.status_code = 200
@@ -26,7 +26,7 @@ def test_run_success_html(mock_post):
     "os.environ",
     {"BRIGHT_DATA_API_KEY": "test_api_key", "BRIGHT_DATA_ZONE": "test_zone"},
 )
-@patch("crewai_tools.tools.brightdata_tool.brightdata_unlocker.requests.post")
+@patch("fzxiezuoai_tools.tools.brightdata_tool.brightdata_unlocker.requests.post")
 def test_run_success_json(mock_post):
     mock_response = Mock()
     mock_response.status_code = 200
@@ -44,7 +44,7 @@ def test_run_success_json(mock_post):
     "os.environ",
     {"BRIGHT_DATA_API_KEY": "test_api_key", "BRIGHT_DATA_ZONE": "test_zone"},
 )
-@patch("crewai_tools.tools.brightdata_tool.brightdata_unlocker.requests.post")
+@patch("fzxiezuoai_tools.tools.brightdata_tool.brightdata_unlocker.requests.post")
 def test_run_http_error(mock_post):
     mock_response = Mock()
     mock_response.status_code = 403

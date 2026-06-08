@@ -1,12 +1,12 @@
 [project]
-name = "crewai-core"
+name = "fzxiezuoai-core"
 dynamic = ["version"]
-description = "Shared utilities for CrewAI — version, paths, user-data, telemetry, printer."
+description = "Shared utilities for 12FZ协作AI — version, paths, user-data, telemetry, printer."
 readme = "README.md"
 authors = [
-    { name = "Greyson R. LaLonde", email = "greyson@crewai.com" }
+    { name = "12FZ", email = "greyson@fzxiezuoai.com" }
 ]
-requires-python = ">=3.10, <3.14"
+requires-python = ">=3.10, <3.15"
 dependencies = [
     "appdirs~=1.4.4",
     "cryptography>=42.0",
@@ -23,16 +23,16 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://crewai.com"
-Documentation = "https://docs.crewai.com"
-Repository = "https://github.com/crewAIInc/crewAI"
+Homepage = "https://ai.12fz.com"
+Documentation = "https://ai.12fz.com/docs"
+Repository = "https://github.com/crewAIInc/12FZ协作AI"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "src/crewai_core/__init__.py"
+path = "src/fzxiezuoai_core/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/crewai_core"]
+packages = ["src/fzxiezuoai_core"]

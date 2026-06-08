@@ -1,8 +1,8 @@
 from collections.abc import Generator
 import os
 
-from crewai_tools import SingleStoreSearchTool
-from crewai_tools.tools.singlestore_search_tool import SingleStoreSearchToolSchema
+from fzxiezuoai_tools import SingleStoreSearchTool
+from fzxiezuoai_tools.tools.singlestore_search_tool import SingleStoreSearchToolSchema
 import pytest
 from singlestoredb import connect
 from singlestoredb.server import docker

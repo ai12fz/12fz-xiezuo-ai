@@ -4,16 +4,16 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai.events.event_bus import CrewAIEventsBus
-from crewai.events.types.llm_events import (
+from fzxiezuoai.events.event_bus import CrewAIEventsBus
+from fzxiezuoai.events.types.llm_events import (
     LLMCallCompletedEvent,
     LLMCallStartedEvent,
     LLMCallType,
     LLMStreamChunkEvent,
 )
-from crewai.llm import LLM
-from crewai.llms._finish_reason_utils import extract_choices_finish_reason_and_id
-from crewai.llms.base_llm import BaseLLM
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms._finish_reason_utils import extract_choices_finish_reason_and_id
+from fzxiezuoai.llms.base_llm import BaseLLM
 
 
 class _StubLLM(BaseLLM):
@@ -230,7 +230,7 @@ class TestBaseLLMSamplingParamFields:
     # like ``n=1`` bind directly to the typed field via Pydantic; there is
     # no promotion from ``additional_params``.
     def test_sampling_kwargs_bind_to_typed_fields(self, mock_emit):
-        from crewai.llms.providers.openai.completion import OpenAICompletion
+        from fzxiezuoai.llms.providers.openai.completion import OpenAICompletion
 
         llm = LLM(model="gpt-4", n=1, temperature=0.5, seed=42)
 
@@ -275,7 +275,7 @@ class TestBaseLLMSamplingParamFields:
         assert event.seed is None
 
     def test_emit_uses_call_scoped_stop_override(self, mock_emit):
-        from crewai.llms.base_llm import call_stop_override
+        from fzxiezuoai.llms.base_llm import call_stop_override
 
         llm = _StubLLM(model="test-model", stop=["A"])
 
@@ -299,7 +299,7 @@ class TestEffectiveMaxTokensTelemetry:
         assert event.max_tokens == 256
 
     def test_openai_surfaces_max_completion_tokens(self, mock_emit):
-        from crewai.llms.providers.openai.completion import OpenAICompletion
+        from fzxiezuoai.llms.providers.openai.completion import OpenAICompletion
 
         llm = LLM(model="gpt-4o", max_completion_tokens=512)
         assert isinstance(llm, OpenAICompletion)
@@ -347,7 +347,7 @@ class TestStreamingDictChunkResponseIdPropagation:
         llm = LLM(model="gpt-4o-mini", is_litellm=True, stream=True)
 
         with patch(
-            "crewai.llm.litellm.completion",
+            "fzxiezuoai.llm.litellm.completion",
             return_value=iter(self._dict_chunks()),
         ):
             llm.call("anything")
@@ -367,7 +367,7 @@ class TestStreamingDictChunkResponseIdPropagation:
         async def _acompletion(*_args, **_kwargs):
             return _aiter()
 
-        with patch("crewai.llm.litellm.acompletion", side_effect=_acompletion):
+        with patch("fzxiezuoai.llm.litellm.acompletion", side_effect=_acompletion):
             await llm.acall("anything")
 
         ids = self._stream_event_response_ids(mock_emit)

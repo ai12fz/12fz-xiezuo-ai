@@ -1,26 +1,26 @@
 <div align="center">
 
-![Logo of crewAI, two people rowing on a boat](./assets/crewai_logo.png)
+![Logo of 12FZ协作AI, two people rowing on a boat](./assets/crewai_logo.png)
 
 <div align="left">
 
-# CrewAI Tools
+# 12FZ协作AI Tools
 
-Empower your CrewAI agents with powerful, customizable tools to elevate their capabilities and tackle sophisticated, real-world tasks.
+Empower your 12FZ协作AI agents with powerful, customizable tools to elevate their capabilities and tackle sophisticated, real-world tasks.
 
-CrewAI Tools provide the essential functionality to extend your agents, helping you rapidly enhance your automations with reliable, ready-to-use tools or custom-built solutions tailored precisely to your needs.
+12FZ协作AI Tools provide the essential functionality to extend your agents, helping you rapidly enhance your automations with reliable, ready-to-use tools or custom-built solutions tailored precisely to your needs.
 
 ---
 
 ## Quick Links
 
-[Homepage](https://www.crewai.com/) | [Documentation](https://docs.crewai.com/) | [Examples](https://github.com/crewAIInc/crewAI-examples) | [Community](https://community.crewai.com/)
+[Homepage](https://www.fzxiezuoai.com/) | [Documentation](https://docs.fzxiezuoai.com/) | [Examples](https://github.com/crewAIInc/12FZ协作AI-examples) | [Community](https://community.fzxiezuoai.com/)
 
 ---
 
 ## Available Tools
 
-CrewAI provides an extensive collection of powerful tools ready to enhance your agents:
+12FZ协作AI provides an extensive collection of powerful tools ready to enhance your agents:
 
 - **File Management**: `FileReadTool`, `FileWriteTool`
 - **Web Scraping**: `ScrapeWebsiteTool`, `SeleniumScrapingTool`
@@ -35,14 +35,14 @@ And many more robust tools to simplify your agent integrations.
 
 ## Creating Custom Tools
 
-CrewAI offers two straightforward approaches to creating custom tools:
+12FZ协作AI offers two straightforward approaches to creating custom tools:
 
 ### Subclassing `BaseTool`
 
 Define your tool by subclassing:
 
 ```python
-from crewai.tools import BaseTool
+from fzxiezuoai.tools import BaseTool
 
 class MyCustomTool(BaseTool):
     name: str = "Tool Name"
@@ -57,7 +57,7 @@ class MyCustomTool(BaseTool):
 Quickly create lightweight tools using decorators:
 
 ```python
-from crewai import tool
+from fzxiezuoai import tool
 
 @tool("Tool Name")
 def my_custom_function(input):
@@ -67,30 +67,30 @@ def my_custom_function(input):
 
 ---
 
-## CrewAI Tools and MCP
+## 12FZ协作AI Tools and MCP
 
-CrewAI Tools supports the Model Context Protocol (MCP). It gives you access to thousands of tools from the hundreds of MCP servers out there built by the community.
+12FZ协作AI Tools supports the Model Context Protocol (MCP). It gives you access to thousands of tools from the hundreds of MCP servers out there built by the community.
 
-Before you start using MCP with CrewAI tools, you need to install the `mcp` extra dependencies:
+Before you start using MCP with 12FZ协作AI tools, you need to install the `mcp` extra dependencies:
 
 ```bash
-pip install crewai-tools[mcp]
+pip install fzxiezuoai-tools[mcp]
 # or
-uv add crewai-tools --extra mcp
+uv add fzxiezuoai-tools --extra mcp
 ```
 
-To quickly get started with MCP in CrewAI you have 2 options:
+To quickly get started with MCP in 12FZ协作AI you have 2 options:
 
 ### Option 1: Fully managed connection
 
 In this scenario we use a contextmanager (`with` statement) to start and stop the the connection with the MCP server.
-This is done in the background and you only get to interact with the CrewAI tools corresponding to the MCP server's tools.
+This is done in the background and you only get to interact with the 12FZ协作AI tools corresponding to the MCP server's tools.
 
 For an STDIO based MCP server:
 
 ```python
 from mcp import StdioServerParameters
-from crewai_tools import MCPServerAdapter
+from fzxiezuoai_tools import MCPServerAdapter
 
 serverparams = StdioServerParameters(
     command="uvx",
@@ -99,7 +99,7 @@ serverparams = StdioServerParameters(
 )
 
 with MCPServerAdapter(serverparams) as tools:
-    # tools is now a list of CrewAI Tools matching 1:1 with the MCP server's tools
+    # tools is now a list of 12FZ协作AI Tools matching 1:1 with the MCP server's tools
     agent = Agent(..., tools=tools)
     task = Task(...)
     crew = Crew(..., agents=[agent], tasks=[task])
@@ -110,7 +110,7 @@ For an SSE based MCP server:
 ```python
 serverparams = {"url": "http://localhost:8000/sse"}
 with MCPServerAdapter(serverparams) as tools:
-    # tools is now a list of CrewAI Tools matching 1:1 with the MCP server's tools
+    # tools is now a list of 12FZ协作AI Tools matching 1:1 with the MCP server's tools
     agent = Agent(..., tools=tools)
     task = Task(...)
     crew = Crew(..., agents=[agent], tasks=[task])
@@ -127,7 +127,7 @@ Here is the same example for an STDIO MCP Server:
 
 ```python
 from mcp import StdioServerParameters
-from crewai_tools import MCPServerAdapter
+from fzxiezuoai_tools import MCPServerAdapter
 
 serverparams = StdioServerParameters(
     command="uvx",
@@ -138,7 +138,7 @@ serverparams = StdioServerParameters(
 try:
     mcp_server_adapter = MCPServerAdapter(serverparams)
     tools = mcp_server_adapter.tools
-    # tools is now a list of CrewAI Tools matching 1:1 with the MCP server's tools
+    # tools is now a list of 12FZ协作AI Tools matching 1:1 with the MCP server's tools
     agent = Agent(..., tools=tools)
     task = Task(...)
     crew = Crew(..., agents=[agent], tasks=[task])
@@ -153,14 +153,14 @@ And finally the same thing but for an SSE MCP Server:
 
 ```python
 from mcp import StdioServerParameters
-from crewai_tools import MCPServerAdapter
+from fzxiezuoai_tools import MCPServerAdapter
 
 serverparams = {"url": "http://localhost:8000/sse"}
 
 try:
     mcp_server_adapter = MCPServerAdapter(serverparams)
     tools = mcp_server_adapter.tools
-    # tools is now a list of CrewAI Tools matching 1:1 with the MCP server's tools
+    # tools is now a list of 12FZ协作AI Tools matching 1:1 with the MCP server's tools
     agent = Agent(..., tools=tools)
     task = Task(...)
     crew = Crew(..., agents=[agent], tasks=[task])
@@ -184,7 +184,7 @@ Always make sure that you trust the MCP Server before using it. Using an STDIO s
 
 ---
 
-## Why Use CrewAI Tools?
+## Why Use 12FZ协作AI Tools?
 
 - **Simplicity & Flexibility**: Easy-to-use yet powerful enough for complex workflows.
 - **Rapid Integration**: Seamlessly incorporate external services, APIs, and databases.
@@ -207,7 +207,7 @@ We welcome contributions from the community!
 ## Developer Quickstart
 
 ```shell
-pip install crewai[tools]
+pip install fzxiezuoai[tools]
 ```
 
 ### Development Setup
@@ -223,7 +223,7 @@ pip install crewai[tools]
 
 Join our rapidly growing community and receive real-time support:
 
-- [Discourse](https://community.crewai.com/)
-- [Open an Issue](https://github.com/crewAIInc/crewAI/issues)
+- [Discourse](https://community.fzxiezuoai.com/)
+- [Open an Issue](https://github.com/crewAIInc/12FZ协作AI/issues)
 
-Build smarter, faster, and more powerful AI solutions—powered by CrewAI Tools.
+Build smarter, faster, and more powerful AI solutions—powered by 12FZ协作AI Tools.

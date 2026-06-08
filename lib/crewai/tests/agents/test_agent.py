@@ -5,26 +5,26 @@ import threading
 from unittest import mock
 from unittest.mock import MagicMock, patch
 
-from crewai.agents.crew_agent_executor import AgentFinish, CrewAgentExecutor
-from crewai.constants import DEFAULT_LLM_MODEL
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.tool_usage_events import ToolUsageFinishedEvent
-from crewai.knowledge.knowledge import Knowledge
-from crewai.knowledge.knowledge_config import KnowledgeConfig
-from crewai.knowledge.source.base_knowledge_source import BaseKnowledgeSource
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from crewai.llm import LLM
-from crewai.llms.base_llm import BaseLLM
-from crewai.process import Process
-from crewai.tools.tool_calling import InstructorToolCalling
-from crewai.tools.tool_usage import ToolUsage
-from crewai.utilities.errors import AgentRepositoryError
+from fzxiezuoai.agents.crew_agent_executor import AgentFinish, CrewAgentExecutor
+from fzxiezuoai.constants import DEFAULT_LLM_MODEL
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.tool_usage_events import ToolUsageFinishedEvent
+from fzxiezuoai.knowledge.knowledge import Knowledge
+from fzxiezuoai.knowledge.knowledge_config import KnowledgeConfig
+from fzxiezuoai.knowledge.source.base_knowledge_source import BaseKnowledgeSource
+from fzxiezuoai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.base_llm import BaseLLM
+from fzxiezuoai.process import Process
+from fzxiezuoai.tools.tool_calling import InstructorToolCalling
+from fzxiezuoai.tools.tool_usage import ToolUsage
+from fzxiezuoai.utilities.errors import AgentRepositoryError
 import pytest
 
-from crewai import Agent, Crew, Task
-from crewai.agents.cache import CacheHandler
-from crewai.tools import tool
-from crewai.utilities import RPMController
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.agents.cache import CacheHandler
+from fzxiezuoai.tools import tool
+from fzxiezuoai.utilities import RPMController
 
 
 def test_agent_llm_creation_with_env_vars():
@@ -487,7 +487,7 @@ def test_agent_respect_the_max_rpm_set(capsys):
 def test_agent_respect_the_max_rpm_set_over_crew_rpm(capsys):
     from unittest.mock import patch
 
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def get_final_answer() -> float:
@@ -525,7 +525,7 @@ def test_agent_respect_the_max_rpm_set_over_crew_rpm(capsys):
 def test_agent_without_max_rpm_respects_crew_rpm(capsys):
     from unittest.mock import patch
 
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def get_final_answer() -> float:
@@ -643,7 +643,7 @@ def test_agent_step_callback():
 @pytest.mark.vcr()
 @pytest.mark.skip(reason="result_as_answer feature not yet implemented in native tool calling path")
 def test_tool_result_as_answer_is_the_final_answer_for_the_agent():
-    from crewai.tools import BaseTool
+    from fzxiezuoai.tools import BaseTool
 
     class MyCustomTool(BaseTool):
         name: str = "Get Greetings"
@@ -691,7 +691,7 @@ def test_agent_definition_based_on_dict():
 @pytest.mark.vcr()
 @pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_agent_human_input():
-    from crewai.core.providers.human_input import SyncHumanInputProvider
+    from fzxiezuoai.core.providers.human_input import SyncHumanInputProvider
 
     # Agent configuration
     config = {
@@ -826,7 +826,7 @@ Thought:<|eot_id|>
 
 """
 
-    from crewai.experimental.agent_executor import AgentExecutor
+    from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
     with patch.object(AgentExecutor, "_format_prompt") as mock_format_prompt:
         mock_format_prompt.return_value = expected_prompt
@@ -840,7 +840,7 @@ Thought:<|eot_id|>
 
 @pytest.mark.vcr()
 def test_task_allow_crewai_trigger_context():
-    from crewai import Crew
+    from fzxiezuoai import Crew
 
     agent = Agent(role="test role", goal="test goal", backstory="test backstory")
 
@@ -861,7 +861,7 @@ def test_task_allow_crewai_trigger_context():
 
 @pytest.mark.vcr()
 def test_task_without_allow_crewai_trigger_context():
-    from crewai import Crew
+    from fzxiezuoai import Crew
 
     agent = Agent(role="test role", goal="test goal", backstory="test backstory")
 
@@ -884,7 +884,7 @@ def test_task_without_allow_crewai_trigger_context():
 
 @pytest.mark.vcr()
 def test_task_allow_crewai_trigger_context_no_payload():
-    from crewai import Crew
+    from fzxiezuoai import Crew
 
     agent = Agent(role="test role", goal="test goal", backstory="test backstory")
 
@@ -906,7 +906,7 @@ def test_task_allow_crewai_trigger_context_no_payload():
 
 @pytest.mark.vcr()
 def test_do_not_allow_crewai_trigger_context_for_first_task_hierarchical():
-    from crewai import Crew
+    from fzxiezuoai import Crew
 
     agent1 = Agent(role="First Agent", goal="First goal", backstory="First backstory")
     agent2 = Agent(
@@ -935,7 +935,7 @@ def test_do_not_allow_crewai_trigger_context_for_first_task_hierarchical():
 
 @pytest.mark.vcr()
 def test_first_task_auto_inject_trigger():
-    from crewai import Crew
+    from fzxiezuoai import Crew
 
     agent1 = Agent(role="First Agent", goal="First goal", backstory="First backstory")
     agent2 = Agent(
@@ -968,7 +968,7 @@ def test_first_task_auto_inject_trigger():
 
 @pytest.mark.vcr()
 def test_ensure_first_task_allow_crewai_trigger_context_is_false_does_not_inject():
-    from crewai import Crew
+    from fzxiezuoai import Crew
 
     agent1 = Agent(role="First Agent", goal="First goal", backstory="First backstory")
     agent2 = Agent(
@@ -999,7 +999,7 @@ def test_ensure_first_task_allow_crewai_trigger_context_is_false_does_not_inject
     assert "Trigger Payload: Context data" in second_prompt
 
 
-@patch("crewai.agent.core.CrewTrainingHandler")
+@patch("fzxiezuoai.agent.core.CrewTrainingHandler")
 def test_agent_training_handler(crew_training_handler):
     task_prompt = "What is 1 + 1?"
     agent = Agent(
@@ -1021,7 +1021,7 @@ def test_agent_training_handler(crew_training_handler):
     )
 
 
-@patch("crewai.agent.core.CrewTrainingHandler")
+@patch("fzxiezuoai.agent.core.CrewTrainingHandler")
 def test_agent_use_trained_data(crew_training_handler):
     task_prompt = "What is 1 + 1?"
     agent = Agent(
@@ -1050,7 +1050,7 @@ def test_agent_use_trained_data(crew_training_handler):
     )
 
 
-@patch("crewai.agent.core.CrewTrainingHandler")
+@patch("fzxiezuoai.agent.core.CrewTrainingHandler")
 def test_agent_use_trained_data_honors_env_var(crew_training_handler, monkeypatch):
     monkeypatch.setenv("CREWAI_TRAINED_AGENTS_FILE", "my_custom_trained.pkl")
     agent = Agent(
@@ -1067,7 +1067,7 @@ def test_agent_use_trained_data_honors_env_var(crew_training_handler, monkeypatc
     )
 
 
-@patch("crewai.agent.core.CrewTrainingHandler")
+@patch("fzxiezuoai.agent.core.CrewTrainingHandler")
 def test_agent_use_trained_data_prefers_crew_trained_agents_file(
     crew_training_handler, monkeypatch
 ):
@@ -1093,7 +1093,7 @@ def test_agent_use_trained_data_prefers_crew_trained_agents_file(
     )
 
 
-@patch("crewai.agent.core.CrewTrainingHandler")
+@patch("fzxiezuoai.agent.core.CrewTrainingHandler")
 def test_agent_use_trained_data_accepts_crew_trained_agents_file_path(
     crew_training_handler, tmp_path
 ):
@@ -1130,7 +1130,7 @@ def test_agent_use_trained_data_skips_load_when_file_missing(tmp_path, monkeypat
     agent = Agent(role="researcher", goal="test goal", backstory="test backstory")
 
     with patch(
-        "crewai.utilities.file_handler.store_lock",
+        "fzxiezuoai.utilities.file_handler.store_lock",
         side_effect=AssertionError("kickoff acquired lock with no trained-agents file"),
     ):
         result = agent._use_trained_data(task_prompt="What is 1 + 1?")
@@ -1155,7 +1155,7 @@ def test_agent_max_retry_limit():
 
     agent.create_agent_executor(task=task)
 
-    from crewai.experimental.agent_executor import AgentExecutor
+    from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
     error_message = "Error happening while sending prompt to model."
     with patch.object(
@@ -1281,8 +1281,8 @@ def test_llm_call_with_error():
 
 @pytest.mark.vcr()
 def test_handle_context_length_exceeds_limit():
-    from crewai.utilities.agent_utils import handle_context_length
-    from crewai_core.printer import Printer
+    from fzxiezuoai.utilities.agent_utils import handle_context_length
+    from fzxiezuoai_core.printer import Printer
 
     printer = Printer()
 
@@ -1305,7 +1305,7 @@ def test_handle_context_length_exceeds_limit():
     respect_context_window = True
     callbacks = []
 
-    with patch("crewai.utilities.agent_utils.summarize_messages") as mock_summarize:
+    with patch("fzxiezuoai.utilities.agent_utils.summarize_messages") as mock_summarize:
         mock_summarize.side_effect = ValueError("Context length limit exceeded")
 
         # Directly call handle_context_length with our parameters
@@ -1334,7 +1334,7 @@ def test_handle_context_length_exceeds_limit_cli_no():
 
     agent.create_agent_executor(task=task)
 
-    from crewai.experimental.agent_executor import AgentExecutor
+    from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
     with patch.object(
         AgentExecutor, "invoke", wraps=agent.agent_executor.invoke
@@ -1349,7 +1349,7 @@ def test_handle_context_length_exceeds_limit_cli_no():
         private_mock.assert_called_once()
         pytest.raises(SystemExit)
         with patch(
-            "crewai.utilities.agent_utils.handle_context_length"
+            "fzxiezuoai.utilities.agent_utils.handle_context_length"
         ) as mock_handle_context:
             mock_handle_context.assert_not_called()
 
@@ -1569,7 +1569,7 @@ def test_agent_execute_task_with_ollama():
 def test_agent_with_knowledge_sources():
     content = "Brandon's favorite color is red and he likes Mexican food."
     string_source = StringKnowledgeSource(content=content)
-    with patch("crewai.knowledge") as mock_knowledge:
+    with patch("fzxiezuoai.knowledge") as mock_knowledge:
         mock_knowledge_instance = mock_knowledge.return_value
         mock_knowledge_instance.sources = [string_source]
         mock_knowledge_instance.search.return_value = [{"content": content}]
@@ -1604,12 +1604,12 @@ def test_agent_with_knowledge_sources_with_query_limit_and_score_threshold():
     knowledge_config = KnowledgeConfig(results_limit=10, score_threshold=0.5)
     with (
         patch(
-            "crewai.knowledge.storage.knowledge_storage.KnowledgeStorage"
+            "fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage"
         ) as mock_knowledge_storage,
         patch(
-            "crewai.knowledge.source.base_knowledge_source.KnowledgeStorage"
+            "fzxiezuoai.knowledge.source.base_knowledge_source.KnowledgeStorage"
         ) as mock_base_knowledge_storage,
-        patch("crewai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
+        patch("fzxiezuoai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
     ):
         mock_storage_instance = mock_knowledge_storage.return_value
         mock_storage_instance.sources = [string_source]
@@ -1653,12 +1653,12 @@ def test_agent_with_knowledge_sources_with_query_limit_and_score_threshold_defau
 
     with (
         patch(
-            "crewai.knowledge.storage.knowledge_storage.KnowledgeStorage"
+            "fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage"
         ) as mock_knowledge_storage,
         patch(
-            "crewai.knowledge.source.base_knowledge_source.KnowledgeStorage"
+            "fzxiezuoai.knowledge.source.base_knowledge_source.KnowledgeStorage"
         ) as mock_base_knowledge_storage,
-        patch("crewai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
+        patch("fzxiezuoai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
     ):
         mock_storage_instance = mock_knowledge_storage.return_value
         mock_storage_instance.sources = [string_source]
@@ -1700,9 +1700,9 @@ def test_agent_with_knowledge_sources_extensive_role():
     string_source = StringKnowledgeSource(content=content)
 
     with (
-        patch("crewai.knowledge") as mock_knowledge,
+        patch("fzxiezuoai.knowledge") as mock_knowledge,
         patch(
-            "crewai.knowledge.storage.knowledge_storage.KnowledgeStorage.save"
+            "fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage.save"
         ) as mock_save,
     ):
         mock_knowledge_instance = mock_knowledge.return_value
@@ -1736,7 +1736,7 @@ def test_agent_with_knowledge_sources_works_with_copy():
     string_source = StringKnowledgeSource(content=content)
 
     with patch(
-        "crewai.knowledge.source.base_knowledge_source.BaseKnowledgeSource",
+        "fzxiezuoai.knowledge.source.base_knowledge_source.BaseKnowledgeSource",
         autospec=True,
     ) as mock_knowledge_source:
         mock_knowledge_source_instance = mock_knowledge_source.return_value
@@ -1752,9 +1752,9 @@ def test_agent_with_knowledge_sources_works_with_copy():
         )
 
         with patch(
-            "crewai.knowledge.storage.knowledge_storage.KnowledgeStorage"
+            "fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage"
         ) as mock_knowledge_storage:
-            from crewai.knowledge.storage.base_knowledge_storage import BaseKnowledgeStorage
+            from fzxiezuoai.knowledge.storage.base_knowledge_storage import BaseKnowledgeStorage
 
             class _StubStorage(BaseKnowledgeStorage):
                 def search(self, query, limit=5, metadata_filter=None, score_threshold=0.6):
@@ -1796,14 +1796,14 @@ def test_agent_with_knowledge_sources_generate_search_query():
     string_source = StringKnowledgeSource(content=content)
 
     with (
-        patch("crewai.knowledge") as mock_knowledge,
+        patch("fzxiezuoai.knowledge") as mock_knowledge,
         patch(
-            "crewai.knowledge.storage.knowledge_storage.KnowledgeStorage"
+            "fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage"
         ) as mock_knowledge_storage,
         patch(
-            "crewai.knowledge.source.base_knowledge_source.KnowledgeStorage"
+            "fzxiezuoai.knowledge.source.base_knowledge_source.KnowledgeStorage"
         ) as mock_base_knowledge_storage,
-        patch("crewai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
+        patch("fzxiezuoai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
     ):
         mock_knowledge_instance = mock_knowledge.return_value
         mock_knowledge_instance.sources = [string_source]
@@ -1955,7 +1955,7 @@ def test_litellm_auth_error_handling():
 
 def test_crew_agent_executor_litellm_auth_error():
     """Test that CrewAgentExecutor handles LiteLLM authentication errors by raising them."""
-    from crewai.agents.tools_handler import ToolsHandler
+    from fzxiezuoai.agents.tools_handler import ToolsHandler
     from litellm.exceptions import AuthenticationError
 
     agent = Agent(
@@ -2042,7 +2042,7 @@ def test_litellm_anthropic_error_handling():
 @pytest.mark.vcr()
 def test_get_knowledge_search_query():
     """Test that _get_knowledge_search_query calls the LLM with the correct prompts."""
-    from crewai.utilities.i18n import I18N_DEFAULT
+    from fzxiezuoai.utilities.i18n import I18N_DEFAULT
 
     content = "The capital of France is Paris."
     string_source = StringKnowledgeSource(content=content)
@@ -2065,12 +2065,12 @@ def test_get_knowledge_search_query():
 
     with (
         patch(
-            "crewai.knowledge.storage.knowledge_storage.KnowledgeStorage"
+            "fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage"
         ) as mock_knowledge_storage,
         patch(
-            "crewai.knowledge.source.base_knowledge_source.KnowledgeStorage"
+            "fzxiezuoai.knowledge.source.base_knowledge_source.KnowledgeStorage"
         ) as mock_base_knowledge_storage,
-        patch("crewai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
+        patch("fzxiezuoai.rag.chromadb.client.ChromaDBClient") as mock_chromadb,
         patch.object(agent, "_get_knowledge_search_query") as mock_get_query,
     ):
         mock_storage_instance = mock_knowledge_storage.return_value
@@ -2114,14 +2114,14 @@ def test_get_knowledge_search_query():
 @pytest.fixture
 def mock_get_auth_token():
     with patch(
-        "crewai.auth.token.get_auth_token", return_value="test_token"
+        "fzxiezuoai.auth.token.get_auth_token", return_value="test_token"
     ):
         yield
 
 
-@patch("crewai.plus_api.PlusAPI.get_agent")
+@patch("fzxiezuoai.plus_api.PlusAPI.get_agent")
 def test_agent_from_repository(mock_get_agent, mock_get_auth_token):
-    from crewai_tools import (
+    from fzxiezuoai_tools import (
         FileReadTool,
         SerperDevTool,
     )
@@ -2134,12 +2134,12 @@ def test_agent_from_repository(mock_get_agent, mock_get_auth_token):
         "backstory": "test backstory",
         "tools": [
             {
-                "module": "crewai_tools",
+                "module": "fzxiezuoai_tools",
                 "name": "SerperDevTool",
                 "init_params": {"n_results": "30"},
             },
             {
-                "module": "crewai_tools",
+                "module": "fzxiezuoai_tools",
                 "name": "FileReadTool",
                 "init_params": {"file_path": "test.txt"},
             },
@@ -2160,9 +2160,9 @@ def test_agent_from_repository(mock_get_agent, mock_get_auth_token):
     assert agent.tools[1].file_path == "test.txt"
 
 
-@patch("crewai.plus_api.PlusAPI.get_agent")
+@patch("fzxiezuoai.plus_api.PlusAPI.get_agent")
 def test_agent_from_repository_override_attributes(mock_get_agent, mock_get_auth_token):
-    from crewai_tools import SerperDevTool
+    from fzxiezuoai_tools import SerperDevTool
 
     mock_get_response = MagicMock()
     mock_get_response.status_code = 200
@@ -2171,7 +2171,7 @@ def test_agent_from_repository_override_attributes(mock_get_agent, mock_get_auth
         "goal": "test goal",
         "backstory": "test backstory",
         "tools": [
-            {"name": "SerperDevTool", "module": "crewai_tools", "init_params": {}}
+            {"name": "SerperDevTool", "module": "fzxiezuoai_tools", "init_params": {}}
         ],
     }
     mock_get_agent.return_value = mock_get_response
@@ -2184,7 +2184,7 @@ def test_agent_from_repository_override_attributes(mock_get_agent, mock_get_auth
     assert isinstance(agent.tools[0], SerperDevTool)
 
 
-@patch("crewai.plus_api.PlusAPI.get_agent")
+@patch("fzxiezuoai.plus_api.PlusAPI.get_agent")
 def test_agent_from_repository_with_invalid_tools(mock_get_agent, mock_get_auth_token):
     mock_get_response = MagicMock()
     mock_get_response.status_code = 200
@@ -2195,19 +2195,19 @@ def test_agent_from_repository_with_invalid_tools(mock_get_agent, mock_get_auth_
         "tools": [
             {
                 "name": "DoesNotExist",
-                "module": "crewai_tools",
+                "module": "fzxiezuoai_tools",
             }
         ],
     }
     mock_get_agent.return_value = mock_get_response
     with pytest.raises(
         AgentRepositoryError,
-        match="Tool DoesNotExist could not be loaded: module 'crewai_tools' has no attribute 'DoesNotExist'",
+        match="Tool DoesNotExist could not be loaded: module 'fzxiezuoai_tools' has no attribute 'DoesNotExist'",
     ):
         Agent(from_repository="test_agent")
 
 
-@patch("crewai.plus_api.PlusAPI.get_agent")
+@patch("fzxiezuoai.plus_api.PlusAPI.get_agent")
 def test_agent_from_repository_internal_error(mock_get_agent, mock_get_auth_token):
     mock_get_response = MagicMock()
     mock_get_response.status_code = 500
@@ -2220,7 +2220,7 @@ def test_agent_from_repository_internal_error(mock_get_agent, mock_get_auth_toke
         Agent(from_repository="test_agent")
 
 
-@patch("crewai.plus_api.PlusAPI.get_agent")
+@patch("fzxiezuoai.plus_api.PlusAPI.get_agent")
 def test_agent_from_repository_agent_not_found(mock_get_agent, mock_get_auth_token):
     mock_get_response = MagicMock()
     mock_get_response.status_code = 404
@@ -2233,9 +2233,9 @@ def test_agent_from_repository_agent_not_found(mock_get_agent, mock_get_auth_tok
         Agent(from_repository="test_agent")
 
 
-@patch("crewai.plus_api.PlusAPI.get_agent")
-@patch("crewai.utilities.agent_utils.Settings")
-@patch("crewai.utilities.agent_utils.console")
+@patch("fzxiezuoai.plus_api.PlusAPI.get_agent")
+@patch("fzxiezuoai.utilities.agent_utils.Settings")
+@patch("fzxiezuoai.utilities.agent_utils.console")
 def test_agent_from_repository_displays_org_info(
     mock_console, mock_settings, mock_get_agent, mock_get_auth_token
 ):
@@ -2266,9 +2266,9 @@ def test_agent_from_repository_displays_org_info(
     assert agent.backstory == "test backstory"
 
 
-@patch("crewai.plus_api.PlusAPI.get_agent")
-@patch("crewai.utilities.agent_utils.Settings")
-@patch("crewai.utilities.agent_utils.console")
+@patch("fzxiezuoai.plus_api.PlusAPI.get_agent")
+@patch("fzxiezuoai.utilities.agent_utils.Settings")
+@patch("fzxiezuoai.utilities.agent_utils.console")
 def test_agent_from_repository_without_org_set(
     mock_console, mock_settings, mock_get_agent, mock_get_auth_token
 ):
@@ -2289,7 +2289,7 @@ def test_agent_from_repository_without_org_set(
         Agent(from_repository="test_agent")
 
     mock_console.print.assert_any_call(
-        "No organization currently set. We recommend setting one before using: `crewai org switch <org_id>` command.",
+        "No organization currently set. We recommend setting one before using: `fzxiezuoai org switch <org_id>` command.",
         style="yellow",
     )
 
@@ -2339,7 +2339,7 @@ def test_agent_apps_validation():
 
 @patch.object(Agent, 'get_platform_tools')
 def test_app_actions_propagated_to_platform_tools(mock_get_platform_tools):
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def action_tool() -> str:
@@ -2372,7 +2372,7 @@ def test_app_actions_propagated_to_platform_tools(mock_get_platform_tools):
 
 @patch.object(Agent, 'get_platform_tools')
 def test_mixed_apps_and_actions_propagated(mock_get_platform_tools):
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def combined_tool() -> str:
@@ -2483,9 +2483,9 @@ def test_agent_mcps_accepts_legacy_prefix_with_tool():
         role="MCP Agent",
         goal="Test MCP validation",
         backstory="Test agent",
-        mcps=["crewai-amp:notion#get_page"],
+        mcps=["fzxiezuoai-amp:notion#get_page"],
     )
-    assert agent.mcps == ["crewai-amp:notion#get_page"]
+    assert agent.mcps == ["fzxiezuoai-amp:notion#get_page"]
 
 
 class TestSharedLLMStopWords:
@@ -2498,7 +2498,7 @@ class TestSharedLLMStopWords:
     @staticmethod
     def _make_executor(llm: LLM, stop_words: list[str]) -> CrewAgentExecutor:
         """Build a CrewAgentExecutor with minimal deps."""
-        from crewai.agents.tools_handler import ToolsHandler
+        from fzxiezuoai.agents.tools_handler import ToolsHandler
 
         agent = Agent(role="r", goal="g", backstory="b")
         task = Task(description="d", expected_output="o", agent=agent)
@@ -2530,7 +2530,7 @@ class TestSharedLLMStopWords:
 
     def test_effective_stop_reflects_override_inside_context(self) -> None:
         """Inside the helper, the effective stop list includes the executor's words."""
-        from crewai.utilities.agent_utils import _llm_stop_words_applied
+        from fzxiezuoai.utilities.agent_utils import _llm_stop_words_applied
 
         shared = LLM(model="gpt-4", stop=["Original:"])
         executor = self._make_executor(shared, stop_words=["Observation:"])
@@ -2544,7 +2544,7 @@ class TestSharedLLMStopWords:
 
     def test_override_cleared_when_context_raises(self) -> None:
         """A failed call must still clear the per-call stop override."""
-        from crewai.utilities.agent_utils import _llm_stop_words_applied
+        from fzxiezuoai.utilities.agent_utils import _llm_stop_words_applied
 
         shared = LLM(model="gpt-4", stop=["Original:"])
         executor = self._make_executor(shared, stop_words=["Observation:"])
@@ -2569,7 +2569,7 @@ class TestSharedLLMStopWords:
         regardless of API-level support. (Issue raised by Cursor Bugbot.)
         """
         from unittest.mock import patch
-        from crewai.utilities.agent_utils import _llm_stop_words_applied
+        from fzxiezuoai.utilities.agent_utils import _llm_stop_words_applied
 
         shared = LLM(model="gpt-4", stop=["Original:"])
         executor = self._make_executor(shared, stop_words=["Observation:"])
@@ -2584,7 +2584,7 @@ class TestSharedLLMStopWords:
     def test_concurrent_overrides_do_not_collide(self) -> None:
         """Concurrent agents on a shared LLM must each see their own effective stop."""
         import asyncio
-        from crewai.utilities.agent_utils import _llm_stop_words_applied
+        from fzxiezuoai.utilities.agent_utils import _llm_stop_words_applied
 
         shared = LLM(model="gpt-4", stop=["Original:"])
         exec_a = self._make_executor(shared, stop_words=["StopA:"])
@@ -2614,7 +2614,7 @@ class TestSharedLLMStopWords:
         Regression for Cursor Bugbot: a global ContextVar would leak the
         override to every BaseLLM that reads stop_sequences during the scope.
         """
-        from crewai.utilities.agent_utils import _llm_stop_words_applied
+        from fzxiezuoai.utilities.agent_utils import _llm_stop_words_applied
 
         target = LLM(model="gpt-4", stop=["TargetStop:"])
         other = LLM(model="gpt-4", stop=["OtherStop:"])
@@ -2635,7 +2635,7 @@ class TestSharedLLMStopWords:
         get_llm_response, so the override must be set at executor entry, not
         only around get_llm_response.
         """
-        from crewai.utilities.agent_utils import _llm_stop_words_applied
+        from fzxiezuoai.utilities.agent_utils import _llm_stop_words_applied
 
         shared = LLM(model="gpt-4", stop=["Original:"])
         executor = self._make_executor(shared, stop_words=["Observation:"])

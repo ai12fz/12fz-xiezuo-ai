@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from crewai_files import (
+from fzxiezuoai_files import (
     AudioFile,
     File,
     FileBytes,
@@ -20,7 +20,7 @@ from crewai_files import (
     normalize_input_files,
     wrap_file_source,
 )
-from crewai_files.core.sources import detect_content_type
+from fzxiezuoai_files.core.sources import detect_content_type
 
 
 class TestDetectContentType:

@@ -5,8 +5,8 @@ import logging
 import pytest
 from pydantic import BaseModel
 
-from crewai.llm import LLM
-from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
 
 
 @pytest.mark.vcr()

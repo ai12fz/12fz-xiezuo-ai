@@ -11,9 +11,9 @@ from unittest.mock import patch
 
 import pytest
 
-from crewai.events.event_bus import CrewAIEventsBus
-from crewai.events.types.llm_events import LLMCallCompletedEvent
-from crewai.llm import LLM
+from fzxiezuoai.events.event_bus import CrewAIEventsBus
+from fzxiezuoai.events.types.llm_events import LLMCallCompletedEvent
+from fzxiezuoai.llm import LLM
 
 
 @pytest.fixture
@@ -65,7 +65,7 @@ def _chunks_with_usage_tail() -> list[dict[str, Any]]:
 def test_sync_stream_emits_finish_reason_and_response_id_from_loop(mock_emit):
     llm = LLM(model="gpt-4o-mini", is_litellm=True, stream=True)
 
-    with patch("crewai.llm.litellm.completion", return_value=iter(_chunks_with_usage_tail())):
+    with patch("fzxiezuoai.llm.litellm.completion", return_value=iter(_chunks_with_usage_tail())):
         result = llm.call("anything")
 
     assert result == "hi there"
@@ -86,7 +86,7 @@ async def test_async_stream_emits_finish_reason_and_response_id_from_loop(mock_e
     async def _acompletion(*_args, **_kwargs):
         return _aiter()
 
-    with patch("crewai.llm.litellm.acompletion", side_effect=_acompletion):
+    with patch("fzxiezuoai.llm.litellm.acompletion", side_effect=_acompletion):
         result = await llm.acall("anything")
 
     assert result == "hi there"

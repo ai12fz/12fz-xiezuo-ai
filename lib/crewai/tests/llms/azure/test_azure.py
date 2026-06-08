@@ -5,10 +5,10 @@ from unittest.mock import patch, MagicMock, Mock
 from urllib.parse import urlparse
 import pytest
 
-from crewai.llm import LLM
-from crewai.crew import Crew
-from crewai.agent import Agent
-from crewai.task import Task
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
 
 
 @pytest.fixture
@@ -40,7 +40,7 @@ def test_azure_completion_is_used_when_azure_openai_provider():
     """
     llm = LLM(model="azure_openai/gpt-4")
 
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     assert isinstance(llm, AzureCompletion)
     assert llm.provider == "azure"
     assert llm.model == "gpt-4"
@@ -50,7 +50,7 @@ def test_azure_tool_use_conversation_flow():
     """
     Test that the Azure completion properly handles tool use conversation flow
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     from azure.ai.inference.models import ChatCompletionsToolCall
 
     completion = AzureCompletion(
@@ -101,7 +101,7 @@ def test_azure_completion_module_is_imported():
     """
     Test that the completion module is properly imported when using Azure provider
     """
-    module_name = "crewai.llms.providers.azure.completion"
+    module_name = "fzxiezuoai.llms.providers.azure.completion"
 
     if module_name in sys.modules:
         del sys.modules[module_name]
@@ -120,7 +120,7 @@ def test_native_azure_raises_error_when_initialization_fails():
     Test that LLM raises ImportError when native Azure completion fails to initialize.
     This ensures we don't silently fall back when there's a configuration issue.
     """
-    with patch('crewai.llm.LLM._get_native_provider') as mock_get_provider:
+    with patch('fzxiezuoai.llm.LLM._get_native_provider') as mock_get_provider:
 
         class FailingCompletion:
             def __init__(self, *args, **kwargs):
@@ -151,7 +151,7 @@ def test_azure_completion_initialization_parameters():
         endpoint="https://test.openai.azure.com"
     )
 
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     assert isinstance(llm, AzureCompletion)
     assert llm.model == "gpt-4"
     assert llm.temperature == 0.7
@@ -173,7 +173,7 @@ def test_azure_specific_parameters():
         endpoint="https://test.openai.azure.com"
     )
 
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     assert isinstance(llm, AzureCompletion)
     assert llm.stop == ["Human:", "Assistant:"]
     assert llm.stream == True
@@ -310,7 +310,7 @@ def test_azure_completion_with_tools():
     """
     Test that AzureCompletion.call is invoked with tools when agent has tools
     """
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def sample_tool(query: str) -> str:
@@ -352,7 +352,7 @@ def test_azure_completion_with_tools():
 def test_azure_raises_error_when_endpoint_missing():
     """Credentials are validated lazily: construction succeeds, first
     client build raises the descriptive error."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {}, clear=True):
         llm = AzureCompletion(model="gpt-4", api_key="test-key")
@@ -363,7 +363,7 @@ def test_azure_raises_error_when_endpoint_missing():
 def test_azure_raises_error_when_api_key_missing_without_azure_identity():
     """Without an API key AND without ``azure-identity`` installed,
     client build raises the descriptive error."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {}, clear=True):
         with patch.dict("sys.modules", {"azure.identity": None}):
@@ -378,10 +378,10 @@ def test_azure_uses_default_credential_when_api_key_missing():
     """With ``azure-identity`` installed, a missing API key falls back to
     ``DefaultAzureCredential`` instead of raising. This is the path that
     enables keyless auth (OIDC WIF on EKS/AKS, Managed Identity, Azure
-    CLI) without any crewAI-specific config."""
+    CLI) without any 12FZ协作AI-specific config."""
     from unittest.mock import MagicMock
 
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     sentinel = MagicMock(name="DefaultAzureCredential()")
     with patch.dict(os.environ, {}, clear=True):
@@ -402,7 +402,7 @@ async def test_azure_aclose_is_noop_when_uninitialized():
     """`aclose` (and `async with`) on an uninstantiated-client LLM must be
     a harmless no-op, not force lazy construction that then raises for
     missing credentials."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {}, clear=True):
         llm = AzureCompletion(model="gpt-4")
@@ -418,7 +418,7 @@ def test_azure_lazy_build_reads_env_vars_set_after_construction():
     so the LLM actually works once credentials become available, and the
     `is_azure_openai_endpoint` routing flag must be recomputed off the
     newly-resolved endpoint."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {}, clear=True):
         llm = AzureCompletion(model="gpt-4")
@@ -452,7 +452,7 @@ def test_azure_endpoint_configuration():
     }):
         llm = LLM(model="azure/gpt-4")
 
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
         assert isinstance(llm, AzureCompletion)
         assert llm.endpoint == "https://test1.openai.azure.com/openai/deployments/gpt-4"
 
@@ -477,7 +477,7 @@ def test_azure_api_key_configuration():
     }):
         llm = LLM(model="azure/gpt-4")
 
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
         assert isinstance(llm, AzureCompletion)
         assert llm.api_key == "test-azure-key"
 
@@ -487,7 +487,7 @@ def test_azure_model_capabilities():
     Test that model capabilities are correctly identified
     """
     llm_gpt4 = LLM(model="azure/gpt-4")
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     assert isinstance(llm_gpt4, AzureCompletion)
     assert llm_gpt4.is_openai_model == True
     assert llm_gpt4.supports_function_calling() == True
@@ -515,7 +515,7 @@ def test_azure_completion_params_preparation():
             max_tokens=1000
         )
 
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
         assert isinstance(llm, AzureCompletion)
 
         messages = [{"role": "user", "content": "Hello"}]
@@ -542,7 +542,7 @@ def test_azure_model_detection():
 
     for model_name in azure_test_cases:
         llm = LLM(model=model_name)
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
         assert isinstance(llm, AzureCompletion), f"Failed for model: {model_name}"
 
 
@@ -692,7 +692,7 @@ def test_azure_tool_conversion():
     """
     llm = LLM(model="azure/gpt-4")
 
-    crewai_tools = [{
+    fzxiezuoai_tools = [{
         "type": "function",
         "function": {
             "name": "test_tool",
@@ -707,7 +707,7 @@ def test_azure_tool_conversion():
         }
     }]
 
-    azure_tools = llm._convert_tools_for_interference(crewai_tools)
+    azure_tools = llm._convert_tools_for_interference(fzxiezuoai_tools)
 
     assert len(azure_tools) == 1
     # Azure tools should maintain the function calling format
@@ -798,7 +798,7 @@ def test_azure_api_version_default():
     """
     llm = LLM(model="azure/gpt-4")
 
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     assert isinstance(llm, AzureCompletion)
     assert llm.api_version is not None
 
@@ -818,7 +818,7 @@ def test_azure_openai_endpoint_url_construction():
     """
     Test that Azure OpenAI endpoint URLs are automatically constructed correctly
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {
         "AZURE_API_KEY": "test-key",
@@ -835,7 +835,7 @@ def test_azure_openai_endpoint_url_with_trailing_slash():
     """
     Test that trailing slashes are handled correctly in endpoint URLs
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {
         "AZURE_API_KEY": "test-key",
@@ -900,7 +900,7 @@ def test_non_azure_openai_model_parameter_included():
     """
     Test that model parameter IS included for non-Azure OpenAI endpoints
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {
         "AZURE_API_KEY": "test-key",
@@ -920,7 +920,7 @@ def test_azure_message_formatting_with_role():
     """
     Test that messages are formatted with both 'role' and 'content' fields
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     llm = LLM(model="azure/gpt-4")
 
@@ -981,7 +981,7 @@ def test_azure_improved_error_messages():
     """
     Test that improved error messages are provided for common HTTP errors
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     from azure.core.exceptions import HttpResponseError
 
     llm = LLM(model="azure/gpt-4")
@@ -1013,7 +1013,7 @@ def test_azure_api_version_properly_passed():
     """
     Test that api_version is properly passed to the client
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {
         "AZURE_API_KEY": "test-key",
@@ -1035,7 +1035,7 @@ def test_azure_timeout_and_max_retries_stored():
     """
     Test that timeout and max_retries parameters are stored
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {
         "AZURE_API_KEY": "test-key",
@@ -1055,7 +1055,7 @@ def test_azure_complete_params_include_optional_params():
     """
     Test that optional parameters are included in completion params when set
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {
         "AZURE_API_KEY": "test-key",
@@ -1087,7 +1087,7 @@ def test_azure_endpoint_validation_with_azure_prefix():
     """
     Test that 'azure/' prefix is properly stripped when constructing endpoint
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {
         "AZURE_API_KEY": "test-key",
@@ -1103,7 +1103,7 @@ def test_azure_message_formatting_preserves_all_roles():
     """
     Test that all message roles (system, user, assistant) are preserved correctly
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     llm = LLM(model="azure/gpt-4")
 
@@ -1194,7 +1194,7 @@ def test_azure_completion_params_preparation_with_drop_params():
             max_tokens=1000
         )
 
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
         assert isinstance(llm, AzureCompletion)
 
         messages = [{"role": "user", "content": "Hello"}]
@@ -1278,7 +1278,7 @@ def test_azure_agent_kickoff_structured_output_with_tools():
     This tests post-tool-call structured output handling for Azure OpenAI models.
     """
     from pydantic import BaseModel, Field
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     class CalculationResult(BaseModel):
         """Structured output for calculation results."""
@@ -1321,7 +1321,7 @@ def test_azure_stop_words_not_applied_to_structured_output():
     are not truncated, which would cause JSON validation to fail.
     """
     from pydantic import BaseModel, Field
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     class ResearchResult(BaseModel):
         """Research result that may contain stop word patterns in string fields."""
@@ -1372,7 +1372,7 @@ def test_azure_stop_words_still_applied_to_regular_responses():
     Test that stop words ARE still applied for regular (non-structured) responses.
     This ensures the fix didn't break normal stop word behavior.
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     llm = AzureCompletion(
         model="gpt-4",
@@ -1457,7 +1457,7 @@ def test_azure_credential_scopes_passed_to_client():
     """`credential_scopes` constructor arg flows through `_make_client_kwargs`
     so the underlying ChatCompletionsClient requests tokens for the requested
     audience (e.g. ``cognitiveservices.azure.com/.default``)."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     scopes = ["https://cognitiveservices.azure.com/.default"]
     with patch.dict(os.environ, {}, clear=True):
@@ -1474,7 +1474,7 @@ def test_azure_credential_scopes_passed_to_client():
 def test_azure_credential_scopes_omitted_by_default():
     """Without explicit scopes or env var, the kwarg must not be set so the
     Azure SDK chooses its own default audience."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {}, clear=True):
         llm = AzureCompletion(
@@ -1489,7 +1489,7 @@ def test_azure_credential_scopes_omitted_by_default():
 def test_azure_credential_scopes_from_env_comma_separated():
     """``AZURE_CREDENTIAL_SCOPES`` accepts a comma-separated list. Whitespace
     around entries is stripped; empty entries are dropped."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(
         os.environ,
@@ -1512,7 +1512,7 @@ def test_azure_credential_scopes_from_env_comma_separated():
 def test_azure_credential_scopes_constructor_overrides_env():
     """A constructor-provided ``credential_scopes`` must win over the env var,
     matching how endpoint/api_key precedence works elsewhere in this provider."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     explicit = ["https://explicit/.default"]
     with patch.dict(
@@ -1533,7 +1533,7 @@ def test_azure_credential_scopes_lazy_env_read():
     (e.g. constructed at module import), the lazy client builder must still
     pick up the env value — same pattern as the existing api_key/endpoint
     lazy reads."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     with patch.dict(os.environ, {}, clear=True):
         llm = AzureCompletion(
@@ -1556,7 +1556,7 @@ def test_azure_credential_scopes_lazy_env_read():
 def test_azure_credential_scopes_in_to_config_dict():
     """Config round-trips the scopes so an LLM rebuilt from `to_config_dict`
     keeps the same audience."""
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     scopes = ["https://cognitiveservices.azure.com/.default"]
     with patch.dict(os.environ, {}, clear=True):

@@ -6,10 +6,10 @@ This module ensures that agent knowledge is properly included during task planni
 from unittest.mock import patch
 
 import pytest
-from crewai.agent import Agent
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from crewai.task import Task
-from crewai.utilities.planning_handler import CrewPlanner
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from fzxiezuoai.task import Task
+from fzxiezuoai.utilities.planning_handler import CrewPlanner
 
 
 @pytest.fixture
@@ -29,7 +29,7 @@ def mock_knowledge_source():
     return StringKnowledgeSource(content=content)
 
 
-@patch("crewai.rag.config.utils.get_rag_client")
+@patch("fzxiezuoai.rag.config.utils.get_rag_client")
 def test_knowledge_included_in_planning(mock_get_client):
     """Test that verifies knowledge sources are properly included in planning."""
     mock_client = mock_get_client.return_value

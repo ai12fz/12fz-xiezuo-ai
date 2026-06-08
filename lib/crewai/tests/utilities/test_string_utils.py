@@ -1,7 +1,7 @@
 from typing import Any, Dict, List, Union
 
 import pytest
-from crewai.utilities.string_utils import interpolate_only
+from fzxiezuoai.utilities.string_utils import interpolate_only
 
 
 class TestInterpolateOnly:
@@ -12,12 +12,12 @@ class TestInterpolateOnly:
         template = "Hello, {name}! Welcome to {company}."
         inputs: Dict[str, Union[str, int, float, Dict[str, Any], List[Any]]] = {
             "name": "Alice",
-            "company": "CrewAI",
+            "company": "12FZ协作AI",
         }
 
         result = interpolate_only(template, inputs)
 
-        assert result == "Hello, Alice! Welcome to CrewAI."
+        assert result == "Hello, Alice! Welcome to 12FZ协作AI."
 
     def test_multiple_occurrences_of_same_variable(self):
         """Test that multiple occurrences of the same variable are replaced."""

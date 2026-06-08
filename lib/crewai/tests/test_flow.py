@@ -8,15 +8,15 @@ from typing import Optional
 import pytest
 from pydantic import BaseModel
 
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.flow_events import (
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.flow_events import (
     FlowFinishedEvent,
     FlowPlotEvent,
     FlowStartedEvent,
     MethodExecutionFinishedEvent,
     MethodExecutionStartedEvent,
 )
-from crewai.flow.flow import Flow, and_, listen, or_, router, start
+from fzxiezuoai.flow.flow import Flow, and_, listen, or_, router, start
 
 
 def test_simple_sequential_flow():
@@ -1831,7 +1831,7 @@ def test_cyclic_flow_works_with_persist_and_id_input():
     """
     from uuid import uuid4
 
-    from crewai.flow.persistence import SQLiteFlowPersistence
+    from fzxiezuoai.flow.persistence import SQLiteFlowPersistence
 
     execution_order: list[str] = []
 

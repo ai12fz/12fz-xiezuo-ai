@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 from click.testing import CliRunner
-from crewai_cli.cli import (
+from fzxiezuoai_cli.cli import (
     deploy_create,
     deploy_list,
     deploy_logs,
@@ -24,7 +24,7 @@ def runner():
     return CliRunner()
 
 
-@mock.patch("crewai_cli.cli.train_crew")
+@mock.patch("fzxiezuoai_cli.cli.train_crew")
 def test_train_default_iterations(train_crew, runner):
     result = runner.invoke(train)
 
@@ -33,7 +33,7 @@ def test_train_default_iterations(train_crew, runner):
     assert "Training the Crew for 5 iterations" in result.output
 
 
-@mock.patch("crewai_cli.cli.train_crew")
+@mock.patch("fzxiezuoai_cli.cli.train_crew")
 def test_train_custom_iterations(train_crew, runner):
     result = runner.invoke(train, ["--n_iterations", "10"])
 
@@ -42,7 +42,7 @@ def test_train_custom_iterations(train_crew, runner):
     assert "Training the Crew for 10 iterations" in result.output
 
 
-@mock.patch("crewai_cli.cli.train_crew")
+@mock.patch("fzxiezuoai_cli.cli.train_crew")
 def test_train_invalid_string_iterations(train_crew, runner):
     result = runner.invoke(train, ["--n_iterations", "invalid"])
 
@@ -68,28 +68,28 @@ def test_version_flag(runner):
     result = runner.invoke(version)
 
     assert result.exit_code == 0
-    assert "crewai version:" in result.output
+    assert "fzxiezuoai version:" in result.output
 
 
 def test_version_command(runner):
     result = runner.invoke(version)
 
     assert result.exit_code == 0
-    assert "crewai version:" in result.output
+    assert "fzxiezuoai version:" in result.output
 
 
 def test_version_command_with_tools(runner):
     result = runner.invoke(version, ["--tools"])
 
     assert result.exit_code == 0
-    assert "crewai version:" in result.output
+    assert "fzxiezuoai version:" in result.output
     assert (
-        "crewai tools version:" in result.output
-        or "crewai tools not installed" in result.output
+        "fzxiezuoai tools version:" in result.output
+        or "fzxiezuoai tools not installed" in result.output
     )
 
 
-@mock.patch("crewai_cli.cli.evaluate_crew")
+@mock.patch("fzxiezuoai_cli.cli.evaluate_crew")
 def test_test_default_iterations(evaluate_crew, runner):
     result = runner.invoke(test)
 
@@ -98,7 +98,7 @@ def test_test_default_iterations(evaluate_crew, runner):
     assert "Testing the crew for 3 iterations with model gpt-4o-mini" in result.output
 
 
-@mock.patch("crewai_cli.cli.evaluate_crew")
+@mock.patch("fzxiezuoai_cli.cli.evaluate_crew")
 def test_test_custom_iterations(evaluate_crew, runner):
     result = runner.invoke(test, ["--n_iterations", "5", "--model", "gpt-4o"])
 
@@ -107,7 +107,7 @@ def test_test_custom_iterations(evaluate_crew, runner):
     assert "Testing the crew for 5 iterations with model gpt-4o" in result.output
 
 
-@mock.patch("crewai_cli.cli.evaluate_crew")
+@mock.patch("fzxiezuoai_cli.cli.evaluate_crew")
 def test_test_invalid_string_iterations(evaluate_crew, runner):
     result = runner.invoke(test, ["--n_iterations", "invalid"])
 
@@ -119,7 +119,7 @@ def test_test_invalid_string_iterations(evaluate_crew, runner):
     )
 
 
-@mock.patch("crewai_cli.cli.AuthenticationCommand")
+@mock.patch("fzxiezuoai_cli.cli.AuthenticationCommand")
 def test_login(command, runner):
     mock_auth = command.return_value
     result = runner.invoke(login)
@@ -128,7 +128,7 @@ def test_login(command, runner):
     mock_auth.login.assert_called_once()
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_create(command, runner):
     mock_deploy = command.return_value
     result = runner.invoke(deploy_create)
@@ -137,7 +137,7 @@ def test_deploy_create(command, runner):
     mock_deploy.create_crew.assert_called_once()
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_list(command, runner):
     mock_deploy = command.return_value
     result = runner.invoke(deploy_list)
@@ -146,7 +146,7 @@ def test_deploy_list(command, runner):
     mock_deploy.list_crews.assert_called_once()
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_push(command, runner):
     mock_deploy = command.return_value
     uuid = "test-uuid"
@@ -156,7 +156,7 @@ def test_deploy_push(command, runner):
     mock_deploy.deploy.assert_called_once_with(uuid=uuid, skip_validate=False)
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_push_no_uuid(command, runner):
     mock_deploy = command.return_value
     result = runner.invoke(deploy_push)
@@ -165,7 +165,7 @@ def test_deploy_push_no_uuid(command, runner):
     mock_deploy.deploy.assert_called_once_with(uuid=None, skip_validate=False)
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_status(command, runner):
     mock_deploy = command.return_value
     uuid = "test-uuid"
@@ -175,7 +175,7 @@ def test_deploy_status(command, runner):
     mock_deploy.get_crew_status.assert_called_once_with(uuid=uuid)
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_status_no_uuid(command, runner):
     mock_deploy = command.return_value
     result = runner.invoke(deply_status)
@@ -184,7 +184,7 @@ def test_deploy_status_no_uuid(command, runner):
     mock_deploy.get_crew_status.assert_called_once_with(uuid=None)
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_logs(command, runner):
     mock_deploy = command.return_value
     uuid = "test-uuid"
@@ -194,7 +194,7 @@ def test_deploy_logs(command, runner):
     mock_deploy.get_crew_logs.assert_called_once_with(uuid=uuid)
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_logs_no_uuid(command, runner):
     mock_deploy = command.return_value
     result = runner.invoke(deploy_logs)
@@ -203,7 +203,7 @@ def test_deploy_logs_no_uuid(command, runner):
     mock_deploy.get_crew_logs.assert_called_once_with(uuid=None)
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_remove(command, runner):
     mock_deploy = command.return_value
     uuid = "test-uuid"
@@ -213,7 +213,7 @@ def test_deploy_remove(command, runner):
     mock_deploy.remove_crew.assert_called_once_with(uuid=uuid)
 
 
-@mock.patch("crewai_cli.cli.DeployCommand")
+@mock.patch("fzxiezuoai_cli.cli.DeployCommand")
 def test_deploy_remove_no_uuid(command, runner):
     mock_deploy = command.return_value
     result = runner.invoke(deploy_remove)
@@ -222,7 +222,7 @@ def test_deploy_remove_no_uuid(command, runner):
     mock_deploy.remove_crew.assert_called_once_with(uuid=None)
 
 
-@mock.patch("crewai_cli.add_crew_to_flow.create_embedded_crew")
+@mock.patch("fzxiezuoai_cli.add_crew_to_flow.create_embedded_crew")
 @mock.patch("pathlib.Path.exists", return_value=True)
 def test_flow_add_crew(mock_path_exists, mock_create_embedded_crew, runner):
     crew_name = "new_crew"

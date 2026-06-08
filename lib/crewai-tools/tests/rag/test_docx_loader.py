@@ -1,9 +1,9 @@
 import tempfile
 from unittest.mock import Mock, patch
 
-from crewai_tools.rag.base_loader import LoaderResult
-from crewai_tools.rag.loaders.docx_loader import DOCXLoader
-from crewai_tools.rag.source_content import SourceContent
+from fzxiezuoai_tools.rag.base_loader import LoaderResult
+from fzxiezuoai_tools.rag.loaders.docx_loader import DOCXLoader
+from fzxiezuoai_tools.rag.source_content import SourceContent
 import pytest
 
 
@@ -73,7 +73,7 @@ class TestDOCXLoader:
             "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             in headers["Accept"]
         )
-        assert "crewai-tools DOCXLoader" in headers["User-Agent"]
+        assert "fzxiezuoai-tools DOCXLoader" in headers["User-Agent"]
 
         mock_temp.write.assert_called_once_with(b"fake docx content")
 

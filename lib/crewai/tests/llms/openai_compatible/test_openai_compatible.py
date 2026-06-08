@@ -5,8 +5,8 @@ from unittest.mock import patch
 
 import pytest
 
-from crewai.llm import LLM
-from crewai.llms.providers.openai_compatible.completion import (
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.providers.openai_compatible.completion import (
     OPENAI_COMPATIBLE_PROVIDERS,
     OpenAICompatibleCompletion,
     ProviderConfig,

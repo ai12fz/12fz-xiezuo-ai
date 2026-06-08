@@ -6,7 +6,7 @@ This module tests the RWLock class for correct concurrent read and write behavio
 import threading
 import time
 
-from crewai.utilities.rw_lock import RWLock
+from fzxiezuoai.utilities.rw_lock import RWLock
 
 
 def test_multiple_readers_concurrent():

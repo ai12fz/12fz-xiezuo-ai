@@ -3,9 +3,9 @@
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-from crewai.agent.core import Agent
-from crewai.mcp.config import MCPServerHTTP
-from crewai.mcp.tool_resolver import MCPToolResolver
+from fzxiezuoai.agent.core import Agent
+from fzxiezuoai.mcp.config import MCPServerHTTP
+from fzxiezuoai.mcp.tool_resolver import MCPToolResolver
 
 
 @pytest.fixture
@@ -28,7 +28,7 @@ def http_config():
 
 
 class TestResolveNativeEmptyTools:
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     def test_logs_warning_and_returns_empty_when_server_has_no_tools(
         self, mock_client_class, resolver, http_config
     ):
@@ -54,7 +54,7 @@ class TestResolveNativeEmptyTools:
             for call in warning_calls
         )
 
-    @patch("crewai.mcp.tool_resolver.MCPClient")
+    @patch("fzxiezuoai.mcp.tool_resolver.MCPClient")
     def test_logs_warning_when_tool_filter_removes_all_tools(
         self, mock_client_class, resolver
     ):
@@ -89,7 +89,7 @@ class TestResolveNativeEmptyTools:
 
 
 class TestResolveNativeRuntimeError:
-    @patch("crewai.mcp.tool_resolver.asyncio.run")
+    @patch("fzxiezuoai.mcp.tool_resolver.asyncio.run")
     def test_unmatched_runtime_error_is_wrapped_not_swallowed(
         self, mock_asyncio_run, resolver, http_config
     ):

@@ -2,7 +2,7 @@
 
 from datetime import datetime, timezone
 
-from crewai_files.core.resolved import (
+from fzxiezuoai_files.core.resolved import (
     FileReference,
     InlineBase64,
     InlineBytes,

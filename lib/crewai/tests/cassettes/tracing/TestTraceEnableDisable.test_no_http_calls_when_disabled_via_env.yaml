@@ -66,7 +66,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '423'
       openai-project:

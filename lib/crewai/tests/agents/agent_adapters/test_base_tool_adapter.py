@@ -3,8 +3,8 @@ from unittest.mock import Mock
 
 import pytest
 
-from crewai.agents.agent_adapters.base_tool_adapter import BaseToolAdapter
-from crewai.tools.base_tool import BaseTool
+from fzxiezuoai.agents.agent_adapters.base_tool_adapter import BaseToolAdapter
+from fzxiezuoai.tools.base_tool import BaseTool
 
 
 class ConcreteToolAdapter(BaseToolAdapter):

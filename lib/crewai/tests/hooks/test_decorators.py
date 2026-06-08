@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from unittest.mock import Mock
 
-from crewai.hooks import (
+from fzxiezuoai.hooks import (
     after_llm_call,
     after_tool_call,
     before_llm_call,
@@ -14,15 +14,15 @@ from crewai.hooks import (
     get_before_llm_call_hooks,
     get_before_tool_call_hooks,
 )
-from crewai.hooks.llm_hooks import LLMCallHookContext
-from crewai.hooks.tool_hooks import ToolCallHookContext
+from fzxiezuoai.hooks.llm_hooks import LLMCallHookContext
+from fzxiezuoai.hooks.tool_hooks import ToolCallHookContext
 import pytest
 
 
 @pytest.fixture(autouse=True)
 def clear_hooks():
     """Clear global hooks before and after each test."""
-    from crewai.hooks import llm_hooks, tool_hooks
+    from fzxiezuoai.hooks import llm_hooks, tool_hooks
 
     original_before_llm = llm_hooks._before_llm_call_hooks.copy()
     original_after_llm = llm_hooks._after_llm_call_hooks.copy()
@@ -334,7 +334,7 @@ class TestMultipleDecorators:
 
     def test_decorator_and_manual_registration_work_together(self):
         """Test that decorators and manual registration can be mixed."""
-        from crewai.hooks import register_before_tool_call_hook
+        from fzxiezuoai.hooks import register_before_tool_call_hook
 
         @before_tool_call
         def decorated_hook(context):

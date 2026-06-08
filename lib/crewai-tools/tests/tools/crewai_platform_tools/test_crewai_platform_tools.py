@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import Mock, patch
 
-from crewai_tools.tools.crewai_platform_tools import CrewaiPlatformTools
+from fzxiezuoai_tools.tools.crewai_platform_tools import CrewaiPlatformTools
 
 
 class TestCrewaiPlatformTools(unittest.TestCase):
     @patch.dict("os.environ", {"CREWAI_PLATFORM_INTEGRATION_TOKEN": "test_token"})
     @patch(
-        "crewai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
+        "fzxiezuoai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
     )
     def test_crewai_platform_tools_basic(self, mock_get):
         mock_response = Mock()
@@ -21,7 +21,7 @@ class TestCrewaiPlatformTools(unittest.TestCase):
 
     @patch.dict("os.environ", {"CREWAI_PLATFORM_INTEGRATION_TOKEN": "test_token"})
     @patch(
-        "crewai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
+        "fzxiezuoai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
     )
     def test_crewai_platform_tools_multiple_apps(self, mock_get):
         mock_response = Mock()
@@ -84,7 +84,7 @@ class TestCrewaiPlatformTools(unittest.TestCase):
     @patch.dict("os.environ", {"CREWAI_PLATFORM_INTEGRATION_TOKEN": "test_token"})
     def test_crewai_platform_tools_empty_apps(self):
         with patch(
-            "crewai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
+            "fzxiezuoai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
         ) as mock_get:
             mock_response = Mock()
             mock_response.raise_for_status.return_value = None
@@ -98,7 +98,7 @@ class TestCrewaiPlatformTools(unittest.TestCase):
 
     @patch.dict("os.environ", {"CREWAI_PLATFORM_INTEGRATION_TOKEN": "test_token"})
     @patch(
-        "crewai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
+        "fzxiezuoai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get"
     )
     def test_crewai_platform_tools_api_error_handling(self, mock_get):
         mock_get.side_effect = Exception("API Error")

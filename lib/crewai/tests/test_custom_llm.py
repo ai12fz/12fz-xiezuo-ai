@@ -1,9 +1,9 @@
 from typing import Any, Dict, List, Optional, Union
 
 import pytest
-from crewai import Agent, Crew, Process, Task
-from crewai.llms.base_llm import BaseLLM
-from crewai.utilities.llm_utils import create_llm
+from fzxiezuoai import Agent, Crew, Process, Task
+from fzxiezuoai.llms.base_llm import BaseLLM
+from fzxiezuoai.utilities.llm_utils import create_llm
 
 
 class CustomLLM(BaseLLM):

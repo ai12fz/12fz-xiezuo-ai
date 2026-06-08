@@ -12,15 +12,15 @@ import pytest
 from pydantic import BaseModel
 from pydantic_core import ValidationError
 
-from crewai import Agent, Crew, Process, Task
-from crewai.tasks.conditional_task import ConditionalTask
-from crewai.tasks.task_output import TaskOutput
-from crewai.utilities.converter import Converter
-from crewai.utilities.string_utils import interpolate_only
+from fzxiezuoai import Agent, Crew, Process, Task
+from fzxiezuoai.tasks.conditional_task import ConditionalTask
+from fzxiezuoai.tasks.task_output import TaskOutput
+from fzxiezuoai.utilities.converter import Converter
+from fzxiezuoai.utilities.string_utils import interpolate_only
 
 
 def test_task_tool_reflect_agent_tools():
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def fake_tool() -> None:
@@ -44,7 +44,7 @@ def test_task_tool_reflect_agent_tools():
 
 
 def test_task_tool_takes_precedence_over_agent_tools():
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def fake_tool() -> None:
@@ -121,7 +121,7 @@ def test_task_callback():
 
 
 def test_task_callback_returns_task_output():
-    from crewai.tasks.output_format import OutputFormat
+    from fzxiezuoai.tasks.output_format import OutputFormat
 
     researcher = Agent(
         role="Researcher",
@@ -826,7 +826,7 @@ def test_increment_delegations_for_sequential_process():
 
 @pytest.mark.vcr()
 def test_increment_tool_errors():
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def scoring_examples() -> None:
@@ -946,9 +946,9 @@ def test_interpolate_only():
 
     normal_string = "Hello {name}, welcome to {place}!"
     result = interpolate_only(
-        input_string=normal_string, inputs={"name": "John", "place": "CrewAI"}
+        input_string=normal_string, inputs={"name": "John", "place": "12FZ协作AI"}
     )
-    assert result == "Hello John, welcome to CrewAI!"
+    assert result == "Hello John, welcome to 12FZ协作AI!"
 
     result = interpolate_only(input_string="", inputs={"unused": "value"})
     assert result == ""
@@ -977,9 +977,9 @@ def test_interpolate_only_with_dict_inside_expected_output():
 
     normal_string = "Hello {name}, welcome to {place}!"
     result = interpolate_only(
-        input_string=normal_string, inputs={"name": "John", "place": "CrewAI"}
+        input_string=normal_string, inputs={"name": "John", "place": "12FZ协作AI"}
     )
-    assert result == "Hello John, welcome to CrewAI!"
+    assert result == "Hello John, welcome to 12FZ协作AI!"
 
     result = interpolate_only(input_string="", inputs={"unused": "value"})
     assert result == ""
@@ -990,7 +990,7 @@ def test_interpolate_only_with_dict_inside_expected_output():
 
 
 def test_task_output_str_with_pydantic():
-    from crewai.tasks.output_format import OutputFormat
+    from fzxiezuoai.tasks.output_format import OutputFormat
 
     class ScoreOutput(BaseModel):
         score: int
@@ -1007,7 +1007,7 @@ def test_task_output_str_with_pydantic():
 
 
 def test_task_output_str_with_json_dict():
-    from crewai.tasks.output_format import OutputFormat
+    from fzxiezuoai.tasks.output_format import OutputFormat
 
     json_dict = {"score": 4}
     task_output = TaskOutput(
@@ -1021,7 +1021,7 @@ def test_task_output_str_with_json_dict():
 
 
 def test_task_output_str_with_raw():
-    from crewai.tasks.output_format import OutputFormat
+    from fzxiezuoai.tasks.output_format import OutputFormat
 
     raw_output = "Raw task output"
     task_output = TaskOutput(
@@ -1035,7 +1035,7 @@ def test_task_output_str_with_raw():
 
 
 def test_task_output_str_with_pydantic_and_json_dict():
-    from crewai.tasks.output_format import OutputFormat
+    from fzxiezuoai.tasks.output_format import OutputFormat
 
     class ScoreOutput(BaseModel):
         score: int
@@ -1055,7 +1055,7 @@ def test_task_output_str_with_pydantic_and_json_dict():
 
 
 def test_task_output_str_with_none():
-    from crewai.tasks.output_format import OutputFormat
+    from fzxiezuoai.tasks.output_format import OutputFormat
 
     task_output = TaskOutput(
         description="Test task",
@@ -1529,7 +1529,7 @@ def test_task_with_no_max_execution_time():
 
 @pytest.mark.vcr()
 def test_task_with_max_execution_time():
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     """Test that execution raises TimeoutError when max_execution_time is exceeded."""
 
@@ -1563,7 +1563,7 @@ def test_task_with_max_execution_time():
 
 @pytest.mark.vcr()
 def test_task_with_max_execution_time_exceeded():
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     """Test that execution raises TimeoutError when max_execution_time is exceeded."""
 
@@ -1632,7 +1632,7 @@ def test_task_copy_with_none_context():
 
 
 def test_task_copy_with_not_specified_context():
-    from crewai.utilities.constants import NOT_SPECIFIED
+    from fzxiezuoai.utilities.constants import NOT_SPECIFIED
     original_task = Task(
         description="Test task",
         expected_output="Test output",

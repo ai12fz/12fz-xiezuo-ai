@@ -75,7 +75,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '84'
       openai-version:
@@ -179,7 +179,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '148'
       openai-version:
@@ -252,7 +252,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.31.1
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -394,7 +394,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '8422'
       openai-version:
@@ -523,7 +523,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '85'
       openai-version:
@@ -709,7 +709,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '2842'
       openai-version:
@@ -807,7 +807,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '101'
       openai-version:
@@ -909,7 +909,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '80'
       openai-version:
@@ -1011,7 +1011,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '48'
       openai-version:
@@ -1058,11 +1058,11 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/1.0.0
+      - 12FZ协作AI-CLI/1.0.0
       X-Crewai-Version:
       - 1.0.0
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches
   response:
     body:
       string: '{"id":"ad4ac66f-7511-444c-aec3-a8c711ab4f54","ephemeral_trace_id":"c5146cc4-dcff-45cc-a71a-b82a83b7de73","execution_type":"crew","crew_name":"crew","flow_name":null,"status":"running","duration_ms":null,"crewai_version":"1.0.0","total_events":0,"execution_context":{"crew_fingerprint":null,"crew_name":"crew","flow_name":null,"crewai_version":"1.0.0","privacy_level":"standard"},"created_at":"2025-10-21T17:02:41.683Z","updated_at":"2025-10-21T17:02:41.683Z","access_code":"TRACE-41ea39cb70","user_identifier":null}'
@@ -1078,8 +1078,8 @@ interactions:
       cache-control:
       - no-store
       content-security-policy:
-      - 'default-src ''self'' *.app.crewai.com app.crewai.com; script-src ''self''
-        ''unsafe-inline'' *.app.crewai.com app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts
+      - 'default-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com; script-src ''self''
+        ''unsafe-inline'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts
         https://www.gstatic.com https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
@@ -1090,22 +1090,22 @@ interactions:
         https://js.hs-analytics.net https://js.hs-banner.com https://js.hsadspixel.net
         https://js.hscollectedforms.net https://js.usemessages.com https://snap.licdn.com
         https://static.cloudflareinsights.com https://static.reo.dev https://www.google-analytics.com
-        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.crewai.com
-        app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
-        *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
+        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.fzxiezuoai.com
+        app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
         https://cdn.jsdelivr.net https://forms.hsforms.com https://track.hubspot.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://www.google.com
-        https://www.google.com.br; font-src ''self'' data: *.app.crewai.com app.crewai.com;
-        connect-src ''self'' *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com
+        https://www.google.com.br; font-src ''self'' data: *.app.fzxiezuoai.com app.fzxiezuoai.com;
+        connect-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ https://*.sentry.io
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ https://*.sentry.io
         https://www.google-analytics.com https://edge.fullstory.com https://rs.fullstory.com
         https://api.hubspot.com https://forms.hscollectedforms.net https://api.hubapi.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://google.com/pagead/form-data/16713662509
         https://google.com/ccm/form-data/16713662509 https://www.google.com/ccm/collect
-        https://worker-actionkit.tools.crewai.com https://api.reo.dev; frame-src ''self''
-        *.app.crewai.com app.crewai.com https://connect.useparagon.com/ https://zeus.tools.crewai.com
-        https://zeus.useparagon.com/* https://connect.tools.crewai.com/ https://docs.google.com
+        https://worker-actionkit.tools.fzxiezuoai.com https://api.reo.dev; frame-src ''self''
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.tools.fzxiezuoai.com
+        https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/ https://docs.google.com
         https://drive.google.com https://slides.google.com https://accounts.google.com
         https://*.google.com https://app.hubspot.com/ https://td.doubleclick.net https://www.googletagmanager.com/
         https://www.youtube.com https://share.descript.com'
@@ -1227,7 +1227,7 @@ interactions:
       of user experiences and testimonials to provide more relatable content, especially
       in education and mental health contexts.\n\nBegin! This is VERY important to
       you, use the tools available and give your best Final Answer, your job depends
-      on it!\n\nThought:"}], "tools": null, "callbacks": ["<crewai.utilities.token_counter_callback.TokenCalcHandler
+      on it!\n\nThought:"}], "tools": null, "callbacks": ["<fzxiezuoai.utilities.token_counter_callback.TokenCalcHandler
       object at 0x12e3e6d80>"], "available_functions": null}}, {"event_id": "83d91da9-2d3f-4638-9fdc-262371273149",
       "timestamp": "2025-10-21T17:02:41.544497+00:00", "type": "llm_call_completed",
       "event_data": {"timestamp": "2025-10-21T17:02:41.544497+00:00", "type": "llm_call_completed",
@@ -1482,11 +1482,11 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/1.0.0
+      - 12FZ协作AI-CLI/1.0.0
       X-Crewai-Version:
       - 1.0.0
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches/c5146cc4-dcff-45cc-a71a-b82a83b7de73/events
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches/c5146cc4-dcff-45cc-a71a-b82a83b7de73/events
   response:
     body:
       string: '{"events_created":18,"ephemeral_trace_batch_id":"ad4ac66f-7511-444c-aec3-a8c711ab4f54"}'
@@ -1502,8 +1502,8 @@ interactions:
       cache-control:
       - no-store
       content-security-policy:
-      - 'default-src ''self'' *.app.crewai.com app.crewai.com; script-src ''self''
-        ''unsafe-inline'' *.app.crewai.com app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts
+      - 'default-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com; script-src ''self''
+        ''unsafe-inline'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts
         https://www.gstatic.com https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
@@ -1514,22 +1514,22 @@ interactions:
         https://js.hs-analytics.net https://js.hs-banner.com https://js.hsadspixel.net
         https://js.hscollectedforms.net https://js.usemessages.com https://snap.licdn.com
         https://static.cloudflareinsights.com https://static.reo.dev https://www.google-analytics.com
-        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.crewai.com
-        app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
-        *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
+        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.fzxiezuoai.com
+        app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
         https://cdn.jsdelivr.net https://forms.hsforms.com https://track.hubspot.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://www.google.com
-        https://www.google.com.br; font-src ''self'' data: *.app.crewai.com app.crewai.com;
-        connect-src ''self'' *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com
+        https://www.google.com.br; font-src ''self'' data: *.app.fzxiezuoai.com app.fzxiezuoai.com;
+        connect-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ https://*.sentry.io
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ https://*.sentry.io
         https://www.google-analytics.com https://edge.fullstory.com https://rs.fullstory.com
         https://api.hubspot.com https://forms.hscollectedforms.net https://api.hubapi.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://google.com/pagead/form-data/16713662509
         https://google.com/ccm/form-data/16713662509 https://www.google.com/ccm/collect
-        https://worker-actionkit.tools.crewai.com https://api.reo.dev; frame-src ''self''
-        *.app.crewai.com app.crewai.com https://connect.useparagon.com/ https://zeus.tools.crewai.com
-        https://zeus.useparagon.com/* https://connect.tools.crewai.com/ https://docs.google.com
+        https://worker-actionkit.tools.fzxiezuoai.com https://api.reo.dev; frame-src ''self''
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.tools.fzxiezuoai.com
+        https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/ https://docs.google.com
         https://drive.google.com https://slides.google.com https://accounts.google.com
         https://*.google.com https://app.hubspot.com/ https://td.doubleclick.net https://www.googletagmanager.com/
         https://www.youtube.com https://share.descript.com'
@@ -1576,11 +1576,11 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/1.0.0
+      - 12FZ协作AI-CLI/1.0.0
       X-Crewai-Version:
       - 1.0.0
     method: PATCH
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches/c5146cc4-dcff-45cc-a71a-b82a83b7de73/finalize
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches/c5146cc4-dcff-45cc-a71a-b82a83b7de73/finalize
   response:
     body:
       string: '{"id":"ad4ac66f-7511-444c-aec3-a8c711ab4f54","ephemeral_trace_id":"c5146cc4-dcff-45cc-a71a-b82a83b7de73","execution_type":"crew","crew_name":"crew","flow_name":null,"status":"completed","duration_ms":863,"crewai_version":"1.0.0","total_events":18,"execution_context":{"crew_name":"crew","flow_name":null,"privacy_level":"standard","crewai_version":"1.0.0","crew_fingerprint":null},"created_at":"2025-10-21T17:02:41.683Z","updated_at":"2025-10-21T17:02:42.862Z","access_code":"TRACE-41ea39cb70","user_identifier":null}'
@@ -1596,8 +1596,8 @@ interactions:
       cache-control:
       - no-store
       content-security-policy:
-      - 'default-src ''self'' *.app.crewai.com app.crewai.com; script-src ''self''
-        ''unsafe-inline'' *.app.crewai.com app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts
+      - 'default-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com; script-src ''self''
+        ''unsafe-inline'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts
         https://www.gstatic.com https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
@@ -1608,22 +1608,22 @@ interactions:
         https://js.hs-analytics.net https://js.hs-banner.com https://js.hsadspixel.net
         https://js.hscollectedforms.net https://js.usemessages.com https://snap.licdn.com
         https://static.cloudflareinsights.com https://static.reo.dev https://www.google-analytics.com
-        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.crewai.com
-        app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
-        *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
+        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.fzxiezuoai.com
+        app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
         https://cdn.jsdelivr.net https://forms.hsforms.com https://track.hubspot.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://www.google.com
-        https://www.google.com.br; font-src ''self'' data: *.app.crewai.com app.crewai.com;
-        connect-src ''self'' *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com
+        https://www.google.com.br; font-src ''self'' data: *.app.fzxiezuoai.com app.fzxiezuoai.com;
+        connect-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ https://*.sentry.io
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ https://*.sentry.io
         https://www.google-analytics.com https://edge.fullstory.com https://rs.fullstory.com
         https://api.hubspot.com https://forms.hscollectedforms.net https://api.hubapi.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://google.com/pagead/form-data/16713662509
         https://google.com/ccm/form-data/16713662509 https://www.google.com/ccm/collect
-        https://worker-actionkit.tools.crewai.com https://api.reo.dev; frame-src ''self''
-        *.app.crewai.com app.crewai.com https://connect.useparagon.com/ https://zeus.tools.crewai.com
-        https://zeus.useparagon.com/* https://connect.tools.crewai.com/ https://docs.google.com
+        https://worker-actionkit.tools.fzxiezuoai.com https://api.reo.dev; frame-src ''self''
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.tools.fzxiezuoai.com
+        https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/ https://docs.google.com
         https://drive.google.com https://slides.google.com https://accounts.google.com
         https://*.google.com https://app.hubspot.com/ https://td.doubleclick.net https://www.googletagmanager.com/
         https://www.youtube.com https://share.descript.com'
@@ -1817,7 +1817,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '7373'
       openai-project:
@@ -2008,7 +2008,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '4765'
       openai-project:
@@ -2120,7 +2120,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '175'
       openai-project:
@@ -2226,7 +2226,7 @@ interactions:
       openai-model:
       - text-embedding-3-small
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '53'
       openai-project:

@@ -3,7 +3,7 @@
 from datetime import datetime
 import json
 
-from crewai.security import Fingerprint, SecurityConfig
+from fzxiezuoai.security import Fingerprint, SecurityConfig
 
 
 def test_security_config_creation_with_defaults():

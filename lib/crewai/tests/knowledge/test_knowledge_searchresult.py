@@ -4,18 +4,18 @@ from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai.knowledge.knowledge import Knowledge  # type: ignore[import-untyped]
-from crewai.knowledge.source.string_knowledge_source import (  # type: ignore[import-untyped]
+from fzxiezuoai.knowledge.knowledge import Knowledge  # type: ignore[import-untyped]
+from fzxiezuoai.knowledge.source.string_knowledge_source import (  # type: ignore[import-untyped]
     StringKnowledgeSource,
 )
-from crewai.knowledge.utils.knowledge_utils import (  # type: ignore[import-untyped]
+from fzxiezuoai.knowledge.utils.knowledge_utils import (  # type: ignore[import-untyped]
     extract_knowledge_context,
 )
 
 
 def test_knowledge_query_returns_searchresult() -> None:
     """Test that Knowledge.query returns SearchResult format."""
-    with patch("crewai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
+    with patch("fzxiezuoai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
         mock_storage = MagicMock()
         mock_storage_class.return_value = mock_storage
         mock_storage.search.return_value = [
@@ -59,7 +59,7 @@ def test_knowledge_query_returns_searchresult() -> None:
 
 def test_knowledge_query_with_empty_results() -> None:
     """Test Knowledge.query with empty search results."""
-    with patch("crewai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
+    with patch("fzxiezuoai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
         mock_storage = MagicMock()
         mock_storage_class.return_value = mock_storage
         mock_storage.search.return_value = []
@@ -125,8 +125,8 @@ def test_extract_knowledge_context_filters_invalid_results() -> None:
     assert context.count("\n") == 1
 
 
-@patch("crewai.rag.config.utils.get_rag_client")
-@patch("crewai.knowledge.storage.knowledge_storage.KnowledgeStorage")
+@patch("fzxiezuoai.rag.config.utils.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage")
 def test_knowledge_storage_exception_handling(
     mock_storage_class: MagicMock, mock_get_client: MagicMock
 ) -> None:
@@ -145,7 +145,7 @@ def test_knowledge_storage_exception_handling(
 
 def test_knowledge_add_sources_integration() -> None:
     """Test Knowledge.add_sources integrates properly with storage."""
-    with patch("crewai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
+    with patch("fzxiezuoai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
         mock_storage = MagicMock()
         mock_storage_class.return_value = mock_storage
 
@@ -163,7 +163,7 @@ def test_knowledge_add_sources_integration() -> None:
 
 def test_knowledge_reset_integration() -> None:
     """Test Knowledge.reset integrates with storage."""
-    with patch("crewai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
+    with patch("fzxiezuoai.knowledge.knowledge.KnowledgeStorage") as mock_storage_class:
         mock_storage = MagicMock()
         mock_storage_class.return_value = mock_storage
 
@@ -175,8 +175,8 @@ def test_knowledge_reset_integration() -> None:
         mock_storage.reset.assert_called_once()
 
 
-@patch("crewai.rag.config.utils.get_rag_client")
-@patch("crewai.knowledge.storage.knowledge_storage.KnowledgeStorage")
+@patch("fzxiezuoai.rag.config.utils.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage")
 def test_knowledge_reset_without_storage(
     mock_storage_class: MagicMock, mock_get_client: MagicMock
 ) -> None:

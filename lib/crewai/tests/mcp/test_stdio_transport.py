@@ -4,8 +4,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-import crewai.mcp.transports.stdio as stdio_transport_module
-from crewai.mcp.transports.stdio import StdioTransport
+import fzxiezuoai.mcp.transports.stdio as stdio_transport_module
+from fzxiezuoai.mcp.transports.stdio import StdioTransport
 
 
 @pytest.mark.asyncio

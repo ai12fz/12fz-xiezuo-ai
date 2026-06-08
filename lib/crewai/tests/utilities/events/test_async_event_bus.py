@@ -1,4 +1,4 @@
-"""Tests for async event handling in CrewAI event bus.
+"""Tests for async event handling in 12FZ协作AI event bus.
 
 This module tests async handler registration, execution, and the aemit method.
 """
@@ -7,8 +7,8 @@ import asyncio
 
 import pytest
 
-from crewai.events.base_events import BaseEvent
-from crewai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.base_events import BaseEvent
+from fzxiezuoai.events.event_bus import crewai_event_bus
 
 
 class AsyncTestEvent(BaseEvent):

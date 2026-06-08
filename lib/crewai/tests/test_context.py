@@ -4,7 +4,7 @@ import os
 from unittest.mock import patch
 
 import pytest
-from crewai.context import (
+from fzxiezuoai.context import (
     _platform_integration_token,
     get_platform_integration_token,
     platform_context,
@@ -192,7 +192,7 @@ class TestPlatformIntegrationToken:
         assert _platform_integration_token.get() is None
         assert get_platform_integration_token() == ""
 
-    @patch("crewai.context.os.getenv")
+    @patch("fzxiezuoai.context.os.getenv")
     def test_env_var_access_error_handling(self, mock_getenv):
         mock_getenv.side_effect = OSError("Environment access error")
 

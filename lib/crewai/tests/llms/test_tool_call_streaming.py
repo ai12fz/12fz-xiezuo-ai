@@ -10,8 +10,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai.events.types.llm_events import LLMCallType, LLMStreamChunkEvent, ToolCall
-from crewai.llm import LLM
+from fzxiezuoai.events.types.llm_events import LLMCallType, LLMStreamChunkEvent, ToolCall
+from fzxiezuoai.llm import LLM
 
 
 @pytest.fixture
@@ -39,7 +39,7 @@ def get_temperature_tool_schema() -> dict[str, Any]:
 @pytest.fixture
 def mock_emit() -> MagicMock:
     """Mock the event bus emit function."""
-    from crewai.events.event_bus import CrewAIEventsBus
+    from fzxiezuoai.events.event_bus import CrewAIEventsBus
 
     with patch.object(CrewAIEventsBus, "emit") as mock:
         yield mock

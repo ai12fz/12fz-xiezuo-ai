@@ -4,9 +4,9 @@ import os
 from typing import Dict, List
 
 import pytest
-from crewai.flow.flow import Flow, FlowState, listen, start
-from crewai.flow.persistence import persist
-from crewai.flow.persistence.sqlite import SQLiteFlowPersistence
+from fzxiezuoai.flow.flow import Flow, FlowState, listen, start
+from fzxiezuoai.flow.persistence import persist
+from fzxiezuoai.flow.persistence.sqlite import SQLiteFlowPersistence
 from pydantic import BaseModel
 
 
@@ -350,7 +350,7 @@ def test_restore_from_state_id_none_is_no_op(tmp_path):
 def test_fork_conflict_with_from_checkpoint_raises():
     """Passing both from_checkpoint and restore_from_state_id raises ValueError, naming
     both parameters."""
-    from crewai.state import CheckpointConfig
+    from fzxiezuoai.state import CheckpointConfig
 
     class ConflictFlow(Flow[TestState]):
         @start()
@@ -456,7 +456,7 @@ async def test_akickoff_pinned_fork(tmp_path):
 async def test_akickoff_fork_conflict_with_from_checkpoint_raises():
     """akickoff must raise the same conflict ValueError as kickoff/kickoff_async when
     both from_checkpoint and restore_from_state_id are set."""
-    from crewai.state import CheckpointConfig
+    from fzxiezuoai.state import CheckpointConfig
 
     class AsyncConflictFlow(Flow[TestState]):
         @start()

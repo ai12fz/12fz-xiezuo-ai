@@ -89,7 +89,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '894'
       openai-version:
@@ -224,7 +224,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '3269'
       openai-version:

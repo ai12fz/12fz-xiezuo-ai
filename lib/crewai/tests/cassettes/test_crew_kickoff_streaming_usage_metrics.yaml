@@ -54,7 +54,7 @@ interactions:
         \U0001F9EA **Agent Benchmarking**             | Test your agents against 1,000+
         evals                         |\\n| \U0001F510 **Compliance and Security**
         \       | Detect common prompt injection and data exfiltration exploits |\\n|
-        \U0001F91D **Framework Integrations**         | Native Integrations with CrewAI,
+        \U0001F91D **Framework Integrations**         | Native Integrations with 12FZ协作AI,
         AG2(AutoGen), Camel AI, & LangChain         |\\n\\n## Quick Start \u2328\uFE0F\\n\\n```bash\\npip
         install agentops\\n```\\n\\n\\n#### Session replays in 2 lines of code\\n\\nInitialize
         the AgentOps client and automatically get analytics on all your LLM calls.\\n\\n[Get
@@ -88,12 +88,12 @@ interactions:
         functions.\\nfrom agentops import record_action\\n\\n@agentops.record_action('sample
         function being record')\\ndef sample_function(...):\\n  ...\\n```\\n\\n```python\\n#
         Manually record any other Events\\nfrom agentops import record, ActionEvent\\n\\nrecord(ActionEvent(\\\"received_user_input\\\"))\\n```\\n\\n##
-        Integrations \U0001F9BE\\n\\n### CrewAI \U0001F6F6\\n\\nBuild Crew agents
+        Integrations \U0001F9BE\\n\\n### 12FZ协作AI \U0001F6F6\\n\\nBuild Crew agents
         with observability with only 2 lines of code. Simply set an `AGENTOPS_API_KEY`
         in your environment, and your crews will get automatic monitoring on the AgentOps
-        dashboard.\\n\\n```bash\\npip install 'crewai[agentops]'\\n```\\n\\n- [AgentOps
-        integration example](https://docs.agentops.ai/v1/integrations/crewai)\\n-
-        [Official CrewAI documentation](https://docs.crewai.com/how-to/AgentOps-Observability)\\n\\n###
+        dashboard.\\n\\n```bash\\npip install 'fzxiezuoai[agentops]'\\n```\\n\\n- [AgentOps
+        integration example](https://docs.agentops.ai/v1/integrations/fzxiezuoai)\\n-
+        [Official 12FZ协作AI documentation](https://docs.fzxiezuoai.com/how-to/AgentOps-Observability)\\n\\n###
         AG2 \U0001F916\\nWith only two lines of code, add full observability and monitoring
         to AG2 (formerly AutoGen) agents. Set an `AGENTOPS_API_KEY` in your environment
         and call `agentops.init()`\\n\\n- [AG2 Observability Example](https://docs.ag2.ai/notebooks/agentchat_agentops)\\n-
@@ -319,7 +319,7 @@ interactions:
         / [llama_index](https://github.com/run-llama/llama_index) | 34446 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/170677839?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [crewAIInc](https://github.com/crewAIInc)
-        / [crewAI](https://github.com/crewAIInc/crewAI) | 18287 |\\n|<img class=\\\"avatar
+        / [12FZ协作AI](https://github.com/crewAIInc/12FZ协作AI) | 18287 |\\n|<img class=\\\"avatar
         mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/134388954?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [camel-ai](https://github.com/camel-ai)
         / [camel](https://github.com/camel-ai/camel) | 5166 |\\n|<img class=\\\"avatar
@@ -343,10 +343,10 @@ interactions:
         / [swarmzero](https://github.com/swarmzero/swarmzero) | 195 |\\n|<img class=\\\"avatar
         mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/3074263?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [strnad](https://github.com/strnad)
-        / [CrewAI-Studio](https://github.com/strnad/CrewAI-Studio) | 134 |\\n|<img
+        / [12FZ协作AI-Studio](https://github.com/strnad/12FZ协作AI-Studio) | 134 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/18406448?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [alejandro-ao](https://github.com/alejandro-ao)
-        / [exa-crewai](https://github.com/alejandro-ao/exa-crewai) | 55 |\\n|<img
+        / [exa-fzxiezuoai](https://github.com/alejandro-ao/exa-fzxiezuoai) | 55 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/64493665?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [tonykipkemboi](https://github.com/tonykipkemboi)
         / [youtube_yapper_trapper](https://github.com/tonykipkemboi/youtube_yapper_trapper)
@@ -642,7 +642,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '165'
       openai-version:
@@ -721,7 +721,7 @@ interactions:
         \U0001F9EA **Agent Benchmarking**             | Test your agents against 1,000+
         evals                         |\\n| \U0001F510 **Compliance and Security**
         \       | Detect common prompt injection and data exfiltration exploits |\\n|
-        \U0001F91D **Framework Integrations**         | Native Integrations with CrewAI,
+        \U0001F91D **Framework Integrations**         | Native Integrations with 12FZ协作AI,
         AG2(AutoGen), Camel AI, & LangChain         |\\n\\n## Quick Start \u2328\uFE0F\\n\\n```bash\\npip
         install agentops\\n```\\n\\n\\n#### Session replays in 2 lines of code\\n\\nInitialize
         the AgentOps client and automatically get analytics on all your LLM calls.\\n\\n[Get
@@ -755,12 +755,12 @@ interactions:
         functions.\\nfrom agentops import record_action\\n\\n@agentops.record_action('sample
         function being record')\\ndef sample_function(...):\\n  ...\\n```\\n\\n```python\\n#
         Manually record any other Events\\nfrom agentops import record, ActionEvent\\n\\nrecord(ActionEvent(\\\"received_user_input\\\"))\\n```\\n\\n##
-        Integrations \U0001F9BE\\n\\n### CrewAI \U0001F6F6\\n\\nBuild Crew agents
+        Integrations \U0001F9BE\\n\\n### 12FZ协作AI \U0001F6F6\\n\\nBuild Crew agents
         with observability with only 2 lines of code. Simply set an `AGENTOPS_API_KEY`
         in your environment, and your crews will get automatic monitoring on the AgentOps
-        dashboard.\\n\\n```bash\\npip install 'crewai[agentops]'\\n```\\n\\n- [AgentOps
-        integration example](https://docs.agentops.ai/v1/integrations/crewai)\\n-
-        [Official CrewAI documentation](https://docs.crewai.com/how-to/AgentOps-Observability)\\n\\n###
+        dashboard.\\n\\n```bash\\npip install 'fzxiezuoai[agentops]'\\n```\\n\\n- [AgentOps
+        integration example](https://docs.agentops.ai/v1/integrations/fzxiezuoai)\\n-
+        [Official 12FZ协作AI documentation](https://docs.fzxiezuoai.com/how-to/AgentOps-Observability)\\n\\n###
         AG2 \U0001F916\\nWith only two lines of code, add full observability and monitoring
         to AG2 (formerly AutoGen) agents. Set an `AGENTOPS_API_KEY` in your environment
         and call `agentops.init()`\\n\\n- [AG2 Observability Example](https://docs.ag2.ai/notebooks/agentchat_agentops)\\n-
@@ -986,7 +986,7 @@ interactions:
         / [llama_index](https://github.com/run-llama/llama_index) | 34446 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/170677839?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [crewAIInc](https://github.com/crewAIInc)
-        / [crewAI](https://github.com/crewAIInc/crewAI) | 18287 |\\n|<img class=\\\"avatar
+        / [12FZ协作AI](https://github.com/crewAIInc/12FZ协作AI) | 18287 |\\n|<img class=\\\"avatar
         mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/134388954?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [camel-ai](https://github.com/camel-ai)
         / [camel](https://github.com/camel-ai/camel) | 5166 |\\n|<img class=\\\"avatar
@@ -1010,10 +1010,10 @@ interactions:
         / [swarmzero](https://github.com/swarmzero/swarmzero) | 195 |\\n|<img class=\\\"avatar
         mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/3074263?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [strnad](https://github.com/strnad)
-        / [CrewAI-Studio](https://github.com/strnad/CrewAI-Studio) | 134 |\\n|<img
+        / [12FZ协作AI-Studio](https://github.com/strnad/12FZ协作AI-Studio) | 134 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/18406448?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [alejandro-ao](https://github.com/alejandro-ao)
-        / [exa-crewai](https://github.com/alejandro-ao/exa-crewai) | 55 |\\n|<img
+        / [exa-fzxiezuoai](https://github.com/alejandro-ao/exa-fzxiezuoai) | 55 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/64493665?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [tonykipkemboi](https://github.com/tonykipkemboi)
         / [youtube_yapper_trapper](https://github.com/tonykipkemboi/youtube_yapper_trapper)
@@ -1668,7 +1668,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -1871,7 +1871,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '254'
       openai-version:
@@ -1950,7 +1950,7 @@ interactions:
         \U0001F9EA **Agent Benchmarking**             | Test your agents against 1,000+
         evals                         |\\n| \U0001F510 **Compliance and Security**
         \       | Detect common prompt injection and data exfiltration exploits |\\n|
-        \U0001F91D **Framework Integrations**         | Native Integrations with CrewAI,
+        \U0001F91D **Framework Integrations**         | Native Integrations with 12FZ协作AI,
         AG2(AutoGen), Camel AI, & LangChain         |\\n\\n## Quick Start \u2328\uFE0F\\n\\n```bash\\npip
         install agentops\\n```\\n\\n\\n#### Session replays in 2 lines of code\\n\\nInitialize
         the AgentOps client and automatically get analytics on all your LLM calls.\\n\\n[Get
@@ -1984,12 +1984,12 @@ interactions:
         functions.\\nfrom agentops import record_action\\n\\n@agentops.record_action('sample
         function being record')\\ndef sample_function(...):\\n  ...\\n```\\n\\n```python\\n#
         Manually record any other Events\\nfrom agentops import record, ActionEvent\\n\\nrecord(ActionEvent(\\\"received_user_input\\\"))\\n```\\n\\n##
-        Integrations \U0001F9BE\\n\\n### CrewAI \U0001F6F6\\n\\nBuild Crew agents
+        Integrations \U0001F9BE\\n\\n### 12FZ协作AI \U0001F6F6\\n\\nBuild Crew agents
         with observability with only 2 lines of code. Simply set an `AGENTOPS_API_KEY`
         in your environment, and your crews will get automatic monitoring on the AgentOps
-        dashboard.\\n\\n```bash\\npip install 'crewai[agentops]'\\n```\\n\\n- [AgentOps
-        integration example](https://docs.agentops.ai/v1/integrations/crewai)\\n-
-        [Official CrewAI documentation](https://docs.crewai.com/how-to/AgentOps-Observability)\\n\\n###
+        dashboard.\\n\\n```bash\\npip install 'fzxiezuoai[agentops]'\\n```\\n\\n- [AgentOps
+        integration example](https://docs.agentops.ai/v1/integrations/fzxiezuoai)\\n-
+        [Official 12FZ协作AI documentation](https://docs.fzxiezuoai.com/how-to/AgentOps-Observability)\\n\\n###
         AG2 \U0001F916\\nWith only two lines of code, add full observability and monitoring
         to AG2 (formerly AutoGen) agents. Set an `AGENTOPS_API_KEY` in your environment
         and call `agentops.init()`\\n\\n- [AG2 Observability Example](https://docs.ag2.ai/notebooks/agentchat_agentops)\\n-
@@ -2215,7 +2215,7 @@ interactions:
         / [llama_index](https://github.com/run-llama/llama_index) | 34446 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/170677839?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [crewAIInc](https://github.com/crewAIInc)
-        / [crewAI](https://github.com/crewAIInc/crewAI) | 18287 |\\n|<img class=\\\"avatar
+        / [12FZ协作AI](https://github.com/crewAIInc/12FZ协作AI) | 18287 |\\n|<img class=\\\"avatar
         mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/134388954?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [camel-ai](https://github.com/camel-ai)
         / [camel](https://github.com/camel-ai/camel) | 5166 |\\n|<img class=\\\"avatar
@@ -2239,10 +2239,10 @@ interactions:
         / [swarmzero](https://github.com/swarmzero/swarmzero) | 195 |\\n|<img class=\\\"avatar
         mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/3074263?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [strnad](https://github.com/strnad)
-        / [CrewAI-Studio](https://github.com/strnad/CrewAI-Studio) | 134 |\\n|<img
+        / [12FZ协作AI-Studio](https://github.com/strnad/12FZ协作AI-Studio) | 134 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/18406448?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [alejandro-ao](https://github.com/alejandro-ao)
-        / [exa-crewai](https://github.com/alejandro-ao/exa-crewai) | 55 |\\n|<img
+        / [exa-fzxiezuoai](https://github.com/alejandro-ao/exa-fzxiezuoai) | 55 |\\n|<img
         class=\\\"avatar mr-2\\\" src=\\\"https://avatars.githubusercontent.com/u/64493665?s=40&v=4\\\"
         width=\\\"20\\\" height=\\\"20\\\" alt=\\\"\\\">  &nbsp; [tonykipkemboi](https://github.com/tonykipkemboi)
         / [youtube_yapper_trapper](https://github.com/tonykipkemboi/youtube_yapper_trapper)
@@ -2544,7 +2544,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '183'
       openai-version:

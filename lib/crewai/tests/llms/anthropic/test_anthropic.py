@@ -4,10 +4,10 @@ import types
 from unittest.mock import patch, MagicMock
 import pytest
 
-from crewai.llm import LLM
-from crewai.crew import Crew
-from crewai.agent import Agent
-from crewai.task import Task
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
 
 
 @pytest.fixture(autouse=True)
@@ -37,7 +37,7 @@ def test_anthropic_completion_is_used_when_claude_provider():
     """
     llm = LLM(model="claude/claude-3-5-sonnet-20241022")
 
-    from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+    from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
     assert isinstance(llm, AnthropicCompletion)
     assert llm.provider == "anthropic"
     assert llm.model == "claude-3-5-sonnet-20241022"
@@ -49,7 +49,7 @@ def test_anthropic_completion_module_is_imported():
     """
     Test that the completion module is properly imported when using Anthropic provider
     """
-    module_name = "crewai.llms.providers.anthropic.completion"
+    module_name = "fzxiezuoai.llms.providers.anthropic.completion"
 
     if module_name in sys.modules:
         del sys.modules[module_name]
@@ -68,7 +68,7 @@ def test_native_anthropic_raises_error_when_initialization_fails():
     Test that LLM raises ImportError when native Anthropic completion fails to initialize.
     This ensures we don't silently fall back when there's a configuration issue.
     """
-    with patch('crewai.llm.LLM._get_native_provider') as mock_get_provider:
+    with patch('fzxiezuoai.llm.LLM._get_native_provider') as mock_get_provider:
 
         class FailingCompletion:
             def __init__(self, *args, **kwargs):
@@ -96,7 +96,7 @@ def test_anthropic_completion_initialization_parameters():
         api_key="test-key"
     )
 
-    from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+    from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
     assert isinstance(llm, AnthropicCompletion)
     assert llm.model == "claude-3-5-sonnet-20241022"
     assert llm.temperature == 0.7
@@ -116,7 +116,7 @@ def test_anthropic_specific_parameters():
         timeout=60
     )
 
-    from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+    from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
     assert isinstance(llm, AnthropicCompletion)
     assert llm.stop_sequences == ["Human:", "Assistant:"]
     assert llm.stream == True
@@ -251,7 +251,7 @@ def test_anthropic_completion_with_tools():
     """
     Test that AnthropicCompletion.call is invoked with tools when agent has tools
     """
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def sample_tool(query: str) -> str:
@@ -294,7 +294,7 @@ def test_anthropic_raises_error_when_model_not_supported():
     """Test that AnthropicCompletion raises ValueError when model not supported"""
 
     # Mock the Anthropic client to raise an error
-    with patch('crewai.llms.providers.anthropic.completion.Anthropic') as mock_anthropic_class:
+    with patch('fzxiezuoai.llms.providers.anthropic.completion.Anthropic') as mock_anthropic_class:
         mock_client = MagicMock()
         mock_anthropic_class.return_value = mock_client
 
@@ -331,7 +331,7 @@ def test_anthropic_client_params_setup():
             client_params=custom_client_params
         )
 
-        from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+        from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
         assert isinstance(llm, AnthropicCompletion)
 
         assert llm.client_params == custom_client_params
@@ -366,7 +366,7 @@ def test_anthropic_client_params_override_defaults():
         )
 
         # Verify this is actually AnthropicCompletion, not LiteLLM fallback
-        from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+        from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
         assert isinstance(llm, AnthropicCompletion)
 
         merged_params = llm._get_client_params()
@@ -391,7 +391,7 @@ def test_anthropic_client_params_none():
             client_params=None
         )
 
-        from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+        from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
         assert isinstance(llm, AnthropicCompletion)
 
         assert llm.client_params is None
@@ -419,7 +419,7 @@ def test_anthropic_client_params_empty_dict():
             client_params={}
         )
 
-        from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+        from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
         assert isinstance(llm, AnthropicCompletion)
 
         assert llm.client_params == {}
@@ -442,7 +442,7 @@ def test_anthropic_model_detection():
 
     for model_name in anthropic_test_cases:
         llm = LLM(model=model_name)
-        from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+        from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
         assert isinstance(llm, AnthropicCompletion), f"Failed for model: {model_name}"
 
 
@@ -505,7 +505,7 @@ def test_anthropic_tool_conversion():
     """
     llm = LLM(model="anthropic/claude-3-5-sonnet-20241022")
 
-    crewai_tools = [{
+    fzxiezuoai_tools = [{
         "type": "function",
         "function": {
             "name": "test_tool",
@@ -520,7 +520,7 @@ def test_anthropic_tool_conversion():
         }
     }]
 
-    anthropic_tools = llm._convert_tools_for_interference(crewai_tools)
+    anthropic_tools = llm._convert_tools_for_interference(fzxiezuoai_tools)
 
     assert len(anthropic_tools) == 1
     assert anthropic_tools[0]["name"] == "test_tool"
@@ -596,7 +596,7 @@ def test_anthropic_stop_sequences_sent_to_api():
 def test_anthropic_thinking():
     """Test that thinking is properly handled and thinking params are passed to messages.create"""
     from unittest.mock import patch
-    from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+    from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
 
     llm = LLM(
         model="anthropic/claude-sonnet-4-5",
@@ -633,7 +633,7 @@ def test_anthropic_thinking():
 def test_anthropic_thinking_blocks_preserved_across_turns():
     """Test that thinking blocks are stored and included in subsequent API calls across turns"""
     from unittest.mock import patch
-    from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+    from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
 
     llm = LLM(
         model="anthropic/claude-sonnet-4-5",
@@ -905,7 +905,7 @@ def test_anthropic_agent_kickoff_structured_output_with_tools():
     This tests post-tool-call structured output handling for Anthropic models.
     """
     from pydantic import BaseModel, Field
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     class CalculationResult(BaseModel):
         """Structured output for calculation results."""
@@ -1068,7 +1068,7 @@ def test_tool_search_true_injects_bm25_and_defer_loading():
     """tool_search=True should inject bm25 tool search and defer all tools."""
     llm = LLM(model="anthropic/claude-sonnet-4-5", tool_search=True)
 
-    crewai_tools = [
+    fzxiezuoai_tools = [
         {
             "type": "function",
             "function": {
@@ -1099,7 +1099,7 @@ def test_tool_search_true_injects_bm25_and_defer_loading():
         [{"role": "user", "content": "Hello"}]
     )
     params = llm._prepare_completion_params(
-        formatted_messages, system_message, crewai_tools
+        formatted_messages, system_message, fzxiezuoai_tools
     )
 
     tools = params["tools"]
@@ -1115,12 +1115,12 @@ def test_tool_search_true_injects_bm25_and_defer_loading():
 
 def test_tool_search_regex_config():
     """tool_search with regex config should use regex variant."""
-    from crewai.llms.providers.anthropic.completion import AnthropicToolSearchConfig
+    from fzxiezuoai.llms.providers.anthropic.completion import AnthropicToolSearchConfig
 
     config = AnthropicToolSearchConfig(type="regex")
     llm = LLM(model="anthropic/claude-sonnet-4-5", tool_search=config)
 
-    crewai_tools = [
+    fzxiezuoai_tools = [
         {
             "type": "function",
             "function": {
@@ -1151,7 +1151,7 @@ def test_tool_search_regex_config():
         [{"role": "user", "content": "Hello"}]
     )
     params = llm._prepare_completion_params(
-        formatted_messages, system_message, crewai_tools
+        formatted_messages, system_message, fzxiezuoai_tools
     )
 
     tools = params["tools"]
@@ -1163,7 +1163,7 @@ def test_tool_search_disabled_by_default():
     """tool_search=None (default) should NOT inject anything."""
     llm = LLM(model="anthropic/claude-sonnet-4-5")
 
-    crewai_tools = [
+    fzxiezuoai_tools = [
         {
             "type": "function",
             "function": {
@@ -1182,7 +1182,7 @@ def test_tool_search_disabled_by_default():
         [{"role": "user", "content": "Hello"}]
     )
     params = llm._prepare_completion_params(
-        formatted_messages, system_message, crewai_tools
+        formatted_messages, system_message, fzxiezuoai_tools
     )
 
     tools = params["tools"]
@@ -1266,7 +1266,7 @@ def test_tool_search_single_tool_skips_search_and_forces_choice():
     normal forced tool_choice optimisation still applies."""
     llm = LLM(model="anthropic/claude-sonnet-4-5", tool_search=True)
 
-    crewai_tools = [
+    fzxiezuoai_tools = [
         {
             "type": "function",
             "function": {
@@ -1287,7 +1287,7 @@ def test_tool_search_single_tool_skips_search_and_forces_choice():
     params = llm._prepare_completion_params(
         formatted_messages,
         system_message,
-        crewai_tools,
+        fzxiezuoai_tools,
         available_functions={"test_tool": lambda q: "result"},
     )
 
@@ -1306,7 +1306,7 @@ def test_tool_search_single_tool_skips_search_and_forces_choice():
 
 def test_tool_search_via_llm_class():
     """Verify tool_search param passes through LLM class correctly."""
-    from crewai.llms.providers.anthropic.completion import (
+    from fzxiezuoai.llms.providers.anthropic.completion import (
         AnthropicCompletion,
         AnthropicToolSearchConfig,
     )

@@ -96,7 +96,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '989'
       openai-version:
@@ -222,7 +222,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1174'
       openai-version:
@@ -265,7 +265,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/0.201.1
+      - 12FZ协作AI-CLI/0.201.1
       X-Crewai-Organization-Id:
       - d3a3d10c-35db-423f-a7a4-c026030ba64d
       X-Crewai-Version:
@@ -283,22 +283,22 @@ interactions:
       cache-control:
       - no-store
       content-security-policy:
-      - 'default-src ''self'' *.crewai.com crewai.com; script-src ''self'' ''unsafe-inline''
-        *.crewai.com crewai.com https://cdn.jsdelivr.net/npm/apexcharts https://www.gstatic.com
+      - 'default-src ''self'' *.fzxiezuoai.com fzxiezuoai.com; script-src ''self'' ''unsafe-inline''
+        *.fzxiezuoai.com fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts https://www.gstatic.com
         https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
         https://js.sentry-cdn.com https://browser.sentry-cdn.com https://www.googletagmanager.com
         https://js-na1.hs-scripts.com https://share.descript.com/; style-src ''self''
-        ''unsafe-inline'' *.crewai.com crewai.com https://cdn.jsdelivr.net/npm/apexcharts;
-        img-src ''self'' data: *.crewai.com crewai.com https://zeus.tools.crewai.com
-        https://dashboard.tools.crewai.com https://cdn.jsdelivr.net; font-src ''self''
-        data: *.crewai.com crewai.com; connect-src ''self'' *.crewai.com crewai.com
-        https://zeus.tools.crewai.com https://connect.useparagon.com/ https://zeus.useparagon.com/*
-        https://*.useparagon.com/* https://run.pstmn.io https://connect.tools.crewai.com/
+        ''unsafe-inline'' *.fzxiezuoai.com fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts;
+        img-src ''self'' data: *.fzxiezuoai.com fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
+        https://dashboard.tools.fzxiezuoai.com https://cdn.jsdelivr.net; font-src ''self''
+        data: *.fzxiezuoai.com fzxiezuoai.com; connect-src ''self'' *.fzxiezuoai.com fzxiezuoai.com
+        https://zeus.tools.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.useparagon.com/*
+        https://*.useparagon.com/* https://run.pstmn.io https://connect.tools.fzxiezuoai.com/
         https://*.sentry.io https://www.google-analytics.com ws://localhost:3036 wss://localhost:3036;
-        frame-src ''self'' *.crewai.com crewai.com https://connect.useparagon.com/
-        https://zeus.tools.crewai.com https://zeus.useparagon.com/* https://connect.tools.crewai.com/
+        frame-src ''self'' *.fzxiezuoai.com fzxiezuoai.com https://connect.useparagon.com/
+        https://zeus.tools.fzxiezuoai.com https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/
         https://docs.google.com https://drive.google.com https://slides.google.com
         https://accounts.google.com https://*.google.com https://www.youtube.com https://share.descript.com'
       content-type:

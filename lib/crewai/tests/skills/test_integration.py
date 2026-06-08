@@ -4,10 +4,10 @@ from pathlib import Path
 
 import pytest
 
-from crewai import Agent
-from crewai.skills.loader import activate_skill, discover_skills, format_skill_context
-from crewai.skills.models import INSTRUCTIONS, METADATA
-from crewai.utilities.prompts import Prompts
+from fzxiezuoai import Agent
+from fzxiezuoai.skills.loader import activate_skill, discover_skills, format_skill_context
+from fzxiezuoai.skills.models import INSTRUCTIONS, METADATA
+from fzxiezuoai.utilities.prompts import Prompts
 
 
 def _create_skill_dir(parent: Path, name: str, body: str = "Body.") -> Path:

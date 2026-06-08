@@ -6,8 +6,8 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from crewai_tools.rag.data_types import DataType
-from crewai_tools.tools.rag.rag_tool import RagTool
+from fzxiezuoai_tools.rag.data_types import DataType
+from fzxiezuoai_tools.tools.rag.rag_tool import RagTool
 
 
 @pytest.fixture(autouse=True)
@@ -34,11 +34,11 @@ def rag_tool(mock_rag_client: MagicMock) -> RagTool:
     """Create a RagTool instance with mocked client."""
     with (
         patch(
-            "crewai_tools.adapters.crewai_rag_adapter.get_rag_client",
+            "fzxiezuoai_tools.adapters.crewai_rag_adapter.get_rag_client",
             return_value=mock_rag_client,
         ),
         patch(
-            "crewai_tools.adapters.crewai_rag_adapter.create_client",
+            "fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client",
             return_value=mock_rag_client,
         ),
     ):
@@ -108,7 +108,7 @@ class TestDataTypeStringValues:
 
             # Mock the PDF loader to avoid actual PDF parsing
             with patch(
-                "crewai_tools.adapters.crewai_rag_adapter.DataType.get_loader"
+                "fzxiezuoai_tools.adapters.crewai_rag_adapter.DataType.get_loader"
             ) as mock_loader:
                 mock_loader_instance = MagicMock()
                 mock_loader_instance.load.return_value = MagicMock(
@@ -225,7 +225,7 @@ class TestDataTypeEnumValues:
             )
 
             with patch(
-                "crewai_tools.adapters.crewai_rag_adapter.DataType.get_loader"
+                "fzxiezuoai_tools.adapters.crewai_rag_adapter.DataType.get_loader"
             ) as mock_loader:
                 mock_loader_instance = MagicMock()
                 mock_loader_instance.load.return_value = MagicMock(

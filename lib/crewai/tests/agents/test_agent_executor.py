@@ -16,8 +16,8 @@ from uuid import uuid4
 import pytest
 from pydantic import BaseModel
 
-from crewai.agents.tools_handler import ToolsHandler as _ToolsHandler
-from crewai.agents.step_executor import StepExecutor
+from fzxiezuoai.agents.tools_handler import ToolsHandler as _ToolsHandler
+from fzxiezuoai.agents.step_executor import StepExecutor
 
 
 def _build_executor(**kwargs: Any) -> AgentExecutor:
@@ -52,22 +52,22 @@ def _build_executor(**kwargs: Any) -> AgentExecutor:
     executor._step_executor = None
     executor._planner_observer = None
     return executor
-from crewai.agents.planner_observer import PlannerObserver
-from crewai.experimental.agent_executor import (
+from fzxiezuoai.agents.planner_observer import PlannerObserver
+from fzxiezuoai.experimental.agent_executor import (
     AgentExecutorState,
     AgentExecutor,
 )
-from crewai.agents.parser import AgentAction, AgentFinish
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.tool_usage_events import (
+from fzxiezuoai.agents.parser import AgentAction, AgentFinish
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.tool_usage_events import (
     ToolUsageFinishedEvent,
     ToolUsageStartedEvent,
 )
-from crewai.tools.tool_types import ToolResult
-from crewai.utilities.step_execution_context import StepExecutionContext
-from crewai.utilities.planning_types import TodoItem
-from crewai.utilities.file_store import clear_files, clear_task_files, store_files
-from crewai_files import TextFile
+from fzxiezuoai.tools.tool_types import ToolResult
+from fzxiezuoai.utilities.step_execution_context import StepExecutionContext
+from fzxiezuoai.utilities.planning_types import TodoItem
+from fzxiezuoai.utilities.file_store import clear_files, clear_task_files, store_files
+from fzxiezuoai_files import TextFile
 
 class TestAgentExecutorState:
     """Test AgentExecutorState Pydantic model."""
@@ -152,11 +152,11 @@ class TestAgentExecutor:
 
         with (
             patch(
-                "crewai.experimental.agent_executor.aget_all_files",
+                "fzxiezuoai.experimental.agent_executor.aget_all_files",
                 new=AsyncMock(return_value={"document": stored_file}),
             ) as async_get_files,
             patch(
-                "crewai.experimental.agent_executor.get_all_files",
+                "fzxiezuoai.experimental.agent_executor.get_all_files",
                 side_effect=AssertionError("sync file store should not be called"),
             ),
         ):
@@ -288,7 +288,7 @@ class TestAgentExecutor:
         executor.state.messages = [{"role": "user", "content": "Use a tool"}]
 
         with patch(
-            "crewai.experimental.agent_executor.get_llm_response",
+            "fzxiezuoai.experimental.agent_executor.get_llm_response",
             return_value="Thought: done\nFinal Answer: complete",
         ) as get_llm_response_mock:
             result = executor.call_llm_and_parse()
@@ -310,7 +310,7 @@ class TestAgentExecutor:
         executor.state.messages = [{"role": "user", "content": "Use a tool"}]
 
         with patch(
-            "crewai.experimental.agent_executor.get_llm_response",
+            "fzxiezuoai.experimental.agent_executor.get_llm_response",
             return_value="complete",
         ) as get_llm_response_mock:
             result = executor.call_llm_native_tools()
@@ -489,7 +489,7 @@ class TestAgentExecutor:
         executor = _build_executor(**mock_dependencies)
 
         answer = AgentFinish(thought="thinking", output="test", text="final")
-        with patch("crewai.experimental.agent_executor.asyncio.run") as mock_run:
+        with patch("fzxiezuoai.experimental.agent_executor.asyncio.run") as mock_run:
             executor._invoke_step_callback(answer)
             await asyncio.sleep(0)
 
@@ -607,7 +607,7 @@ class TestStepExecutorCriticalFixes:
                 finished_events.append(event)
 
         with patch(
-            "crewai.agents.step_executor.execute_tool_and_check_finality",
+            "fzxiezuoai.agents.step_executor.execute_tool_and_check_finality",
             return_value=ToolResult(result="2", result_as_answer=False),
         ):
             output = step_executor._execute_text_tool_with_events(action)
@@ -618,12 +618,12 @@ class TestStepExecutorCriticalFixes:
         assert len(started_events) >= 1
         assert len(finished_events) >= 1
 
-    @patch("crewai.experimental.agent_executor.handle_output_parser_exception")
+    @patch("fzxiezuoai.experimental.agent_executor.handle_output_parser_exception")
     def test_recover_from_parser_error(
         self, mock_handle_exception, mock_dependencies
     ):
         """Test recovery from OutputParserError."""
-        from crewai.agents.parser import OutputParserError
+        from fzxiezuoai.agents.parser import OutputParserError
 
         mock_handle_exception.return_value = None
 
@@ -637,7 +637,7 @@ class TestStepExecutorCriticalFixes:
         assert executor.state.iterations == initial_iterations + 1
         mock_handle_exception.assert_called_once()
 
-    @patch("crewai.experimental.agent_executor.handle_context_length")
+    @patch("fzxiezuoai.experimental.agent_executor.handle_context_length")
     def test_recover_from_context_length(
         self, mock_handle_context, mock_dependencies
     ):
@@ -707,13 +707,13 @@ class TestFlowErrorHandling:
             "tools_handler": Mock(),
         }
 
-    @patch("crewai.experimental.agent_executor.get_llm_response")
-    @patch("crewai.experimental.agent_executor.enforce_rpm_limit")
+    @patch("fzxiezuoai.experimental.agent_executor.get_llm_response")
+    @patch("fzxiezuoai.experimental.agent_executor.enforce_rpm_limit")
     def test_call_llm_parser_error(
         self, mock_enforce_rpm, mock_get_llm, mock_dependencies
     ):
         """Test call_llm_and_parse handles OutputParserError."""
-        from crewai.agents.parser import OutputParserError
+        from fzxiezuoai.agents.parser import OutputParserError
 
         mock_enforce_rpm.return_value = None
         mock_get_llm.side_effect = OutputParserError("parse failed")
@@ -724,9 +724,9 @@ class TestFlowErrorHandling:
         assert result == "parser_error"
         assert executor._last_parser_error is not None
 
-    @patch("crewai.experimental.agent_executor.get_llm_response")
-    @patch("crewai.experimental.agent_executor.enforce_rpm_limit")
-    @patch("crewai.experimental.agent_executor.is_context_length_exceeded")
+    @patch("fzxiezuoai.experimental.agent_executor.get_llm_response")
+    @patch("fzxiezuoai.experimental.agent_executor.enforce_rpm_limit")
+    @patch("fzxiezuoai.experimental.agent_executor.is_context_length_exceeded")
     def test_call_llm_context_error(
         self,
         mock_is_context_exceeded,
@@ -1026,7 +1026,7 @@ class TestNativeToolExecution:
     def test_check_native_todo_completion_requires_current_todo(
         self, mock_dependencies
     ):
-        from crewai.utilities.planning_types import TodoList
+        from fzxiezuoai.utilities.planning_types import TodoList
 
         executor = _build_executor(**mock_dependencies)
 
@@ -1049,7 +1049,7 @@ class TestNativeToolExecution:
 
 class TestPlannerObserver:
     def test_heuristic_observation_reflects_step_success(self):
-        from crewai.agents.planner_observer import PlannerObserver
+        from fzxiezuoai.agents.planner_observer import PlannerObserver
 
         ok = PlannerObserver.heuristic_observation(step_success=True, result="42")
         assert ok.step_completed_successfully is True
@@ -1100,8 +1100,8 @@ class TestAgentExecutorPlanning:
     @pytest.mark.vcr()
     def test_agent_kickoff_with_planning_stores_plan_in_state(self):
         """Test that Agent.kickoff() with planning enabled stores plan in executor state."""
-        from crewai import Agent, PlanningConfig
-        from crewai.llm import LLM
+        from fzxiezuoai import Agent, PlanningConfig
+        from fzxiezuoai.llm import LLM
 
         llm = LLM("gpt-4o-mini")
 
@@ -1122,8 +1122,8 @@ class TestAgentExecutorPlanning:
     @pytest.mark.vcr()
     def test_agent_kickoff_without_planning_skips_plan_generation(self):
         """Test that Agent.kickoff() without planning skips planning phase."""
-        from crewai import Agent
-        from crewai.llm import LLM
+        from fzxiezuoai import Agent
+        from fzxiezuoai.llm import LLM
 
         llm = LLM("gpt-4o-mini")
 
@@ -1144,8 +1144,8 @@ class TestAgentExecutorPlanning:
     @pytest.mark.vcr()
     def test_planning_disabled_skips_planning(self):
         """Test that planning=False skips planning."""
-        from crewai import Agent
-        from crewai.llm import LLM
+        from fzxiezuoai import Agent
+        from fzxiezuoai.llm import LLM
 
         llm = LLM("gpt-4o-mini")
 
@@ -1166,8 +1166,8 @@ class TestAgentExecutorPlanning:
     def test_backward_compat_reasoning_true_enables_planning(self):
         """Test that reasoning=True (deprecated) still enables planning."""
         import warnings
-        from crewai import Agent
-        from crewai.llm import LLM
+        from fzxiezuoai import Agent
+        from fzxiezuoai.llm import LLM
 
         llm = LLM("gpt-4o-mini")
 
@@ -1188,9 +1188,9 @@ class TestAgentExecutorPlanning:
     @pytest.mark.vcr()
     def test_executor_state_contains_plan_after_planning(self):
         """Test that executor state contains plan after planning phase."""
-        from crewai import Agent, PlanningConfig
-        from crewai.llm import LLM
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai import Agent, PlanningConfig
+        from fzxiezuoai.llm import LLM
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         llm = LLM("gpt-4o-mini")
 
@@ -1231,9 +1231,9 @@ class TestAgentExecutorPlanning:
 
         The plan-and-execute architecture should produce step results.
         """
-        from crewai import Agent, PlanningConfig
-        from crewai.llm import LLM
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai import Agent, PlanningConfig
+        from fzxiezuoai.llm import LLM
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         llm = LLM("gpt-4o-mini")
 
@@ -1276,9 +1276,9 @@ class TestAgentExecutorPlanning:
 
         This tests that the planner creates a plan and executes steps.
         """
-        from crewai import Agent, PlanningConfig
-        from crewai.llm import LLM
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai import Agent, PlanningConfig
+        from fzxiezuoai.llm import LLM
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         llm = LLM("gpt-4o-mini")
 
@@ -1324,8 +1324,8 @@ class TestResponseFormatWithKickoff:
     def test_kickoff_response_format_without_planning(self):
         """Test that kickoff(response_format) returns structured output without planning."""
         from pydantic import BaseModel, Field
-        from crewai import Agent
-        from crewai.llm import LLM
+        from fzxiezuoai import Agent
+        from fzxiezuoai.llm import LLM
 
         class MathResult(BaseModel):
             answer: int = Field(description="The numeric answer")
@@ -1362,9 +1362,9 @@ class TestResponseFormatWithKickoff:
         NOT by intermediate step executions.
         """
         from pydantic import BaseModel, Field
-        from crewai import Agent, PlanningConfig
-        from crewai.llm import LLM
-        from crewai_tools import EXASearchTool
+        from fzxiezuoai import Agent, PlanningConfig
+        from fzxiezuoai.llm import LLM
+        from fzxiezuoai_tools import EXASearchTool
 
         class ResearchSummary(BaseModel):
             topic: str = Field(description="The research topic")
@@ -1403,8 +1403,8 @@ class TestResponseFormatWithKickoff:
     @pytest.mark.vcr()
     def test_kickoff_no_response_format_returns_raw_text(self):
         """Test that kickoff without response_format returns plain text."""
-        from crewai import Agent
-        from crewai.llm import LLM
+        from fzxiezuoai import Agent
+        from fzxiezuoai.llm import LLM
 
         llm = LLM("gpt-4o-mini")
 
@@ -1433,8 +1433,8 @@ class TestReasoningEffort:
 
     def test_should_observe_steps_respects_config(self):
         """observe_steps and reasoning_effort gate PlannerObserver LLM calls."""
-        from crewai.agent.planning_config import PlanningConfig
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.agent.planning_config import PlanningConfig
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         executor = Mock(spec=AgentExecutor)
         executor._should_observe_steps = (
@@ -1463,9 +1463,9 @@ class TestReasoningEffort:
 
     def test_reasoning_effort_low_skips_planner_observer_llm(self):
         """Low effort must not call PlannerObserver.observe (no per-step LLM)."""
-        from crewai.agent.planning_config import PlanningConfig
-        from crewai.experimental.agent_executor import AgentExecutor
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.agent.planning_config import PlanningConfig
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         executor = Mock(spec=AgentExecutor)
         executor.agent = Mock()
@@ -1514,9 +1514,9 @@ class TestReasoningEffort:
         3. The decide_next_action/refine/replan pipeline is bypassed
         4. Per-step observation did not use the PlannerObserver LLM
         """
-        from crewai import Agent, PlanningConfig
-        from crewai.llm import LLM
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai import Agent, PlanningConfig
+        from fzxiezuoai.llm import LLM
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         llm = LLM("gpt-4o-mini")
 
@@ -1577,9 +1577,9 @@ class TestReasoningEffort:
         3. The full decide_next_action pipeline runs (the observation-driven
            routing is exercised, even if it just routes to continue_plan)
         """
-        from crewai import Agent, PlanningConfig
-        from crewai.llm import LLM
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai import Agent, PlanningConfig
+        from fzxiezuoai.llm import LLM
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         llm = LLM("gpt-4o-mini")
 
@@ -1632,8 +1632,8 @@ class TestReasoningEffort:
         verifying that medium effort routes to replan_now on failure
         but continues on success.
         """
-        from crewai.experimental.agent_executor import AgentExecutor
-        from crewai.utilities.planning_types import (
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.utilities.planning_types import (
             StepObservation,
             TodoItem,
             TodoList,
@@ -1703,8 +1703,8 @@ class TestReasoningEffort:
 
         Unit test verifying the low handler's behavior directly.
         """
-        from crewai.experimental.agent_executor import AgentExecutor
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         executor = Mock(spec=AgentExecutor)
         executor.agent = Mock()
@@ -1733,8 +1733,8 @@ class TestReasoningEffort:
 
     def test_reasoning_effort_low_marks_failed_steps_failed_without_replan(self):
         """Low effort records failed heuristic observations without replanning."""
-        from crewai.experimental.agent_executor import AgentExecutor
-        from crewai.utilities.planning_types import (
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.utilities.planning_types import (
             StepObservation,
             TodoItem,
             TodoList,
@@ -1775,7 +1775,7 @@ class TestReasoningEffort:
     def test_planning_config_reasoning_effort_default_is_medium(self):
         """Verify PlanningConfig defaults reasoning_effort to 'medium'
         (aligned with runtime default in _get_reasoning_effort)."""
-        from crewai.agent.planning_config import PlanningConfig
+        from fzxiezuoai.agent.planning_config import PlanningConfig
 
         config = PlanningConfig()
         assert config.reasoning_effort == "medium"
@@ -1783,7 +1783,7 @@ class TestReasoningEffort:
     def test_planning_config_reasoning_effort_validation(self):
         """Verify PlanningConfig rejects invalid reasoning_effort values."""
         from pydantic import ValidationError
-        from crewai.agent.planning_config import PlanningConfig
+        from fzxiezuoai.agent.planning_config import PlanningConfig
 
         with pytest.raises(ValidationError):
             PlanningConfig(reasoning_effort="ultra")
@@ -1794,7 +1794,7 @@ class TestReasoningEffort:
 
     def test_get_reasoning_effort_reads_from_config(self):
         """Verify _get_reasoning_effort reads from agent.planning_config."""
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         executor = Mock(spec=AgentExecutor)
         executor._get_reasoning_effort = (
@@ -1824,8 +1824,8 @@ class TestObserverResponseParsing:
 
     def test_parse_step_observation_instance(self):
         """Direct StepObservation instance passes through unchanged."""
-        from crewai.agents.planner_observer import PlannerObserver
-        from crewai.utilities.planning_types import StepObservation
+        from fzxiezuoai.agents.planner_observer import PlannerObserver
+        from fzxiezuoai.utilities.planning_types import StepObservation
 
         obs = StepObservation(
             step_completed_successfully=False,
@@ -1843,8 +1843,8 @@ class TestObserverResponseParsing:
         """JSON string from non-streaming LLM path is parsed correctly."""
         import json
 
-        from crewai.agents.planner_observer import PlannerObserver
-        from crewai.utilities.planning_types import StepObservation
+        from fzxiezuoai.agents.planner_observer import PlannerObserver
+        from fzxiezuoai.utilities.planning_types import StepObservation
 
         payload = {
             "step_completed_successfully": False,
@@ -1864,8 +1864,8 @@ class TestObserverResponseParsing:
         """JSON wrapped in ```json ... ``` fences is handled."""
         import json
 
-        from crewai.agents.planner_observer import PlannerObserver
-        from crewai.utilities.planning_types import StepObservation
+        from fzxiezuoai.agents.planner_observer import PlannerObserver
+        from fzxiezuoai.utilities.planning_types import StepObservation
 
         payload = {
             "step_completed_successfully": True,
@@ -1881,8 +1881,8 @@ class TestObserverResponseParsing:
 
     def test_parse_dict_response(self):
         """Dict response from some provider paths is parsed correctly."""
-        from crewai.agents.planner_observer import PlannerObserver
-        from crewai.utilities.planning_types import StepObservation
+        from fzxiezuoai.agents.planner_observer import PlannerObserver
+        from fzxiezuoai.utilities.planning_types import StepObservation
 
         payload = {
             "step_completed_successfully": False,
@@ -1900,8 +1900,8 @@ class TestObserverResponseParsing:
 
     def test_parse_unparseable_falls_back_gracefully(self):
         """Totally unparseable response falls back to default failure."""
-        from crewai.agents.planner_observer import PlannerObserver
-        from crewai.utilities.planning_types import StepObservation
+        from fzxiezuoai.agents.planner_observer import PlannerObserver
+        from fzxiezuoai.utilities.planning_types import StepObservation
 
         result = PlannerObserver._parse_observation_response(12345)
 
@@ -1913,8 +1913,8 @@ class TestObserverResponseParsing:
         """End-to-end: observer.observe() correctly parses a JSON string from llm.call()."""
         import json
 
-        from crewai.agents.planner_observer import PlannerObserver
-        from crewai.utilities.planning_types import StepObservation, TodoItem
+        from fzxiezuoai.agents.planner_observer import PlannerObserver
+        from fzxiezuoai.utilities.planning_types import StepObservation, TodoItem
 
         llm = Mock()
         llm.call.return_value = json.dumps({
@@ -1957,7 +1957,7 @@ class TestMaxIterationsRouting:
     the iteration limit is exceeded, not to a dead-end event."""
 
     def test_exceeded_routes_to_force_final_answer(self):
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         executor = Mock(spec=AgentExecutor)
         executor.state = AgentExecutorState(iterations=25)
@@ -1967,7 +1967,7 @@ class TestMaxIterationsRouting:
         assert result == "force_final_answer"
 
     def test_under_limit_continues_reasoning(self):
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         executor = Mock(spec=AgentExecutor)
         executor.state = AgentExecutorState(iterations=5)
@@ -1977,7 +1977,7 @@ class TestMaxIterationsRouting:
         assert result == "continue_reasoning"
 
     def test_under_limit_with_native_tools(self):
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         executor = Mock(spec=AgentExecutor)
         executor.state = AgentExecutorState(iterations=5, use_native_tools=True)
@@ -1995,7 +1995,7 @@ class TestNativeToolCallMaxUsage:
     even when max_usage_reached=True and original_tool is None."""
 
     def test_max_usage_reached_without_original_tool(self):
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         import inspect
         source = inspect.getsource(AgentExecutor._execute_single_native_tool_call)
@@ -2012,7 +2012,7 @@ class TestExecutorStateReset:
 
     def test_finalize_called_reset_in_invoke(self):
         import inspect
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         source = inspect.getsource(AgentExecutor.invoke)
         finalize_idx = source.index("self._finalize_called = False")
@@ -2023,7 +2023,7 @@ class TestExecutorStateReset:
 
     def test_finalize_called_reset_in_invoke_async(self):
         import inspect
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         source = inspect.getsource(AgentExecutor.invoke_async)
         finalize_idx = source.index("self._finalize_called = False")
@@ -2042,7 +2042,7 @@ class TestPlanGenerationIsolation:
 
     def test_generate_plan_does_not_mutate_task_description(self):
         import inspect
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         source = inspect.getsource(AgentExecutor.generate_plan)
         assert "task.description +=" not in source, (
@@ -2062,7 +2062,7 @@ class TestTodoStatusTracking:
 
     def test_medium_effort_marks_failed_step_as_failed(self):
         import inspect
-        from crewai.experimental.agent_executor import AgentExecutor
+        from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
         source = inspect.getsource(AgentExecutor.handle_step_observed_medium)
         assert "mark_failed" in source, (
@@ -2075,7 +2075,7 @@ class TestTodoStatusTracking:
         )
 
     def test_failed_step_appears_in_get_failed_todos(self):
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         todos = TodoList(items=[
             TodoItem(step_number=1, description="Step 1"),
@@ -2102,7 +2102,7 @@ class TestTodoResultHandling:
     empty-string results are preserved."""
 
     def test_mark_completed_preserves_empty_string(self):
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         todos = TodoList(items=[
             TodoItem(step_number=1, description="Step 1"),
@@ -2113,7 +2113,7 @@ class TestTodoResultHandling:
         assert item.result == "", "Empty-string result should be stored, not dropped"
 
     def test_mark_failed_preserves_empty_string(self):
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         todos = TodoList(items=[
             TodoItem(step_number=1, description="Step 1"),
@@ -2124,7 +2124,7 @@ class TestTodoResultHandling:
         assert item.result == "", "Empty-string result should be stored, not dropped"
 
     def test_mark_completed_none_does_not_overwrite(self):
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         todos = TodoList(items=[
             TodoItem(step_number=1, description="Step 1", result="existing"),
@@ -2142,7 +2142,7 @@ class TestDependencyResolutionWithFailures:
     todos are not permanently blocked."""
 
     def test_failed_dep_unblocks_downstream(self):
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         todos = TodoList(items=[
             TodoItem(step_number=1, description="Build"),
@@ -2158,7 +2158,7 @@ class TestDependencyResolutionWithFailures:
         assert ready[0].step_number == 2
 
     def test_is_complete_with_mixed_terminal_states(self):
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         todos = TodoList(items=[
             TodoItem(step_number=1, description="A", status="completed"),
@@ -2168,7 +2168,7 @@ class TestDependencyResolutionWithFailures:
         assert todos.is_complete is True
 
     def test_pending_todo_ready_when_dep_failed(self):
-        from crewai.utilities.planning_types import TodoItem, TodoList
+        from fzxiezuoai.utilities.planning_types import TodoItem, TodoList
 
         todos = TodoList(items=[
             TodoItem(step_number=1, description="A", status="failed"),
@@ -2186,7 +2186,7 @@ class TestPlanningConfigDefaults:
     the runtime fallback in _get_reasoning_effort."""
 
     def test_planning_config_default_is_medium(self):
-        from crewai.agent.planning_config import PlanningConfig
+        from fzxiezuoai.agent.planning_config import PlanningConfig
 
         config = PlanningConfig()
         assert config.reasoning_effort == "medium", (
@@ -2196,7 +2196,7 @@ class TestPlanningConfigDefaults:
     def test_explicit_config_matches_implicit_planning(self):
         """Agent(planning=True) and Agent(planning=True, planning_config=PlanningConfig())
         should produce the same reasoning_effort."""
-        from crewai.agent.planning_config import PlanningConfig
+        from fzxiezuoai.agent.planning_config import PlanningConfig
 
         config = PlanningConfig()
         assert config.reasoning_effort == "medium"
@@ -2211,7 +2211,7 @@ class TestVisionImageFormatContract:
 
     def test_step_executor_uses_standard_image_url_format(self):
         import inspect
-        from crewai.agents.step_executor import StepExecutor
+        from fzxiezuoai.agents.step_executor import StepExecutor
 
         source = inspect.getsource(StepExecutor._build_observation_message)
         assert "image_url" in source, (
@@ -2219,7 +2219,7 @@ class TestVisionImageFormatContract:
         )
 
     def test_anthropic_provider_has_image_block_converter(self):
-        from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+        from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
 
         assert hasattr(AnthropicCompletion, "_convert_image_blocks"), (
             "Anthropic provider must have _convert_image_blocks for auto-conversion"

@@ -2,8 +2,8 @@
 
 import pytest
 
-from crewai import Agent, Task, Crew
-from crewai.llm import LLM
+from fzxiezuoai import Agent, Task, Crew
+from fzxiezuoai.llm import LLM
 
 
 @pytest.mark.vcr()

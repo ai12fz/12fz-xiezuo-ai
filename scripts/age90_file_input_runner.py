@@ -18,11 +18,11 @@ from pathlib import Path
 from typing import Any
 from unittest.mock import patch
 
-from crewai_files import PDFFile, format_multimodal_content, get_supported_content_types
+from fzxiezuoai_files import PDFFile, format_multimodal_content, get_supported_content_types
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_PDF = ROOT / "lib" / "crewai-files" / "tests" / "fixtures" / "agents.pdf"
+DEFAULT_PDF = ROOT / "lib" / "fzxiezuoai-files" / "tests" / "fixtures" / "agents.pdf"
 
 
 def _content_summary(block: dict[str, Any]) -> dict[str, str]:
@@ -80,7 +80,7 @@ def inspect_native_path(pdf_path: Path, provider: str, api: str | None) -> None:
 
 def inspect_fallback_tool(pdf_path: Path) -> None:
     """Show what read_file returns if a PDF falls back to the tool path."""
-    from crewai.tools.agent_tools.read_file_tool import ReadFileTool
+    from fzxiezuoai.tools.agent_tools.read_file_tool import ReadFileTool
 
     tool = ReadFileTool()
     tool.set_files({"document": PDFFile(source=str(pdf_path))})
@@ -104,7 +104,7 @@ def run_crew_kickoff(
     payload_only: bool = False,
 ) -> None:
     """Run a real Crew kickoff against the supplied model."""
-    from crewai import LLM, Agent, Crew, Task
+    from fzxiezuoai import LLM, Agent, Crew, Task
 
     if model.startswith("openai/") and not os.getenv("OPENAI_API_KEY") and not payload_only:
         raise SystemExit(
@@ -136,7 +136,7 @@ def run_crew_kickoff(
 
     context = nullcontext()
     if payload_only:
-        from crewai.llms.providers.openai.completion import OpenAICompletion
+        from fzxiezuoai.llms.providers.openai.completion import OpenAICompletion
 
         def print_payload_and_stop(
             self: OpenAICompletion,
@@ -183,7 +183,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--model",
         default="openai/gpt-4o-mini",
-        help="CrewAI model for real kickoff mode.",
+        help="12FZ协作AI model for real kickoff mode.",
     )
     parser.add_argument(
         "--api",

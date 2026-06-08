@@ -3,8 +3,8 @@ from pathlib import Path
 import tempfile
 from unittest.mock import MagicMock
 
-from crewai_tools.rag.data_types import DataType
-from crewai_tools.tools import (
+from fzxiezuoai_tools.rag.data_types import DataType
+from fzxiezuoai_tools.tools import (
     CSVSearchTool,
     CodeDocsSearchTool,
     DOCXSearchTool,
@@ -19,7 +19,7 @@ from crewai_tools.tools import (
     YoutubeChannelSearchTool,
     YoutubeVideoSearchTool,
 )
-from crewai_tools.tools.rag.rag_tool import Adapter
+from fzxiezuoai_tools.tools.rag.rag_tool import Adapter
 import pytest
 
 
@@ -169,13 +169,13 @@ def test_mdx_search_tool():
 def test_website_search_tool(mock_adapter):
     mock_adapter.query.return_value = "this is a test"
 
-    website = "https://crewai.com"
-    search_query = "what is crewai?"
+    website = "https://fzxiezuoai.com"
+    search_query = "what is fzxiezuoai?"
     tool = WebsiteSearchTool(website=website, adapter=mock_adapter)
     result = tool._run(search_query=search_query)
 
     mock_adapter.query.assert_called_once_with(
-        "what is crewai?", similarity_threshold=0.6, limit=5
+        "what is fzxiezuoai?", similarity_threshold=0.6, limit=5
     )
     mock_adapter.add.assert_called_once_with(website, data_type=DataType.WEBSITE)
 
@@ -188,7 +188,7 @@ def test_website_search_tool(mock_adapter):
     result = tool._run(website=website, search_query=search_query)
 
     mock_adapter.query.assert_called_once_with(
-        "what is crewai?", similarity_threshold=0.6, limit=5
+        "what is fzxiezuoai?", similarity_threshold=0.6, limit=5
     )
     mock_adapter.add.assert_called_once_with(website, data_type=DataType.WEBSITE)
 
@@ -232,7 +232,7 @@ def test_youtube_video_search_tool(mock_adapter):
 def test_youtube_channel_search_tool(mock_adapter):
     mock_adapter.query.return_value = "channel description"
 
-    youtube_channel_handle = "@crewai"
+    youtube_channel_handle = "@fzxiezuoai"
     search_query = "what is the channel about?"
     tool = YoutubeChannelSearchTool(
         youtube_channel_handle=youtube_channel_handle, adapter=mock_adapter
@@ -266,7 +266,7 @@ def test_youtube_channel_search_tool(mock_adapter):
 def test_code_docs_search_tool(mock_adapter):
     mock_adapter.query.return_value = "test documentation"
 
-    docs_url = "https://crewai.com/any-docs-url"
+    docs_url = "https://fzxiezuoai.com/any-docs-url"
     search_query = "test documentation"
     tool = CodeDocsSearchTool(docs_url=docs_url, adapter=mock_adapter)
     result = tool._run(search_query=search_query)
@@ -294,19 +294,19 @@ def test_github_search_tool(mock_adapter):
     # ensure the provided repo and content types are used after initialization
     tool = GithubSearchTool(
         gh_token="test_token",
-        github_repo="crewai/crewai",
+        github_repo="fzxiezuoai/fzxiezuoai",
         content_types=["code"],
         adapter=mock_adapter,
     )
-    result = tool._run(search_query="tell me about crewai repo")
+    result = tool._run(search_query="tell me about fzxiezuoai repo")
     assert "repo description" in result
     mock_adapter.add.assert_called_once_with(
-        "https://github.com/crewai/crewai",
+        "https://github.com/fzxiezuoai/fzxiezuoai",
         data_type=DataType.GITHUB,
         metadata={"content_types": ["code"], "gh_token": "test_token"},
     )
     mock_adapter.query.assert_called_once_with(
-        "tell me about crewai repo", similarity_threshold=0.6, limit=5
+        "tell me about fzxiezuoai repo", similarity_threshold=0.6, limit=5
     )
 
     # ensure content types provided by run call is used
@@ -315,18 +315,18 @@ def test_github_search_tool(mock_adapter):
 
     tool = GithubSearchTool(gh_token="test_token", adapter=mock_adapter)
     result = tool._run(
-        github_repo="crewai/crewai",
+        github_repo="fzxiezuoai/fzxiezuoai",
         content_types=["code", "issue"],
-        search_query="tell me about crewai repo",
+        search_query="tell me about fzxiezuoai repo",
     )
     assert "repo description" in result
     mock_adapter.add.assert_called_once_with(
-        "https://github.com/crewai/crewai",
+        "https://github.com/fzxiezuoai/fzxiezuoai",
         data_type=DataType.GITHUB,
         metadata={"content_types": ["code", "issue"], "gh_token": "test_token"},
     )
     mock_adapter.query.assert_called_once_with(
-        "tell me about crewai repo", similarity_threshold=0.6, limit=5
+        "tell me about fzxiezuoai repo", similarity_threshold=0.6, limit=5
     )
 
     # ensure default content types are used if not provided
@@ -335,12 +335,12 @@ def test_github_search_tool(mock_adapter):
 
     tool = GithubSearchTool(gh_token="test_token", adapter=mock_adapter)
     result = tool._run(
-        github_repo="crewai/crewai",
-        search_query="tell me about crewai repo",
+        github_repo="fzxiezuoai/fzxiezuoai",
+        search_query="tell me about fzxiezuoai repo",
     )
     assert "repo description" in result
     mock_adapter.add.assert_called_once_with(
-        "https://github.com/crewai/crewai",
+        "https://github.com/fzxiezuoai/fzxiezuoai",
         data_type=DataType.GITHUB,
         metadata={
             "content_types": ["code", "repo", "pr", "issue"],
@@ -348,7 +348,7 @@ def test_github_search_tool(mock_adapter):
         },
     )
     mock_adapter.query.assert_called_once_with(
-        "tell me about crewai repo", similarity_threshold=0.6, limit=5
+        "tell me about fzxiezuoai repo", similarity_threshold=0.6, limit=5
     )
 
     # ensure nothing is added if no repo is provided
@@ -356,8 +356,8 @@ def test_github_search_tool(mock_adapter):
     mock_adapter.add.reset_mock()
 
     tool = GithubSearchTool(gh_token="test_token", adapter=mock_adapter)
-    result = tool._run(search_query="tell me about crewai repo")
+    result = tool._run(search_query="tell me about fzxiezuoai repo")
     mock_adapter.add.assert_not_called()
     mock_adapter.query.assert_called_once_with(
-        "tell me about crewai repo", similarity_threshold=0.6, limit=5
+        "tell me about fzxiezuoai repo", similarity_threshold=0.6, limit=5
     )

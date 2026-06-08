@@ -1,6 +1,6 @@
 from unittest.mock import patch
 
-from crewai_tools.tools.files_compressor_tool import FileCompressorTool
+from fzxiezuoai_tools.tools.files_compressor_tool import FileCompressorTool
 import pytest
 
 

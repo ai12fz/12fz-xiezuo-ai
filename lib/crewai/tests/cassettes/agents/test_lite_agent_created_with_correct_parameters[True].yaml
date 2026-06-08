@@ -97,7 +97,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '992'
       openai-version:
@@ -221,7 +221,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1515'
       openai-version:
@@ -268,7 +268,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.31.1
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -388,7 +388,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '817'
       openai-version:
@@ -523,7 +523,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '922'
       openai-version:
@@ -664,7 +664,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1244'
       openai-version:
@@ -811,7 +811,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '986'
       openai-version:
@@ -863,7 +863,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.31.1
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -1007,7 +1007,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1513'
       openai-version:
@@ -1166,7 +1166,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '855'
       openai-version:
@@ -1331,7 +1331,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1061'
       openai-version:
@@ -1380,7 +1380,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.31.1
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -1541,7 +1541,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '980'
       openai-version:
@@ -1727,7 +1727,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1314'
       openai-version:
@@ -1916,7 +1916,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1489'
       openai-version:
@@ -1960,7 +1960,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.31.1
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -2072,7 +2072,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '715'
       openai-version:
@@ -2198,7 +2198,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '785'
       openai-version:
@@ -2241,7 +2241,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/0.193.2
+      - 12FZ协作AI-CLI/0.193.2
       X-Crewai-Version:
       - 0.193.2
     method: POST
@@ -2255,17 +2255,17 @@ interactions:
       cache-control:
       - no-cache
       content-security-policy:
-      - 'default-src ''self'' *.crewai.com crewai.com; script-src ''self'' ''unsafe-inline''
-        *.crewai.com crewai.com https://cdn.jsdelivr.net/npm/apexcharts https://www.gstatic.com
+      - 'default-src ''self'' *.fzxiezuoai.com fzxiezuoai.com; script-src ''self'' ''unsafe-inline''
+        *.fzxiezuoai.com fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts https://www.gstatic.com
         https://run.pstmn.io https://share.descript.com/; style-src ''self'' ''unsafe-inline''
-        *.crewai.com crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self''
-        data: *.crewai.com crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
-        https://cdn.jsdelivr.net; font-src ''self'' data: *.crewai.com crewai.com;
-        connect-src ''self'' *.crewai.com crewai.com https://zeus.tools.crewai.com
+        *.fzxiezuoai.com fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self''
+        data: *.fzxiezuoai.com fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
+        https://cdn.jsdelivr.net; font-src ''self'' data: *.fzxiezuoai.com fzxiezuoai.com;
+        connect-src ''self'' *.fzxiezuoai.com fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ ws://localhost:3036
-        wss://localhost:3036; frame-src ''self'' *.crewai.com crewai.com https://connect.useparagon.com/
-        https://zeus.tools.crewai.com https://zeus.useparagon.com/* https://connect.tools.crewai.com/
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ ws://localhost:3036
+        wss://localhost:3036; frame-src ''self'' *.fzxiezuoai.com fzxiezuoai.com https://connect.useparagon.com/
+        https://zeus.tools.fzxiezuoai.com https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/
         https://www.youtube.com https://share.descript.com'
       content-type:
       - application/json; charset=utf-8

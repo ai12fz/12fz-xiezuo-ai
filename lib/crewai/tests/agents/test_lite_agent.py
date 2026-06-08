@@ -4,19 +4,19 @@ from collections import defaultdict
 from typing import cast
 from unittest.mock import Mock, patch
 
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.agent_events import LiteAgentExecutionStartedEvent
-from crewai.events.types.tool_usage_events import ToolUsageStartedEvent
-from crewai.lite_agent import LiteAgent
-from crewai.lite_agent_output import LiteAgentOutput
-from crewai.llms.base_llm import BaseLLM
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.agent_events import LiteAgentExecutionStartedEvent
+from fzxiezuoai.events.types.tool_usage_events import ToolUsageStartedEvent
+from fzxiezuoai.lite_agent import LiteAgent
+from fzxiezuoai.lite_agent_output import LiteAgentOutput
+from fzxiezuoai.llms.base_llm import BaseLLM
 from pydantic import BaseModel, Field
 import pytest
 
-from crewai import LLM, Agent
-from crewai.flow import Flow, start
-from crewai.tools import BaseTool
-from crewai.types.usage_metrics import UsageMetrics
+from fzxiezuoai import LLM, Agent
+from fzxiezuoai.flow import Flow, start
+from fzxiezuoai.tools import BaseTool
+from fzxiezuoai.types.usage_metrics import UsageMetrics
 
 
 class SecretLookupTool(BaseTool):
@@ -74,7 +74,7 @@ def test_agent_kickoff_preserves_parameters(verbose):
     mock_llm.call.return_value = "Final Answer: Test response"
     mock_llm.stop = []
 
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mock_usage_metrics = UsageMetrics(
         total_tokens=100,
@@ -305,7 +305,7 @@ def test_sets_flow_context_when_inside_flow():
     mock_llm.call.return_value = "Test response"
     mock_llm.stop = []
 
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mock_usage_metrics = UsageMetrics(
         total_tokens=100,
@@ -355,7 +355,7 @@ def test_guardrail_is_called_using_string():
     on the LLM to comply with contradictory constraints.
     """
     guardrail_events: dict[str, list] = defaultdict(list)
-    from crewai.events.event_types import (
+    from fzxiezuoai.events.event_types import (
         LLMGuardrailCompletedEvent,
         LLMGuardrailStartedEvent,
     )
@@ -413,7 +413,7 @@ def test_guardrail_is_called_using_string():
 @pytest.mark.vcr()
 def test_guardrail_is_called_using_callable():
     guardrail_events: dict[str, list] = defaultdict(list)
-    from crewai.events.event_types import (
+    from fzxiezuoai.events.event_types import (
         LLMGuardrailCompletedEvent,
         LLMGuardrailStartedEvent,
     )
@@ -457,7 +457,7 @@ def test_guardrail_is_called_using_callable():
 @pytest.mark.vcr()
 def test_guardrail_reached_attempt_limit():
     guardrail_events: dict[str, list] = defaultdict(list)
-    from crewai.events.event_types import (
+    from fzxiezuoai.events.event_types import (
         LLMGuardrailCompletedEvent,
         LLMGuardrailStartedEvent,
     )
@@ -600,7 +600,7 @@ def test_lite_agent_with_custom_llm_and_guardrails():
 @pytest.mark.vcr()
 def test_lite_agent_with_invalid_llm():
     """Test that LiteAgent raises proper error when create_llm returns None."""
-    with patch("crewai.lite_agent.create_llm", return_value=None):
+    with patch("fzxiezuoai.lite_agent.create_llm", return_value=None):
         with pytest.raises(ValueError) as exc_info:
             LiteAgent(
                 role="Test Agent",
@@ -612,8 +612,8 @@ def test_lite_agent_with_invalid_llm():
 
 
 @patch.dict("os.environ", {"CREWAI_PLATFORM_INTEGRATION_TOKEN": "test_token"})
-@patch("crewai_tools.tools.crewai_platform_tools.crewai_platform_action_tool.requests.post")
-@patch("crewai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get")
+@patch("fzxiezuoai_tools.tools.crewai_platform_tools.crewai_platform_action_tool.requests.post")
+@patch("fzxiezuoai_tools.tools.crewai_platform_tools.crewai_platform_tool_builder.requests.get")
 @pytest.mark.vcr()
 def test_agent_kickoff_with_platform_tools(mock_get, mock_post):
     """Test that Agent.kickoff() properly integrates platform tools with LiteAgent"""
@@ -663,7 +663,7 @@ def test_agent_kickoff_with_platform_tools(mock_get, mock_post):
 
 
 @patch.dict("os.environ", {"EXA_API_KEY": "test_exa_key"})
-@patch("crewai.agent.Agent.get_mcp_tools")
+@patch("fzxiezuoai.agent.Agent.get_mcp_tools")
 @pytest.mark.vcr()
 def test_agent_kickoff_with_mcp_tools(mock_get_mcp_tools):
     """Test that Agent.kickoff() properly integrates MCP tools with LiteAgent"""
@@ -694,7 +694,7 @@ def test_agent_kickoff_with_mcp_tools(mock_get_mcp_tools):
 
 
 
-from crewai.flow.flow import listen
+from fzxiezuoai.flow.flow import listen
 
 
 @pytest.mark.vcr()
@@ -839,9 +839,9 @@ def test_agent_kickoff_with_files_parameter():
     """Test that Agent.kickoff() accepts and passes files to the executor."""
     from unittest.mock import Mock, patch
 
-    from crewai_files import File
+    from fzxiezuoai_files import File
 
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mock_llm = Mock(spec=LLM)
     mock_llm.call.return_value = "Final Answer: I can see the file content."
@@ -885,9 +885,9 @@ def test_prepare_kickoff_extracts_files_from_messages():
     """Test that _prepare_kickoff extracts files from messages."""
     from unittest.mock import Mock
 
-    from crewai_files import File
+    from fzxiezuoai_files import File
 
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mock_llm = Mock(spec=LLM)
     mock_llm.call.return_value = "Final Answer: Done."
@@ -925,9 +925,9 @@ def test_prepare_kickoff_merges_files_from_messages_and_parameter():
     """Test that _prepare_kickoff merges files from messages and parameter."""
     from unittest.mock import Mock
 
-    from crewai_files import File
+    from fzxiezuoai_files import File
 
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mock_llm = Mock(spec=LLM)
     mock_llm.call.return_value = "Final Answer: Done."
@@ -971,9 +971,9 @@ def test_prepare_kickoff_param_files_override_message_files():
     """Test that files parameter overrides files from messages with same name."""
     from unittest.mock import Mock
 
-    from crewai_files import File
+    from fzxiezuoai_files import File
 
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mock_llm = Mock(spec=LLM)
     mock_llm.call.return_value = "Final Answer: Done."
@@ -1012,8 +1012,8 @@ def test_prepare_kickoff_param_files_override_message_files():
 
 def test_lite_agent_verbose_false_suppresses_printer_output():
     """Test that setting verbose=False suppresses all printer output."""
-    from crewai.agents.parser import AgentFinish
-    from crewai.types.usage_metrics import UsageMetrics
+    from fzxiezuoai.agents.parser import AgentFinish
+    from fzxiezuoai.types.usage_metrics import UsageMetrics
 
     mock_llm = Mock(spec=LLM)
     mock_llm.call.return_value = "Final Answer: Hello!"
@@ -1037,7 +1037,7 @@ def test_lite_agent_verbose_false_suppresses_printer_output():
         )
 
     mock_printer = Mock()
-    with patch("crewai.lite_agent.PRINTER", mock_printer):
+    with patch("fzxiezuoai.lite_agent.PRINTER", mock_printer):
         result = agent.kickoff("Say hello")
 
     assert result is not None
@@ -1074,7 +1074,7 @@ def test_lite_agent_memory_none_default():
 @pytest.mark.filterwarnings("ignore:LiteAgent is deprecated")
 def test_lite_agent_memory_true_resolves_to_default_memory():
     """With memory=True, _memory is a Memory instance."""
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     mock_llm = Mock(spec=LLM)
     mock_llm.call.return_value = "Final Answer: Ok"

@@ -6,13 +6,13 @@ from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import pytest
 
-from crewai.agent import Agent
-from crewai.agents.crew_agent_executor import CrewAgentExecutor
-from crewai.agents.parser import AgentAction, AgentFinish
-from crewai.agents.tools_handler import ToolsHandler
-from crewai.llms.base_llm import BaseLLM
-from crewai.task import Task
-from crewai.tools.tool_types import ToolResult
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.agents.crew_agent_executor import CrewAgentExecutor
+from fzxiezuoai.agents.parser import AgentAction, AgentFinish
+from fzxiezuoai.agents.tools_handler import ToolsHandler
+from fzxiezuoai.llms.base_llm import BaseLLM
+from fzxiezuoai.task import Task
+from fzxiezuoai.tools.tool_types import ToolResult
 
 
 @pytest.fixture
@@ -109,7 +109,7 @@ class TestAsyncAgentExecutor:
     ) -> None:
         """Test that _ainvoke_loop calls aget_llm_response."""
         with patch(
-            "crewai.agents.crew_agent_executor.aget_llm_response",
+            "fzxiezuoai.agents.crew_agent_executor.aget_llm_response",
             new_callable=AsyncMock,
             return_value="Thought: I know the answer\nFinal Answer: Test result",
         ) as mock_aget_llm:
@@ -139,12 +139,12 @@ class TestAsyncAgentExecutor:
             return "Thought: I have the answer\nFinal Answer: Tool result processed"
 
         with patch(
-            "crewai.agents.crew_agent_executor.aget_llm_response",
+            "fzxiezuoai.agents.crew_agent_executor.aget_llm_response",
             new_callable=AsyncMock,
             side_effect=mock_llm_response,
         ):
             with patch(
-                "crewai.agents.crew_agent_executor.aexecute_tool_and_check_finality",
+                "fzxiezuoai.agents.crew_agent_executor.aexecute_tool_and_check_finality",
                 new_callable=AsyncMock,
                 return_value=ToolResult(result="Tool executed", result_as_answer=False),
             ) as mock_tool_exec:
@@ -177,17 +177,17 @@ class TestAsyncAgentExecutor:
             )
 
         with patch(
-            "crewai.agents.crew_agent_executor.aget_llm_response",
+            "fzxiezuoai.agents.crew_agent_executor.aget_llm_response",
             new_callable=AsyncMock,
             side_effect=always_return_action,
         ):
             with patch(
-                "crewai.agents.crew_agent_executor.aexecute_tool_and_check_finality",
+                "fzxiezuoai.agents.crew_agent_executor.aexecute_tool_and_check_finality",
                 new_callable=AsyncMock,
                 return_value=ToolResult(result="Tool result", result_as_answer=False),
             ):
                 with patch(
-                    "crewai.agents.crew_agent_executor.handle_max_iterations_exceeded",
+                    "fzxiezuoai.agents.crew_agent_executor.handle_max_iterations_exceeded",
                     return_value=AgentFinish(
                         thought="Max iterations",
                         output="Forced answer",
@@ -262,7 +262,7 @@ class TestAsyncAgentExecutor:
                 return f"Thought: Done\nFinal Answer: Result from executor {executor_id}"
 
             with patch(
-                "crewai.agents.crew_agent_executor.aget_llm_response",
+                "fzxiezuoai.agents.crew_agent_executor.aget_llm_response",
                 new_callable=AsyncMock,
                 side_effect=delayed_response,
             ):
@@ -381,7 +381,7 @@ class TestInvokeStepCallback:
         executor.step_callback = async_callback
         answer = AgentFinish(thought="thinking", output="test", text="final")
 
-        with patch("crewai.agents.crew_agent_executor.asyncio.run") as mock_run:
+        with patch("fzxiezuoai.agents.crew_agent_executor.asyncio.run") as mock_run:
             executor._invoke_step_callback(answer)
 
             async_callback.assert_called_once_with(answer)
@@ -403,8 +403,8 @@ class TestAsyncLLMResponseHelper:
     @pytest.mark.asyncio
     async def test_aget_llm_response_calls_acall(self) -> None:
         """Test that aget_llm_response calls llm.acall."""
-        from crewai.utilities.agent_utils import aget_llm_response
-        from crewai_core.printer import Printer
+        from fzxiezuoai.utilities.agent_utils import aget_llm_response
+        from fzxiezuoai_core.printer import Printer
 
         mock_llm = MagicMock()
         mock_llm.acall = AsyncMock(return_value="LLM response")
@@ -422,8 +422,8 @@ class TestAsyncLLMResponseHelper:
     @pytest.mark.asyncio
     async def test_aget_llm_response_raises_on_empty_response(self) -> None:
         """Test that aget_llm_response raises ValueError on empty response."""
-        from crewai.utilities.agent_utils import aget_llm_response
-        from crewai_core.printer import Printer
+        from fzxiezuoai.utilities.agent_utils import aget_llm_response
+        from fzxiezuoai_core.printer import Printer
 
         mock_llm = MagicMock()
         mock_llm.acall = AsyncMock(return_value="")
@@ -439,8 +439,8 @@ class TestAsyncLLMResponseHelper:
     @pytest.mark.asyncio
     async def test_aget_llm_response_propagates_exceptions(self) -> None:
         """Test that aget_llm_response propagates LLM exceptions."""
-        from crewai.utilities.agent_utils import aget_llm_response
-        from crewai_core.printer import Printer
+        from fzxiezuoai.utilities.agent_utils import aget_llm_response
+        from fzxiezuoai_core.printer import Printer
 
         mock_llm = MagicMock()
         mock_llm.acall = AsyncMock(side_effect=RuntimeError("LLM error"))

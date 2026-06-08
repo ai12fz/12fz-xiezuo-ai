@@ -1,7 +1,7 @@
-"""Tests for `crewai.cli.deploy.validate`.
+"""Tests for `fzxiezuoai.cli.deploy.validate`.
 
 The fixtures here correspond 1:1 to the deployment-failure patterns observed
-in the #crewai-deployment-failures Slack channel that motivated this work.
+in the #fzxiezuoai-deployment-failures Slack channel that motivated this work.
 """
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ from unittest.mock import patch
 
 import pytest
 
-from crewai_cli.deploy.validate import (
+from fzxiezuoai_cli.deploy.validate import (
     DeployValidator,
     Severity,
     normalize_package_name,
@@ -22,7 +22,7 @@ from crewai_cli.deploy.validate import (
 
 def _make_pyproject(
     name: str = "my_crew",
-    dependencies: Iterable[str] = ("crewai>=1.14.0",),
+    dependencies: Iterable[str] = ("fzxiezuoai>=1.14.0",),
     *,
     hatchling: bool = False,
     flow: bool = False,
@@ -43,7 +43,7 @@ def _make_pyproject(
             'build-backend = "hatchling.build"',
         ]
     if flow:
-        lines += ["", "[tool.crewai]", 'type = "flow"']
+        lines += ["", "[tool.fzxiezuoai]", 'type = "flow"']
     if extra:
         lines += ["", extra]
     return "\n".join(lines) + "\n"
@@ -71,7 +71,7 @@ def _scaffold_standard_crew(
         (pkg_dir / "crew.py").write_text(
             dedent(
                 """
-                from crewai.project import CrewBase, crew
+                from fzxiezuoai.project import CrewBase, crew
 
                 @CrewBase
                 class MyCrew:
@@ -80,7 +80,7 @@ def _scaffold_standard_crew(
 
                     @crew
                     def crew(self):
-                        from crewai import Crew
+                        from fzxiezuoai import Crew
                         return Crew(agents=[], tasks=[])
                 """
             ).strip()
@@ -143,7 +143,7 @@ def test_invalid_pyproject_errors(tmp_path: Path) -> None:
 
 def test_missing_project_name_errors(tmp_path: Path) -> None:
     (tmp_path / "pyproject.toml").write_text(
-        '[project]\nversion = "0.1.0"\ndependencies = ["crewai>=1.14.0"]\n'
+        '[project]\nversion = "0.1.0"\ndependencies = ["fzxiezuoai>=1.14.0"]\n'
     )
     v = _run_without_import_check(tmp_path)
     assert "missing_project_name" in _codes(v)
@@ -292,21 +292,21 @@ def test_classify_azure_extra_missing_is_error(tmp_path: Path) -> None:
     v = DeployValidator(project_root=tmp_path)
     v._classify_import_error(
         "ImportError",
-        'Azure AI Inference native provider not available, to install: uv add "crewai[azure-ai-inference]"',
+        'Azure AI Inference native provider not available, to install: uv add "fzxiezuoai[azure-ai-inference]"',
         tb="",
     )
     assert "missing_provider_extra" in _codes(v)
     finding = next(r for r in v.results if r.code == "missing_provider_extra")
     assert finding.title.startswith("Azure AI Inference")
-    assert 'uv add "crewai[azure-ai-inference]"' in finding.hint
+    assert 'uv add "fzxiezuoai[azure-ai-inference]"' in finding.hint
 
 
 @pytest.mark.parametrize(
     "pkg_label, install_cmd",
     [
-        ("Anthropic", 'uv add "crewai[anthropic]"'),
-        ("AWS Bedrock", 'uv add "crewai[bedrock]"'),
-        ("Google Gen AI", 'uv add "crewai[google-genai]"'),
+        ("Anthropic", 'uv add "fzxiezuoai[anthropic]"'),
+        ("AWS Bedrock", 'uv add "fzxiezuoai[bedrock]"'),
+        ("Google Gen AI", 'uv add "fzxiezuoai[google-genai]"'),
     ],
 )
 def test_classify_missing_provider_extra_matches_real_messages(
@@ -349,7 +349,7 @@ def test_classify_no_flow_subclass_is_error(tmp_path: Path) -> None:
 
 
 def test_classify_stale_crewai_pin_attribute_error(tmp_path: Path) -> None:
-    """Regression for a stale crewai pin missing `_load_response_format`."""
+    """Regression for a stale fzxiezuoai pin missing `_load_response_format`."""
     v = DeployValidator(project_root=tmp_path)
     v._classify_import_error(
         "AttributeError",
@@ -393,7 +393,7 @@ def test_env_var_in_dotenv_does_not_warn(tmp_path: Path) -> None:
 def test_old_crewai_pin_in_uv_lock_warns(tmp_path: Path) -> None:
     _scaffold_standard_crew(tmp_path)
     (tmp_path / "uv.lock").write_text(
-        'name = "crewai"\nversion = "1.10.0"\nsource = { registry = "..." }\n'
+        'name = "fzxiezuoai"\nversion = "1.10.0"\nsource = { registry = "..." }\n'
     )
     v = _run_without_import_check(tmp_path)
     assert "old_crewai_pin" in _codes(v)
@@ -402,24 +402,24 @@ def test_old_crewai_pin_in_uv_lock_warns(tmp_path: Path) -> None:
 def test_modern_crewai_pin_does_not_warn(tmp_path: Path) -> None:
     _scaffold_standard_crew(tmp_path)
     (tmp_path / "uv.lock").write_text(
-        'name = "crewai"\nversion = "1.14.1"\nsource = { registry = "..." }\n'
+        'name = "fzxiezuoai"\nversion = "1.14.1"\nsource = { registry = "..." }\n'
     )
     v = _run_without_import_check(tmp_path)
     assert "old_crewai_pin" not in _codes(v)
 
 
 def test_create_crew_aborts_on_validation_error(tmp_path: Path) -> None:
-    """`crewai deploy create` must not contact the API when validation fails."""
+    """`fzxiezuoai deploy create` must not contact the API when validation fails."""
     from unittest.mock import MagicMock, patch as mock_patch
 
-    from crewai_cli.deploy.main import DeployCommand
+    from fzxiezuoai_cli.deploy.main import DeployCommand
 
     with (
-        mock_patch("crewai_cli.command.get_auth_token", return_value="tok"),
-        mock_patch("crewai_cli.deploy.main.get_project_name", return_value="p"),
-        mock_patch("crewai_cli.command.PlusAPI") as mock_api,
+        mock_patch("fzxiezuoai_cli.command.get_auth_token", return_value="tok"),
+        mock_patch("fzxiezuoai_cli.deploy.main.get_project_name", return_value="p"),
+        mock_patch("fzxiezuoai_cli.command.PlusAPI") as mock_api,
         mock_patch(
-            "crewai_cli.deploy.main.validate_project"
+            "fzxiezuoai_cli.deploy.main.validate_project"
         ) as mock_validate,
     ):
         mock_validate.return_value = MagicMock(ok=False)

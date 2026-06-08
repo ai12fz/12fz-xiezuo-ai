@@ -86,7 +86,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '951'
       openai-version:
@@ -170,7 +170,7 @@ interactions:
       User-Agent:
       - OTel-OTLP-Exporter-Python/1.27.0
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -292,7 +292,7 @@ interactions:
       cf-cache-status:
       - DYNAMIC
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '1408'
       openai-version:

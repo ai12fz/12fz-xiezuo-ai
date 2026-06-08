@@ -2,14 +2,14 @@
 
 
 def test_task_output_import():
-    """Test that TaskOutput can be imported from crewai."""
-    from crewai import TaskOutput
+    """Test that TaskOutput can be imported from fzxiezuoai."""
+    from fzxiezuoai import TaskOutput
 
     assert TaskOutput is not None
 
 
 def test_crew_output_import():
-    """Test that CrewOutput can be imported from crewai."""
-    from crewai import CrewOutput
+    """Test that CrewOutput can be imported from fzxiezuoai."""
+    from fzxiezuoai import CrewOutput
 
     assert CrewOutput is not None

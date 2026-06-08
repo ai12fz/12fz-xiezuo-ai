@@ -1,7 +1,7 @@
 import asyncio
 from unittest.mock import MagicMock, patch
 
-from crewai_tools import SnowflakeConfig, SnowflakeSearchTool
+from fzxiezuoai_tools import SnowflakeConfig, SnowflakeSearchTool
 import pytest
 
 

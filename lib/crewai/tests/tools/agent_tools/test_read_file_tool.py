@@ -3,13 +3,13 @@
 import base64
 from pathlib import Path
 
-from crewai.tools.agent_tools.read_file_tool import ReadFileTool
-from crewai_files import ImageFile, PDFFile, TextFile
+from fzxiezuoai.tools.agent_tools.read_file_tool import ReadFileTool
+from fzxiezuoai_files import ImageFile, PDFFile, TextFile
 
 
 TEST_FIXTURES_DIR = (
     Path(__file__).parent.parent.parent.parent.parent
-    / "crewai-files"
+    / "fzxiezuoai-files"
     / "tests"
     / "fixtures"
 )

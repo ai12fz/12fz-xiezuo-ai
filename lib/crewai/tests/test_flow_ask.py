@@ -15,11 +15,11 @@ from unittest.mock import MagicMock, patch
 
 from pydantic import BaseModel
 
-from crewai.flow import Flow, flow_config, listen, start
-from crewai.flow.async_feedback.providers import ConsoleProvider
-from crewai.flow.flow import FlowState
-from crewai.flow.input_provider import InputProvider, InputResponse
-from crewai.flow.persistence.base import FlowPersistence
+from fzxiezuoai.flow import Flow, flow_config, listen, start
+from fzxiezuoai.flow.async_feedback.providers import ConsoleProvider
+from fzxiezuoai.flow.flow import FlowState
+from fzxiezuoai.flow.input_provider import InputProvider, InputResponse
+from fzxiezuoai.flow.persistence.base import FlowPersistence
 
 
 
@@ -401,8 +401,8 @@ class TestAskEvents:
 
     def test_ask_emits_input_requested_event(self) -> None:
         """FlowInputRequestedEvent is emitted when ask() is called."""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.types.flow_events import FlowInputRequestedEvent
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.types.flow_events import FlowInputRequestedEvent
 
         events_captured: list[FlowInputRequestedEvent] = []
 
@@ -431,8 +431,8 @@ class TestAskEvents:
 
     def test_ask_emits_input_received_event(self) -> None:
         """FlowInputReceivedEvent is emitted after input is received."""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.types.flow_events import FlowInputReceivedEvent
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.types.flow_events import FlowInputReceivedEvent
 
         events_captured: list[FlowInputReceivedEvent] = []
 
@@ -462,8 +462,8 @@ class TestAskEvents:
 
     def test_ask_timeout_emits_received_with_none(self) -> None:
         """FlowInputReceivedEvent has response=None on timeout."""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.types.flow_events import FlowInputReceivedEvent
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.types.flow_events import FlowInputReceivedEvent
 
         events_captured: list[FlowInputReceivedEvent] = []
 
@@ -761,7 +761,7 @@ class TestAskIntegration:
 
     def test_ask_and_human_feedback_coexist(self) -> None:
         """ask() and @human_feedback can be used in the same flow."""
-        from crewai.flow import human_feedback
+        from fzxiezuoai.flow import human_feedback
 
         class TestFlow(Flow):
             input_provider = MockInputProvider(["AI"])
@@ -786,8 +786,8 @@ class TestAskIntegration:
 
     def test_ask_preserves_flow_lifecycle(self) -> None:
         """Flow events (started, finished) still fire normally with ask()."""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.types.flow_events import (
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.types.flow_events import (
             FlowFinishedEvent,
             FlowStartedEvent,
         )
@@ -826,7 +826,7 @@ class TestConsoleProviderInput:
 
     def test_console_provider_pauses_live_updates(self) -> None:
         """ConsoleProvider pauses and resumes formatter live updates."""
-        from crewai.events.event_listener import event_listener
+        from fzxiezuoai.events.event_listener import event_listener
 
         mock_formatter = MagicMock()
         mock_formatter.console = MagicMock()
@@ -845,7 +845,7 @@ class TestConsoleProviderInput:
 
     def test_console_provider_displays_message(self) -> None:
         """ConsoleProvider displays the message with Rich console."""
-        from crewai.events.event_listener import event_listener
+        from fzxiezuoai.events.event_listener import event_listener
 
         mock_formatter = MagicMock()
         mock_console = MagicMock()
@@ -864,7 +864,7 @@ class TestConsoleProviderInput:
 
     def test_console_provider_non_verbose(self) -> None:
         """ConsoleProvider in non-verbose mode uses plain input."""
-        from crewai.events.event_listener import event_listener
+        from fzxiezuoai.events.event_listener import event_listener
 
         mock_formatter = MagicMock()
         mock_formatter.console = MagicMock()
@@ -882,7 +882,7 @@ class TestConsoleProviderInput:
 
     def test_console_provider_strips_response(self) -> None:
         """ConsoleProvider strips whitespace from response."""
-        from crewai.events.event_listener import event_listener
+        from fzxiezuoai.events.event_listener import event_listener
 
         mock_formatter = MagicMock()
         mock_formatter.console = MagicMock()
@@ -1051,8 +1051,8 @@ class TestAskMetadata:
 
     def test_ask_metadata_in_requested_event(self) -> None:
         """FlowInputRequestedEvent carries metadata."""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.types.flow_events import FlowInputRequestedEvent
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.types.flow_events import FlowInputRequestedEvent
 
         events_captured: list[FlowInputRequestedEvent] = []
 
@@ -1079,8 +1079,8 @@ class TestAskMetadata:
 
     def test_ask_metadata_in_received_event(self) -> None:
         """FlowInputReceivedEvent carries both metadata and response_metadata."""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.types.flow_events import FlowInputReceivedEvent
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.types.flow_events import FlowInputReceivedEvent
 
         events_captured: list[FlowInputReceivedEvent] = []
 

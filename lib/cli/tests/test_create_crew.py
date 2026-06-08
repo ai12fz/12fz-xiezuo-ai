@@ -6,7 +6,7 @@ from unittest import mock
 
 import pytest
 from click.testing import CliRunner
-from crewai_cli.create_crew import create_crew, create_folder_structure
+from fzxiezuoai_cli.create_crew import create_crew, create_folder_structure
 
 
 @pytest.fixture
@@ -89,9 +89,9 @@ def test_create_folder_structure_with_parent_folder():
         assert folder_path.exists()
 
 
-@mock.patch("crewai_cli.create_crew.copy_template")
-@mock.patch("crewai_cli.create_crew.write_env_file")
-@mock.patch("crewai_cli.create_crew.load_env_vars")
+@mock.patch("fzxiezuoai_cli.create_crew.copy_template")
+@mock.patch("fzxiezuoai_cli.create_crew.write_env_file")
+@mock.patch("fzxiezuoai_cli.create_crew.load_env_vars")
 def test_create_crew_with_trailing_slash_creates_valid_project(
     mock_load_env, mock_write_env, mock_copy_template, temp_dir
 ):
@@ -99,7 +99,7 @@ def test_create_crew_with_trailing_slash_creates_valid_project(
 
     with tempfile.TemporaryDirectory() as work_dir:
         with mock.patch(
-            "crewai_cli.create_crew.create_folder_structure"
+            "fzxiezuoai_cli.create_crew.create_folder_structure"
         ) as mock_create_folder:
             mock_folder_path = Path(work_dir) / "test_project"
             mock_create_folder.return_value = (
@@ -123,9 +123,9 @@ def test_create_crew_with_trailing_slash_creates_valid_project(
                     )
 
 
-@mock.patch("crewai_cli.create_crew.copy_template")
-@mock.patch("crewai_cli.create_crew.write_env_file")
-@mock.patch("crewai_cli.create_crew.load_env_vars")
+@mock.patch("fzxiezuoai_cli.create_crew.copy_template")
+@mock.patch("fzxiezuoai_cli.create_crew.write_env_file")
+@mock.patch("fzxiezuoai_cli.create_crew.load_env_vars")
 def test_create_crew_with_multiple_trailing_slashes(
     mock_load_env, mock_write_env, mock_copy_template, temp_dir
 ):
@@ -133,7 +133,7 @@ def test_create_crew_with_multiple_trailing_slashes(
 
     with tempfile.TemporaryDirectory() as work_dir:
         with mock.patch(
-            "crewai_cli.create_crew.create_folder_structure"
+            "fzxiezuoai_cli.create_crew.create_folder_structure"
         ) as mock_create_folder:
             mock_folder_path = Path(work_dir) / "test_project"
             mock_create_folder.return_value = (
@@ -147,9 +147,9 @@ def test_create_crew_with_multiple_trailing_slashes(
             mock_create_folder.assert_called_once_with("test-project///", None)
 
 
-@mock.patch("crewai_cli.create_crew.copy_template")
-@mock.patch("crewai_cli.create_crew.write_env_file")
-@mock.patch("crewai_cli.create_crew.load_env_vars")
+@mock.patch("fzxiezuoai_cli.create_crew.copy_template")
+@mock.patch("fzxiezuoai_cli.create_crew.write_env_file")
+@mock.patch("fzxiezuoai_cli.create_crew.load_env_vars")
 def test_create_crew_normal_name_still_works(
     mock_load_env, mock_write_env, mock_copy_template, temp_dir
 ):
@@ -157,7 +157,7 @@ def test_create_crew_normal_name_still_works(
 
     with tempfile.TemporaryDirectory() as work_dir:
         with mock.patch(
-            "crewai_cli.create_crew.create_folder_structure"
+            "fzxiezuoai_cli.create_crew.create_folder_structure"
         ) as mock_create_folder:
             mock_folder_path = Path(work_dir) / "normal_project"
             mock_create_folder.return_value = (
@@ -243,9 +243,9 @@ def test_create_folder_structure_validates_names():
                 shutil.rmtree(folder_path)
 
 
-@mock.patch("crewai_cli.create_crew.copy_template")
-@mock.patch("crewai_cli.create_crew.write_env_file")
-@mock.patch("crewai_cli.create_crew.load_env_vars")
+@mock.patch("fzxiezuoai_cli.create_crew.copy_template")
+@mock.patch("fzxiezuoai_cli.create_crew.write_env_file")
+@mock.patch("fzxiezuoai_cli.create_crew.load_env_vars")
 def test_create_crew_with_parent_folder_and_trailing_slash(
     mock_load_env, mock_write_env, mock_copy_template, temp_dir
 ):
@@ -313,12 +313,12 @@ def test_create_folder_structure_rejects_reserved_names():
                 create_folder_structure(capitalized, parent_folder=temp_dir)
 
 
-@mock.patch("crewai_cli.create_crew.create_folder_structure")
-@mock.patch("crewai_cli.create_crew.copy_template")
-@mock.patch("crewai_cli.create_crew.load_env_vars")
-@mock.patch("crewai_cli.create_crew.get_provider_data")
-@mock.patch("crewai_cli.create_crew.select_provider")
-@mock.patch("crewai_cli.create_crew.select_model")
+@mock.patch("fzxiezuoai_cli.create_crew.create_folder_structure")
+@mock.patch("fzxiezuoai_cli.create_crew.copy_template")
+@mock.patch("fzxiezuoai_cli.create_crew.load_env_vars")
+@mock.patch("fzxiezuoai_cli.create_crew.get_provider_data")
+@mock.patch("fzxiezuoai_cli.create_crew.select_provider")
+@mock.patch("fzxiezuoai_cli.create_crew.select_model")
 @mock.patch("click.prompt")
 def test_env_vars_are_uppercased_in_env_file(
     mock_prompt,

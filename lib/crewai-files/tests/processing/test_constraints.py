@@ -1,6 +1,6 @@
 """Tests for provider constraints."""
 
-from crewai_files.processing.constraints import (
+from fzxiezuoai_files.processing.constraints import (
     ANTHROPIC_CONSTRAINTS,
     BEDROCK_CONSTRAINTS,
     GEMINI_CONSTRAINTS,

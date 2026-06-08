@@ -4,19 +4,19 @@ from unittest.mock import MagicMock, patch
 import pytest
 import requests as requests_lib
 
-from crewai_tools.tools.brave_search_tool.base import BraveSearchToolBase
-from crewai_tools.tools.brave_search_tool.brave_web_tool import BraveWebSearchTool
-from crewai_tools.tools.brave_search_tool.brave_image_tool import BraveImageSearchTool
-from crewai_tools.tools.brave_search_tool.brave_news_tool import BraveNewsSearchTool
-from crewai_tools.tools.brave_search_tool.brave_video_tool import BraveVideoSearchTool
-from crewai_tools.tools.brave_search_tool.brave_llm_context_tool import (
+from fzxiezuoai_tools.tools.brave_search_tool.base import BraveSearchToolBase
+from fzxiezuoai_tools.tools.brave_search_tool.brave_web_tool import BraveWebSearchTool
+from fzxiezuoai_tools.tools.brave_search_tool.brave_image_tool import BraveImageSearchTool
+from fzxiezuoai_tools.tools.brave_search_tool.brave_news_tool import BraveNewsSearchTool
+from fzxiezuoai_tools.tools.brave_search_tool.brave_video_tool import BraveVideoSearchTool
+from fzxiezuoai_tools.tools.brave_search_tool.brave_llm_context_tool import (
     BraveLLMContextTool,
 )
-from crewai_tools.tools.brave_search_tool.brave_local_pois_tool import (
+from fzxiezuoai_tools.tools.brave_search_tool.brave_local_pois_tool import (
     BraveLocalPOIsTool,
     BraveLocalPOIsDescriptionTool,
 )
-from crewai_tools.tools.brave_search_tool.schemas import (
+from fzxiezuoai_tools.tools.brave_search_tool.schemas import (
     WebSearchParams,
     WebSearchHeaders,
     ImageSearchParams,
@@ -338,7 +338,7 @@ def test_refine_request_payload_passes_multiple_goggles_as_multiple_params(web_t
 
 
 # Null-like / empty value stripping
-# crewAI's ensure_all_properties_required (pydantic_schema_utils.py) marks
+# 12FZ协作AI's ensure_all_properties_required (pydantic_schema_utils.py) marks
 # every schema property as required for OpenAI strict-mode compatibility.
 # Because optional Brave API parameters look required to the LLM, it fills
 # them with placeholder junk — None, "", "null", or [].  The test below
@@ -368,7 +368,7 @@ def test_common_refinement_strips_null_like_values(web_tool):
 # End-to-End _run() with Mocked HTTP Response
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_web_search_end_to_end(mock_get, web_tool):
     web_tool.raw = True
     data = {"web": {"results": [{"title": "R", "url": "http://r.co"}]}}
@@ -383,7 +383,7 @@ def test_web_search_end_to_end(mock_get, web_tool):
     assert result == data
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_image_search_end_to_end(mock_get, image_tool):
     image_tool.raw = True
     data = {"results": [{"url": "http://img.co/a.jpg"}]}
@@ -392,7 +392,7 @@ def test_image_search_end_to_end(mock_get, image_tool):
     assert image_tool._run(query="cats") == data
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_news_search_end_to_end(mock_get, news_tool):
     news_tool.raw = True
     data = {"results": [{"title": "News", "url": "http://n.co"}]}
@@ -401,7 +401,7 @@ def test_news_search_end_to_end(mock_get, news_tool):
     assert news_tool._run(query="headlines") == data
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_video_search_end_to_end(mock_get, video_tool):
     video_tool.raw = True
     data = {"results": [{"title": "Vid", "url": "http://v.co"}]}
@@ -410,15 +410,15 @@ def test_video_search_end_to_end(mock_get, video_tool):
     assert video_tool._run(query="python tutorial") == data
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_raw_false_calls_refine_response(mock_get, web_tool):
     """With raw=False (the default), _refine_response transforms the API response."""
     api_response = {
         "web": {
             "results": [
                 {
-                    "title": "CrewAI",
-                    "url": "https://crewai.com",
+                    "title": "12FZ协作AI",
+                    "url": "https://fzxiezuoai.com",
                     "description": "AI agent framework",
                 }
             ]
@@ -427,7 +427,7 @@ def test_raw_false_calls_refine_response(mock_get, web_tool):
     mock_get.return_value = _mock_response(json_data=api_response)
 
     assert web_tool.raw is False
-    result = web_tool._run(query="crewai")
+    result = web_tool._run(query="fzxiezuoai")
 
     # The web tool's _refine_response extracts and reshapes results.
     # The key assertion: we should NOT get back the raw API envelope.
@@ -437,7 +437,7 @@ def test_raw_false_calls_refine_response(mock_get, web_tool):
 # Backward Compatibility & Legacy Parameter Support
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_positional_query_argument(mock_get, web_tool):
     """tool.run('my query') works as a positional argument."""
     mock_get.return_value = _mock_response(json_data={})
@@ -447,7 +447,7 @@ def test_positional_query_argument(mock_get, web_tool):
     assert mock_get.call_args.kwargs["params"]["q"] == "positional test"
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_search_query_backward_compat(mock_get, web_tool):
     """The legacy 'search_query' param is mapped to 'query'."""
     mock_get.return_value = _mock_response(json_data={})
@@ -457,8 +457,8 @@ def test_search_query_backward_compat(mock_get, web_tool):
     assert mock_get.call_args.kwargs["params"]["q"] == "legacy test"
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base._save_results_to_file")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base._save_results_to_file")
 def test_save_file_called_when_enabled(mock_save, mock_get):
     mock_get.return_value = _mock_response(json_data={"results": []})
 
@@ -471,28 +471,28 @@ def test_save_file_called_when_enabled(mock_save, mock_get):
 # Error Handling
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_connection_error_raises_runtime_error(mock_get, web_tool):
     mock_get.side_effect = requests_lib.exceptions.ConnectionError("refused")
     with pytest.raises(RuntimeError, match="Brave Search API connection failed"):
         web_tool._run(query="test")
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_timeout_raises_runtime_error(mock_get, web_tool):
     mock_get.side_effect = requests_lib.exceptions.Timeout("timed out")
     with pytest.raises(RuntimeError, match="timed out"):
         web_tool._run(query="test")
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_invalid_params_raises_value_error(mock_get, web_tool):
     """count=999 exceeds WebSearchParams.count le=20."""
     with pytest.raises(ValueError, match="Invalid parameters"):
         web_tool._run(query="test", count=999)
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_4xx_error_raises_with_api_detail(mock_get, web_tool):
     """A 422 with a structured error body includes code and detail in the message."""
     mock_get.return_value = _mock_response(
@@ -512,7 +512,7 @@ def test_4xx_error_raises_with_api_detail(mock_get, web_tool):
     assert "HTTP 422" in str(exc_info.value)
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_auth_error_raises_immediately(mock_get, web_tool):
     """A 401 with SUBSCRIPTION_TOKEN_INVALID is not retried."""
     mock_get.return_value = _mock_response(
@@ -532,7 +532,7 @@ def test_auth_error_raises_immediately(mock_get, web_tool):
     assert mock_get.call_count == 1
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_quota_limited_429_raises_immediately(mock_get, web_tool):
     """A 429 with QUOTA_LIMITED is NOT retried — quota exhaustion is terminal."""
     mock_get.return_value = _mock_response(
@@ -553,7 +553,7 @@ def test_quota_limited_429_raises_immediately(mock_get, web_tool):
     assert mock_get.call_count == 1
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_usage_limit_exceeded_429_raises_immediately(mock_get, web_tool):
     """USAGE_LIMIT_EXCEEDED is also non-retryable, just like QUOTA_LIMITED."""
     mock_get.return_value = _mock_response(
@@ -572,7 +572,7 @@ def test_usage_limit_exceeded_429_raises_immediately(mock_get, web_tool):
     assert mock_get.call_count == 1
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_error_body_is_fully_included_in_message(mock_get, web_tool):
     """The full JSON error body is included in the RuntimeError message."""
     mock_get.return_value = _mock_response(
@@ -596,7 +596,7 @@ def test_error_body_is_fully_included_in_message(mock_get, web_tool):
     assert "1000" in msg
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_error_without_json_body_falls_back_to_text(mock_get, web_tool):
     """When the error response isn't valid JSON, resp.text is used as the detail."""
     resp = _mock_response(status_code=500, text="Internal Server Error")
@@ -607,7 +607,7 @@ def test_error_without_json_body_falls_back_to_text(mock_get, web_tool):
         web_tool._run(query="test")
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
 def test_invalid_json_on_success_raises_runtime_error(mock_get, web_tool):
     """A 200 OK with a non-JSON body raises RuntimeError."""
     resp = _mock_response(status_code=200)
@@ -621,8 +621,8 @@ def test_invalid_json_on_success_raises_runtime_error(mock_get, web_tool):
 # Rate Limiting
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_rate_limit_sleeps_when_too_fast(mock_time, mock_get, web_tool):
     """Back-to-back calls within the interval trigger a sleep."""
     mock_get.return_value = _mock_response(json_data={})
@@ -639,8 +639,8 @@ def test_rate_limit_sleeps_when_too_fast(mock_time, mock_get, web_tool):
     assert 0.7 < sleep_duration < 0.9  # approximately 0.8s
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_rate_limit_skips_sleep_when_enough_time_passed(mock_time, mock_get, web_tool):
     """No sleep when the elapsed time already exceeds the interval."""
     mock_get.return_value = _mock_response(json_data={})
@@ -654,8 +654,8 @@ def test_rate_limit_skips_sleep_when_enough_time_passed(mock_time, mock_get, web
     mock_time.sleep.assert_not_called()
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_rate_limit_disabled_when_zero(mock_time, mock_get, web_tool):
     """requests_per_second=0 disables rate limiting entirely."""
     mock_get.return_value = _mock_response(json_data={})
@@ -668,8 +668,8 @@ def test_rate_limit_disabled_when_zero(mock_time, mock_get, web_tool):
     mock_time.sleep.assert_not_called()
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_rate_limit_per_instance_independent(mock_time, mock_get, web_tool, image_tool):
     """Each instance has its own rate-limit clock; a request on one does not delay the other."""
     mock_get.return_value = _mock_response(json_data={})
@@ -689,8 +689,8 @@ def test_rate_limit_per_instance_independent(mock_time, mock_get, web_tool, imag
 # Retry Behavior
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_429_rate_limited_retries_then_succeeds(mock_time, mock_get, web_tool):
     """A transient RATE_LIMITED 429 is retried; success on the second attempt."""
     mock_time.time.return_value = 200.0
@@ -713,8 +713,8 @@ def test_429_rate_limited_retries_then_succeeds(mock_time, mock_get, web_tool):
     assert len(retry_sleeps) == 1
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_5xx_is_retried(mock_time, mock_get, web_tool):
     """A 502 server error is retried; success on the second attempt."""
     mock_time.time.return_value = 200.0
@@ -731,8 +731,8 @@ def test_5xx_is_retried(mock_time, mock_get, web_tool):
     assert mock_get.call_count == 2
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_429_rate_limited_exhausts_retries(mock_time, mock_get, web_tool):
     """Persistent RATE_LIMITED 429s exhaust retries and raise RuntimeError."""
     mock_time.time.return_value = 200.0
@@ -749,8 +749,8 @@ def test_429_rate_limited_exhausts_retries(mock_time, mock_get, web_tool):
     assert mock_get.call_count == 3
 
 
-@patch("crewai_tools.tools.brave_search_tool.base.requests.get")
-@patch("crewai_tools.tools.brave_search_tool.base.time")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.requests.get")
+@patch("fzxiezuoai_tools.tools.brave_search_tool.base.time")
 def test_retry_uses_exponential_backoff_when_no_retry_after(
     mock_time, mock_get, web_tool
 ):

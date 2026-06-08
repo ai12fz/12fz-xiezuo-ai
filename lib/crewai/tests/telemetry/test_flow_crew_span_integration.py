@@ -14,11 +14,11 @@ from unittest.mock import Mock
 import pytest
 from pydantic import BaseModel
 
-from crewai import Agent, Crew, Task, LLM
-from crewai.events.event_listener import EventListener
-from crewai.flow.flow import Flow, listen, start
-from crewai.telemetry import Telemetry
-from crewai.types.usage_metrics import UsageMetrics
+from fzxiezuoai import Agent, Crew, Task, LLM
+from fzxiezuoai.events.event_listener import EventListener
+from fzxiezuoai.flow.flow import Flow, listen, start
+from fzxiezuoai.telemetry import Telemetry
+from fzxiezuoai.types.usage_metrics import UsageMetrics
 
 
 class SimpleState(BaseModel):
@@ -51,7 +51,7 @@ def create_mock_llm() -> Mock:
 @pytest.fixture(autouse=True)
 def enable_telemetry_for_tests():
     """Enable telemetry for these tests and reset singletons."""
-    from crewai.events.event_bus import crewai_event_bus
+    from fzxiezuoai.events.event_bus import crewai_event_bus
 
     original_telemetry = os.environ.get("CREWAI_DISABLE_TELEMETRY")
     original_otel = os.environ.get("OTEL_SDK_DISABLED")

@@ -1,8 +1,8 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai.events.event_listener import event_listener
-from crewai.core.providers.human_input import SyncHumanInputProvider
+from fzxiezuoai.events.event_listener import event_listener
+from fzxiezuoai.core.providers.human_input import SyncHumanInputProvider
 
 
 class TestFlowHumanInputIntegration:

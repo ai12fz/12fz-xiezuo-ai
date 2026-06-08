@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from a2a.types import AgentCard, AgentSkill
 
-from crewai import Agent
-from crewai.a2a.config import A2AClientConfig, A2AServerConfig
-from crewai.a2a.utils.agent_card import inject_a2a_server_methods
+from fzxiezuoai import Agent
+from fzxiezuoai.a2a.config import A2AClientConfig, A2AServerConfig
+from fzxiezuoai.a2a.utils.agent_card import inject_a2a_server_methods
 
 
 class TestInjectA2AServerMethods:

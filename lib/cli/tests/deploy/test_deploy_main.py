@@ -7,14 +7,14 @@ import pytest
 import json
 
 import httpx
-from crewai_cli.deploy.main import DeployCommand
-from crewai_cli.utils import parse_toml
+from fzxiezuoai_cli.deploy.main import DeployCommand
+from fzxiezuoai_cli.utils import parse_toml
 
 
 class TestDeployCommand(unittest.TestCase):
-    @patch("crewai_cli.command.get_auth_token")
-    @patch("crewai_cli.deploy.main.get_project_name")
-    @patch("crewai_cli.command.PlusAPI")
+    @patch("fzxiezuoai_cli.command.get_auth_token")
+    @patch("fzxiezuoai_cli.deploy.main.get_project_name")
+    @patch("fzxiezuoai_cli.command.PlusAPI")
     def setUp(
         self,
         mock_plus_api,
@@ -35,7 +35,7 @@ class TestDeployCommand(unittest.TestCase):
         self.assertEqual(self.deploy_command.project_name, "test_project")
         self.mock_plus_api.assert_called_once_with(api_key="test_token")
 
-    @patch("crewai_cli.command.get_auth_token")
+    @patch("fzxiezuoai_cli.command.get_auth_token")
     def test_init_failure(self, mock_get_auth_token):
         mock_get_auth_token.side_effect = Exception("Auth failed")
 
@@ -123,7 +123,7 @@ class TestDeployCommand(unittest.TestCase):
             )
             self.assertIn("2023-01-01 - INFO: Test log", fake_out.getvalue())
 
-    @patch("crewai_cli.deploy.main.DeployCommand._display_deployment_info")
+    @patch("fzxiezuoai_cli.deploy.main.DeployCommand._display_deployment_info")
     def test_deploy_with_uuid(self, mock_display):
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -135,7 +135,7 @@ class TestDeployCommand(unittest.TestCase):
         self.mock_client.deploy_by_uuid.assert_called_once_with("test-uuid")
         mock_display.assert_called_once_with({"uuid": "test-uuid"})
 
-    @patch("crewai_cli.deploy.main.DeployCommand._display_deployment_info")
+    @patch("fzxiezuoai_cli.deploy.main.DeployCommand._display_deployment_info")
     def test_deploy_with_project_name(self, mock_display):
         mock_response = MagicMock()
         mock_response.status_code = 200
@@ -147,8 +147,8 @@ class TestDeployCommand(unittest.TestCase):
         self.mock_client.deploy_by_name.assert_called_once_with("test_project")
         mock_display.assert_called_once_with({"uuid": "test-uuid"})
 
-    @patch("crewai_cli.deploy.main.fetch_and_json_env_file")
-    @patch("crewai_cli.deploy.main.git.Repository.origin_url")
+    @patch("fzxiezuoai_cli.deploy.main.fetch_and_json_env_file")
+    @patch("fzxiezuoai_cli.deploy.main.git.Repository.origin_url")
     @patch("builtins.input")
     def test_create_crew(self, mock_input, mock_git_origin_url, mock_fetch_env):
         mock_fetch_env.return_value = {"ENV_VAR": "value"}
@@ -224,7 +224,7 @@ class TestDeployCommand(unittest.TestCase):
 
         [tool.poetry.dependencies]
         python = "^3.11"
-        crewai = { extras = ["tools"], version = ">=0.51.0,<1.0.0" }
+        fzxiezuoai = { extras = ["tools"], version = ">=0.51.0,<1.0.0" }
         """
         parsed = parse_toml(toml_content)
         self.assertEqual(parsed["tool"]["poetry"]["name"], "test_project")
@@ -237,11 +237,11 @@ class TestDeployCommand(unittest.TestCase):
         name = "test_project"
         version = "0.1.0"
         requires-python = ">=3.10,<3.14"
-        dependencies = ["crewai"]
+        dependencies = ["fzxiezuoai"]
         """,
     )
     def test_get_project_name_python_310(self, mock_open):
-        from crewai_cli.utils import get_project_name
+        from fzxiezuoai_cli.utils import get_project_name
 
         project_name = get_project_name()
         print("project_name", project_name)
@@ -256,16 +256,16 @@ class TestDeployCommand(unittest.TestCase):
     name = "test_project"
     version = "0.1.0"
     requires-python = ">=3.10,<3.14"
-    dependencies = ["crewai"]
+    dependencies = ["fzxiezuoai"]
     """,
     )
     def test_get_project_name_python_311_plus(self, mock_open):
-        from crewai_cli.utils import get_project_name
+        from fzxiezuoai_cli.utils import get_project_name
 
         project_name = get_project_name()
         self.assertEqual(project_name, "test_project")
 
     def test_get_crewai_version(self):
-        from crewai_cli.version import get_crewai_version
+        from fzxiezuoai_cli.version import get_crewai_version
 
         assert isinstance(get_crewai_version(), str)

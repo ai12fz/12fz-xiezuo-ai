@@ -1,8 +1,8 @@
 from textwrap import dedent
 from unittest.mock import MagicMock, patch
 
-from crewai_tools import MCPServerAdapter
-from crewai_tools.adapters.tool_collection import ToolCollection
+from fzxiezuoai_tools import MCPServerAdapter
+from fzxiezuoai_tools.adapters.tool_collection import ToolCollection
 from mcp import StdioServerParameters
 import pytest
 
@@ -219,7 +219,7 @@ def test_connect_timeout_with_filtered_tools(echo_server_script):
         assert tools[0].run(text="timeout test") == "Echo: timeout test"
 
 
-@patch("crewai_tools.adapters.mcp_adapter.MCPAdapt")
+@patch("fzxiezuoai_tools.adapters.mcp_adapter.MCPAdapt")
 def test_connect_timeout_passed_to_mcpadapt(mock_mcpadapt):
     mock_adapter_instance = MagicMock()
     mock_mcpadapt.return_value = mock_adapter_instance

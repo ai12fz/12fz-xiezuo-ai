@@ -2,7 +2,7 @@
 
 import pytest
 
-from crewai.events.event_context import (
+from fzxiezuoai.events.event_context import (
     SCOPE_ENDING_EVENTS,
     SCOPE_STARTING_EVENTS,
     VALID_EVENT_PAIRS,
@@ -190,10 +190,10 @@ class TestResumeTaskScope:
         _event_id_stack.set(())
 
     def _bind_runtime_state(self, *event_dicts: dict[str, object]):
-        from crewai.events import crewai_event_bus
-        from crewai.events.types.task_events import TaskStartedEvent
-        from crewai.state.event_record import EventRecord
-        from crewai.state.runtime import RuntimeState
+        from fzxiezuoai.events import crewai_event_bus
+        from fzxiezuoai.events.types.task_events import TaskStartedEvent
+        from fzxiezuoai.state.event_record import EventRecord
+        from fzxiezuoai.state.runtime import RuntimeState
 
         record = EventRecord()
         for spec in event_dicts:
@@ -210,7 +210,7 @@ class TestResumeTaskScope:
         return crewai_event_bus, previous
 
     def test_returns_false_when_no_runtime_state(self) -> None:
-        from crewai.events import crewai_event_bus
+        from fzxiezuoai.events import crewai_event_bus
 
         previous = crewai_event_bus._runtime_state
         crewai_event_bus._runtime_state = None
@@ -245,9 +245,9 @@ class TestResumeTaskScope:
 
     def test_pairs_cleanly_with_task_completed(self) -> None:
         """The pushed scope must be popped by a matching task_completed."""
-        from crewai.events import crewai_event_bus
-        from crewai.events.types.task_events import TaskCompletedEvent
-        from crewai.tasks.task_output import TaskOutput
+        from fzxiezuoai.events import crewai_event_bus
+        from fzxiezuoai.events.types.task_events import TaskCompletedEvent
+        from fzxiezuoai.tasks.task_output import TaskOutput
 
         push_event_scope("kickoff-1", "crew_kickoff_started")
         bus, previous = self._bind_runtime_state(
@@ -268,8 +268,8 @@ class TestResumeTaskScope:
 
 
 def test_agent_scope_preserved_after_tool_error_event() -> None:
-    from crewai.events import crewai_event_bus
-    from crewai.events.types.tool_usage_events import (
+    from fzxiezuoai.events import crewai_event_bus
+    from fzxiezuoai.events.types.tool_usage_events import (
         ToolUsageErrorEvent,
         ToolUsageStartedEvent,
     )

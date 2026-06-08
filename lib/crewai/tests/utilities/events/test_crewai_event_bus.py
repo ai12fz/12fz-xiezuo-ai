@@ -1,8 +1,8 @@
 import threading
 from unittest.mock import Mock
 
-from crewai.events.base_events import BaseEvent
-from crewai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.base_events import BaseEvent
+from fzxiezuoai.events.event_bus import crewai_event_bus
 
 
 class TestEvent(BaseEvent):

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from crewai.llms.cache import (
+from fzxiezuoai.llms.cache import (
     CACHE_BREAKPOINT_KEY,
     mark_cache_breakpoint,
     strip_cache_breakpoint,
 )
-from crewai.llms.providers.anthropic.completion import AnthropicCompletion
-from crewai.llms.providers.openai.completion import OpenAICompletion
+from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
+from fzxiezuoai.llms.providers.openai.completion import OpenAICompletion
 
 
 class TestCacheMarkerHelpers:

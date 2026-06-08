@@ -4,8 +4,8 @@ from unittest.mock import patch
 
 import pytest
 
-from crewai import Agent
-from crewai.a2a.config import A2AConfig
+from fzxiezuoai import Agent
+from fzxiezuoai.a2a.config import A2AConfig
 
 try:
     import a2a  # noqa: F401

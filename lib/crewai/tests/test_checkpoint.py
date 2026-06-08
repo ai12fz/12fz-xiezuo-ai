@@ -13,20 +13,20 @@ from unittest.mock import MagicMock, patch
 import pytest
 from pydantic import BaseModel
 
-from crewai.agent.core import Agent
-from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai.crew import Crew
-from crewai.flow.flow import _INITIAL_STATE_CLASS_MARKER, Flow, start
-from crewai.state.checkpoint_config import CheckpointConfig
-from crewai.state.checkpoint_listener import (
+from fzxiezuoai.agent.core import Agent
+from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.flow.flow import _INITIAL_STATE_CLASS_MARKER, Flow, start
+from fzxiezuoai.state.checkpoint_config import CheckpointConfig
+from fzxiezuoai.state.checkpoint_listener import (
     _find_checkpoint,
     _resolve,
     _SENTINEL,
 )
-from crewai.state.provider.json_provider import JsonProvider
-from crewai.state.provider.sqlite_provider import SqliteProvider
-from crewai.state.runtime import RuntimeState
-from crewai.task import Task
+from fzxiezuoai.state.provider.json_provider import JsonProvider
+from fzxiezuoai.state.provider.sqlite_provider import SqliteProvider
+from fzxiezuoai.state.runtime import RuntimeState
+from fzxiezuoai.task import Task
 
 
 
@@ -188,7 +188,7 @@ class TestCheckpointConfig:
 
 class TestRuntimeStateLineage:
     def _make_state(self) -> RuntimeState:
-        from crewai import Agent, Crew
+        from fzxiezuoai import Agent, Crew
 
         agent = Agent(role="r", goal="g", backstory="b", llm="gpt-4o-mini")
         crew = Crew(agents=[agent], tasks=[], verbose=False)
@@ -201,7 +201,7 @@ class TestRuntimeStateLineage:
         assert state._branch == "main"
 
     def test_serialize_includes_version(self) -> None:
-        from crewai_core.version import get_crewai_version
+        from fzxiezuoai_core.version import get_crewai_version
 
         state = self._make_state()
         dumped = json.loads(state.model_dump_json())
@@ -218,7 +218,7 @@ class TestRuntimeStateLineage:
             RuntimeState.model_validate_json(
                 json.dumps(data), context={"from_checkpoint": True}
             )
-        assert "Migrating checkpoint from crewAI 0.1.0" in caplog.text
+        assert "Migrating checkpoint from 12FZ协作AI 0.1.0" in caplog.text
 
     def test_deserialize_warns_on_missing_version(self, caplog: Any) -> None:
         import logging
@@ -466,7 +466,7 @@ class TestJsonProviderFork:
             assert data2["parent_id"] == id1
 
     def _make_state(self) -> RuntimeState:
-        from crewai import Agent, Crew
+        from fzxiezuoai import Agent, Crew
 
         agent = Agent(role="r", goal="g", backstory="b", llm="gpt-4o-mini")
         crew = Crew(agents=[agent], tasks=[], verbose=False)
@@ -534,7 +534,7 @@ class TestSqliteProviderFork:
             assert row[0] == id1
 
     def _make_state(self) -> RuntimeState:
-        from crewai import Agent, Crew
+        from fzxiezuoai import Agent, Crew
 
         agent = Agent(role="r", goal="g", backstory="b", llm="gpt-4o-mini")
         crew = Crew(agents=[agent], tasks=[], verbose=False)
@@ -565,8 +565,8 @@ class TestKickoffFromCheckpoint:
         agent = Agent(role="r", goal="g", backstory="b", llm="gpt-4o-mini")
         crew = Crew(agents=[agent], tasks=[], verbose=False)
         assert crew.checkpoint is None
-        with patch("crewai.crew.get_env_context"), \
-             patch("crewai.crew.prepare_kickoff", side_effect=RuntimeError("stop")):
+        with patch("fzxiezuoai.crew.get_env_context"), \
+             patch("fzxiezuoai.crew.prepare_kickoff", side_effect=RuntimeError("stop")):
             with pytest.raises(RuntimeError, match="stop"):
                 crew.kickoff(from_checkpoint=cfg)
         assert isinstance(crew.checkpoint, CheckpointConfig)
@@ -627,7 +627,7 @@ class TestAgentCheckpoint:
             loc = state.checkpoint(d)
             cfg = CheckpointConfig(restore_from=loc)
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             crewai_event_bus._runtime_state = None
             Agent.from_checkpoint(cfg)
@@ -640,7 +640,7 @@ class TestAgentCheckpoint:
             loc = state.checkpoint(d)
             cfg = CheckpointConfig(restore_from=loc)
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             Agent.fork(cfg, branch="agent-experiment")
             rt = crewai_event_bus._runtime_state
@@ -654,7 +654,7 @@ class TestAgentCheckpoint:
             loc = state.checkpoint(d)
             cfg = CheckpointConfig(restore_from=loc)
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             Agent.fork(cfg)
             rt = crewai_event_bus._runtime_state
@@ -662,7 +662,7 @@ class TestAgentCheckpoint:
             assert rt._branch.startswith("fork/")
 
     def test_sync_checkpoint_fields_agent(self) -> None:
-        from crewai.state.runtime import _sync_checkpoint_fields
+        from fzxiezuoai.state.runtime import _sync_checkpoint_fields
 
         agent = Agent(role="r", goal="g", backstory="b", llm="gpt-4o-mini")
         agent._kickoff_event_id = "evt-123"
@@ -675,7 +675,7 @@ class TestAgentCheckpoint:
         state = RuntimeState(root=[agent])
         state._provider = JsonProvider()
         with tempfile.TemporaryDirectory() as d:
-            from crewai.state.runtime import _prepare_entities
+            from fzxiezuoai.state.runtime import _prepare_entities
 
             _prepare_entities(state.root)
             loc = state.checkpoint(d)

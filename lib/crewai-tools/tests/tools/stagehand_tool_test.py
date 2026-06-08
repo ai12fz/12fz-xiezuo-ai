@@ -41,7 +41,7 @@ def mock_stagehand_modules():
     sys.modules["stagehand.schemas"] = mock_stagehand_schemas
     sys.modules["stagehand.utils"] = mock_stagehand_utils
 
-    from crewai_tools.tools.stagehand_tool.stagehand_tool import (
+    from fzxiezuoai_tools.tools.stagehand_tool.stagehand_tool import (
         StagehandResult,
         StagehandTool,
     )
@@ -100,7 +100,7 @@ class MockStagehand(MagicMock):
 @pytest.fixture
 def mock_stagehand_instance():
     with patch(
-        "crewai_tools.tools.stagehand_tool.stagehand_tool.Stagehand",
+        "fzxiezuoai_tools.tools.stagehand_tool.stagehand_tool.Stagehand",
         return_value=MockStagehand(),
     ) as mock:
         yield mock
@@ -135,7 +135,7 @@ def test_stagehand_tool_initialization():
 
 
 @patch(
-    "crewai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
+    "fzxiezuoai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
 )
 def test_act_command(mock_run, stagehand_tool):
     """Test the 'act' command functionality."""
@@ -151,7 +151,7 @@ def test_act_command(mock_run, stagehand_tool):
 
 
 @patch(
-    "crewai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
+    "fzxiezuoai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
 )
 def test_navigate_command(mock_run, stagehand_tool):
     """Test the 'navigate' command functionality."""
@@ -168,7 +168,7 @@ def test_navigate_command(mock_run, stagehand_tool):
 
 
 @patch(
-    "crewai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
+    "fzxiezuoai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
 )
 def test_extract_command(mock_run, stagehand_tool):
     """Test the 'extract' command functionality."""
@@ -186,7 +186,7 @@ def test_extract_command(mock_run, stagehand_tool):
 
 
 @patch(
-    "crewai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
+    "fzxiezuoai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
 )
 def test_observe_command(mock_run, stagehand_tool):
     """Test the 'observe' command functionality."""
@@ -204,7 +204,7 @@ def test_observe_command(mock_run, stagehand_tool):
 
 
 @patch(
-    "crewai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
+    "fzxiezuoai_tools.tools.stagehand_tool.stagehand_tool.StagehandTool._run", autospec=True
 )
 def test_error_handling(mock_run, stagehand_tool):
     """Test error handling in the tool."""

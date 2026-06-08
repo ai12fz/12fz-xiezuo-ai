@@ -1,14 +1,14 @@
 [project]
-name = "crewai-cli"
+name = "fzxiezuoai-cli"
 dynamic = ["version"]
-description = "CLI for CrewAI — scaffold, run, deploy and manage AI agent crews."
+description = "CLI for 12FZ协作AI — scaffold, run, deploy and manage AI agent crews."
 readme = "README.md"
 authors = [
-    { name = "Joao Moura", email = "joao@crewai.com" }
+    { name = "12FZ 数造科技", email = "ai@12fz.com" }
 ]
-requires-python = ">=3.10, <3.14"
+requires-python = ">=3.10, <3.15"
 dependencies = [
-    "crewai-core==1.14.7a2",
+    "fzxiezuoai-core==1.14.7a2",
     "click>=8.1.7,<9",
     "pydantic>=2.11.9,<2.13",
     "pydantic-settings~=2.10.1",
@@ -27,19 +27,19 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://crewai.com"
-Documentation = "https://docs.crewai.com"
-Repository = "https://github.com/crewAIInc/crewAI"
+Homepage = "https://ai.12fz.com"
+Documentation = "https://ai.12fz.com/docs"
+Repository = "https://github.com/crewAIInc/12FZ协作AI"
 
 [project.scripts]
-crewai = "crewai_cli.cli:crewai"
+fzxiezuoai = "fzxiezuoai_cli.cli:fzxiezuoai"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.version]
-path = "src/crewai_cli/__init__.py"
+path = "src/fzxiezuoai_cli/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/crewai_cli"]
+packages = ["src/fzxiezuoai_cli"]

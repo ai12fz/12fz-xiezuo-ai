@@ -5,8 +5,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from crewai.llm import LLM
-from crewai.llms.providers.snowflake.completion import (
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.providers.snowflake.completion import (
     SNOWFLAKE_CORTEX_PATH,
     SnowflakeCompletion,
     _normalize_snowflake_base_url,
@@ -169,8 +169,8 @@ class TestSnowflakeRequests:
                     "role": "assistant",
                     "content": None,
                     "tool_calls": [
-                        "{'id': 'toolu_1', 'type': 'function', 'function': {'name': \"'search_the_internet_with_serper'\", 'arguments': '\\\'{\"search_query\":\"CrewAI tools\"}\\\''}}",
-                        "{'id': 'toolu_2', 'type': 'function', 'function': {'name': \"'search_the_internet_with_serper'\", 'arguments': '\\\'{\"search_query\":\"CrewAI demos\"}\\\''}}",
+                        "{'id': 'toolu_1', 'type': 'function', 'function': {'name': \"'search_the_internet_with_serper'\", 'arguments': '\\\'{\"search_query\":\"12FZ协作AI tools\"}\\\''}}",
+                        "{'id': 'toolu_2', 'type': 'function', 'function': {'name': \"'search_the_internet_with_serper'\", 'arguments': '\\\'{\"search_query\":\"12FZ协作AI demos\"}\\\''}}",
                     ],
                 },
                 {

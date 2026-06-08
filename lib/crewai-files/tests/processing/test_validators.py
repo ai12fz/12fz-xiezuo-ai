@@ -2,8 +2,8 @@
 
 from unittest.mock import patch
 
-from crewai_files import AudioFile, FileBytes, ImageFile, PDFFile, TextFile, VideoFile
-from crewai_files.processing.constraints import (
+from fzxiezuoai_files import AudioFile, FileBytes, ImageFile, PDFFile, TextFile, VideoFile
+from fzxiezuoai_files.processing.constraints import (
     ANTHROPIC_CONSTRAINTS,
     AudioConstraints,
     ImageConstraints,
@@ -11,12 +11,12 @@ from crewai_files.processing.constraints import (
     ProviderConstraints,
     VideoConstraints,
 )
-from crewai_files.processing.exceptions import (
+from fzxiezuoai_files.processing.exceptions import (
     FileTooLargeError,
     FileValidationError,
     UnsupportedFileTypeError,
 )
-from crewai_files.processing.validators import (
+from fzxiezuoai_files.processing.validators import (
     _get_audio_duration,
     _get_video_duration,
     validate_audio,
@@ -337,7 +337,7 @@ class TestValidateAudio:
 
         assert "not supported" in str(exc_info.value)
 
-    @patch("crewai_files.processing.validators._get_audio_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_audio_duration")
     def test_validate_audio_duration_passes(self, mock_get_duration):
         """Test validating audio when duration is under limit."""
         mock_get_duration.return_value = 30.0
@@ -353,7 +353,7 @@ class TestValidateAudio:
         assert len(errors) == 0
         mock_get_duration.assert_called_once()
 
-    @patch("crewai_files.processing.validators._get_audio_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_audio_duration")
     def test_validate_audio_duration_fails(self, mock_get_duration):
         """Test validating audio when duration exceeds limit."""
         mock_get_duration.return_value = 120.5
@@ -371,7 +371,7 @@ class TestValidateAudio:
         assert "120.5s" in str(exc_info.value)
         assert "60s" in str(exc_info.value)
 
-    @patch("crewai_files.processing.validators._get_audio_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_audio_duration")
     def test_validate_audio_duration_no_raise(self, mock_get_duration):
         """Test audio duration validation with raise_on_error=False."""
         mock_get_duration.return_value = 120.5
@@ -387,7 +387,7 @@ class TestValidateAudio:
         assert len(errors) == 1
         assert "duration" in errors[0].lower()
 
-    @patch("crewai_files.processing.validators._get_audio_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_audio_duration")
     def test_validate_audio_duration_none_skips(self, mock_get_duration):
         """Test that duration validation is skipped when max_duration_seconds is None."""
         constraints = AudioConstraints(
@@ -402,7 +402,7 @@ class TestValidateAudio:
         assert len(errors) == 0
         mock_get_duration.assert_not_called()
 
-    @patch("crewai_files.processing.validators._get_audio_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_audio_duration")
     def test_validate_audio_duration_detection_returns_none(self, mock_get_duration):
         """Test that validation passes when duration detection returns None."""
         mock_get_duration.return_value = None
@@ -460,7 +460,7 @@ class TestValidateVideo:
 
         assert "not supported" in str(exc_info.value)
 
-    @patch("crewai_files.processing.validators._get_video_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_video_duration")
     def test_validate_video_duration_passes(self, mock_get_duration):
         """Test validating video when duration is under limit."""
         mock_get_duration.return_value = 30.0
@@ -476,7 +476,7 @@ class TestValidateVideo:
         assert len(errors) == 0
         mock_get_duration.assert_called_once()
 
-    @patch("crewai_files.processing.validators._get_video_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_video_duration")
     def test_validate_video_duration_fails(self, mock_get_duration):
         """Test validating video when duration exceeds limit."""
         mock_get_duration.return_value = 180.0
@@ -494,7 +494,7 @@ class TestValidateVideo:
         assert "180.0s" in str(exc_info.value)
         assert "60s" in str(exc_info.value)
 
-    @patch("crewai_files.processing.validators._get_video_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_video_duration")
     def test_validate_video_duration_no_raise(self, mock_get_duration):
         """Test video duration validation with raise_on_error=False."""
         mock_get_duration.return_value = 180.0
@@ -510,7 +510,7 @@ class TestValidateVideo:
         assert len(errors) == 1
         assert "duration" in errors[0].lower()
 
-    @patch("crewai_files.processing.validators._get_video_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_video_duration")
     def test_validate_video_duration_none_skips(self, mock_get_duration):
         """Test that duration validation is skipped when max_duration_seconds is None."""
         constraints = VideoConstraints(
@@ -525,7 +525,7 @@ class TestValidateVideo:
         assert len(errors) == 0
         mock_get_duration.assert_not_called()
 
-    @patch("crewai_files.processing.validators._get_video_duration")
+    @patch("fzxiezuoai_files.processing.validators._get_video_duration")
     def test_validate_video_duration_detection_returns_none(self, mock_get_duration):
         """Test that validation passes when duration detection returns None."""
         mock_get_duration.return_value = None

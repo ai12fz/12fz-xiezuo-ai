@@ -4,8 +4,8 @@ import warnings
 
 import pytest
 
-from crewai import Agent, PlanningConfig, Task
-from crewai.llm import LLM
+from fzxiezuoai import Agent, PlanningConfig, Task
+from fzxiezuoai.llm import LLM
 
 
 

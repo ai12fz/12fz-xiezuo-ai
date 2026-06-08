@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import tempfile
 
-from crewai.utilities import project_utils as utils
+from fzxiezuoai.utilities import project_utils as utils
 import pytest
 
 
@@ -51,7 +51,7 @@ def test_extract_available_exports_empty_init_file(temp_project_dir, capsys):
 def test_extract_available_exports_no_all_variable(temp_project_dir, capsys):
     create_init_file(
         temp_project_dir,
-        "from crewai.tools import BaseTool\n\nclass MyTool(BaseTool):\n    pass",
+        "from fzxiezuoai.tools import BaseTool\n\nclass MyTool(BaseTool):\n    pass",
     )
     with pytest.raises(SystemExit):
         utils.extract_available_exports(dir_path=temp_project_dir)
@@ -63,7 +63,7 @@ def test_extract_available_exports_no_all_variable(temp_project_dir, capsys):
 def test_extract_available_exports_valid_base_tool_class(temp_project_dir):
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class MyTool(BaseTool):
     name: str = "my_tool"
@@ -79,7 +79,7 @@ __all__ = ['MyTool']
 def test_extract_available_exports_valid_tool_decorator(temp_project_dir):
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import tool
+        """from fzxiezuoai.tools import tool
 
 @tool
 def my_tool_function(text: str) -> str:
@@ -96,7 +96,7 @@ __all__ = ['my_tool_function']
 def test_extract_available_exports_multiple_valid_tools(temp_project_dir):
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool, tool
+        """from fzxiezuoai.tools import BaseTool, tool
 
 class MyTool(BaseTool):
     name: str = "my_tool"
@@ -117,7 +117,7 @@ __all__ = ['MyTool', 'my_tool_function']
 def test_extract_available_exports_with_invalid_tool_decorator(temp_project_dir):
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class MyTool(BaseTool):
     name: str = "my_tool"
@@ -154,7 +154,7 @@ __all__ = ['MyTool']
 def test_extract_available_exports_syntax_error(temp_project_dir, capsys):
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class MyTool(BaseTool):
     # Missing closing parenthesis
@@ -173,7 +173,7 @@ __all__ = ['MyTool']
 
 @pytest.fixture
 def mock_crew():
-    from crewai.crew import Crew
+    from fzxiezuoai.crew import Crew
 
     class MockCrew(Crew):
         def __init__(self):
@@ -189,8 +189,8 @@ def temp_crew_project():
         os.chdir(temp_dir)
 
         crew_content = """
-        from crewai.crew import Crew
-        from crewai.agent import Agent
+        from fzxiezuoai.crew import Crew
+        from fzxiezuoai.agent import Agent
 
         def create_crew() -> Crew:
             agent = Agent(role="test", goal="test", backstory="test")
@@ -299,7 +299,7 @@ def test_extract_tools_metadata_no_all_variable(temp_project_dir):
     """Test that extract_tools_metadata returns empty list when __all__ is not defined."""
     create_init_file(
         temp_project_dir,
-        "from crewai.tools import BaseTool\n\nclass MyTool(BaseTool):\n    pass",
+        "from fzxiezuoai.tools import BaseTool\n\nclass MyTool(BaseTool):\n    pass",
     )
     metadata = utils.extract_tools_metadata(dir_path=str(temp_project_dir))
     assert metadata == []
@@ -309,7 +309,7 @@ def test_extract_tools_metadata_valid_base_tool_class(temp_project_dir):
     """Test that extract_tools_metadata extracts metadata from a valid BaseTool class."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class MyTool(BaseTool):
     name: str = "my_tool"
@@ -329,7 +329,7 @@ def test_extract_tools_metadata_with_args_schema(temp_project_dir):
     """Test that extract_tools_metadata extracts run_params_schema from args_schema."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 from pydantic import BaseModel
 
 class MyToolInput(BaseModel):
@@ -357,8 +357,8 @@ def test_extract_tools_metadata_with_env_vars(temp_project_dir):
     """Test that extract_tools_metadata extracts env_vars."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
-from crewai.tools.base_tool import EnvVar
+        """from fzxiezuoai.tools import BaseTool
+from fzxiezuoai.tools.base_tool import EnvVar
 
 class MyTool(BaseTool):
     name: str = "my_tool"
@@ -387,8 +387,8 @@ def test_extract_tools_metadata_with_env_vars_field_default_factory(temp_project
     """Test that extract_tools_metadata extracts env_vars declared with Field(default_factory=...)."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
-from crewai.tools.base_tool import EnvVar
+        """from fzxiezuoai.tools import BaseTool
+from fzxiezuoai.tools.base_tool import EnvVar
 from pydantic import Field
 
 class MyTool(BaseTool):
@@ -416,7 +416,7 @@ def test_extract_tools_metadata_with_custom_init_params(temp_project_dir):
     """Test that extract_tools_metadata extracts init_params_schema with custom params."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class MyTool(BaseTool):
     name: str = "my_tool"
@@ -441,7 +441,7 @@ def test_extract_tools_metadata_multiple_tools(temp_project_dir):
     """Test that extract_tools_metadata extracts metadata from multiple tools."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class FirstTool(BaseTool):
     name: str = "first_tool"
@@ -465,7 +465,7 @@ def test_extract_tools_metadata_multiple_init_files(temp_project_dir):
     """Test that extract_tools_metadata extracts metadata from multiple __init__.py files."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class RootTool(BaseTool):
     name: str = "root_tool"
@@ -479,7 +479,7 @@ __all__ = ['RootTool']
     nested_dir.mkdir()
     create_init_file(
         nested_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class NestedTool(BaseTool):
     name: str = "nested_tool"
@@ -500,7 +500,7 @@ def test_extract_tools_metadata_ignores_non_tool_exports(temp_project_dir):
     """Test that extract_tools_metadata ignores non-BaseTool exports."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class MyTool(BaseTool):
     name: str = "my_tool"
@@ -539,7 +539,7 @@ def test_extract_tools_metadata_syntax_error_returns_empty(temp_project_dir):
     """Test that extract_tools_metadata returns empty list on syntax error."""
     create_init_file(
         temp_project_dir,
-        """from crewai.tools import BaseTool
+        """from fzxiezuoai.tools import BaseTool
 
 class MyTool(BaseTool):
     # Missing closing parenthesis

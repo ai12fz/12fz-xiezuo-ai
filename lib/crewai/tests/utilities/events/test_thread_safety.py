@@ -1,4 +1,4 @@
-"""Tests for thread safety in CrewAI event bus.
+"""Tests for thread safety in 12FZ协作AI event bus.
 
 This module tests concurrent event emission and handler registration.
 """
@@ -7,8 +7,8 @@ import threading
 import time
 from collections.abc import Callable
 
-from crewai.events.base_events import BaseEvent
-from crewai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.base_events import BaseEvent
+from fzxiezuoai.events.event_bus import crewai_event_bus
 
 
 class ThreadSafetyTestEvent(BaseEvent):

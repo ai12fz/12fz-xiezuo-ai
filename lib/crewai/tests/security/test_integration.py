@@ -1,7 +1,7 @@
 """Test integration of fingerprinting with Agent, Crew, and Task classes."""
 
-from crewai import Agent, Crew, Task
-from crewai.security import Fingerprint, SecurityConfig
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.security import Fingerprint, SecurityConfig
 
 
 def test_agent_with_security_config():

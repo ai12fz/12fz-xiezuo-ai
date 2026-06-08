@@ -1,8 +1,8 @@
-"""Tests for ``crewai.utilities.crew_chat`` startup-safety helpers."""
+"""Tests for ``fzxiezuoai.utilities.crew_chat`` startup-safety helpers."""
 
 from unittest import mock
 
-from crewai.utilities.crew_chat import (
+from fzxiezuoai.utilities.crew_chat import (
     DEFAULT_CREW_DESCRIPTION,
     DEFAULT_INPUT_DESCRIPTION,
     generate_crew_chat_inputs,

@@ -4,13 +4,13 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai.rag.embeddings.factory import build_embedder
+from fzxiezuoai.rag.embeddings.factory import build_embedder
 
 
 class TestEmbeddingFactory:
     """Test embedding factory functions."""
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_openai(self, mock_import):
         """Test building OpenAI embedder."""
         mock_provider_class = MagicMock()
@@ -32,7 +32,7 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.openai.openai_provider.OpenAIProvider"
+            "fzxiezuoai.rag.embeddings.providers.openai.openai_provider.OpenAIProvider"
         )
         mock_provider_class.assert_called_once()
 
@@ -40,7 +40,7 @@ class TestEmbeddingFactory:
         assert call_kwargs["api_key"] == "test-key"
         assert call_kwargs["model_name"] == "text-embedding-3-small"
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_azure(self, mock_import):
         """Test building Azure embedder."""
         mock_provider_class = MagicMock()
@@ -66,7 +66,7 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.microsoft.azure.AzureProvider"
+            "fzxiezuoai.rag.embeddings.providers.microsoft.azure.AzureProvider"
         )
 
         call_kwargs = mock_provider_class.call_args.kwargs
@@ -74,7 +74,7 @@ class TestEmbeddingFactory:
         assert call_kwargs["api_base"] == "https://test.openai.azure.com/"
         assert call_kwargs["api_type"] == "azure"
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_ollama(self, mock_import):
         """Test building Ollama embedder."""
         mock_provider_class = MagicMock()
@@ -96,10 +96,10 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.ollama.ollama_provider.OllamaProvider"
+            "fzxiezuoai.rag.embeddings.providers.ollama.ollama_provider.OllamaProvider"
         )
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_huggingface(self, mock_import):
         """Test building HuggingFace embedder."""
         mock_provider_class = MagicMock()
@@ -121,7 +121,7 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.huggingface.huggingface_provider.HuggingFaceProvider"
+            "fzxiezuoai.rag.embeddings.providers.huggingface.huggingface_provider.HuggingFaceProvider"
         )
         mock_provider_class.assert_called_once()
 
@@ -129,7 +129,7 @@ class TestEmbeddingFactory:
         assert call_kwargs["api_key"] == "hf-test-key"
         assert call_kwargs["model"] == "sentence-transformers/all-MiniLM-L6-v2"
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_cohere(self, mock_import):
         """Test building Cohere embedder."""
         mock_provider_class = MagicMock()
@@ -151,10 +151,10 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.cohere.cohere_provider.CohereProvider"
+            "fzxiezuoai.rag.embeddings.providers.cohere.cohere_provider.CohereProvider"
         )
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_voyageai(self, mock_import):
         """Test building VoyageAI embedder."""
         mock_provider_class = MagicMock()
@@ -176,10 +176,10 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.voyageai.voyageai_provider.VoyageAIProvider"
+            "fzxiezuoai.rag.embeddings.providers.voyageai.voyageai_provider.VoyageAIProvider"
         )
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_watsonx(self, mock_import):
         """Test building WatsonX embedder."""
         mock_provider_class = MagicMock()
@@ -203,7 +203,7 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.ibm.watsonx.WatsonXProvider"
+            "fzxiezuoai.rag.embeddings.providers.ibm.watsonx.WatsonXProvider"
         )
 
     def test_build_embedder_unknown_provider(self):
@@ -220,7 +220,7 @@ class TestEmbeddingFactory:
         with pytest.raises(KeyError):
             build_embedder(config)
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_import_error(self, mock_import):
         """Test error handling when provider import fails."""
         mock_import.side_effect = ImportError("Module not found")
@@ -230,7 +230,7 @@ class TestEmbeddingFactory:
         with pytest.raises(ImportError, match="Failed to import provider openai"):
             build_embedder(config)
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_custom_provider(self, mock_import):
         """Test building custom embedder."""
         mock_provider_class = MagicMock()
@@ -249,19 +249,19 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.custom.custom_provider.CustomProvider"
+            "fzxiezuoai.rag.embeddings.providers.custom.custom_provider.CustomProvider"
         )
 
         call_kwargs = mock_provider_class.call_args.kwargs
         assert call_kwargs["embedding_callable"] == mock_embedding_callable
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
-    @patch("crewai.rag.embeddings.factory.build_embedder_from_provider")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.build_embedder_from_provider")
     def test_build_embedder_with_provider_instance(
         self, mock_build_from_provider, mock_import
     ):
         """Test building embedder from provider instance."""
-        from crewai.rag.core.base_embeddings_provider import BaseEmbeddingsProvider
+        from fzxiezuoai.rag.core.base_embeddings_provider import BaseEmbeddingsProvider
 
         mock_provider = MagicMock(spec=BaseEmbeddingsProvider)
         mock_embedding_function = MagicMock()
@@ -273,7 +273,7 @@ class TestEmbeddingFactory:
         assert result == mock_embedding_function
         mock_import.assert_not_called()
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_google_vertex_with_genai_model(self, mock_import):
         """Test routing to Google Vertex provider with new genai model."""
         mock_provider_class = MagicMock()
@@ -295,7 +295,7 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.google.vertex.VertexAIProvider"
+            "fzxiezuoai.rag.embeddings.providers.google.vertex.VertexAIProvider"
         )
         mock_provider_class.assert_called_once()
 
@@ -303,7 +303,7 @@ class TestEmbeddingFactory:
         assert call_kwargs["api_key"] == "test-google-api-key"
         assert call_kwargs["model_name"] == "gemini-embedding-001"
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_google_vertex_with_legacy_model(self, mock_import):
         """Test routing to Google Vertex provider with legacy textembedding-gecko model."""
         mock_provider_class = MagicMock()
@@ -326,7 +326,7 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.google.vertex.VertexAIProvider"
+            "fzxiezuoai.rag.embeddings.providers.google.vertex.VertexAIProvider"
         )
         mock_provider_class.assert_called_once()
 
@@ -335,7 +335,7 @@ class TestEmbeddingFactory:
         assert call_kwargs["region"] == "us-central1"
         assert call_kwargs["model_name"] == "textembedding-gecko"
 
-    @patch("crewai.rag.embeddings.factory.import_and_validate_definition")
+    @patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition")
     def test_build_embedder_google_vertex_with_location(self, mock_import):
         """Test routing to Google Vertex provider with location parameter."""
         mock_provider_class = MagicMock()
@@ -360,7 +360,7 @@ class TestEmbeddingFactory:
         build_embedder(config)
 
         mock_import.assert_called_once_with(
-            "crewai.rag.embeddings.providers.google.vertex.VertexAIProvider"
+            "fzxiezuoai.rag.embeddings.providers.google.vertex.VertexAIProvider"
         )
 
         call_kwargs = mock_provider_class.call_args.kwargs

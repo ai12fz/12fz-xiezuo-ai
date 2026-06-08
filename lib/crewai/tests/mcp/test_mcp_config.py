@@ -3,9 +3,9 @@ import concurrent.futures
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from crewai.agent.core import Agent
-from crewai.mcp.config import MCPServerHTTP, MCPServerSSE, MCPServerStdio
-from crewai.tools.base_tool import BaseTool
+from fzxiezuoai.agent.core import Agent
+from fzxiezuoai.mcp.config import MCPServerHTTP, MCPServerSSE, MCPServerStdio
+from fzxiezuoai.tools.base_tool import BaseTool
 
 
 @pytest.fixture
@@ -57,7 +57,7 @@ def test_agent_with_stdio_mcp_config(mock_tool_definitions):
         mcps=[stdio_config],
     )
 
-    with patch("crewai.mcp.tool_resolver.MCPClient") as mock_client_class:
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient") as mock_client_class:
         mock_client_class.return_value = _make_mock_client(mock_tool_definitions)
 
         tools = agent.get_mcp_tools([stdio_config])
@@ -87,7 +87,7 @@ def test_agent_with_http_mcp_config(mock_tool_definitions):
         mcps=[http_config],
     )
 
-    with patch("crewai.mcp.tool_resolver.MCPClient") as mock_client_class:
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient") as mock_client_class:
         mock_client_class.return_value = _make_mock_client(mock_tool_definitions)
 
         tools = agent.get_mcp_tools([http_config])
@@ -116,7 +116,7 @@ def test_agent_with_sse_mcp_config(mock_tool_definitions):
         mcps=[sse_config],
     )
 
-    with patch("crewai.mcp.tool_resolver.MCPClient") as mock_client_class:
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient") as mock_client_class:
         mock_client_class.return_value = _make_mock_client(mock_tool_definitions)
 
         tools = agent.get_mcp_tools([sse_config])
@@ -134,7 +134,7 @@ def test_mcp_tool_execution_in_sync_context(mock_tool_definitions):
     """Test MCPNativeTool execution in synchronous context (normal crew execution)."""
     http_config = MCPServerHTTP(url="https://api.example.com/mcp")
 
-    with patch("crewai.mcp.tool_resolver.MCPClient") as mock_client_class:
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient") as mock_client_class:
         mock_client_class.return_value = _make_mock_client(mock_tool_definitions)
 
         agent = Agent(
@@ -160,7 +160,7 @@ async def test_mcp_tool_execution_in_async_context(mock_tool_definitions):
     """Test MCPNativeTool execution in async context (e.g., from a Flow)."""
     http_config = MCPServerHTTP(url="https://api.example.com/mcp")
 
-    with patch("crewai.mcp.tool_resolver.MCPClient") as mock_client_class:
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient") as mock_client_class:
         mock_client_class.return_value = _make_mock_client(mock_tool_definitions)
 
         agent = Agent(
@@ -191,7 +191,7 @@ def test_each_invocation_gets_fresh_client(mock_tool_definitions):
         clients_created.append(client)
         return client
 
-    with patch("crewai.mcp.tool_resolver.MCPClient", side_effect=_make_client):
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient", side_effect=_make_client):
         agent = Agent(
             role="Test Agent",
             goal="Test goal",
@@ -232,7 +232,7 @@ def test_parallel_mcp_tool_execution_same_tool(mock_tool_definitions):
         client.call_tool = AsyncMock(side_effect=_call_tool)
         return client
 
-    with patch("crewai.mcp.tool_resolver.MCPClient", side_effect=_make_client):
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient", side_effect=_make_client):
         agent = Agent(
             role="Test Agent",
             goal="Test goal",
@@ -278,7 +278,7 @@ def test_parallel_mcp_tool_execution_different_tools(mock_tool_definitions):
         client.call_tool = AsyncMock(side_effect=_call_tool)
         return client
 
-    with patch("crewai.mcp.tool_resolver.MCPClient", side_effect=_make_client):
+    with patch("fzxiezuoai.mcp.tool_resolver.MCPClient", side_effect=_make_client):
         agent = Agent(
             role="Test Agent",
             goal="Test goal",

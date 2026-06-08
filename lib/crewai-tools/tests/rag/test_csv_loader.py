@@ -2,9 +2,9 @@ import os
 import tempfile
 from unittest.mock import Mock, patch
 
-from crewai_tools.rag.base_loader import LoaderResult
-from crewai_tools.rag.loaders.csv_loader import CSVLoader
-from crewai_tools.rag.source_content import SourceContent
+from fzxiezuoai_tools.rag.base_loader import LoaderResult
+from fzxiezuoai_tools.rag.loaders.csv_loader import CSVLoader
+from fzxiezuoai_tools.rag.source_content import SourceContent
 import pytest
 
 
@@ -97,7 +97,7 @@ class TestCSVLoader:
         assert "Row 1: name: test | value: 123" in result.content
         headers = mock_get.call_args[1]["headers"]
         assert "text/csv" in headers["Accept"]
-        assert "crewai-tools CSVLoader" in headers["User-Agent"]
+        assert "fzxiezuoai-tools CSVLoader" in headers["User-Agent"]
 
     @patch("requests.get")
     def test_load_csv_with_custom_headers(self, mock_get):

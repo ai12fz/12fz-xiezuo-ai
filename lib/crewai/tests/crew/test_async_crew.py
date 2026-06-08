@@ -3,11 +3,11 @@
 import pytest
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from crewai.agent import Agent
-from crewai.crew import Crew
-from crewai.task import Task
-from crewai.crews.crew_output import CrewOutput
-from crewai.tasks.task_output import TaskOutput
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.task import Task
+from fzxiezuoai.crews.crew_output import CrewOutput
+from fzxiezuoai.tasks.task_output import TaskOutput
 
 
 @pytest.fixture
@@ -46,7 +46,7 @@ class TestAsyncCrewKickoff:
     """Tests for async crew kickoff methods."""
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_basic(
         self, mock_execute: AsyncMock, test_crew: Crew
     ) -> None:
@@ -66,7 +66,7 @@ class TestAsyncCrewKickoff:
         mock_execute.assert_called_once()
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_with_inputs(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -96,7 +96,7 @@ class TestAsyncCrewKickoff:
         mock_execute.assert_called_once()
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_multiple_tasks(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -137,7 +137,7 @@ class TestAsyncCrewKickoff:
         assert mock_execute.call_count == 2
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_handles_exception(
         self, mock_execute: AsyncMock, test_crew: Crew
     ) -> None:
@@ -150,7 +150,7 @@ class TestAsyncCrewKickoff:
         assert "Test error" in str(exc_info.value)
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_calls_before_callbacks(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -186,7 +186,7 @@ class TestAsyncCrewKickoff:
         assert callback_called
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_calls_after_callbacks(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -226,7 +226,7 @@ class TestAsyncCrewKickoffForEach:
     """Tests for async crew kickoff_for_each methods."""
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_for_each_basic(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -261,7 +261,7 @@ class TestAsyncCrewKickoffForEach:
         assert all(isinstance(r, CrewOutput) for r in results)
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_akickoff_for_each_concurrent(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -294,7 +294,7 @@ class TestAsyncTaskExecution:
     """Tests for async task execution within crew."""
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_aexecute_tasks_sequential(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -334,7 +334,7 @@ class TestAsyncTaskExecution:
         assert len(result.tasks_output) == 2
 
     @pytest.mark.asyncio
-    @patch("crewai.task.Task.aexecute_sync", new_callable=AsyncMock)
+    @patch("fzxiezuoai.task.Task.aexecute_sync", new_callable=AsyncMock)
     async def test_aexecute_tasks_with_async_task(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:

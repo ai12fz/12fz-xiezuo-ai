@@ -4,7 +4,7 @@ VCR will record HTTP interactions. Inspect cassettes to verify tracing behavior.
 """
 
 import pytest
-from crewai import Agent, Crew, Task
+from fzxiezuoai import Agent, Crew, Task
 from tests.utils import wait_for_event_handlers
 
 

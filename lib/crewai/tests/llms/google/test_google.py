@@ -4,10 +4,10 @@ import types
 from unittest.mock import patch, MagicMock
 import pytest
 
-from crewai.llm import LLM
-from crewai.crew import Crew
-from crewai.agent import Agent
-from crewai.task import Task
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
 
 
 @pytest.fixture(autouse=True)
@@ -37,7 +37,7 @@ def test_gemini_completion_is_used_when_gemini_provider():
     """
     llm = LLM(model="gemini/gemini-2.0-flash-001")
 
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
     assert isinstance(llm, GeminiCompletion)
     assert llm.provider == "gemini"
     assert llm.model == "gemini-2.0-flash-001"
@@ -46,7 +46,7 @@ def test_gemini_completion_module_is_imported():
     """
     Test that the completion module is properly imported when using Google provider
     """
-    module_name = "crewai.llms.providers.gemini.completion"
+    module_name = "fzxiezuoai.llms.providers.gemini.completion"
 
     if module_name in sys.modules:
         del sys.modules[module_name]
@@ -64,7 +64,7 @@ def test_gemini_lazy_build_reads_env_vars_set_after_construction():
     """When `LLM(model="gemini/...")` is constructed before env vars are set,
     the lazy client builder must re-read `GOOGLE_API_KEY` / `GEMINI_API_KEY`
     so the LLM works once credentials become available."""
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
 
     with patch.dict(os.environ, {}, clear=True):
         llm = GeminiCompletion(model="gemini-1.5-pro")
@@ -85,7 +85,7 @@ def test_native_gemini_raises_error_when_initialization_fails():
     but fails to instantiate, we raise an ImportError instead of silently falling back.
     This provides clearer error messages to users about missing dependencies.
     """
-    with patch('crewai.llm.LLM._get_native_provider') as mock_get_provider:
+    with patch('fzxiezuoai.llm.LLM._get_native_provider') as mock_get_provider:
 
         class FailingCompletion:
             def __init__(self, *args, **kwargs):
@@ -113,7 +113,7 @@ def test_gemini_completion_initialization_parameters():
         api_key="test-key"
     )
 
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
     assert isinstance(llm, GeminiCompletion)
     assert llm.model == "gemini-2.0-flash-001"
     assert llm.temperature == 0.7
@@ -123,8 +123,8 @@ def test_gemini_completion_initialization_parameters():
 
 
 def test_gemini_started_event_surfaces_max_output_tokens():
-    from crewai.events.event_bus import CrewAIEventsBus
-    from crewai.events.types.llm_events import LLMCallStartedEvent
+    from fzxiezuoai.events.event_bus import CrewAIEventsBus
+    from fzxiezuoai.events.types.llm_events import LLMCallStartedEvent
 
     llm = LLM(model="google/gemini-2.0-flash-001", max_output_tokens=2000, api_key="test-key")
 
@@ -154,7 +154,7 @@ def test_gemini_specific_parameters():
         location="us-central1"
     )
 
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
     assert isinstance(llm, GeminiCompletion)
     assert llm.stop_sequences == ["Human:", "Assistant:"]
     assert llm.stream == True
@@ -290,7 +290,7 @@ def test_gemini_completion_with_tools():
     """
     Test that GeminiCompletion.call is invoked with tools when agent has tools
     """
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def sample_tool(query: str) -> str:
@@ -332,7 +332,7 @@ def test_gemini_completion_with_tools():
 def test_gemini_raises_error_when_model_not_supported():
     """Test that GeminiCompletion raises ValueError when model not supported"""
 
-    with patch('crewai.llms.providers.gemini.completion.genai') as mock_genai:
+    with patch('fzxiezuoai.llms.providers.gemini.completion.genai') as mock_genai:
         mock_client = MagicMock()
         mock_genai.Client.return_value = mock_client
 
@@ -370,7 +370,7 @@ def test_gemini_vertex_ai_setup():
             location="us-west1"
         )
 
-        from crewai.llms.providers.gemini.completion import GeminiCompletion
+        from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
         assert isinstance(llm, GeminiCompletion)
 
         assert llm.project == "test-project"
@@ -384,7 +384,7 @@ def test_gemini_api_key_configuration():
     with patch.dict(os.environ, {"GOOGLE_API_KEY": "test-google-key"}):
         llm = LLM(model="google/gemini-2.0-flash-001")
 
-        from crewai.llms.providers.gemini.completion import GeminiCompletion
+        from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
         assert isinstance(llm, GeminiCompletion)
         assert llm.api_key == "test-google-key"
 
@@ -401,7 +401,7 @@ def test_gemini_model_capabilities():
     """
     # Test Gemini 2.0 model
     llm_2_0 = LLM(model="google/gemini-2.0-flash-001")
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
     assert isinstance(llm_2_0, GeminiCompletion)
     assert llm_2_0.supports_tools == True
 
@@ -423,7 +423,7 @@ def test_gemini_generation_config():
         max_output_tokens=1000
     )
 
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
     assert isinstance(llm, GeminiCompletion)
 
     config = llm._prepare_generation_config()
@@ -448,7 +448,7 @@ def test_gemini_model_detection():
 
     for model_name in gemini_test_cases:
         llm = LLM(model=model_name)
-        from crewai.llms.providers.gemini.completion import GeminiCompletion
+        from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
         assert isinstance(llm, GeminiCompletion), f"Failed for model: {model_name}"
 
 
@@ -517,7 +517,7 @@ def test_gemini_tool_conversion():
     """
     llm = LLM(model="google/gemini-2.0-flash-001")
 
-    crewai_tools = [{
+    fzxiezuoai_tools = [{
         "type": "function",
         "function": {
             "name": "test_tool",
@@ -532,7 +532,7 @@ def test_gemini_tool_conversion():
         }
     }]
 
-    gemini_tools = llm._convert_tools_for_interference(crewai_tools)
+    gemini_tools = llm._convert_tools_for_interference(fzxiezuoai_tools)
 
     assert len(gemini_tools) == 1
     # Gemini tools are Tool objects with function_declarations
@@ -577,7 +577,7 @@ def test_gemini_token_usage_tracking():
 def test_gemini_thoughts_tokens_counted_in_completion_and_total():
     """Gemini's thoughts_token_count must be folded into completion_tokens so the
     tracked total matches the API's total_token_count for thinking models."""
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
 
     llm = GeminiCompletion(model="gemini-2.0-flash-001")
 
@@ -613,7 +613,7 @@ def test_gemini_tool_returning_float():
     """
     from pydantic import BaseModel, Field
     from typing import Type
-    from crewai.tools import BaseTool
+    from fzxiezuoai.tools import BaseTool
 
     class SumNumbersToolInput(BaseModel):
         a: float = Field(..., description="The first number to add")
@@ -765,7 +765,7 @@ def test_gemini_2_0_model_detection():
     """Test that Gemini 2.0 models are properly detected."""
     # Test Gemini 2.0 models
     llm_2_0 = LLM(model="google/gemini-2.0-flash-001")
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
     assert isinstance(llm_2_0, GeminiCompletion)
     assert llm_2_0.is_gemini_2_0 is True
 
@@ -780,7 +780,7 @@ def test_gemini_2_0_model_detection():
 
 def test_add_property_ordering_to_schema():
     """Test that _add_property_ordering correctly adds propertyOrdering to schemas."""
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
 
     simple_schema = {
         "type": "object",
@@ -925,7 +925,7 @@ def test_gemini_agent_kickoff_structured_output_with_tools():
     This tests post-tool-call structured output handling for Gemini models.
     """
     from pydantic import BaseModel, Field
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     class CalculationResult(BaseModel):
         """Structured output for calculation results."""
@@ -967,7 +967,7 @@ def test_gemini_crew_structured_output_with_tools():
     Test that a crew with Gemini can use both tools and output_pydantic on a task.
     """
     from pydantic import BaseModel, Field
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     class CalculationResult(BaseModel):
         operation: str = Field(description="The mathematical operation performed")
@@ -1009,7 +1009,7 @@ def test_gemini_stop_words_not_applied_to_structured_output():
     are not truncated, which would cause JSON validation to fail.
     """
     from pydantic import BaseModel, Field
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
 
     class ResearchResult(BaseModel):
         """Research result that may contain stop word patterns in string fields."""
@@ -1039,7 +1039,7 @@ def test_gemini_stop_words_still_applied_to_regular_responses():
     Test that stop words ARE still applied for regular (non-structured) responses.
     This ensures the fix didn't break normal stop word behavior.
     """
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
 
     # Create Gemini completion instance with stop words configured
     # Gemini uses stop_sequences instead of stop
@@ -1065,7 +1065,7 @@ def test_gemini_structured_output_preserves_json_with_stop_word_patterns():
     even when string fields contain stop word patterns.
     """
     from pydantic import BaseModel, Field
-    from crewai.llms.providers.gemini.completion import GeminiCompletion
+    from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
 
     class AgentObservation(BaseModel):
         """Model with fields that might contain stop word-like text."""

@@ -12,7 +12,7 @@ from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai_cli.checkpoint_cli import (
+from fzxiezuoai_cli.checkpoint_cli import (
     _parse_checkpoint_json,
     _parse_duration,
     _prune_json,
@@ -374,8 +374,8 @@ class TestResumeCheckpoint:
 
 class TestDiscoverabilityMessage:
     def test_checkpoint_listener_logs_resume_hint(self) -> None:
-        from crewai.state.checkpoint_listener import _do_checkpoint
-        from crewai.state.runtime import RuntimeState
+        from fzxiezuoai.state.checkpoint_listener import _do_checkpoint
+        from fzxiezuoai.state.runtime import RuntimeState
 
         state = MagicMock(spec=RuntimeState)
         state.root = []
@@ -390,13 +390,13 @@ class TestDiscoverabilityMessage:
         cfg.provider.extract_id.return_value = "20260101T000000_test1234"
 
         with (
-            patch("crewai.state.checkpoint_listener._prepare_entities"),
-            patch("crewai.state.checkpoint_listener.logger") as mock_logger,
+            patch("fzxiezuoai.state.checkpoint_listener._prepare_entities"),
+            patch("fzxiezuoai.state.checkpoint_listener.logger") as mock_logger,
         ):
             _do_checkpoint(state, cfg)
 
         cfg.provider.extract_id.assert_called_once()
         mock_logger.info.assert_called_once()
         logged: str = mock_logger.info.call_args[0][0]
-        assert "crewai checkpoint resume" in logged
+        assert "fzxiezuoai checkpoint resume" in logged
         assert "20260101T000000_test1234" in logged

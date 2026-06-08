@@ -2,12 +2,12 @@ from __future__ import annotations
 
 from unittest.mock import Mock
 
-from crewai.hooks import (
+from fzxiezuoai.hooks import (
     clear_all_tool_call_hooks,
     unregister_after_tool_call_hook,
     unregister_before_tool_call_hook,
 )
-from crewai.hooks.tool_hooks import (
+from fzxiezuoai.hooks.tool_hooks import (
     ToolCallHookContext,
     get_after_tool_call_hooks,
     get_before_tool_call_hooks,
@@ -52,7 +52,7 @@ def mock_crew():
 @pytest.fixture(autouse=True)
 def clear_hooks():
     """Clear global hooks before and after each test."""
-    from crewai.hooks import tool_hooks
+    from fzxiezuoai.hooks import tool_hooks
 
     original_before = tool_hooks._before_tool_call_hooks.copy()
     original_after = tool_hooks._after_tool_call_hooks.copy()
@@ -494,8 +494,8 @@ class TestToolHooksIntegration:
         """Test that LiteAgent executes before/after tool call hooks with real tool calls."""
         import os
 
-        from crewai.lite_agent import LiteAgent
-        from crewai.tools import tool
+        from fzxiezuoai.lite_agent import LiteAgent
+        from fzxiezuoai.tools import tool
 
         if not os.environ.get("OPENAI_API_KEY"):
             pytest.skip("OPENAI_API_KEY not set - skipping real tool test")
@@ -578,8 +578,8 @@ class TestNativeToolCallingHooksIntegration:
     @pytest.mark.vcr()
     def test_agent_native_tool_hooks_before_and_after(self):
         """Test that Agent with native tool calling executes before/after hooks."""
-        from crewai import Agent
-        from crewai.tools import tool
+        from fzxiezuoai import Agent
+        from fzxiezuoai.tools import tool
 
         hook_calls = {"before": [], "after": []}
 
@@ -640,8 +640,8 @@ class TestNativeToolCallingHooksIntegration:
     @pytest.mark.vcr()
     def test_crew_native_tool_hooks_before_and_after(self):
         """Test that Crew with Agent executes before/after hooks with full context."""
-        from crewai import Agent, Crew, Task
-        from crewai.tools import tool
+        from fzxiezuoai import Agent, Crew, Task
+        from fzxiezuoai.tools import tool
 
 
         hook_calls = {"before": [], "after": []}
@@ -723,8 +723,8 @@ class TestNativeToolCallingHooksIntegration:
     @pytest.mark.vcr()
     def test_before_hook_blocks_tool_execution_in_crew(self):
         """Test that returning False from before hook blocks tool execution."""
-        from crewai import Agent, Crew, Task
-        from crewai.tools import tool
+        from fzxiezuoai import Agent, Crew, Task
+        from fzxiezuoai.tools import tool
 
         hook_calls = {"before": [], "after": [], "tool_executed": False}
 

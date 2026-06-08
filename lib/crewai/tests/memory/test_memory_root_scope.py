@@ -12,8 +12,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai.memory.types import MemoryRecord
-from crewai.memory.utils import (
+from fzxiezuoai.memory.types import MemoryRecord
+from fzxiezuoai.memory.utils import (
     join_scope_paths,
     normalize_scope_path,
     sanitize_scope_name,
@@ -136,7 +136,7 @@ class TestMemoryRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """When root_scope is set and explicit scope is provided, they combine."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -159,7 +159,7 @@ class TestMemoryRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """When root_scope is None, explicit scope is used as-is (backward compat)."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -181,8 +181,8 @@ class TestMemoryRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """When root_scope is set and scope is inferred by LLM, they combine."""
-        from crewai.memory.analyze import ExtractedMetadata, MemoryAnalysis
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.analyze import ExtractedMetadata, MemoryAnalysis
+        from fzxiezuoai.memory.unified_memory import Memory
 
         llm = MagicMock()
         llm.supports_function_calling.return_value = True
@@ -210,7 +210,7 @@ class TestMemoryRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Per-call root_scope overrides instance-level root_scope."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -234,7 +234,7 @@ class TestMemoryRootScope:
         self, tmp_path: Path,
     ) -> None:
         """remember_many respects root_scope for all items."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         # Use distinct embeddings to avoid intra-batch dedup
         call_count = 0
@@ -275,7 +275,7 @@ class TestMemoryRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """remember_many accepts per-call root_scope override."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -311,7 +311,7 @@ class TestRootScopePathNormalization:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Final scope should not have double slashes."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -335,7 +335,7 @@ class TestRootScopePathNormalization:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Final scope should always have leading slash."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -358,7 +358,7 @@ class TestRootScopePathNormalization:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """When inner scope is '/', result is just the root_scope."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -383,9 +383,9 @@ class TestCrewAutoScoping:
 
     def test_crew_memory_true_sets_root_scope(self) -> None:
         """Creating Crew with memory=True auto-sets root_scope."""
-        from crewai.agent import Agent
-        from crewai.crew import Crew
-        from crewai.task import Task
+        from fzxiezuoai.agent import Agent
+        from fzxiezuoai.crew import Crew
+        from fzxiezuoai.task import Task
 
         agent = Agent(
             role="Researcher",
@@ -414,10 +414,10 @@ class TestCrewAutoScoping:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """User-provided Memory instance is not modified — root_scope stays None."""
-        from crewai.agent import Agent
-        from crewai.crew import Crew
-        from crewai.memory.unified_memory import Memory
-        from crewai.task import Task
+        from fzxiezuoai.agent import Agent
+        from fzxiezuoai.crew import Crew
+        from fzxiezuoai.memory.unified_memory import Memory
+        from fzxiezuoai.task import Task
 
         # Memory without root_scope
         mem = Memory(
@@ -454,10 +454,10 @@ class TestCrewAutoScoping:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """User-provided Memory with existing root_scope is not overwritten."""
-        from crewai.agent import Agent
-        from crewai.crew import Crew
-        from crewai.memory.unified_memory import Memory
-        from crewai.task import Task
+        from fzxiezuoai.agent import Agent
+        from fzxiezuoai.crew import Crew
+        from fzxiezuoai.memory.unified_memory import Memory
+        from fzxiezuoai.task import Task
 
         # Memory with explicit root_scope
         mem = Memory(
@@ -490,9 +490,9 @@ class TestCrewAutoScoping:
 
     def test_crew_sanitizes_name_for_root_scope(self) -> None:
         """Crew name with special chars is sanitized for root_scope."""
-        from crewai.agent import Agent
-        from crewai.crew import Crew
-        from crewai.task import Task
+        from fzxiezuoai.agent import Agent
+        from fzxiezuoai.crew import Crew
+        from fzxiezuoai.task import Task
 
         agent = Agent(
             role="Agent",
@@ -521,10 +521,10 @@ class TestAgentScopeExtension:
 
     def test_agent_save_extends_crew_root_scope(self) -> None:
         """Agent._save_to_memory extends crew's root_scope with agent info."""
-        from crewai.agents.agent_builder.base_agent_executor import (
+        from fzxiezuoai.agents.agent_builder.base_agent_executor import (
             BaseAgentExecutor,
         )
-        from crewai.agents.parser import AgentFinish
+        from fzxiezuoai.agents.parser import AgentFinish
 
         mock_memory = MagicMock()
         mock_memory.read_only = False
@@ -552,10 +552,10 @@ class TestAgentScopeExtension:
 
     def test_agent_save_sanitizes_role(self) -> None:
         """Agent role with special chars is sanitized for scope path."""
-        from crewai.agents.agent_builder.base_agent_executor import (
+        from fzxiezuoai.agents.agent_builder.base_agent_executor import (
             BaseAgentExecutor,
         )
-        from crewai.agents.parser import AgentFinish
+        from fzxiezuoai.agents.parser import AgentFinish
 
         mock_memory = MagicMock()
         mock_memory.read_only = False
@@ -586,8 +586,8 @@ class TestFlowAutoScoping:
 
     def test_flow_auto_memory_sets_root_scope(self) -> None:
         """Flow auto-creates memory with root_scope set to /flow/<class_name>."""
-        from crewai.flow.flow import Flow
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.flow.flow import Flow
+        from fzxiezuoai.memory.unified_memory import Memory
 
         class MyPipelineFlow(Flow):
             pass
@@ -600,8 +600,8 @@ class TestFlowAutoScoping:
 
     def test_flow_with_name_uses_name_for_root_scope(self) -> None:
         """Flow with custom name uses that name for root_scope."""
-        from crewai.flow.flow import Flow
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.flow.flow import Flow
+        from fzxiezuoai.memory.unified_memory import Memory
 
         class MyFlow(Flow):
             name = "Custom Pipeline"
@@ -616,8 +616,8 @@ class TestFlowAutoScoping:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """User-provided memory on Flow is not modified."""
-        from crewai.flow.flow import Flow
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.flow.flow import Flow
+        from fzxiezuoai.memory.unified_memory import Memory
 
         user_memory = Memory(
             storage=str(tmp_path / "db"),
@@ -642,7 +642,7 @@ class TestBackwardCompatibility:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Memory without root_scope behaves exactly as before."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -663,9 +663,9 @@ class TestBackwardCompatibility:
 
     def test_crew_without_name_uses_default(self) -> None:
         """Crew without name uses 'crew' as default for root_scope."""
-        from crewai.agent import Agent
-        from crewai.crew import Crew
-        from crewai.task import Task
+        from fzxiezuoai.agent import Agent
+        from fzxiezuoai.crew import Crew
+        from fzxiezuoai.task import Task
 
         agent = Agent(
             role="Agent",
@@ -692,7 +692,7 @@ class TestBackwardCompatibility:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Old memories stored at '/' are still accessible."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         # Create memory and store at root (old behavior)
         mem = Memory(
@@ -721,7 +721,7 @@ class TestEncodingFlowRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Group A (fast path) items properly prepend root_scope."""
-        from crewai.memory.encoding_flow import ItemState
+        from fzxiezuoai.memory.encoding_flow import ItemState
 
         # since Flow.state is a property without a setter
         item = ItemState(
@@ -733,7 +733,7 @@ class TestEncodingFlowRootScope:
         )
 
         # Manually test the join_scope_paths logic that _apply_defaults uses
-        from crewai.memory.utils import join_scope_paths
+        from fzxiezuoai.memory.utils import join_scope_paths
 
         inner_scope = item.scope or "/"
         if item.root_scope:
@@ -747,8 +747,8 @@ class TestEncodingFlowRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Group C (LLM path) items properly prepend root_scope to inferred scope."""
-        from crewai.memory.analyze import ExtractedMetadata, MemoryAnalysis
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.analyze import ExtractedMetadata, MemoryAnalysis
+        from fzxiezuoai.memory.unified_memory import Memory
 
         llm = MagicMock()
         llm.supports_function_calling.return_value = True
@@ -780,8 +780,8 @@ class TestMemoryScopeWithRootScope:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """MemoryScope with underlying Memory that has root_scope works correctly."""
-        from crewai.memory.memory_scope import MemoryScope
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.memory_scope import MemoryScope
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -815,7 +815,7 @@ class TestReadIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """recall() with root_scope returns only records within that scope."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem_global = Memory(
             storage=str(tmp_path / "db"),
@@ -858,7 +858,7 @@ class TestReadIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """recall() with root_scope + explicit scope combines them."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -883,7 +883,7 @@ class TestReadIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """recall() without root_scope searches globally (backward compat)."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -912,7 +912,7 @@ class TestReadIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """list_records() with root_scope defaults to that scope."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem_global = Memory(
             storage=str(tmp_path / "db"),
@@ -939,7 +939,7 @@ class TestReadIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """list_scopes() with root_scope defaults to that scope."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -967,7 +967,7 @@ class TestReadIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """info() with root_scope defaults to that scope."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -993,7 +993,7 @@ class TestReadIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """reset() with root_scope only deletes within that scope."""
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mem = Memory(
             storage=str(tmp_path / "db"),
@@ -1029,10 +1029,10 @@ class TestAgentExecutorBackwardCompat:
 
     def test_agent_executor_no_root_scope_when_memory_has_none(self) -> None:
         """Agent executor doesn't inject root_scope when memory has none."""
-        from crewai.agents.agent_builder.base_agent_executor import (
+        from fzxiezuoai.agents.agent_builder.base_agent_executor import (
             BaseAgentExecutor,
         )
-        from crewai.agents.parser import AgentFinish
+        from fzxiezuoai.agents.parser import AgentFinish
 
         mock_memory = MagicMock()
         mock_memory.read_only = False
@@ -1060,10 +1060,10 @@ class TestAgentExecutorBackwardCompat:
 
     def test_agent_executor_extends_root_scope_when_memory_has_one(self) -> None:
         """Agent executor extends root_scope when memory has one."""
-        from crewai.agents.agent_builder.base_agent_executor import (
+        from fzxiezuoai.agents.agent_builder.base_agent_executor import (
             BaseAgentExecutor,
         )
-        from crewai.agents.parser import AgentFinish
+        from fzxiezuoai.agents.parser import AgentFinish
 
         mock_memory = MagicMock()
         mock_memory.read_only = False
@@ -1097,8 +1097,8 @@ class TestConsolidationIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Consolidation similarity search is constrained to root_scope."""
-        from crewai.memory.encoding_flow import EncodingFlow, ItemState
-        from crewai.memory.types import MemoryConfig
+        from fzxiezuoai.memory.encoding_flow import EncodingFlow, ItemState
+        from fzxiezuoai.memory.types import MemoryConfig
 
         mock_storage = MagicMock()
         mock_storage.search.return_value = []
@@ -1128,8 +1128,8 @@ class TestConsolidationIsolation:
         self, tmp_path: Path, mock_embedder: MagicMock
     ) -> None:
         """Consolidation without root_scope searches by explicit scope only."""
-        from crewai.memory.encoding_flow import EncodingFlow, ItemState
-        from crewai.memory.types import MemoryConfig
+        from fzxiezuoai.memory.encoding_flow import EncodingFlow, ItemState
+        from fzxiezuoai.memory.types import MemoryConfig
 
         mock_storage = MagicMock()
         mock_storage.search.return_value = []

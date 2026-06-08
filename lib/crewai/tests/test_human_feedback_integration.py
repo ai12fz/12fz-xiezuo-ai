@@ -14,8 +14,8 @@ from unittest.mock import MagicMock, patch
 import pytest
 from pydantic import BaseModel
 
-from crewai.flow import Flow, HumanFeedbackResult, human_feedback, listen, or_, start
-from crewai.flow.flow import FlowState
+from fzxiezuoai.flow import Flow, HumanFeedbackResult, human_feedback, listen, or_, start
+from fzxiezuoai.flow.flow import FlowState
 
 
 class TestRoutingIntegration:
@@ -674,7 +674,7 @@ class TestEventEmission:
     @patch("builtins.print")
     def test_events_emitted_on_feedback_request(self, mock_print, mock_input):
         """Test that events are emitted when feedback is requested."""
-        from crewai.events.event_listener import event_listener
+        from fzxiezuoai.events.event_listener import event_listener
 
         class EventFlow(Flow):
             @start()
@@ -786,7 +786,7 @@ class TestLLMConfigPreservation:
 
     def test_human_feedback_llm_stashed_on_wrapper_with_llm_instance(self):
         """Test that passing an LLM instance stashes it on the wrapper as _human_feedback_llm."""
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm_instance = LLM(model="gpt-4o-mini", temperature=0.42)
 
@@ -806,7 +806,7 @@ class TestLLMConfigPreservation:
 
     def test_human_feedback_llm_preserved_on_listen_method(self):
         """Test that _human_feedback_llm is preserved when @human_feedback is on a @listen method."""
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm_instance = LLM(model="gpt-4o-mini", temperature=0.7)
 
@@ -830,7 +830,7 @@ class TestLLMConfigPreservation:
 
     def test_human_feedback_llm_accessible_on_instance(self):
         """Test that _human_feedback_llm survives Flow instantiation (bound method access)."""
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm_instance = LLM(model="gpt-4o-mini", temperature=0.42)
 
@@ -851,8 +851,8 @@ class TestLLMConfigPreservation:
 
     def test_serialize_llm_preserves_config_fields(self):
         """Test that _serialize_llm_for_context captures temperature, base_url, etc."""
-        from crewai.flow.human_feedback import _serialize_llm_for_context
-        from crewai.llm import LLM
+        from fzxiezuoai.flow.human_feedback import _serialize_llm_for_context
+        from fzxiezuoai.llm import LLM
 
         llm = LLM(
             model="gpt-4o-mini",
@@ -869,8 +869,8 @@ class TestLLMConfigPreservation:
 
     def test_serialize_llm_excludes_api_key(self):
         """Test that api_key is NOT included in serialized output (security)."""
-        from crewai.flow.human_feedback import _serialize_llm_for_context
-        from crewai.llm import LLM
+        from fzxiezuoai.flow.human_feedback import _serialize_llm_for_context
+        from fzxiezuoai.llm import LLM
 
         llm = LLM(model="gpt-4o-mini")
 
@@ -880,11 +880,11 @@ class TestLLMConfigPreservation:
 
     def test_deserialize_round_trip_preserves_config(self):
         """Test that serialize → deserialize round-trip preserves all config."""
-        from crewai.flow.human_feedback import (
+        from fzxiezuoai.flow.human_feedback import (
             _deserialize_llm_from_context,
             _serialize_llm_for_context,
         )
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         original = LLM(
             model="gpt-4o-mini",
@@ -902,7 +902,7 @@ class TestLLMConfigPreservation:
 
     def test_deserialize_handles_legacy_string_format(self):
         """Test backward compat: plain string still reconstructs an LLM."""
-        from crewai.flow.human_feedback import _deserialize_llm_from_context
+        from fzxiezuoai.flow.human_feedback import _deserialize_llm_from_context
 
         reconstructed = _deserialize_llm_from_context("openai/gpt-4o-mini")
 
@@ -911,14 +911,14 @@ class TestLLMConfigPreservation:
 
     def test_deserialize_returns_none_for_none(self):
         """Test that None input returns None."""
-        from crewai.flow.human_feedback import _deserialize_llm_from_context
+        from fzxiezuoai.flow.human_feedback import _deserialize_llm_from_context
 
         assert _deserialize_llm_from_context(None) is None
 
     def test_serialize_llm_preserves_provider_specific_fields(self):
         """Test that provider-specific fields like project/location are serialized."""
-        from crewai.flow.human_feedback import _serialize_llm_for_context
-        from crewai.llm import LLM
+        from fzxiezuoai.flow.human_feedback import _serialize_llm_for_context
+        from fzxiezuoai.llm import LLM
 
         # Create a Gemini-style LLM with project and non-default location
         llm = LLM(
@@ -938,7 +938,7 @@ class TestLLMConfigPreservation:
 
     def test_config_preserved_through_full_flow_execution(self):
         """Test that the LLM with custom config is used during outcome collapsing."""
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm_instance = LLM(model="gpt-4o-mini", temperature=0.42)
         collapse_calls = []

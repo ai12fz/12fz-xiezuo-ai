@@ -4,7 +4,7 @@ import uuid
 
 import pytest
 
-from crewai.utilities.file_store import (
+from fzxiezuoai.utilities.file_store import (
     clear_files,
     clear_task_files,
     get_all_files,
@@ -13,7 +13,7 @@ from crewai.utilities.file_store import (
     store_files,
     store_task_files,
 )
-from crewai_files import TextFile
+from fzxiezuoai_files import TextFile
 
 
 class TestFileStore:
@@ -129,7 +129,7 @@ class TestAsyncFileStore:
 
     async def test_astore_and_aget_files(self) -> None:
         """Test async storing and retrieving crew files."""
-        from crewai.utilities.file_store import aclear_files, aget_files, astore_files
+        from fzxiezuoai.utilities.file_store import aclear_files, aget_files, astore_files
 
         crew_id = uuid.uuid4()
         test_file = TextFile(source=b"async content")
@@ -146,7 +146,7 @@ class TestAsyncFileStore:
 
     async def test_aget_all_files(self) -> None:
         """Test async get_all_files merging."""
-        from crewai.utilities.file_store import (
+        from fzxiezuoai.utilities.file_store import (
             aclear_files,
             aclear_task_files,
             aget_all_files,

@@ -6,8 +6,8 @@ import os
 
 import pytest
 
-from crewai import Agent
-from crewai.a2a.config import A2AClientConfig
+from fzxiezuoai import Agent
+from fzxiezuoai.a2a.config import A2AClientConfig
 
 
 A2A_TEST_ENDPOINT = os.getenv(
@@ -82,7 +82,7 @@ class TestAgentA2AKickoff:
         self, researcher_agent: Agent
     ) -> None:
         """Test that kickoff returns LiteAgentOutput with correct structure."""
-        from crewai.lite_agent_output import LiteAgentOutput
+        from fzxiezuoai.lite_agent_output import LiteAgentOutput
 
         result = researcher_agent.kickoff(
             "Use the A2A agent to tell me what time it is."

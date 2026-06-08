@@ -2,10 +2,10 @@
 
 from unittest.mock import MagicMock, patch
 
-from crewai import Agent, Crew, Task
-from crewai.project import CrewBase, callback, task
-from crewai.tasks.output_format import OutputFormat
-from crewai.tasks.task_output import TaskOutput
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.project import CrewBase, callback, task
+from fzxiezuoai.tasks.output_format import OutputFormat
+from fzxiezuoai.tasks.task_output import TaskOutput
 
 
 def test_callback_decorator_with_taskoutput() -> None:

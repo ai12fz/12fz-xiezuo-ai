@@ -9,8 +9,8 @@ from unittest import mock
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai_cli.shared.token_manager import TokenManager
-from crewai_cli.tools.main import ToolCommand
+from fzxiezuoai_cli.shared.token_manager import TokenManager
+from fzxiezuoai_cli.tools.main import ToolCommand
 from pytest import raises
 
 
@@ -39,7 +39,7 @@ def tool_command():
                 yield tool_command
 
 
-@patch("crewai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
 def test_create_success(mock_subprocess, capsys, tool_command):
     with in_temp_dir():
         tool_command.create("test-tool")
@@ -61,9 +61,9 @@ def test_create_success(mock_subprocess, capsys, tool_command):
         mock_subprocess.assert_called_once_with(["git", "init"], check=True)
 
 
-@patch("crewai_cli.tools.main.subprocess.run")
-@patch("crewai_cli.plus_api.PlusAPI.get_tool")
-@patch("crewai_cli.tools.main.ToolCommand._print_current_organization")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.get_tool")
+@patch("fzxiezuoai_cli.tools.main.ToolCommand._print_current_organization")
 def test_install_success(
     mock_print_org, mock_get, mock_subprocess_run, capsys, tool_command
 ):
@@ -98,8 +98,8 @@ def test_install_success(
     mock_print_org.assert_called_once()
 
 
-@patch("crewai_cli.tools.main.subprocess.run")
-@patch("crewai_cli.plus_api.PlusAPI.get_tool")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.get_tool")
 def test_install_success_from_pypi(mock_get, mock_subprocess_run, capsys, tool_command):
     mock_get_response = MagicMock()
     mock_get_response.status_code = 200
@@ -129,7 +129,7 @@ def test_install_success_from_pypi(mock_get, mock_subprocess_run, capsys, tool_c
     )
 
 
-@patch("crewai_cli.plus_api.PlusAPI.get_tool")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.get_tool")
 def test_install_tool_not_found(mock_get, capsys, tool_command):
     mock_get_response = MagicMock()
     mock_get_response.status_code = 404
@@ -143,7 +143,7 @@ def test_install_tool_not_found(mock_get, capsys, tool_command):
     mock_get.assert_called_once_with("non-existent-tool")
 
 
-@patch("crewai_cli.plus_api.PlusAPI.get_tool")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.get_tool")
 def test_install_api_error(mock_get, capsys, tool_command):
     mock_get_response = MagicMock()
     mock_get_response.status_code = 500
@@ -157,8 +157,8 @@ def test_install_api_error(mock_get, capsys, tool_command):
     mock_get.assert_called_once_with("error-tool")
 
 
-@patch("crewai_cli.tools.main.git.Repository.fetch")
-@patch("crewai_cli.tools.main.git.Repository.is_synced", return_value=False)
+@patch("fzxiezuoai_cli.tools.main.git.Repository.fetch")
+@patch("fzxiezuoai_cli.tools.main.git.Repository.is_synced", return_value=False)
 def test_publish_when_not_in_sync(mock_is_synced, mock_fetch, capsys, tool_command):
     with raises(SystemExit):
         tool_command.publish(is_public=True)
@@ -167,28 +167,28 @@ def test_publish_when_not_in_sync(mock_is_synced, mock_fetch, capsys, tool_comma
     assert "Local changes need to be resolved before publishing" in output
 
 
-@patch("crewai_cli.tools.main.get_project_name", return_value="sample-tool")
-@patch("crewai_cli.tools.main.get_project_version", return_value="1.0.0")
-@patch("crewai_cli.tools.main.get_project_description", return_value="A sample tool")
-@patch("crewai_cli.tools.main.subprocess.run")
-@patch("crewai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
+@patch("fzxiezuoai_cli.tools.main.get_project_name", return_value="sample-tool")
+@patch("fzxiezuoai_cli.tools.main.get_project_version", return_value="1.0.0")
+@patch("fzxiezuoai_cli.tools.main.get_project_description", return_value="A sample tool")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
 @patch(
-    "crewai_cli.tools.main.open",
+    "fzxiezuoai_cli.tools.main.open",
     new_callable=unittest.mock.mock_open,
     read_data=b"sample tarball content",
 )
-@patch("crewai_cli.tools.main.git.Repository.fetch")
-@patch("crewai_cli.plus_api.PlusAPI.publish_tool")
-@patch("crewai_cli.tools.main.git.Repository.is_synced", return_value=False)
+@patch("fzxiezuoai_cli.tools.main.git.Repository.fetch")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.publish_tool")
+@patch("fzxiezuoai_cli.tools.main.git.Repository.is_synced", return_value=False)
 @patch(
-    "crewai.utilities.project_utils.extract_available_exports",
+    "fzxiezuoai.utilities.project_utils.extract_available_exports",
     return_value=[{"name": "SampleTool"}],
 )
 @patch(
-    "crewai.utilities.project_utils.extract_tools_metadata",
+    "fzxiezuoai.utilities.project_utils.extract_tools_metadata",
     return_value=[{"name": "SampleTool", "humanized_name": "sample_tool", "description": "A sample tool", "run_params_schema": {}, "init_params_schema": {}, "env_vars": []}],
 )
-@patch("crewai_cli.tools.main.ToolCommand._print_current_organization")
+@patch("fzxiezuoai_cli.tools.main.ToolCommand._print_current_organization")
 def test_publish_when_not_in_sync_and_force(
     mock_print_org,
     mock_tools_metadata,
@@ -233,25 +233,25 @@ def test_publish_when_not_in_sync_and_force(
     mock_print_org.assert_called_once()
 
 
-@patch("crewai_cli.tools.main.get_project_name", return_value="sample-tool")
-@patch("crewai_cli.tools.main.get_project_version", return_value="1.0.0")
-@patch("crewai_cli.tools.main.get_project_description", return_value="A sample tool")
-@patch("crewai_cli.tools.main.subprocess.run")
-@patch("crewai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
+@patch("fzxiezuoai_cli.tools.main.get_project_name", return_value="sample-tool")
+@patch("fzxiezuoai_cli.tools.main.get_project_version", return_value="1.0.0")
+@patch("fzxiezuoai_cli.tools.main.get_project_description", return_value="A sample tool")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
 @patch(
-    "crewai_cli.tools.main.open",
+    "fzxiezuoai_cli.tools.main.open",
     new_callable=unittest.mock.mock_open,
     read_data=b"sample tarball content",
 )
-@patch("crewai_cli.tools.main.git.Repository.fetch")
-@patch("crewai_cli.plus_api.PlusAPI.publish_tool")
-@patch("crewai_cli.tools.main.git.Repository.is_synced", return_value=True)
+@patch("fzxiezuoai_cli.tools.main.git.Repository.fetch")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.publish_tool")
+@patch("fzxiezuoai_cli.tools.main.git.Repository.is_synced", return_value=True)
 @patch(
-    "crewai.utilities.project_utils.extract_available_exports",
+    "fzxiezuoai.utilities.project_utils.extract_available_exports",
     return_value=[{"name": "SampleTool"}],
 )
 @patch(
-    "crewai.utilities.project_utils.extract_tools_metadata",
+    "fzxiezuoai.utilities.project_utils.extract_tools_metadata",
     return_value=[{"name": "SampleTool", "humanized_name": "sample_tool", "description": "A sample tool", "run_params_schema": {}, "init_params_schema": {}, "env_vars": []}],
 )
 def test_publish_success(
@@ -296,23 +296,23 @@ def test_publish_success(
     )
 
 
-@patch("crewai_cli.tools.main.get_project_name", return_value="sample-tool")
-@patch("crewai_cli.tools.main.get_project_version", return_value="1.0.0")
-@patch("crewai_cli.tools.main.get_project_description", return_value="A sample tool")
-@patch("crewai_cli.tools.main.subprocess.run")
-@patch("crewai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
+@patch("fzxiezuoai_cli.tools.main.get_project_name", return_value="sample-tool")
+@patch("fzxiezuoai_cli.tools.main.get_project_version", return_value="1.0.0")
+@patch("fzxiezuoai_cli.tools.main.get_project_description", return_value="A sample tool")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
 @patch(
-    "crewai_cli.tools.main.open",
+    "fzxiezuoai_cli.tools.main.open",
     new_callable=unittest.mock.mock_open,
     read_data=b"sample tarball content",
 )
-@patch("crewai_cli.plus_api.PlusAPI.publish_tool")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.publish_tool")
 @patch(
-    "crewai.utilities.project_utils.extract_available_exports",
+    "fzxiezuoai.utilities.project_utils.extract_available_exports",
     return_value=[{"name": "SampleTool"}],
 )
 @patch(
-    "crewai.utilities.project_utils.extract_tools_metadata",
+    "fzxiezuoai.utilities.project_utils.extract_tools_metadata",
     return_value=[{"name": "SampleTool", "humanized_name": "sample_tool", "description": "A sample tool", "run_params_schema": {}, "init_params_schema": {}, "env_vars": []}],
 )
 def test_publish_failure(
@@ -342,23 +342,23 @@ def test_publish_failure(
     mock_publish.assert_called_once()
 
 
-@patch("crewai_cli.tools.main.get_project_name", return_value="sample-tool")
-@patch("crewai_cli.tools.main.get_project_version", return_value="1.0.0")
-@patch("crewai_cli.tools.main.get_project_description", return_value="A sample tool")
-@patch("crewai_cli.tools.main.subprocess.run")
-@patch("crewai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
+@patch("fzxiezuoai_cli.tools.main.get_project_name", return_value="sample-tool")
+@patch("fzxiezuoai_cli.tools.main.get_project_version", return_value="1.0.0")
+@patch("fzxiezuoai_cli.tools.main.get_project_description", return_value="A sample tool")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
 @patch(
-    "crewai_cli.tools.main.open",
+    "fzxiezuoai_cli.tools.main.open",
     new_callable=unittest.mock.mock_open,
     read_data=b"sample tarball content",
 )
-@patch("crewai_cli.plus_api.PlusAPI.publish_tool")
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.publish_tool")
 @patch(
-    "crewai.utilities.project_utils.extract_available_exports",
+    "fzxiezuoai.utilities.project_utils.extract_available_exports",
     return_value=[{"name": "SampleTool"}],
 )
 @patch(
-    "crewai.utilities.project_utils.extract_tools_metadata",
+    "fzxiezuoai.utilities.project_utils.extract_tools_metadata",
     return_value=[{"name": "SampleTool", "humanized_name": "sample_tool", "description": "A sample tool", "run_params_schema": {}, "init_params_schema": {}, "env_vars": []}],
 )
 def test_publish_api_error(
@@ -388,24 +388,24 @@ def test_publish_api_error(
     mock_publish.assert_called_once()
 
 
-@patch("crewai_cli.tools.main.get_project_name", return_value="sample-tool")
-@patch("crewai_cli.tools.main.get_project_version", return_value="1.0.0")
-@patch("crewai_cli.tools.main.get_project_description", return_value="A sample tool")
-@patch("crewai_cli.tools.main.subprocess.run")
-@patch("crewai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
+@patch("fzxiezuoai_cli.tools.main.get_project_name", return_value="sample-tool")
+@patch("fzxiezuoai_cli.tools.main.get_project_version", return_value="1.0.0")
+@patch("fzxiezuoai_cli.tools.main.get_project_description", return_value="A sample tool")
+@patch("fzxiezuoai_cli.tools.main.subprocess.run")
+@patch("fzxiezuoai_cli.tools.main.os.listdir", return_value=["sample-tool-1.0.0.tar.gz"])
 @patch(
-    "crewai_cli.tools.main.open",
+    "fzxiezuoai_cli.tools.main.open",
     new_callable=unittest.mock.mock_open,
     read_data=b"sample tarball content",
 )
-@patch("crewai_cli.plus_api.PlusAPI.publish_tool")
-@patch("crewai_cli.tools.main.git.Repository.is_synced", return_value=True)
+@patch("fzxiezuoai_cli.plus_api.PlusAPI.publish_tool")
+@patch("fzxiezuoai_cli.tools.main.git.Repository.is_synced", return_value=True)
 @patch(
-    "crewai.utilities.project_utils.extract_available_exports",
+    "fzxiezuoai.utilities.project_utils.extract_available_exports",
     return_value=[{"name": "SampleTool"}],
 )
 @patch(
-    "crewai.utilities.project_utils.extract_tools_metadata",
+    "fzxiezuoai.utilities.project_utils.extract_tools_metadata",
     side_effect=Exception("Failed to extract metadata"),
 )
 def test_publish_metadata_extraction_failure_continues_with_warning(
@@ -445,7 +445,7 @@ def test_publish_metadata_extraction_failure_continues_with_warning(
     )
 
 
-@patch("crewai_cli.tools.main.Settings")
+@patch("fzxiezuoai_cli.tools.main.Settings")
 def test_print_current_organization_with_org(mock_settings, capsys, tool_command):
     mock_settings_instance = MagicMock()
     mock_settings_instance.org_uuid = "test-org-uuid"
@@ -456,7 +456,7 @@ def test_print_current_organization_with_org(mock_settings, capsys, tool_command
     assert "Current organization: Test Organization (test-org-uuid)" in output
 
 
-@patch("crewai_cli.tools.main.Settings")
+@patch("fzxiezuoai_cli.tools.main.Settings")
 def test_print_current_organization_without_org(mock_settings, capsys, tool_command):
     mock_settings_instance = MagicMock()
     mock_settings_instance.org_uuid = None

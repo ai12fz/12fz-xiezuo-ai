@@ -5,12 +5,12 @@ from unittest.mock import MagicMock, patch
 import pytest
 from pydantic import ValidationError
 
-from crewai.knowledge.storage.knowledge_storage import (  # type: ignore[import-untyped]
+from fzxiezuoai.knowledge.storage.knowledge_storage import (  # type: ignore[import-untyped]
     KnowledgeStorage,
 )
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_connection_failure(mock_get_client: MagicMock) -> None:
     """Test KnowledgeStorage handles RAG client connection failures."""
     mock_get_client.side_effect = ConnectionError("Unable to connect to ChromaDB")
@@ -21,7 +21,7 @@ def test_knowledge_storage_connection_failure(mock_get_client: MagicMock) -> Non
     assert results == []
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_search_timeout(mock_get_client: MagicMock) -> None:
     """Test KnowledgeStorage handles search timeouts gracefully."""
     mock_client = MagicMock()
@@ -34,7 +34,7 @@ def test_knowledge_storage_search_timeout(mock_get_client: MagicMock) -> None:
     assert results == []
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_collection_not_found(mock_get_client: MagicMock) -> None:
     """Test KnowledgeStorage handles missing collections."""
     mock_client = MagicMock()
@@ -49,13 +49,13 @@ def test_knowledge_storage_collection_not_found(mock_get_client: MagicMock) -> N
     assert results == []
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_invalid_embedding_config(mock_get_client: MagicMock) -> None:
     """Test KnowledgeStorage handles invalid embedding configurations."""
     mock_get_client.return_value = MagicMock()
 
     with patch(
-        "crewai.knowledge.storage.knowledge_storage.build_embedder"
+        "fzxiezuoai.knowledge.storage.knowledge_storage.build_embedder"
     ) as mock_get_embedding:
         mock_get_embedding.side_effect = ValueError(
             "Unsupported provider: invalid_provider"
@@ -68,7 +68,7 @@ def test_knowledge_storage_invalid_embedding_config(mock_get_client: MagicMock) 
             )
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_reset_readonly_database(mock_get_client: MagicMock) -> None:
     """Test KnowledgeStorage reset handles readonly database errors."""
     mock_client = MagicMock()
@@ -82,7 +82,7 @@ def test_knowledge_storage_reset_readonly_database(mock_get_client: MagicMock) -
     storage.reset()
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_reset_collection_does_not_exist(
     mock_get_client: MagicMock,
 ) -> None:
@@ -96,7 +96,7 @@ def test_knowledge_storage_reset_collection_does_not_exist(
     storage.reset()
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_malformed_search_results(mock_get_client: MagicMock) -> None:
     """Test KnowledgeStorage handles malformed search results."""
     mock_client = MagicMock()
@@ -116,7 +116,7 @@ def test_knowledge_storage_malformed_search_results(mock_get_client: MagicMock) 
     assert len(results) == 4
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_network_interruption(mock_get_client: MagicMock) -> None:
     """Test KnowledgeStorage handles network interruptions during operations."""
     mock_client = MagicMock()
@@ -142,7 +142,7 @@ def test_knowledge_storage_network_interruption(mock_get_client: MagicMock) -> N
     assert second_attempt[0]["content"] == "recovered result"
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_knowledge_storage_embedding_dimension_mismatch_detailed(
     mock_get_client: MagicMock,
 ) -> None:
@@ -161,4 +161,4 @@ def test_knowledge_storage_embedding_dimension_mismatch_detailed(
 
     assert "Embedding dimension mismatch" in str(exc_info.value)
     assert "Make sure you're using the same embedding model" in str(exc_info.value)
-    assert "crewai reset-memories -a" in str(exc_info.value)
+    assert "fzxiezuoai reset-memories -a" in str(exc_info.value)

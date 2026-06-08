@@ -1,6 +1,6 @@
-# crewai-devtools
+# fzxiezuoai-devtools
 
-CLI for versioning and releasing crewAI packages.
+CLI for versioning and releasing 12FZ协作AI packages.
 
 ## Setup
 
@@ -10,9 +10,9 @@ Installed automatically via the workspace (`uv sync`). Requires:
 - `OPENAI_API_KEY` env var — for release note generation and translation
 - `ENTERPRISE_REPO` env var — GitHub repo for enterprise releases
 - `ENTERPRISE_VERSION_DIRS` env var — comma-separated directories to bump in the enterprise repo
-- `ENTERPRISE_CREWAI_DEP_PATH` env var — path to the pyproject.toml with the `crewai[tools]` pin in the enterprise repo
-- `ENTERPRISE_WORKFLOW_PATHS` env var — comma-separated workflow file paths in the enterprise repo whose `crewai[extras]==<version>` pins should be rewritten on each release (e.g. `.github/workflows/tests.yml`)
-- `ENTERPRISE_EXTRA_PACKAGES` env var — comma-separated packages to also pin in enterprise pyproject files, in addition to `crewai` / `crewai[extras]`
+- `ENTERPRISE_CREWAI_DEP_PATH` env var — path to the pyproject.toml with the `fzxiezuoai[tools]` pin in the enterprise repo
+- `ENTERPRISE_WORKFLOW_PATHS` env var — comma-separated workflow file paths in the enterprise repo whose `fzxiezuoai[extras]==<version>` pins should be rewritten on each release (e.g. `.github/workflows/tests.yml`)
+- `ENTERPRISE_EXTRA_PACKAGES` env var — comma-separated packages to also pin in enterprise pyproject files, in addition to `fzxiezuoai` / `fzxiezuoai[extras]`
 
 ## Commands
 
@@ -38,7 +38,7 @@ devtools release 1.10.3 --skip-enterprise  # skip enterprise release phase
 6. Creates docs PR against main, polls until merged
 7. Tags main and creates GitHub release
 8. Triggers PyPI publish workflow
-9. Clones enterprise repo, bumps versions and `crewai[tools]` dep, runs `uv sync`
+9. Clones enterprise repo, bumps versions and `fzxiezuoai[tools]` dep, runs `uv sync`
 10. Creates enterprise bump PR, polls until merged
 11. Tags and creates GitHub release on enterprise repo
 

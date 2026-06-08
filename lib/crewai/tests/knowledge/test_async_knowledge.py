@@ -4,9 +4,9 @@ from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
-from crewai.knowledge.knowledge import Knowledge
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from crewai.knowledge.storage.knowledge_storage import KnowledgeStorage
+from fzxiezuoai.knowledge.knowledge import Knowledge
+from fzxiezuoai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from fzxiezuoai.knowledge.storage.knowledge_storage import KnowledgeStorage
 
 
 class TestAsyncKnowledgeStorage:

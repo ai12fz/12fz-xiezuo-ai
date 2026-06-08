@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import MagicMock
 
-from crewai.tools import BaseTool
-from crewai_tools.adapters.tool_collection import ToolCollection
+from fzxiezuoai.tools import BaseTool
+from fzxiezuoai_tools.adapters.tool_collection import ToolCollection
 
 
 class TestToolCollection(unittest.TestCase):

@@ -10,17 +10,17 @@ from typing import Annotated, Literal
 
 from pydantic import BaseModel
 
-import crewai.flow.dsl as flow_dsl
-import crewai.flow.flow_definition as flow_definition
-import crewai.flow.visualization.builder as visualization_builder
-from crewai.flow import Flow, and_, human_feedback, listen, or_, persist, router, start
-from crewai.flow.dsl._conditions import is_flow_condition_dict
+import fzxiezuoai.flow.dsl as flow_dsl
+import fzxiezuoai.flow.flow_definition as flow_definition
+import fzxiezuoai.flow.visualization.builder as visualization_builder
+from fzxiezuoai.flow import Flow, and_, human_feedback, listen, or_, persist, router, start
+from fzxiezuoai.flow.dsl._conditions import is_flow_condition_dict
 
 
 def test_flow_public_exports_are_explicit():
-    import crewai.flow.visualization as flow_visualization
+    import fzxiezuoai.flow.visualization as flow_visualization
 
-    flow_package = importlib.import_module("crewai.flow")
+    flow_package = importlib.import_module("fzxiezuoai.flow")
 
     assert "FlowDefinition" not in flow_package.__all__
     assert "FlowDefinitionDiagnostic" not in flow_package.__all__
@@ -64,10 +64,10 @@ def test_flow_condition_dict_accepts_non_string_sequences():
 
 
 def test_private_flow_helpers_do_not_have_docstrings():
-    import crewai.flow.flow_wrappers as flow_wrappers
-    import crewai.flow.human_feedback as human_feedback
-    import crewai.flow.persistence.decorators as persistence_decorators
-    import crewai.flow.visualization.types as visualization_types
+    import fzxiezuoai.flow.flow_wrappers as flow_wrappers
+    import fzxiezuoai.flow.human_feedback as human_feedback
+    import fzxiezuoai.flow.persistence.decorators as persistence_decorators
+    import fzxiezuoai.flow.visualization.types as visualization_types
 
     modules = [
         flow_dsl,
@@ -177,7 +177,7 @@ def test_flow_definition_maps_dsl_to_static_contract():
 
     definition = ContractFlow.flow_definition()
 
-    assert definition.schema_ == "crewai.flow/v1"
+    assert definition.schema_ == "fzxiezuoai.flow/v1"
     assert definition.name == "ContractFlow"
     assert definition.description == "A flow with every core DSL role."
     assert definition.state is not None
@@ -656,7 +656,7 @@ def test_flow_definition_accepts_explicit_router_events():
 def test_flow_definition_preserves_diagnostics_loaded_from_contract():
     definition = flow_definition.FlowDefinition.from_dict(
         {
-            "schema": "crewai.flow/v1",
+            "schema": "fzxiezuoai.flow/v1",
             "name": "LoadedDiagnosticsFlow",
             "methods": {
                 "decision": {
@@ -689,7 +689,7 @@ def test_flow_definition_preserves_diagnostics_loaded_from_contract():
 def test_router_start_false_without_listen_reports_missing_trigger():
     definition = flow_definition.FlowDefinition.from_dict(
         {
-            "schema": "crewai.flow/v1",
+            "schema": "fzxiezuoai.flow/v1",
             "name": "LoadedFlow",
             "methods": {
                 "decision": {
@@ -768,7 +768,7 @@ def test_dynamic_router_string_listener_is_valid_contract():
 def test_static_string_listener_is_allowed_by_contract():
     definition = flow_definition.FlowDefinition.from_dict(
         {
-            "schema": "crewai.flow/v1",
+            "schema": "fzxiezuoai.flow/v1",
             "name": "TypoFlow",
             "methods": {
                 "begin": {"start": True},
@@ -782,7 +782,7 @@ def test_static_string_listener_is_allowed_by_contract():
 def test_start_false_not_classified_as_start_method():
     definition = flow_definition.FlowDefinition.from_dict(
         {
-            "schema": "crewai.flow/v1",
+            "schema": "fzxiezuoai.flow/v1",
             "name": "ExplicitNonStartFlow",
             "methods": {
                 "begin": {"start": True},
@@ -835,11 +835,11 @@ def test_flow_definition_cache_is_not_inherited_by_subclasses():
 
 
 def test_flow_definition_logs_diagnostics_when_loaded_from_contract(caplog):
-    caplog.set_level(logging.WARNING, logger="crewai.flow.flow_definition")
+    caplog.set_level(logging.WARNING, logger="fzxiezuoai.flow.flow_definition")
 
     definition = flow_definition.FlowDefinition.from_dict(
         {
-            "schema": "crewai.flow/v1",
+            "schema": "fzxiezuoai.flow/v1",
             "name": "LoadedFlow",
             "methods": {
                 "decision": {

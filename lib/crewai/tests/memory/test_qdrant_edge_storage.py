@@ -16,13 +16,13 @@ pytestmark = pytest.mark.skipif(
 )
 
 if TYPE_CHECKING:
-    from crewai.memory.storage.qdrant_edge_storage import QdrantEdgeStorage
+    from fzxiezuoai.memory.storage.qdrant_edge_storage import QdrantEdgeStorage
 
-from crewai.memory.types import MemoryRecord
+from fzxiezuoai.memory.types import MemoryRecord
 
 
 def _make_storage(path: str, vector_dim: int = 4) -> QdrantEdgeStorage:
-    from crewai.memory.storage.qdrant_edge_storage import QdrantEdgeStorage
+    from fzxiezuoai.memory.storage.qdrant_edge_storage import QdrantEdgeStorage
 
     return QdrantEdgeStorage(path=path, vector_dim=vector_dim)
 
@@ -292,7 +292,7 @@ def test_orphaned_shard_cleanup(tmp_path: Path) -> None:
 
 
 def test_memory_with_qdrant_edge(tmp_path: Path) -> None:
-    from crewai.memory.unified_memory import Memory
+    from fzxiezuoai.memory.unified_memory import Memory
 
     mock_embedder = MagicMock()
     mock_embedder.side_effect = lambda texts: [[0.1, 0.2, 0.3, 0.4] for _ in texts]
@@ -322,7 +322,7 @@ def test_memory_string_storage_qdrant_edge(tmp_path: Path) -> None:
 
     os.environ["CREWAI_STORAGE_DIR"] = str(tmp_path)
     try:
-        from crewai.memory.unified_memory import Memory
+        from fzxiezuoai.memory.unified_memory import Memory
 
         mock_embedder = MagicMock()
         mock_embedder.side_effect = lambda texts: [[0.1, 0.2, 0.3, 0.4] for _ in texts]
@@ -332,7 +332,7 @@ def test_memory_string_storage_qdrant_edge(tmp_path: Path) -> None:
             llm=MagicMock(),
             embedder=mock_embedder,
         )
-        from crewai.memory.storage.qdrant_edge_storage import QdrantEdgeStorage
+        from fzxiezuoai.memory.storage.qdrant_edge_storage import QdrantEdgeStorage
 
         assert isinstance(m._storage, QdrantEdgeStorage)
         m.close()

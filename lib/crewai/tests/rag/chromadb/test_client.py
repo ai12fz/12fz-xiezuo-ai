@@ -2,8 +2,8 @@
 
 from unittest.mock import AsyncMock, Mock
 
-from crewai.rag.chromadb.client import ChromaDBClient
-from crewai.rag.types import BaseRecord
+from fzxiezuoai.rag.chromadb.client import ChromaDBClient
+from fzxiezuoai.rag.types import BaseRecord
 import pytest
 
 

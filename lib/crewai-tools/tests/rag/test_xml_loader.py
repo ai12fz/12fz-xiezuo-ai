@@ -1,8 +1,8 @@
 from unittest.mock import Mock, patch
 
-from crewai_tools.rag.base_loader import LoaderResult
-from crewai_tools.rag.loaders.webpage_loader import WebPageLoader
-from crewai_tools.rag.source_content import SourceContent
+from fzxiezuoai_tools.rag.base_loader import LoaderResult
+from fzxiezuoai_tools.rag.loaders.webpage_loader import WebPageLoader
+from fzxiezuoai_tools.rag.source_content import SourceContent
 import pytest
 
 
@@ -23,7 +23,7 @@ class TestWebPageLoader:
         return soup
 
     @patch("requests.get")
-    @patch("crewai_tools.rag.loaders.webpage_loader.BeautifulSoup")
+    @patch("fzxiezuoai_tools.rag.loaders.webpage_loader.BeautifulSoup")
     def test_load_basic_webpage(self, mock_bs, mock_get):
         mock_get.return_value = self.setup_mock_response(
             "<html><head><title>Test Page</title></head><body><p>Test content</p></body></html>"
@@ -38,7 +38,7 @@ class TestWebPageLoader:
         assert result.metadata["title"] == "Test Page"
 
     @patch("requests.get")
-    @patch("crewai_tools.rag.loaders.webpage_loader.BeautifulSoup")
+    @patch("fzxiezuoai_tools.rag.loaders.webpage_loader.BeautifulSoup")
     def test_load_webpage_with_scripts_and_styles(self, mock_bs, mock_get):
         html = """
         <html><head><title>Page with Scripts</title><style>body { color: red; }</style></head>
@@ -63,7 +63,7 @@ class TestWebPageLoader:
             el.decompose.assert_called_once()
 
     @patch("requests.get")
-    @patch("crewai_tools.rag.loaders.webpage_loader.BeautifulSoup")
+    @patch("fzxiezuoai_tools.rag.loaders.webpage_loader.BeautifulSoup")
     def test_text_cleaning_and_title_handling(self, mock_bs, mock_get):
         mock_get.return_value = self.setup_mock_response(
             "<html><body><p>   Messy text </p></body></html>"
@@ -78,7 +78,7 @@ class TestWebPageLoader:
         assert result.metadata["title"] == ""
 
     @patch("requests.get")
-    @patch("crewai_tools.rag.loaders.webpage_loader.BeautifulSoup")
+    @patch("fzxiezuoai_tools.rag.loaders.webpage_loader.BeautifulSoup")
     def test_empty_or_missing_title(self, mock_bs, mock_get):
         for title in [None, ""]:
             mock_get.return_value = self.setup_mock_response(
@@ -101,7 +101,7 @@ class TestWebPageLoader:
             "Accept": "text/html",
         }
 
-        with patch("crewai_tools.rag.loaders.webpage_loader.BeautifulSoup") as mock_bs:
+        with patch("fzxiezuoai_tools.rag.loaders.webpage_loader.BeautifulSoup") as mock_bs:
             mock_bs.return_value = self.setup_mock_soup("Test")
             WebPageLoader().load(
                 SourceContent("https://example.com"), headers=custom_headers
@@ -132,7 +132,7 @@ class TestWebPageLoader:
             WebPageLoader().load(SourceContent("https://example.com/404"))
 
     @patch("requests.get")
-    @patch("crewai_tools.rag.loaders.webpage_loader.BeautifulSoup")
+    @patch("fzxiezuoai_tools.rag.loaders.webpage_loader.BeautifulSoup")
     def test_doc_id_consistency(self, mock_bs, mock_get):
         mock_get.return_value = self.setup_mock_response(
             "<html><body>Doc</body></html>"
@@ -146,7 +146,7 @@ class TestWebPageLoader:
         assert result1.doc_id == result2.doc_id
 
     @patch("requests.get")
-    @patch("crewai_tools.rag.loaders.webpage_loader.BeautifulSoup")
+    @patch("fzxiezuoai_tools.rag.loaders.webpage_loader.BeautifulSoup")
     def test_status_code_and_content_type(self, mock_bs, mock_get):
         for status in [200, 201, 301]:
             mock_get.return_value = self.setup_mock_response(

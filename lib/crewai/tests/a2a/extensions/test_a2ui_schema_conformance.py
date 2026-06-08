@@ -12,9 +12,9 @@ from typing import Any
 import jsonschema
 import pytest
 
-from crewai.a2a.extensions.a2ui import catalog
-from crewai.a2a.extensions.a2ui.models import A2UIEvent, A2UIMessage
-from crewai.a2a.extensions.a2ui.schema import load_schema
+from fzxiezuoai.a2a.extensions.a2ui import catalog
+from fzxiezuoai.a2a.extensions.a2ui.models import A2UIEvent, A2UIMessage
+from fzxiezuoai.a2a.extensions.a2ui.schema import load_schema
 
 
 SERVER_SCHEMA = load_schema("server_to_client")
@@ -245,7 +245,7 @@ class TestCatalogConformance:
     """Catalog component schemas and Pydantic models must define the same components."""
 
     def test_catalog_component_names_match(self) -> None:
-        from crewai.a2a.extensions.a2ui.catalog import STANDARD_CATALOG_COMPONENTS
+        from fzxiezuoai.a2a.extensions.a2ui.catalog import STANDARD_CATALOG_COMPONENTS
 
         schema_components = set(CATALOG_SCHEMA["components"].keys())
         assert schema_components == STANDARD_CATALOG_COMPONENTS

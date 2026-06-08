@@ -1,4 +1,4 @@
-from crewai.constants import ENV_VARS, MODELS, PROVIDERS
+from fzxiezuoai.constants import ENV_VARS, MODELS, PROVIDERS
 
 
 def test_huggingface_in_providers():

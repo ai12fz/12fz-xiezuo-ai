@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from crewai_tools.tools.brightdata_tool.brightdata_serp import BrightDataSearchTool
+from fzxiezuoai_tools.tools.brightdata_tool.brightdata_serp import BrightDataSearchTool
 
 
 class TestBrightDataSearchTool(unittest.TestCase):

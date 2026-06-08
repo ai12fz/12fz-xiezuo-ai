@@ -4,11 +4,11 @@ import pytest
 from pydantic import BaseModel
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from crewai.agent import Agent
-from crewai.task import Task
-from crewai.tasks.task_output import TaskOutput
-from crewai.tasks.output_format import OutputFormat
-from crewai.utilities.converter import Converter
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
+from fzxiezuoai.tasks.task_output import TaskOutput
+from fzxiezuoai.tasks.output_format import OutputFormat
+from fzxiezuoai.utilities.converter import Converter
 
 
 @pytest.fixture
@@ -27,7 +27,7 @@ class TestAsyncTaskExecution:
     """Tests for async task execution methods."""
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_basic(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -48,7 +48,7 @@ class TestAsyncTaskExecution:
         mock_execute.assert_called_once()
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_with_context(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -70,7 +70,7 @@ class TestAsyncTaskExecution:
         assert call_kwargs["context"] == context
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_with_tools(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -93,7 +93,7 @@ class TestAsyncTaskExecution:
         assert mock_tool in call_kwargs["tools"]
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_sets_start_and_end_time(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -115,7 +115,7 @@ class TestAsyncTaskExecution:
         assert task.end_time >= task.start_time
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_stores_output(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -135,7 +135,7 @@ class TestAsyncTaskExecution:
         assert task.output.raw == "Async task result"
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_adds_agent_to_processed_by(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -154,7 +154,7 @@ class TestAsyncTaskExecution:
         assert "Test Agent" in task.processed_by_agents
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_calls_callback(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -187,7 +187,7 @@ class TestAsyncTaskExecution:
         assert "has no agent assigned" in str(exc_info.value)
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_with_different_agent(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -214,7 +214,7 @@ class TestAsyncTaskExecution:
         mock_execute.assert_called_once()
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_handles_exception(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -237,7 +237,7 @@ class TestAsyncGuardrails:
     """Tests for async guardrail invocation."""
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_ainvoke_guardrail_success(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -260,7 +260,7 @@ class TestAsyncGuardrails:
         assert result.raw == "Async task result"
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_ainvoke_guardrail_failure_then_success(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -288,7 +288,7 @@ class TestAsyncGuardrails:
         assert call_count == 2
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_ainvoke_guardrail_max_retries_exceeded(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -313,7 +313,7 @@ class TestAsyncGuardrails:
         assert "2 retries" in str(exc_info.value)
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_ainvoke_multiple_guardrails(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -349,7 +349,7 @@ class TestAsyncTaskOutput:
     """Tests for async task output handling."""
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_output_format_raw(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -366,7 +366,7 @@ class TestAsyncTaskOutput:
         assert result.output_format == OutputFormat.RAW
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.aexecute_task", new_callable=AsyncMock)
+    @patch("fzxiezuoai.Agent.aexecute_task", new_callable=AsyncMock)
     async def test_aexecute_sync_task_output_attributes(
         self, mock_execute: AsyncMock, test_agent: Agent
     ) -> None:
@@ -444,7 +444,7 @@ class TestAsyncOutputConversion:
         with patch.object(
             converter, "_create_instructor"
         ) as mock_create, patch(
-            "crewai.utilities.converter.asyncio.to_thread", new_callable=AsyncMock
+            "fzxiezuoai.utilities.converter.asyncio.to_thread", new_callable=AsyncMock
         ) as mock_to_thread:
             instructor = MagicMock()
             instructor.to_json = MagicMock(return_value=sentinel)

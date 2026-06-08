@@ -2,17 +2,17 @@ import json
 import os
 from unittest.mock import MagicMock
 
-from crewai.tools.base_tool import BaseTool
-from crewai_tools import (
+from fzxiezuoai.tools.base_tool import BaseTool
+from fzxiezuoai_tools import (
     OxylabsAmazonProductScraperTool,
     OxylabsAmazonSearchScraperTool,
     OxylabsGoogleSearchScraperTool,
     OxylabsUniversalScraperTool,
 )
-from crewai_tools.tools.oxylabs_amazon_product_scraper_tool.oxylabs_amazon_product_scraper_tool import (
+from fzxiezuoai_tools.tools.oxylabs_amazon_product_scraper_tool.oxylabs_amazon_product_scraper_tool import (
     OxylabsAmazonProductScraperConfig,
 )
-from crewai_tools.tools.oxylabs_google_search_scraper_tool.oxylabs_google_search_scraper_tool import (
+from fzxiezuoai_tools.tools.oxylabs_google_search_scraper_tool.oxylabs_google_search_scraper_tool import (
     OxylabsGoogleSearchScraperConfig,
 )
 from oxylabs import RealtimeClient

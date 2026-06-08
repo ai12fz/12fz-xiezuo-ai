@@ -16,12 +16,12 @@ from unittest.mock import Mock, patch
 import pytest
 from pydantic import BaseModel, Field
 
-from crewai import Agent, Crew, Task
-from crewai.events import crewai_event_bus
-from crewai.hooks import register_after_tool_call_hook, register_before_tool_call_hook
-from crewai.hooks.tool_hooks import ToolCallHookContext
-from crewai.llm import LLM
-from crewai.tools.base_tool import BaseTool
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.events import crewai_event_bus
+from fzxiezuoai.hooks import register_after_tool_call_hook, register_before_tool_call_hook
+from fzxiezuoai.hooks.tool_hooks import ToolCallHookContext
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.tools.base_tool import BaseTool
 
 
 class CalculatorInput(BaseModel):
@@ -377,7 +377,7 @@ class TestOpenAINativeToolCalling:
             assert all(call["query"] for call in hook_calls["before"])
             assert all(call["query"] for call in hook_calls["after"])
         finally:
-            from crewai.hooks import (
+            from fzxiezuoai.hooks import (
                 unregister_after_tool_call_hook,
                 unregister_before_tool_call_hook,
             )
@@ -437,7 +437,7 @@ class TestOpenAINativeToolCalling:
             assert all(call["query"] for call in hook_calls["before"])
             assert all(call["query"] for call in hook_calls["after"])
         finally:
-            from crewai.hooks import (
+            from fzxiezuoai.hooks import (
                 unregister_after_tool_call_hook,
                 unregister_before_tool_call_hook,
             )
@@ -961,8 +961,8 @@ class TestNativeToolCallingTokenUsage:
 def test_native_tool_calling_error_handling(failing_tool: FailingTool):
     """Test that native tool calling handles errors properly and emits error events."""
     import threading
-    from crewai.events import crewai_event_bus
-    from crewai.events.types.tool_usage_events import ToolUsageErrorEvent
+    from fzxiezuoai.events import crewai_event_bus
+    from fzxiezuoai.events.types.tool_usage_events import ToolUsageErrorEvent
 
     received_events = []
     event_received = threading.Event()
@@ -1117,8 +1117,8 @@ class TestNativeToolCallingJsonParseError:
 
     def _make_executor(self, tools: list[BaseTool]) -> "CrewAgentExecutor":
         """Create a minimal CrewAgentExecutor with mocked dependencies."""
-        from crewai.agents.crew_agent_executor import CrewAgentExecutor
-        from crewai.tools.base_tool import to_langchain
+        from fzxiezuoai.agents.crew_agent_executor import CrewAgentExecutor
+        from fzxiezuoai.tools.base_tool import to_langchain
 
         structured_tools = to_langchain(tools)
         mock_agent = Mock()
@@ -1154,7 +1154,7 @@ class TestNativeToolCallingJsonParseError:
         tool = CodeTool()
         executor = self._make_executor([tool])
 
-        from crewai.utilities.agent_utils import convert_tools_to_openai_schema
+        from fzxiezuoai.utilities.agent_utils import convert_tools_to_openai_schema
         _, available_functions, _ = convert_tools_to_openai_schema([tool])
 
         malformed_json = '{"code": "print("hello")"}'
@@ -1182,7 +1182,7 @@ class TestNativeToolCallingJsonParseError:
         tool = CodeTool()
         executor = self._make_executor([tool])
 
-        from crewai.utilities.agent_utils import convert_tools_to_openai_schema
+        from fzxiezuoai.utilities.agent_utils import convert_tools_to_openai_schema
         _, available_functions, _ = convert_tools_to_openai_schema([tool])
 
         valid_json = '{"code": "print(1)"}'
@@ -1209,7 +1209,7 @@ class TestNativeToolCallingJsonParseError:
         tool = CodeTool()
         executor = self._make_executor([tool])
 
-        from crewai.utilities.agent_utils import convert_tools_to_openai_schema
+        from fzxiezuoai.utilities.agent_utils import convert_tools_to_openai_schema
         _, available_functions, _ = convert_tools_to_openai_schema([tool])
 
         result = executor._execute_single_native_tool_call(
@@ -1235,7 +1235,7 @@ class TestNativeToolCallingJsonParseError:
         tool = StrictTool()
         executor = self._make_executor([tool])
 
-        from crewai.utilities.agent_utils import convert_tools_to_openai_schema
+        from fzxiezuoai.utilities.agent_utils import convert_tools_to_openai_schema
         _, available_functions, _ = convert_tools_to_openai_schema([tool])
 
         result = executor._execute_single_native_tool_call(

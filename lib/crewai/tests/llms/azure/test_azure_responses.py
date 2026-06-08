@@ -42,7 +42,7 @@ def mock_openai_completion():
     mock_cls = MagicMock(return_value=instance)
 
     with patch(
-        "crewai.llms.providers.openai.completion.OpenAICompletion",
+        "fzxiezuoai.llms.providers.openai.completion.OpenAICompletion",
         mock_cls,
     ):
         yield mock_cls, instance
@@ -57,7 +57,7 @@ def _create_azure_responses(**overrides):
     Must be called inside a context where OpenAICompletion is already mocked
     (i.e. via the ``mock_openai_completion`` fixture).
     """
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
     defaults = {
         "model": "gpt-4o",
@@ -77,7 +77,7 @@ class TestAzureResponsesInit:
 
     def test_default_api_is_completions(self):
         """Default api should be 'completions' (existing behaviour)."""
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
         comp = AzureCompletion(
             model="gpt-4o",
@@ -204,7 +204,7 @@ class TestAzureResponsesCall:
 
     @pytest.mark.vcr()
     def test_call_delegates_to_responses(self):
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm = LLM(model="azure/gpt-5.2-chat", api="responses")
         result = llm.call("Say hello in one sentence.")
@@ -214,7 +214,7 @@ class TestAzureResponsesCall:
 
     @pytest.mark.vcr()
     def test_call_with_tools_delegates(self):
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm = LLM(
             model="azure/gpt-5.2-chat",
@@ -229,7 +229,7 @@ class TestAzureResponsesCall:
     @pytest.mark.vcr()
     def test_completions_call_unchanged(self):
         """Default api='completions' should not use the responses delegate."""
-        from crewai.llm import LLM
+        from fzxiezuoai.llm import LLM
 
         llm = LLM(model="azure/gpt-5.2-chat")
         result = llm.call("Say hello in one sentence.")
@@ -250,7 +250,7 @@ class TestAzureResponsesProperties:
         assert comp.last_response_id == "resp_abc123"
 
     def test_last_response_id_none_for_completions(self):
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
         comp = AzureCompletion(
             model="gpt-4o",
@@ -278,7 +278,7 @@ class TestAzureResponsesProperties:
 
     def test_reset_chain_noop_for_completions(self):
         """reset_chain should not raise when delegate is None."""
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
         comp = AzureCompletion(
             model="gpt-4o",
@@ -300,7 +300,7 @@ class TestAzureResponsesFeatures:
         assert comp.supports_function_calling() is True
 
     def test_supports_function_calling_completions_openai_model(self):
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
         comp = AzureCompletion(
             model="gpt-4o",
@@ -315,7 +315,7 @@ class TestAzureResponsesFeatures:
         assert comp.supports_stop_words() is False
 
     def test_supports_stop_words_true_for_completions_gpt4(self):
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
         comp = AzureCompletion(
             model="gpt-4o",
@@ -340,7 +340,7 @@ class TestAzureResponsesFeatures:
         assert config["max_completion_tokens"] == 500
 
     def test_to_config_dict_omits_api_for_completions(self):
-        from crewai.llms.providers.azure.completion import AzureCompletion
+        from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
         comp = AzureCompletion(
             model="gpt-4o",
@@ -363,17 +363,17 @@ class TestAzureResponsesViaLLMFactory:
         with api='responses' and a delegate."""
         with (
             patch(
-                "crewai.llms.providers.openai.completion.OpenAI",
+                "fzxiezuoai.llms.providers.openai.completion.OpenAI",
             ),
             patch(
-                "crewai.llms.providers.openai.completion.AsyncOpenAI",
+                "fzxiezuoai.llms.providers.openai.completion.AsyncOpenAI",
             ),
         ):
-            from crewai.llm import LLM
+            from fzxiezuoai.llm import LLM
 
             llm = LLM(model="azure/gpt-4o", api="responses")
 
-            from crewai.llms.providers.azure.completion import AzureCompletion
+            from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
 
             assert isinstance(llm, AzureCompletion)
             assert llm.api == "responses"

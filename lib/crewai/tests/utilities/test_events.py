@@ -3,17 +3,17 @@ from datetime import datetime
 import os
 from unittest.mock import Mock, patch
 
-from crewai.agent import Agent
-from crewai.agents.crew_agent_executor import CrewAgentExecutor
-from crewai.crew import Crew
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.event_listener import EventListener
-from crewai.events.types.agent_events import (
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.agents.crew_agent_executor import CrewAgentExecutor
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.event_listener import EventListener
+from fzxiezuoai.events.types.agent_events import (
     AgentExecutionCompletedEvent,
     AgentExecutionErrorEvent,
     AgentExecutionStartedEvent,
 )
-from crewai.events.types.crew_events import (
+from fzxiezuoai.events.types.crew_events import (
     CrewKickoffCompletedEvent,
     CrewKickoffFailedEvent,
     CrewKickoffStartedEvent,
@@ -21,7 +21,7 @@ from crewai.events.types.crew_events import (
     CrewTestResultEvent,
     CrewTestStartedEvent,
 )
-from crewai.events.types.flow_events import (
+from fzxiezuoai.events.types.flow_events import (
     FlowCreatedEvent,
     FlowFinishedEvent,
     FlowStartedEvent,
@@ -31,26 +31,26 @@ from crewai.events.types.flow_events import (
     MethodExecutionFinishedEvent,
     MethodExecutionStartedEvent,
 )
-from crewai.events.types.llm_events import (
+from fzxiezuoai.events.types.llm_events import (
     LLMCallCompletedEvent,
     LLMCallFailedEvent,
     LLMCallStartedEvent,
     LLMStreamChunkEvent,
 )
-from crewai.events.types.task_events import (
+from fzxiezuoai.events.types.task_events import (
     TaskCompletedEvent,
     TaskFailedEvent,
     TaskStartedEvent,
 )
-from crewai.events.types.tool_usage_events import (
+from fzxiezuoai.events.types.tool_usage_events import (
     ToolUsageErrorEvent,
     ToolUsageFinishedEvent,
 )
-from crewai.flow.flow import Flow, listen, start
-from crewai.flow.human_feedback import human_feedback
-from crewai.llm import LLM
-from crewai.task import Task
-from crewai.tools.base_tool import BaseTool
+from fzxiezuoai.flow.flow import Flow, listen, start
+from fzxiezuoai.flow.human_feedback import human_feedback
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.task import Task
+from fzxiezuoai.tools.base_tool import BaseTool
 from pydantic import BaseModel, Field
 import pytest
 
@@ -113,7 +113,7 @@ def test_crew_emits_start_kickoff_event(
     mock_telemetry.task_started = Mock(return_value=mock_span)
     mock_telemetry.task_ended = Mock(return_value=mock_span)
 
-    with patch("crewai.events.event_listener.Telemetry", return_value=mock_telemetry):
+    with patch("fzxiezuoai.events.event_listener.Telemetry", return_value=mock_telemetry):
         crew = Crew(agents=[base_agent], tasks=[base_task], name="TestCrew")
         crew.kickoff()
     wait_for_event_handlers()
@@ -344,7 +344,7 @@ def test_agent_emits_execution_error_event(base_agent, base_task):
         received_events.append(event)
         event_received.set()
 
-    from crewai.experimental.agent_executor import AgentExecutor
+    from fzxiezuoai.experimental.agent_executor import AgentExecutor
 
     error_message = "Error happening while sending prompt to model."
     base_agent.max_retry_limit = 0
@@ -493,7 +493,7 @@ def test_flow_emits_start_event(reset_event_listener_singleton):
     mock_telemetry.flow_creation_span = Mock()
     mock_telemetry.set_tracer = Mock()
 
-    with patch("crewai.events.event_listener.Telemetry", return_value=mock_telemetry):
+    with patch("fzxiezuoai.events.event_listener.Telemetry", return_value=mock_telemetry):
         # Force creation of EventListener singleton with mocked telemetry
         _ = EventListener()
 
@@ -917,7 +917,7 @@ def test_llm_emits_call_failed_event():
     error_message = "OpenAI API call failed: Simulated API failure"
 
     with patch(
-        "crewai.llms.providers.openai.completion.OpenAICompletion._handle_completion"
+        "fzxiezuoai.llms.providers.openai.completion.OpenAICompletion._handle_completion"
     ) as mock_handle_completion:
         mock_handle_completion.side_effect = Exception("Simulated API failure")
 

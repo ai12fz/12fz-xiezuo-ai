@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from crewai.skills.models import SkillFrontmatter
-from crewai.skills.validation import (
+from fzxiezuoai.skills.models import SkillFrontmatter
+from fzxiezuoai.skills.validation import (
     MAX_SKILL_NAME_LENGTH,
     validate_directory_name,
 )

@@ -1,7 +1,7 @@
 from collections.abc import Callable
 
-from crewai.tools import BaseTool, tool
-from crewai.tools.base_tool import to_langchain
+from fzxiezuoai.tools import BaseTool, tool
+from fzxiezuoai.tools.base_tool import to_langchain
 
 
 def test_creating_a_tool_using_annotation():

@@ -1,8 +1,8 @@
 from unittest.mock import MagicMock, patch
 
-from crewai.experimental.evaluation.base_evaluator import EvaluationScore
-from crewai.experimental.evaluation.metrics.goal_metrics import GoalAlignmentEvaluator
-from crewai.utilities.llm_utils import LLM
+from fzxiezuoai.experimental.evaluation.base_evaluator import EvaluationScore
+from fzxiezuoai.experimental.evaluation.metrics.goal_metrics import GoalAlignmentEvaluator
+from fzxiezuoai.utilities.llm_utils import LLM
 
 from tests.experimental.evaluation.metrics.test_base_evaluation_metrics import (
     BaseEvaluationMetricsTest,
@@ -10,7 +10,7 @@ from tests.experimental.evaluation.metrics.test_base_evaluation_metrics import (
 
 
 class TestGoalAlignmentEvaluator(BaseEvaluationMetricsTest):
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_evaluate_success(
         self, mock_create_llm, mock_agent, mock_task, execution_trace
     ):
@@ -44,7 +44,7 @@ class TestGoalAlignmentEvaluator(BaseEvaluationMetricsTest):
         assert mock_agent.role in prompt[1]["content"]
         assert mock_task.description in prompt[1]["content"]
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_evaluate_error_handling(
         self, mock_create_llm, mock_agent, mock_task, execution_trace
     ):

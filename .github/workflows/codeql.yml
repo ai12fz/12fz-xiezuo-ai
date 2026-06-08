@@ -15,11 +15,11 @@ on:
   push:
     branches: [ "main" ]
     paths-ignore:
-      - "lib/crewai/src/crewai/cli/templates/**"
+      - "lib/fzxiezuoai/src/fzxiezuoai/cli/templates/**"
   pull_request:
     branches: [ "main" ]
     paths-ignore:
-      - "lib/crewai/src/crewai/cli/templates/**"
+      - "lib/fzxiezuoai/src/fzxiezuoai/cli/templates/**"
 
 jobs:
   analyze:

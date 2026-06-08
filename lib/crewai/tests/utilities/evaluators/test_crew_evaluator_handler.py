@@ -1,11 +1,11 @@
 from unittest import mock
 
 import pytest
-from crewai.agent import Agent
-from crewai.crew import Crew
-from crewai.task import Task
-from crewai.tasks.task_output import TaskOutput
-from crewai.utilities.evaluators.crew_evaluator_handler import (
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.task import Task
+from fzxiezuoai.tasks.task_output import TaskOutput
+from fzxiezuoai.utilities.evaluators.crew_evaluator_handler import (
     CrewEvaluator,
     TaskEvaluationPydanticOutput,
 )
@@ -76,8 +76,8 @@ class InternalCrewEvaluator:
             "agent: Agent 1 agent_goal: Goal 1 Task Output: Task Output 1"
         )
 
-    @mock.patch("crewai.utilities.evaluators.crew_evaluator_handler.Console")
-    @mock.patch("crewai.utilities.evaluators.crew_evaluator_handler.Table")
+    @mock.patch("fzxiezuoai.utilities.evaluators.crew_evaluator_handler.Console")
+    @mock.patch("fzxiezuoai.utilities.evaluators.crew_evaluator_handler.Table")
     def test_print_crew_evaluation_result(self, table, console, crew_planner):
         crew_planner.tasks_scores = {
             1: [10, 9, 8],

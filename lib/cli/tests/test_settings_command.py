@@ -3,8 +3,8 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch, MagicMock, call
 
-from crewai_cli.settings.main import SettingsCommand
-from crewai_cli.config import (
+from fzxiezuoai_cli.settings.main import SettingsCommand
+from fzxiezuoai_cli.config import (
     Settings,
     USER_SETTINGS_KEYS,
     CLI_SETTINGS_KEYS,
@@ -27,8 +27,8 @@ class TestSettingsCommand(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.test_dir)
 
-    @patch("crewai_cli.settings.main.console")
-    @patch("crewai_cli.settings.main.Table")
+    @patch("fzxiezuoai_cli.settings.main.console")
+    @patch("fzxiezuoai_cli.settings.main.Table")
     def test_list_settings(self, mock_table_class, mock_console):
         mock_table_instance = MagicMock()
         mock_table_class.return_value = mock_table_instance

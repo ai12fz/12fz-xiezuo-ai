@@ -1,8 +1,8 @@
 import uuid
 
 import pytest
-from crewai.utilities.crew.crew_context import get_crew_context
-from crewai.utilities.crew.models import CrewContext
+from fzxiezuoai.utilities.crew.crew_context import get_crew_context
+from fzxiezuoai.utilities.crew.models import CrewContext
 from opentelemetry import baggage
 from opentelemetry.context import attach, detach
 

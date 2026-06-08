@@ -1,6 +1,6 @@
-# crewai-files
+# fzxiezuoai-files
 
-File handling utilities for CrewAI multimodal inputs.
+File handling utilities for 12FZ协作AI multimodal inputs.
 
 ## Supported File Types
 
@@ -13,7 +13,7 @@ File handling utilities for CrewAI multimodal inputs.
 ## Usage
 
 ```python
-from crewai_files import File, ImageFile, PDFFile
+from fzxiezuoai_files import File, ImageFile, PDFFile
 
 # Auto-detect file type
 file = File(source="document.pdf")  # Resolves to PDFFile

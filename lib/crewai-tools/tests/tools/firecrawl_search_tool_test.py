@@ -1,6 +1,6 @@
 import pytest
 
-from crewai_tools.tools.firecrawl_search_tool.firecrawl_search_tool import FirecrawlSearchTool
+from fzxiezuoai_tools.tools.firecrawl_search_tool.firecrawl_search_tool import FirecrawlSearchTool
 
 
 @pytest.mark.vcr()

@@ -7,7 +7,7 @@ interactions:
       content-type:
       - application/json
     method: POST
-    uri: https://fake.crewai.com/crewai_plus/api/v1/tracing/batches
+    uri: https://fake.fzxiezuoai.com/crewai_plus/api/v1/tracing/batches
   response:
     body:
       string: '{"trace_id":"test-trace-id-12345","ephemeral_trace_id":"test-ephemeral-id-12345","status":"initialized"}'

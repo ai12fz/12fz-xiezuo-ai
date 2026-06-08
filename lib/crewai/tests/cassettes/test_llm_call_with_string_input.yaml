@@ -82,7 +82,7 @@ interactions:
       alt-svc:
       - h3=":443"; ma=86400
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '449'
       openai-version:
@@ -125,13 +125,13 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/1.0.0a2
+      - 12FZ协作AI-CLI/1.0.0a2
       X-Crewai-Organization-Id:
       - 3433f0ee-8a94-4aa4-822b-2ac71aa38b18
       X-Crewai-Version:
       - 1.0.0a2
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/batches
   response:
     body:
       string: '{"error":"bad_credentials","message":"Bad credentials"}'
@@ -147,8 +147,8 @@ interactions:
       cache-control:
       - no-cache
       content-security-policy:
-      - 'default-src ''self'' *.app.crewai.com app.crewai.com; script-src ''self''
-        ''unsafe-inline'' *.app.crewai.com app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts
+      - 'default-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com; script-src ''self''
+        ''unsafe-inline'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts
         https://www.gstatic.com https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
@@ -159,22 +159,22 @@ interactions:
         https://js.hs-analytics.net https://js.hs-banner.com https://js.hsadspixel.net
         https://js.hscollectedforms.net https://js.usemessages.com https://snap.licdn.com
         https://static.cloudflareinsights.com https://static.reo.dev https://www.google-analytics.com
-        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.crewai.com
-        app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
-        *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
+        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.fzxiezuoai.com
+        app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
         https://cdn.jsdelivr.net https://forms.hsforms.com https://track.hubspot.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://www.google.com
-        https://www.google.com.br; font-src ''self'' data: *.app.crewai.com app.crewai.com;
-        connect-src ''self'' *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com
+        https://www.google.com.br; font-src ''self'' data: *.app.fzxiezuoai.com app.fzxiezuoai.com;
+        connect-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ https://*.sentry.io
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ https://*.sentry.io
         https://www.google-analytics.com https://edge.fullstory.com https://rs.fullstory.com
         https://api.hubspot.com https://forms.hscollectedforms.net https://api.hubapi.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://google.com/pagead/form-data/16713662509
         https://google.com/ccm/form-data/16713662509 https://www.google.com/ccm/collect
-        https://worker-actionkit.tools.crewai.com https://api.reo.dev; frame-src ''self''
-        *.app.crewai.com app.crewai.com https://connect.useparagon.com/ https://zeus.tools.crewai.com
-        https://zeus.useparagon.com/* https://connect.tools.crewai.com/ https://docs.google.com
+        https://worker-actionkit.tools.fzxiezuoai.com https://api.reo.dev; frame-src ''self''
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.tools.fzxiezuoai.com
+        https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/ https://docs.google.com
         https://drive.google.com https://slides.google.com https://accounts.google.com
         https://*.google.com https://app.hubspot.com/ https://td.doubleclick.net https://www.googletagmanager.com/
         https://www.youtube.com https://share.descript.com'

@@ -2,7 +2,7 @@
 
 import pytest
 
-from crewai.mcp.transports.sse import SSETransport
+from fzxiezuoai.mcp.transports.sse import SSETransport
 
 
 @pytest.mark.asyncio

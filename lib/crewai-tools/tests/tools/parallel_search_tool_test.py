@@ -2,7 +2,7 @@ import json
 from unittest.mock import patch
 from urllib.parse import urlparse
 
-from crewai_tools.tools.parallel_tools.parallel_search_tool import (
+from fzxiezuoai_tools.tools.parallel_tools.parallel_search_tool import (
     ParallelSearchTool,
 )
 
@@ -14,7 +14,7 @@ def test_requires_env_var(monkeypatch):
     assert "PARALLEL_API_KEY" in result
 
 
-@patch("crewai_tools.tools.parallel_tools.parallel_search_tool.requests.post")
+@patch("fzxiezuoai_tools.tools.parallel_tools.parallel_search_tool.requests.post")
 def test_happy_path(mock_post, monkeypatch):
     monkeypatch.setenv("PARALLEL_API_KEY", "test")
 

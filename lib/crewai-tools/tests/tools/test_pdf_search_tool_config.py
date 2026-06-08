@@ -1,10 +1,10 @@
 from unittest.mock import MagicMock, Mock, patch
 
-from crewai_tools.adapters.crewai_rag_adapter import CrewAIRagAdapter
-from crewai_tools.tools.pdf_search_tool.pdf_search_tool import PDFSearchTool
+from fzxiezuoai_tools.adapters.crewai_rag_adapter import CrewAIRagAdapter
+from fzxiezuoai_tools.tools.pdf_search_tool.pdf_search_tool import PDFSearchTool
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_pdf_search_tool_with_azure_config_without_env_vars(
     mock_create_client: Mock,
 ) -> None:
@@ -25,7 +25,7 @@ def test_pdf_search_tool_with_azure_config_without_env_vars(
 
     # Patch the embedding function builder to avoid actual API calls
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
         # This is the exact config format from the bug report
@@ -51,7 +51,7 @@ def test_pdf_search_tool_with_azure_config_without_env_vars(
         assert tool.name == "Search a PDF's content"
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_pdf_search_tool_with_openai_config_without_env_vars(
     mock_create_client: Mock,
 ) -> None:
@@ -64,7 +64,7 @@ def test_pdf_search_tool_with_openai_config_without_env_vars(
     mock_create_client.return_value = mock_client
 
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
         config = {
@@ -83,7 +83,7 @@ def test_pdf_search_tool_with_openai_config_without_env_vars(
         assert isinstance(tool.adapter, CrewAIRagAdapter)
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_pdf_search_tool_with_vectordb_and_embedding_config(
     mock_create_client: Mock,
 ) -> None:
@@ -96,7 +96,7 @@ def test_pdf_search_tool_with_vectordb_and_embedding_config(
     mock_create_client.return_value = mock_client
 
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
         config = {

@@ -2,30 +2,30 @@ name: "CodeQL Config"
 
 paths-ignore:
   # Ignore template files - these are boilerplate code that shouldn't be analyzed
-  - "lib/crewai/src/crewai/cli/templates/**"
+  - "lib/fzxiezuoai/src/fzxiezuoai/cli/templates/**"
   # Ignore test cassettes - these are test fixtures/recordings
-  - "lib/crewai/tests/cassettes/**"
-  - "lib/crewai-tools/tests/cassettes/**"
+  - "lib/fzxiezuoai/tests/cassettes/**"
+  - "lib/fzxiezuoai-tools/tests/cassettes/**"
   # Ignore cache and build artifacts
   - ".cache/**"
   # Ignore documentation build artifacts
   - "docs/.cache/**"
   # Ignore experimental code
-  - "lib/crewai/src/crewai/experimental/a2a/**"
+  - "lib/fzxiezuoai/src/fzxiezuoai/experimental/a2a/**"
 
 paths:
   # Include GitHub Actions workflows/composite actions for CodeQL actions analysis
   - ".github/workflows/**"
   - ".github/actions/**"
   # Include all Python source code from workspace packages
-  - "lib/crewai/src/**"
-  - "lib/crewai-tools/src/**"
-  - "lib/crewai-files/src/**"
+  - "lib/fzxiezuoai/src/**"
+  - "lib/fzxiezuoai-tools/src/**"
+  - "lib/fzxiezuoai-files/src/**"
   - "lib/devtools/src/**"
   # Include tests (but exclude cassettes via paths-ignore)
-  - "lib/crewai/tests/**"
-  - "lib/crewai-tools/tests/**"
-  - "lib/crewai-files/tests/**"
+  - "lib/fzxiezuoai/tests/**"
+  - "lib/fzxiezuoai-tools/tests/**"
+  - "lib/fzxiezuoai-files/tests/**"
   - "lib/devtools/tests/**"
 
 # Configure specific queries or packs if needed

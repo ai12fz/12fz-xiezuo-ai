@@ -3,8 +3,8 @@
 import httpx
 import pytest
 
-from crewai.llm import LLM
-from crewai.llms.hooks.base import BaseInterceptor
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.hooks.base import BaseInterceptor
 
 
 class OpenAITestInterceptor(BaseInterceptor[httpx.Request, httpx.Response]):

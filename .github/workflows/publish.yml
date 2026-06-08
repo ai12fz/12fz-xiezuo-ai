@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/crewai
+      url: https://pypi.org/p/fzxiezuoai
     permissions:
       id-token: write
       contents: read
@@ -81,7 +81,7 @@ jobs:
         run: |
           failed=0
           for package in dist/*; do
-            if [[ "$package" == *"crewai_devtools"* ]]; then
+            if [[ "$package" == *"fzxiezuoai_devtools"* ]]; then
               echo "Skipping private package: $package"
               continue
             fi
@@ -106,7 +106,7 @@ jobs:
           payload=$(uv run python -c "
           import json, re, subprocess, sys
 
-          with open('lib/crewai/src/crewai/__init__.py') as f:
+          with open('lib/fzxiezuoai/src/fzxiezuoai/__init__.py') as f:
               m = re.search(r\"__version__\s*=\s*[\\\"']([^\\\"']+)\", f.read())
           version = m.group(1) if m else 'unknown'
 
@@ -122,9 +122,9 @@ jobs:
 
           blocks = [
               {'type':'section','text':{'type':'mrkdwn',
-                  'text':f':rocket: \`crewai v{version}\` published to PyPI'}},
+                  'text':f':rocket: \`fzxiezuoai v{version}\` published to PyPI'}},
               {'type':'section','text':{'type':'mrkdwn',
-                  'text':f'<https://pypi.org/project/crewai/{version}/|View on PyPI> · <https://github.com/crewAIInc/crewAI/releases/tag/{tag}|Release notes>'}},
+                  'text':f'<https://pypi.org/project/fzxiezuoai/{version}/|View on PyPI> · <https://github.com/crewAIInc/12FZ协作AI/releases/tag/{tag}|Release notes>'}},
               {'type':'divider'},
           ]
 
@@ -151,7 +151,7 @@ jobs:
 
           blocks.append({'type':'divider'})
           blocks.append({'type':'section','text':{'type':'mrkdwn',
-              'text':f'\`\`\`uv add \"crewai[tools]=={version}\"\`\`\`'}})
+              'text':f'\`\`\`uv add \"fzxiezuoai[tools]=={version}\"\`\`\`'}})
 
           print(json.dumps({'blocks':blocks}))
           ")

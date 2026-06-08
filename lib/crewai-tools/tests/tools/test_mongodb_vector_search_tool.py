@@ -1,7 +1,7 @@
 import json
 from unittest.mock import patch
 
-from crewai_tools import MongoDBVectorSearchConfig, MongoDBVectorSearchTool
+from fzxiezuoai_tools import MongoDBVectorSearchConfig, MongoDBVectorSearchTool
 import pytest
 
 
@@ -54,7 +54,7 @@ def test_cleanup_on_deletion(mongodb_vector_search_tool):
 
 def test_create_search_index(mongodb_vector_search_tool):
     with patch(
-        "crewai_tools.tools.mongodb_vector_search_tool.vector_search.create_vector_search_index"
+        "fzxiezuoai_tools.tools.mongodb_vector_search_tool.vector_search.create_vector_search_index"
     ) as mock_create_search_index:
         mongodb_vector_search_tool.create_vector_search_index(dimensions=10)
         kwargs = mock_create_search_index.mock_calls[0].kwargs

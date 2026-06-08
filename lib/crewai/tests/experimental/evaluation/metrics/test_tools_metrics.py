@@ -1,11 +1,11 @@
 from unittest.mock import MagicMock, patch
 
-from crewai.experimental.evaluation.metrics.tools_metrics import (
+from fzxiezuoai.experimental.evaluation.metrics.tools_metrics import (
     ParameterExtractionEvaluator,
     ToolInvocationEvaluator,
     ToolSelectionEvaluator,
 )
-from crewai.utilities.llm_utils import LLM
+from fzxiezuoai.utilities.llm_utils import LLM
 
 from tests.experimental.evaluation.metrics.test_base_evaluation_metrics import (
     BaseEvaluationMetricsTest,
@@ -44,7 +44,7 @@ class TestToolSelectionEvaluator(BaseEvaluationMetricsTest):
         assert result.score is None
         assert "had tools available but didn't use any" in result.feedback.lower()
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_successful_evaluation(self, mock_create_llm, mock_agent, mock_task):
         mock_llm = MagicMock(spec=LLM)
         mock_llm.call.return_value = """
@@ -100,7 +100,7 @@ class TestParameterExtractionEvaluator(BaseEvaluationMetricsTest):
         assert result.score is None
         assert "no tool usage" in result.feedback.lower()
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_successful_evaluation(self, mock_create_llm, mock_agent, mock_task):
         mock_agent.tools = ["tool1", "tool2"]
 
@@ -157,7 +157,7 @@ class TestToolInvocationEvaluator(BaseEvaluationMetricsTest):
         assert result.score is None
         assert "no tool usage" in result.feedback.lower()
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_successful_evaluation(self, mock_create_llm, mock_agent, mock_task):
         mock_agent.tools = ["tool1", "tool2"]
         mock_llm = MagicMock(spec=LLM)
@@ -191,7 +191,7 @@ class TestToolInvocationEvaluator(BaseEvaluationMetricsTest):
         assert result.score == 8.0
         assert "The agent invoked tools correctly" in result.feedback
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_evaluation_with_errors(self, mock_create_llm, mock_agent, mock_task):
         mock_agent.tools = ["tool1", "tool2"]
         mock_llm = MagicMock(spec=LLM)

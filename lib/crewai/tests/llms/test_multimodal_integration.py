@@ -8,8 +8,8 @@ from pathlib import Path
 
 import pytest
 
-from crewai.llm import LLM
-from crewai_files import (
+from fzxiezuoai.llm import LLM
+from fzxiezuoai_files import (
     AudioFile,
     File,
     ImageFile,
@@ -18,11 +18,11 @@ from crewai_files import (
     VideoFile,
     format_multimodal_content,
 )
-from crewai_files.resolution.resolver import FileResolver, FileResolverConfig
+from fzxiezuoai_files.resolution.resolver import FileResolver, FileResolverConfig
 
 
 # Path to test data files
-TEST_FIXTURES_DIR = Path(__file__).parent.parent.parent.parent / "crewai-files" / "tests" / "fixtures"
+TEST_FIXTURES_DIR = Path(__file__).parent.parent.parent.parent / "fzxiezuoai-files" / "tests" / "fixtures"
 TEST_IMAGE_PATH = TEST_FIXTURES_DIR / "revenue_chart.png"
 TEST_TEXT_PATH = TEST_FIXTURES_DIR / "review_guidelines.txt"
 TEST_VIDEO_PATH = TEST_FIXTURES_DIR / "sample_video.mp4"
@@ -572,14 +572,14 @@ def _build_multimodal_message_with_upload(
 
     Note: OpenAI Chat Completions API only supports file_id for PDFs via
     type="file", not for images. For image file_id support, OpenAI requires
-    the Responses API (type="input_image"). Since crewAI uses Chat Completions,
+    the Responses API (type="input_image"). Since 12FZ协作AI uses Chat Completions,
     we test file_id uploads with Anthropic which supports file_id for all types.
 
     Returns:
         Tuple of (messages, content_blocks) where content_blocks can be inspected
         to verify file_id was used.
     """
-    from crewai_files.formatting.anthropic import AnthropicFormatter
+    from fzxiezuoai_files.formatting.anthropic import AnthropicFormatter
 
     config = FileResolverConfig(prefer_upload=True)
     resolver = FileResolver(config=config)
@@ -615,7 +615,7 @@ def _build_responses_message_with_upload(
         Tuple of (messages, content_blocks) where content_blocks can be inspected
         to verify file_id was used.
     """
-    from crewai_files.formatting import OpenAIResponsesFormatter
+    from fzxiezuoai_files.formatting import OpenAIResponsesFormatter
 
     config = FileResolverConfig(prefer_upload=True)
     resolver = FileResolver(config=config)
@@ -644,7 +644,7 @@ class TestAnthropicFileUploadIntegration:
     We test file_id uploads with Anthropic because OpenAI Chat Completions API
     only supports file_id references for PDFs (type="file"), not images.
     OpenAI's Responses API supports image file_id (type="input_image"), but
-    crewAI currently uses Chat Completions. Anthropic supports file_id for
+    12FZ协作AI currently uses Chat Completions. Anthropic supports file_id for
     all content types including images.
     """
 

@@ -3,7 +3,7 @@
 from unittest.mock import Mock, patch
 
 import pytest
-from crewai.rag.factory import create_client
+from fzxiezuoai.rag.factory import create_client
 
 
 def test_create_client_chromadb():
@@ -11,7 +11,7 @@ def test_create_client_chromadb():
     mock_config = Mock()
     mock_config.provider = "chromadb"
 
-    with patch("crewai.rag.factory.require") as mock_require:
+    with patch("fzxiezuoai.rag.factory.require") as mock_require:
         mock_module = Mock()
         mock_client = Mock()
         mock_module.create_client.return_value = mock_client
@@ -21,7 +21,7 @@ def test_create_client_chromadb():
 
         assert result == mock_client
         mock_require.assert_called_once_with(
-            "crewai.rag.chromadb.factory", purpose="The 'chromadb' provider"
+            "fzxiezuoai.rag.chromadb.factory", purpose="The 'chromadb' provider"
         )
         mock_module.create_client.assert_called_once_with(mock_config)
 

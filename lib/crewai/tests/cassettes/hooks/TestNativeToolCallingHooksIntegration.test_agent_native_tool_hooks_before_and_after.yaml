@@ -25,7 +25,7 @@ interactions:
       authorization:
       - AUTHORIZATION-XXX
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/batches
   response:
     body:
       string: '{"id":"10c9dd30-aa69-4595-9c73-65acbb6c0b56","trace_id":"ecb9a078-e82d-47cf-9f14-87d70109b2bc","execution_type":"crew","crew_name":"Unknown

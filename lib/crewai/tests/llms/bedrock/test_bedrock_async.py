@@ -7,7 +7,7 @@ cannot be played back properly in CI.
 
 import pytest
 
-from crewai.llm import LLM
+from fzxiezuoai.llm import LLM
 
 SKIP_REASON = "VCR does not support aiobotocore async HTTP client"
 

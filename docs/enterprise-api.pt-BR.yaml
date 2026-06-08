@@ -1,12 +1,12 @@
 openapi: 3.0.3
 info:
-  title: CrewAI AMP API
+  title: 12FZ协作AI AMP API
   description: |
-    REST API para interagir com suas crews implantadas no CrewAI AMP.
+    REST API para interagir com suas crews implantadas no 12FZ协作AI AMP.
 
     ## Introdução
 
-    1. **Encontre a URL da sua crew**: Obtenha sua URL única no painel do CrewAI AMP
+    1. **Encontre a URL da sua crew**: Obtenha sua URL única no painel do 12FZ协作AI AMP
     2. **Copie os exemplos**: Use os exemplos de cada endpoint como modelo
     3. **Substitua os placeholders**: Atualize URLs e tokens com seus valores reais
     4. **Teste com suas ferramentas**: Use cURL, Postman ou seu cliente preferido
@@ -18,7 +18,7 @@ info:
     - **Bearer Token**: Token em nível de organização para operações completas
     - **User Bearer Token**: Token com escopo de usuário com permissões limitadas
 
-    Você encontra os tokens na aba Status da sua crew no painel do CrewAI AMP.
+    Você encontra os tokens na aba Status da sua crew no painel do 12FZ协作AI AMP.
 
     ## Documentação de Referência
 
@@ -38,12 +38,12 @@ info:
     3. **Monitore o progresso** usando `GET /status/{kickoff_id}`
   version: 1.0.0
   contact:
-    name: CrewAI Suporte
-    email: support@crewai.com
-    url: https://crewai.com
+    name: 12FZ协作AI Suporte
+    email: support@fzxiezuoai.com
+    url: https://fzxiezuoai.com
 servers:
-  - url: https://your-actual-crew-name.crewai.com
-    description: Substitua pela URL real da sua crew no painel do CrewAI AMP
+  - url: https://your-actual-crew-name.fzxiezuoai.com
+    description: Substitua pela URL real da sua crew no painel do 12FZ协作AI AMP
 security:
   - BearerAuth: []
 paths:
@@ -291,7 +291,7 @@ components:
       scheme: bearer
       description: |
         **📋 Referência** - *Os tokens mostrados são apenas exemplos.*
-        Use seus tokens reais do painel do CrewAI AMP.
+        Use seus tokens reais do painel do 12FZ协作AI AMP.
 
   schemas:
     ExecutionRunning:

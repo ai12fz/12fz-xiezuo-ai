@@ -3,7 +3,7 @@
 import pytest
 from pydantic import BaseModel
 
-from crewai import Agent, Task
+from fzxiezuoai import Agent, Task
 
 
 @pytest.mark.parametrize(

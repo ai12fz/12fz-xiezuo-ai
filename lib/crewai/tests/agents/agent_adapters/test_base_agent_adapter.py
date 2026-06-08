@@ -1,10 +1,10 @@
 from typing import Any
 
 import pytest
-from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai.agents.agent_adapters.base_agent_adapter import BaseAgentAdapter
-from crewai.tools.base_tool import BaseTool
-from crewai.agents.agent_builder.utilities.base_token_process import TokenProcess
+from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
+from fzxiezuoai.agents.agent_adapters.base_agent_adapter import BaseAgentAdapter
+from fzxiezuoai.tools.base_tool import BaseTool
+from fzxiezuoai.agents.agent_builder.utilities.base_token_process import TokenProcess
 from pydantic import BaseModel
 
 

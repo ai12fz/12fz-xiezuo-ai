@@ -5,14 +5,14 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from crewai import __version__
-from crewai.version import (
+from fzxiezuoai import __version__
+from fzxiezuoai.version import (
     get_crewai_version,
     get_latest_version_from_pypi,
     is_current_version_yanked,
     is_newer_version_available,
 )
-from crewai_core.version import (
+from fzxiezuoai_core.version import (
     _find_latest_non_yanked_version,
     _get_cache_file,
     _is_cache_valid,
@@ -35,7 +35,7 @@ class TestVersionChecking:
     """Test version checking utilities."""
 
     def test_get_crewai_version(self) -> None:
-        """Test getting current crewai version."""
+        """Test getting current fzxiezuoai version."""
         version = get_crewai_version()
         assert isinstance(version, str)
         assert len(version) > 0
@@ -62,8 +62,8 @@ class TestVersionChecking:
         cache_data = {"version": "1.0.0"}
         assert _is_cache_valid(cache_data) is False
 
-    @patch("crewai_core.version.Path.exists")
-    @patch("crewai_core.version.request.urlopen")
+    @patch("fzxiezuoai_core.version.Path.exists")
+    @patch("fzxiezuoai_core.version.request.urlopen")
     def test_get_latest_version_from_pypi_success(
         self, mock_urlopen: MagicMock, mock_exists: MagicMock
     ) -> None:
@@ -84,8 +84,8 @@ class TestVersionChecking:
         version = get_latest_version_from_pypi()
         assert version == "2.0.0"
 
-    @patch("crewai_core.version.Path.exists")
-    @patch("crewai_core.version.request.urlopen")
+    @patch("fzxiezuoai_core.version.Path.exists")
+    @patch("fzxiezuoai_core.version.request.urlopen")
     def test_get_latest_version_from_pypi_failure(
         self, mock_urlopen: MagicMock, mock_exists: MagicMock
     ) -> None:
@@ -99,8 +99,8 @@ class TestVersionChecking:
         version = get_latest_version_from_pypi()
         assert version is None
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
     def test_is_newer_version_available_true(
         self, mock_latest: MagicMock, mock_current: MagicMock
     ) -> None:
@@ -113,8 +113,8 @@ class TestVersionChecking:
         assert current == "1.0.0"
         assert latest == "2.0.0"
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
     def test_is_newer_version_available_false(
         self, mock_latest: MagicMock, mock_current: MagicMock
     ) -> None:
@@ -127,8 +127,8 @@ class TestVersionChecking:
         assert current == "2.0.0"
         assert latest == "2.0.0"
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
     def test_is_newer_version_available_with_none_latest(
         self, mock_latest: MagicMock, mock_current: MagicMock
     ) -> None:
@@ -262,8 +262,8 @@ class TestIsVersionYanked:
 class TestIsCurrentVersionYanked:
     """Test is_current_version_yanked public function."""
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_reads_from_valid_cache(
         self, mock_cache_file: MagicMock, mock_version: MagicMock, tmp_path: Path
     ) -> None:
@@ -284,8 +284,8 @@ class TestIsCurrentVersionYanked:
         assert is_yanked is True
         assert reason == "bad release"
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_not_yanked_from_cache(
         self, mock_cache_file: MagicMock, mock_version: MagicMock, tmp_path: Path
     ) -> None:
@@ -306,9 +306,9 @@ class TestIsCurrentVersionYanked:
         assert is_yanked is False
         assert reason == ""
 
-    @patch("crewai_core.version.get_latest_version_from_pypi")
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_triggers_fetch_on_stale_cache(
         self,
         mock_cache_file: MagicMock,
@@ -348,9 +348,9 @@ class TestIsCurrentVersionYanked:
         assert is_yanked is False
         mock_fetch.assert_called_once()
 
-    @patch("crewai_core.version.get_latest_version_from_pypi")
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_returns_false_on_fetch_failure(
         self,
         mock_cache_file: MagicMock,
@@ -372,14 +372,14 @@ class TestIsCurrentVersionYanked:
 class TestConsoleFormatterVersionCheck:
     """Test version check display in ConsoleFormatter."""
 
-    @patch("crewai.events.utils.console_formatter.is_current_version_yanked")
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_current_version_yanked")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     @patch.dict("os.environ", {"CI": ""})
     def test_version_message_shows_when_update_available_and_verbose(
         self, mock_check: MagicMock, mock_yanked: MagicMock
     ) -> None:
         """Test version message shows when update available and verbose enabled."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (True, "1.0.0", "2.0.0")
         mock_yanked.return_value = (False, "")
@@ -389,12 +389,12 @@ class TestConsoleFormatterVersionCheck:
             formatter._show_version_update_message_if_needed()
             assert mock_print.call_count == 2
 
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     def test_version_message_hides_when_verbose_false(
         self, mock_check: MagicMock
     ) -> None:
         """Test version message hidden when verbose disabled."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (True, "1.0.0", "2.0.0")
 
@@ -403,13 +403,13 @@ class TestConsoleFormatterVersionCheck:
             formatter._show_version_update_message_if_needed()
             mock_print.assert_not_called()
 
-    @patch("crewai.events.utils.console_formatter.is_current_version_yanked")
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_current_version_yanked")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     def test_version_message_hides_when_no_update_available(
         self, mock_check: MagicMock, mock_yanked: MagicMock
     ) -> None:
         """Test version message hidden when no update available."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (False, "2.0.0", "2.0.0")
         mock_yanked.return_value = (False, "")
@@ -419,13 +419,13 @@ class TestConsoleFormatterVersionCheck:
             formatter._show_version_update_message_if_needed()
             mock_print.assert_not_called()
 
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     @patch.dict("os.environ", {"CI": "true"})
     def test_version_message_hides_in_ci_environment(
         self, mock_check: MagicMock
     ) -> None:
         """Test version message hidden when running in CI/CD."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (True, "1.0.0", "2.0.0")
 
@@ -434,13 +434,13 @@ class TestConsoleFormatterVersionCheck:
             formatter._show_version_update_message_if_needed()
             mock_print.assert_not_called()
 
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     @patch.dict("os.environ", {"CI": "1"})
     def test_version_message_hides_in_ci_environment_with_numeric_value(
         self, mock_check: MagicMock
     ) -> None:
         """Test version message hidden when CI=1."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (True, "1.0.0", "2.0.0")
 
@@ -449,14 +449,14 @@ class TestConsoleFormatterVersionCheck:
             formatter._show_version_update_message_if_needed()
             mock_print.assert_not_called()
 
-    @patch("crewai.events.utils.console_formatter.is_current_version_yanked")
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_current_version_yanked")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     @patch.dict("os.environ", {"CI": ""})
     def test_yanked_warning_shows_when_version_is_yanked(
         self, mock_check: MagicMock, mock_yanked: MagicMock
     ) -> None:
         """Test yanked warning panel shows when current version is yanked."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (False, "1.0.0", "1.0.0")
         mock_yanked.return_value = (True, "critical bug")
@@ -469,14 +469,14 @@ class TestConsoleFormatterVersionCheck:
             assert "Yanked Version" in panel.title
             assert "critical bug" in str(panel.renderable)
 
-    @patch("crewai.events.utils.console_formatter.is_current_version_yanked")
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_current_version_yanked")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     @patch.dict("os.environ", {"CI": ""})
     def test_yanked_warning_shows_without_reason(
         self, mock_check: MagicMock, mock_yanked: MagicMock
     ) -> None:
         """Test yanked warning panel shows even without a reason."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (False, "1.0.0", "1.0.0")
         mock_yanked.return_value = (True, "")
@@ -489,14 +489,14 @@ class TestConsoleFormatterVersionCheck:
             assert "Yanked Version" in panel.title
             assert "Reason:" not in str(panel.renderable)
 
-    @patch("crewai.events.utils.console_formatter.is_current_version_yanked")
-    @patch("crewai.events.utils.console_formatter.is_newer_version_available")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_current_version_yanked")
+    @patch("fzxiezuoai.events.utils.console_formatter.is_newer_version_available")
     @patch.dict("os.environ", {"CI": ""})
     def test_both_update_and_yanked_warning_show(
         self, mock_check: MagicMock, mock_yanked: MagicMock
     ) -> None:
         """Test both update and yanked panels show when applicable."""
-        from crewai.events.utils.console_formatter import ConsoleFormatter
+        from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
         mock_check.return_value = (True, "1.0.0", "2.0.0")
         mock_yanked.return_value = (True, "security issue")

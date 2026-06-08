@@ -3,7 +3,7 @@
 from pathlib import Path
 from unittest.mock import patch
 
-from crewai.events.listeners.tracing.utils import (
+from fzxiezuoai.events.listeners.tracing.utils import (
     _get_generic_system_id,
     _get_linux_machine_id,
     _get_machine_id,

@@ -2,8 +2,8 @@
 
 from datetime import datetime, timedelta, timezone
 
-from crewai_files import FileBytes, ImageFile
-from crewai_files.cache.upload_cache import CachedUpload, UploadCache
+from fzxiezuoai_files import FileBytes, ImageFile
+from fzxiezuoai_files.cache.upload_cache import CachedUpload, UploadCache
 
 
 # Minimal valid PNG

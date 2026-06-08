@@ -4,12 +4,12 @@ import unittest
 from unittest.mock import Mock, patch
 
 import httpx
-from crewai_cli.triggers.main import TriggersCommand
+from fzxiezuoai_cli.triggers.main import TriggersCommand
 
 
 class TestTriggersCommand(unittest.TestCase):
-    @patch("crewai_cli.command.get_auth_token")
-    @patch("crewai_cli.command.PlusAPI")
+    @patch("fzxiezuoai_cli.command.get_auth_token")
+    @patch("fzxiezuoai_cli.command.PlusAPI")
     def setUp(self, mock_plus_api, mock_get_auth_token):
         self.mock_get_auth_token = mock_get_auth_token
         self.mock_plus_api = mock_plus_api
@@ -19,7 +19,7 @@ class TestTriggersCommand(unittest.TestCase):
         self.triggers_command = TriggersCommand()
         self.mock_client = self.triggers_command.plus_api_client
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     def test_list_triggers_success(self, mock_console_print):
         mock_response = Mock(spec=httpx.Response)
         mock_response.status_code = 200
@@ -48,7 +48,7 @@ class TestTriggersCommand(unittest.TestCase):
         self.mock_client.get_triggers.assert_called_once()
         mock_console_print.assert_any_call("[bold blue]Fetching available triggers...[/bold blue]")
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     def test_list_triggers_no_apps(self, mock_console_print):
         mock_response = Mock(spec=httpx.Response)
         mock_response.status_code = 200
@@ -60,7 +60,7 @@ class TestTriggersCommand(unittest.TestCase):
 
         mock_console_print.assert_any_call("[yellow]No triggers found.[/yellow]")
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     def test_list_triggers_api_error(self, mock_console_print):
         self.mock_client.get_triggers.side_effect = Exception("API Error")
 
@@ -69,7 +69,7 @@ class TestTriggersCommand(unittest.TestCase):
 
         mock_console_print.assert_any_call("[bold red]Error fetching triggers: API Error[/bold red]")
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     def test_execute_with_trigger_invalid_format(self, mock_console_print):
         with self.assertRaises(SystemExit):
             self.triggers_command.execute_with_trigger("invalid-format")
@@ -78,7 +78,7 @@ class TestTriggersCommand(unittest.TestCase):
             "[bold red]Error: Trigger must be in format 'app_slug/trigger_slug'[/bold red]"
         )
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     @patch.object(TriggersCommand, "_run_crew_with_payload")
     def test_execute_with_trigger_success(self, mock_run_crew, mock_console_print):
         mock_response = Mock(spec=httpx.Response)
@@ -97,7 +97,7 @@ class TestTriggersCommand(unittest.TestCase):
             "[bold blue]Fetching trigger payload for test-app/test-trigger...[/bold blue]"
         )
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     def test_execute_with_trigger_not_found(self, mock_console_print):
         mock_response = Mock(spec=httpx.Response)
         mock_response.status_code = 404
@@ -109,7 +109,7 @@ class TestTriggersCommand(unittest.TestCase):
 
         mock_console_print.assert_any_call("[bold red]Error: Trigger not found[/bold red]")
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     def test_execute_with_trigger_api_error(self, mock_console_print):
         self.mock_client.get_trigger_payload.side_effect = Exception("API Error")
 
@@ -157,7 +157,7 @@ class TestTriggersCommand(unittest.TestCase):
             check=True
         )
 
-    @patch("crewai_cli.triggers.main.console.print")
+    @patch("fzxiezuoai_cli.triggers.main.console.print")
     def test_execute_with_trigger_with_default_error_message(self, mock_console_print):
         mock_response = Mock(spec=httpx.Response)
         mock_response.status_code = 404

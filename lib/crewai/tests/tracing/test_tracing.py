@@ -3,19 +3,19 @@ from threading import Thread
 from unittest.mock import MagicMock, Mock, patch
 
 import pytest
-from crewai import Agent, Crew, Task
-from crewai.events.listeners.tracing.first_time_trace_handler import (
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.events.listeners.tracing.first_time_trace_handler import (
     FirstTimeTraceHandler,
 )
-from crewai.events.listeners.tracing.trace_batch_manager import (
+from fzxiezuoai.events.listeners.tracing.trace_batch_manager import (
     TraceBatch,
     TraceBatchManager,
 )
-from crewai.events.listeners.tracing.trace_listener import (
+from fzxiezuoai.events.listeners.tracing.trace_listener import (
     TraceCollectionListener,
 )
-from crewai.events.listeners.tracing.types import TraceEvent
-from crewai.flow.flow import Flow, start
+from fzxiezuoai.events.listeners.tracing.types import TraceEvent
+from fzxiezuoai.flow.flow import Flow, start
 from tests.utils import wait_for_event_handlers
 
 
@@ -26,7 +26,7 @@ class TestTraceListenerSetup:
     def mock_user_data_file_io(self):
         """Mock user data file I/O to prevent file system pollution between tests"""
         with patch(
-            "crewai.events.listeners.tracing.utils._load_user_data",
+            "fzxiezuoai.events.listeners.tracing.utils._load_user_data",
             return_value={},
         ):
             yield
@@ -37,15 +37,15 @@ class TestTraceListenerSetup:
         # Need to patch all the places where get_auth_token is imported/used
         with (
             patch(
-                "crewai.auth.token.get_auth_token",
+                "fzxiezuoai.auth.token.get_auth_token",
                 return_value="mock_token_12345",
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_listener.get_auth_token",
+                "fzxiezuoai.events.listeners.tracing.trace_listener.get_auth_token",
                 return_value="mock_token_12345",
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
                 return_value="mock_token_12345",
             ),
         ):
@@ -54,9 +54,9 @@ class TestTraceListenerSetup:
     @pytest.fixture(autouse=True)
     def reset_tracing_singletons(self):
         """Reset tracing singleton instances between tests"""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.event_listener import EventListener
-        from crewai.events.listeners.tracing.utils import _tracing_enabled
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.event_listener import EventListener
+        from fzxiezuoai.events.listeners.tracing.utils import _tracing_enabled
 
         try:
             _tracing_enabled.set(None)
@@ -170,7 +170,7 @@ class TestTraceListenerSetup:
             )
             crew = Crew(agents=[agent], tasks=[task], verbose=True)
 
-            from crewai.events.listeners.tracing.trace_listener import TraceCollectionListener
+            from fzxiezuoai.events.listeners.tracing.trace_listener import TraceCollectionListener
             trace_listener = TraceCollectionListener()
 
             crew.kickoff()
@@ -209,7 +209,7 @@ class TestTraceListenerSetup:
 
             crew = Crew(agents=[agent], tasks=[task], verbose=True)
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             trace_listener = None
             with crewai_event_bus._rwlock.r_locked():
@@ -273,7 +273,7 @@ class TestTraceListenerSetup:
             )
             crew = Crew(agents=[agent], tasks=[task], verbose=True)
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             trace_listener = TraceCollectionListener()
             trace_listener.setup_listeners(crewai_event_bus)
@@ -326,7 +326,7 @@ class TestTraceListenerSetup:
             result = crew.kickoff()
             assert result is not None
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             trace_handlers = []
             with crewai_event_bus._rwlock.r_locked():
@@ -414,7 +414,7 @@ class TestTraceListenerSetup:
                 },
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_listener.TraceCollectionListener._check_authenticated",
+                "fzxiezuoai.events.listeners.tracing.trace_listener.TraceCollectionListener._check_authenticated",
                 return_value=False,
             ),
         ):
@@ -431,7 +431,7 @@ class TestTraceListenerSetup:
             )
             crew = Crew(agents=[agent], tasks=[task], tracing=True)
 
-            from crewai.events.listeners.tracing.trace_listener import TraceCollectionListener
+            from fzxiezuoai.events.listeners.tracing.trace_listener import TraceCollectionListener
             trace_listener = TraceCollectionListener()
 
             crew.kickoff()
@@ -467,7 +467,7 @@ class TestTraceListenerSetup:
                 agent=agent,
             )
 
-            from crewai.events.listeners.tracing.trace_listener import TraceCollectionListener
+            from fzxiezuoai.events.listeners.tracing.trace_listener import TraceCollectionListener
             trace_listener = TraceCollectionListener()
 
             crew = Crew(agents=[agent], tasks=[task], tracing=True)
@@ -483,8 +483,8 @@ class TestTraceListenerSetup:
     # Helper method to ensure cleanup
     def teardown_method(self):
         """Cleanup after each test method"""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.event_listener import EventListener
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.event_listener import EventListener
 
         with crewai_event_bus._rwlock.w_locked():
             crewai_event_bus._sync_handlers = {}
@@ -498,8 +498,8 @@ class TestTraceListenerSetup:
     @classmethod
     def teardown_class(cls):
         """Final cleanup after all tests in this class"""
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.event_listener import EventListener
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.event_listener import EventListener
 
         with crewai_event_bus._rwlock.w_locked():
             crewai_event_bus._sync_handlers = {}
@@ -525,23 +525,23 @@ class TestTraceListenerSetup:
                 },
             ),
             patch(
-                "crewai.events.listeners.tracing.utils._is_test_environment",
+                "fzxiezuoai.events.listeners.tracing.utils._is_test_environment",
                 return_value=False,
             ),
             patch(
-                "crewai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.utils.is_first_execution",
+                "fzxiezuoai.events.listeners.tracing.utils.is_first_execution",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.first_time_trace_handler.prompt_user_for_trace_viewing",
+                "fzxiezuoai.events.listeners.tracing.first_time_trace_handler.prompt_user_for_trace_viewing",
                 return_value=False,
             ) as mock_prompt,
             patch(
-                "crewai.events.listeners.tracing.first_time_trace_handler.mark_first_execution_completed"
+                "fzxiezuoai.events.listeners.tracing.first_time_trace_handler.mark_first_execution_completed"
             ) as mock_mark_completed,
         ):
             agent = Agent(
@@ -557,7 +557,7 @@ class TestTraceListenerSetup:
             )
             crew = Crew(agents=[agent], tasks=[task], verbose=True)
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             trace_listener = TraceCollectionListener()
             trace_listener.setup_listeners(crewai_event_bus)
@@ -598,23 +598,23 @@ class TestTraceListenerSetup:
                 },
             ),
             patch(
-                "crewai.events.listeners.tracing.utils._is_test_environment",
+                "fzxiezuoai.events.listeners.tracing.utils._is_test_environment",
                 return_value=False,
             ),
             patch(
-                "crewai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.utils.is_first_execution",
+                "fzxiezuoai.events.listeners.tracing.utils.is_first_execution",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.first_time_trace_handler.prompt_user_for_trace_viewing",
+                "fzxiezuoai.events.listeners.tracing.first_time_trace_handler.prompt_user_for_trace_viewing",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.first_time_trace_handler.mark_first_execution_completed"
+                "fzxiezuoai.events.listeners.tracing.first_time_trace_handler.mark_first_execution_completed"
             ) as mock_mark_completed,
         ):
             agent = Agent(
@@ -630,7 +630,7 @@ class TestTraceListenerSetup:
             )
             crew = Crew(agents=[agent], tasks=[task], verbose=True)
 
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             trace_listener = TraceCollectionListener()
             trace_listener.setup_listeners(crewai_event_bus)
@@ -641,7 +641,7 @@ class TestTraceListenerSetup:
                 trace_listener.first_time_handler.set_batch_manager(trace_listener.batch_manager)
 
             trace_listener.batch_manager.ephemeral_trace_url = (
-                "https://crewai.com/trace/mock-id"
+                "https://fzxiezuoai.com/trace/mock-id"
             )
 
             assert trace_listener.first_time_handler.is_first_time is True
@@ -725,19 +725,19 @@ class TestTraceListenerSetup:
                 },
             ),
             patch(
-                "crewai.events.listeners.tracing.utils._is_test_environment",
+                "fzxiezuoai.events.listeners.tracing.utils._is_test_environment",
                 return_value=False,
             ),
             patch(
-                "crewai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.utils.is_first_execution",
+                "fzxiezuoai.events.listeners.tracing.utils.is_first_execution",
                 return_value=True,
             ),
         ):
-            from crewai.events.event_bus import crewai_event_bus
+            from fzxiezuoai.events.event_bus import crewai_event_bus
 
             with crewai_event_bus._rwlock.w_locked():
                 crewai_event_bus._sync_handlers = {}
@@ -780,16 +780,16 @@ class TestTraceListenerSetup:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.utils._is_test_environment",
+                "fzxiezuoai.events.listeners.tracing.utils._is_test_environment",
                 return_value=False,
             ),
             patch(
-                "crewai.events.listeners.tracing.utils._is_interactive_terminal",
+                "fzxiezuoai.events.listeners.tracing.utils._is_interactive_terminal",
                 return_value=True,
             ),
             patch("threading.Thread") as mock_thread,
         ):
-            from crewai.events.listeners.tracing.utils import (
+            from fzxiezuoai.events.listeners.tracing.utils import (
                 prompt_user_for_trace_viewing,
             )
 
@@ -813,15 +813,15 @@ class TestTraceListenerSetup:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.utils.should_auto_collect_first_time_traces",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.first_time_trace_handler.prompt_user_for_trace_viewing",
+                "fzxiezuoai.events.listeners.tracing.first_time_trace_handler.prompt_user_for_trace_viewing",
                 side_effect=Exception("Prompt failed"),
             ),
             patch(
-                "crewai.events.listeners.tracing.first_time_trace_handler.mark_first_execution_completed"
+                "fzxiezuoai.events.listeners.tracing.first_time_trace_handler.mark_first_execution_completed"
             ) as mock_mark_completed,
         ):
             handler = FirstTimeTraceHandler()
@@ -834,7 +834,7 @@ class TestTraceListenerSetup:
 
     def test_trace_batch_marked_as_failed_on_finalize_error(self):
         """Test that trace batch is marked as failed when finalization returns non-200 status"""
-        with patch("crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context", return_value=True):
+        with patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context", return_value=True):
             batch_manager = TraceBatchManager()
 
             batch_manager.current_batch = batch_manager.initialize_batch(
@@ -874,10 +874,10 @@ class TestTraceListenerSetup:
 
     def test_finalize_batch_clears_buffer_after_successful_send(self) -> None:
         """Successful send must not restore a stale event buffer (duplicate events)."""
-        from crewai.events.listeners.tracing.types import TraceEvent
+        from fzxiezuoai.events.listeners.tracing.types import TraceEvent
 
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
             return_value=True,
         ):
             batch_manager = TraceBatchManager()
@@ -937,11 +937,11 @@ class TestTraceListenerSetup:
                 ),
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
                 return_value=False,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.Console.print"
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.Console.print"
             ) as mock_print,
         ):
             assert batch_manager._finalize_backend_batch() is True
@@ -967,7 +967,7 @@ class TestTraceListenerSetup:
                 return_value=response,
             ) as mock_finalize,
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
                 return_value=True,
             ),
         ):
@@ -991,15 +991,15 @@ class TestTraceListenerSetup:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.get_user_id",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_user_id",
                 return_value=fake_user_id,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
                 return_value=False,
             ),
         ):
@@ -1036,11 +1036,11 @@ class TestTraceListenerSetup:
         """Test that non-ephemeral batch initialization does not send anon_id"""
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
                 return_value=False,
             ),
         ):
@@ -1076,7 +1076,7 @@ class TestTraceBatchIdClearedOnFailure:
     def _make_batch_manager(self):
         """Create a TraceBatchManager with a pre-set trace_batch_id (simulating first-time user)."""
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
             return_value="mock_token",
         ):
             bm = TraceBatchManager()
@@ -1095,7 +1095,7 @@ class TestTraceBatchIdClearedOnFailure:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1124,7 +1124,7 @@ class TestTraceBatchIdClearedOnFailure:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1162,7 +1162,7 @@ class TestInitializeBackendBatchRetry:
     def _make_batch_manager(self):
         """Create a TraceBatchManager with a pre-set trace_batch_id."""
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
             return_value="mock_token",
         ):
             bm = TraceBatchManager()
@@ -1186,7 +1186,7 @@ class TestInitializeBackendBatchRetry:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1194,7 +1194,7 @@ class TestInitializeBackendBatchRetry:
                 "initialize_ephemeral_trace_batch",
                 side_effect=[None, success_response],
             ) as mock_init,
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep") as mock_sleep,
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep") as mock_sleep,
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1219,7 +1219,7 @@ class TestInitializeBackendBatchRetry:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1227,7 +1227,7 @@ class TestInitializeBackendBatchRetry:
                 "initialize_ephemeral_trace_batch",
                 side_effect=[error_response, success_response],
             ) as mock_init,
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep"),
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep"),
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1244,7 +1244,7 @@ class TestInitializeBackendBatchRetry:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1252,7 +1252,7 @@ class TestInitializeBackendBatchRetry:
                 "initialize_ephemeral_trace_batch",
                 side_effect=ConnectionError("network down"),
             ) as mock_init,
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep") as mock_sleep,
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep") as mock_sleep,
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1272,7 +1272,7 @@ class TestInitializeBackendBatchRetry:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1280,7 +1280,7 @@ class TestInitializeBackendBatchRetry:
                 "initialize_ephemeral_trace_batch",
                 return_value=error_response,
             ) as mock_init,
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep") as mock_sleep,
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep") as mock_sleep,
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1298,7 +1298,7 @@ class TestInitializeBackendBatchRetry:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1306,7 +1306,7 @@ class TestInitializeBackendBatchRetry:
                 "initialize_ephemeral_trace_batch",
                 return_value=None,
             ) as mock_init,
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep"),
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep"),
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1324,7 +1324,7 @@ class TestFirstTimeHandlerBackendInitGuard:
     def _make_handler_with_manager(self):
         """Create a FirstTimeTraceHandler wired to a TraceBatchManager."""
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
             return_value="mock_token",
         ):
             bm = TraceBatchManager()
@@ -1361,7 +1361,7 @@ class TestFirstTimeHandlerBackendInitGuard:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1392,7 +1392,7 @@ class TestFirstTimeHandlerBackendInitGuard:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1421,7 +1421,7 @@ class TestFirstTimeHandlerBackendInitGuard:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1448,7 +1448,7 @@ class TestFirstTimeHandlerAlwaysEphemeral:
 
     def _make_handler_with_manager(self):
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
             return_value="mock_token",
         ):
             bm = TraceBatchManager()
@@ -1489,7 +1489,7 @@ class TestAuthFailbackToEphemeral:
     def _make_batch_manager(self):
         """Create a TraceBatchManager with a pre-set trace_batch_id."""
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
             return_value="mock_token",
         ):
             bm = TraceBatchManager()
@@ -1514,7 +1514,7 @@ class TestAuthFailbackToEphemeral:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1527,7 +1527,7 @@ class TestAuthFailbackToEphemeral:
                 "initialize_ephemeral_trace_batch",
                 return_value=ephemeral_success,
             ) as mock_ephemeral,
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep"),
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep"),
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1552,7 +1552,7 @@ class TestAuthFailbackToEphemeral:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1565,7 +1565,7 @@ class TestAuthFailbackToEphemeral:
                 "initialize_ephemeral_trace_batch",
                 return_value=ephemeral_success,
             ),
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep"),
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep"),
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1585,7 +1585,7 @@ class TestAuthFailbackToEphemeral:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1593,7 +1593,7 @@ class TestAuthFailbackToEphemeral:
                 "initialize_ephemeral_trace_batch",
                 return_value=auth_rejected,
             ) as mock_ephemeral,
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep"),
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep"),
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1614,7 +1614,7 @@ class TestAuthFailbackToEphemeral:
 
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch.object(
@@ -1627,7 +1627,7 @@ class TestAuthFailbackToEphemeral:
                 "initialize_ephemeral_trace_batch",
                 return_value=ephemeral_fail,
             ),
-            patch("crewai.events.listeners.tracing.trace_batch_manager.time.sleep"),
+            patch("fzxiezuoai.events.listeners.tracing.trace_batch_manager.time.sleep"),
         ):
             bm._initialize_backend_batch(
                 user_context={"privacy_level": "standard"},
@@ -1643,7 +1643,7 @@ class TestMarkBatchAsFailedRouting:
 
     def _make_batch_manager(self, ephemeral: bool = False):
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
             return_value="mock_token",
         ):
             bm = TraceBatchManager()
@@ -1686,15 +1686,15 @@ class TestBackendInitializedGatedOnSuccess:
         """backend_initialized is True when _initialize_backend_batch succeeds."""
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
                 return_value=False,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
                 return_value="mock_token",
             ),
         ):
@@ -1718,15 +1718,15 @@ class TestBackendInitializedGatedOnSuccess:
         """backend_initialized is False when _initialize_backend_batch fails."""
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
                 return_value=False,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.get_auth_token",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.get_auth_token",
                 return_value="mock_token",
             ),
         ):
@@ -1749,11 +1749,11 @@ class TestTraceBatchManagerDuplicateInitMerge:
     def test_duplicate_initialize_merges_execution_metadata(self):
         with (
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.should_auto_collect_first_time_traces",
                 return_value=True,
             ),
             patch(
-                "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+                "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
                 return_value=True,
             ),
         ):

@@ -4,7 +4,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
-from crewai_cli import utils
+from fzxiezuoai_cli import utils
 
 
 @pytest.fixture
@@ -103,5 +103,5 @@ def test_tree_copy_to_existing_directory(temp_tree):
 
 
 # Tests for extract_available_exports, get_crews, get_flows, fetch_crews,
-# is_valid_tool live in lib/crewai/tests/cli/test_utils.py — the canonical
-# implementations are in crewai.utilities.project_utils.
+# is_valid_tool live in lib/fzxiezuoai/tests/cli/test_utils.py — the canonical
+# implementations are in fzxiezuoai.utilities.project_utils.

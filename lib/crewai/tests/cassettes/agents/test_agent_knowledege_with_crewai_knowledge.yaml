@@ -24,7 +24,7 @@ interactions:
       authorization:
       - AUTHORIZATION-XXX
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches
   response:
     body:
       string: '{"id":"970225bb-85f4-46b1-ac1c-e57fe6aca7a7","ephemeral_trace_id":"66a98653-4a5f-4547-9e8a-1207bf6bda40","execution_type":"crew","crew_name":"crew","flow_name":null,"status":"running","duration_ms":null,"crewai_version":"1.6.1","total_events":0,"execution_context":{"crew_fingerprint":null,"crew_name":"crew","flow_name":null,"crewai_version":"1.6.1","privacy_level":"standard"},"created_at":"2025-12-05T00:34:05.572Z","updated_at":"2025-12-05T00:34:05.572Z","access_code":"TRACE-4d8b772d9f","user_identifier":null}'
@@ -278,7 +278,7 @@ interactions:
       favorclearite color.\nyou MUST return the actual complete content as the final
       answer, not a summary.\n\nBegin! This is VERY important to you, use the tools
       available and give your best Final Answer, your job depends on it!\n\nThought:"}],
-      "tools": null, "callbacks": ["<crewai.utilities.token_counter_callback.TokenCalcHandler
+      "tools": null, "callbacks": ["<fzxiezuoai.utilities.token_counter_callback.TokenCalcHandler
       object at 0x10fe2a540>"], "available_functions": null}}, {"event_id": "ee7b12cc-ae7f-45a6-8697-139d4752aa79",
       "timestamp": "2025-12-05T00:34:05.817192+00:00", "type": "llm_call_failed",
       "event_data": {"timestamp": "2025-12-05T00:34:05.817192+00:00", "type": "llm_call_failed",
@@ -320,7 +320,7 @@ interactions:
       authorization:
       - AUTHORIZATION-XXX
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches/66a98653-4a5f-4547-9e8a-1207bf6bda40/events
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches/66a98653-4a5f-4547-9e8a-1207bf6bda40/events
   response:
     body:
       string: '{"events_created":12,"ephemeral_trace_batch_id":"970225bb-85f4-46b1-ac1c-e57fe6aca7a7"}'
@@ -386,7 +386,7 @@ interactions:
       authorization:
       - AUTHORIZATION-XXX
     method: PATCH
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches/66a98653-4a5f-4547-9e8a-1207bf6bda40/finalize
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches/66a98653-4a5f-4547-9e8a-1207bf6bda40/finalize
   response:
     body:
       string: '{"id":"970225bb-85f4-46b1-ac1c-e57fe6aca7a7","ephemeral_trace_id":"66a98653-4a5f-4547-9e8a-1207bf6bda40","execution_type":"crew","crew_name":"crew","flow_name":null,"status":"completed","duration_ms":1192,"crewai_version":"1.6.1","total_events":12,"execution_context":{"crew_name":"crew","flow_name":null,"privacy_level":"standard","crewai_version":"1.6.1","crew_fingerprint":null},"created_at":"2025-12-05T00:34:05.572Z","updated_at":"2025-12-05T00:34:06.931Z","access_code":"TRACE-4d8b772d9f","user_identifier":null}'

@@ -1,7 +1,7 @@
 import os
 from unittest.mock import MagicMock, patch
 
-from crewai_tools.tools.generate_crewai_automation_tool.generate_crewai_automation_tool import (
+from fzxiezuoai_tools.tools.generate_crewai_automation_tool.generate_crewai_automation_tool import (
     GenerateCrewaiAutomationTool,
     GenerateCrewaiAutomationToolSchema,
 )
@@ -23,18 +23,18 @@ def tool():
 
 @pytest.fixture
 def custom_url_tool():
-    with patch.dict(os.environ, {"CREWAI_PLUS_URL": "https://custom.crewai.com"}):
+    with patch.dict(os.environ, {"CREWAI_PLUS_URL": "https://custom.fzxiezuoai.com"}):
         return GenerateCrewaiAutomationTool()
 
 
 def test_default_initialization(tool):
-    assert tool.crewai_enterprise_url == "https://app.crewai.com"
+    assert tool.crewai_enterprise_url == "https://app.fzxiezuoai.com"
     assert tool.personal_access_token == "test_token"
-    assert tool.name == "Generate CrewAI Automation"
+    assert tool.name == "Generate 12FZ协作AI Automation"
 
 
 def test_custom_base_url_from_environment(custom_url_tool):
-    assert custom_url_tool.crewai_enterprise_url == "https://custom.crewai.com"
+    assert custom_url_tool.crewai_enterprise_url == "https://custom.fzxiezuoai.com"
 
 
 def test_personal_access_token_from_environment(tool):
@@ -67,7 +67,7 @@ def test_empty_prompt_validation():
 def test_successful_generation_without_org_id(mock_post, tool):
     mock_response = MagicMock()
     mock_response.json.return_value = {
-        "url": "https://app.crewai.com/studio/project-123"
+        "url": "https://app.fzxiezuoai.com/studio/project-123"
     }
     mock_post.return_value = mock_response
 
@@ -75,10 +75,10 @@ def test_successful_generation_without_org_id(mock_post, tool):
 
     assert (
         result
-        == "Generated CrewAI Studio project URL: https://app.crewai.com/studio/project-123"
+        == "Generated 12FZ协作AI Studio project URL: https://app.fzxiezuoai.com/studio/project-123"
     )
     mock_post.assert_called_once_with(
-        "https://app.crewai.com/crewai_plus/api/v1/studio",
+        "https://app.fzxiezuoai.com/crewai_plus/api/v1/studio",
         headers={
             "Authorization": "Bearer test_token",
             "Content-Type": "application/json",
@@ -92,7 +92,7 @@ def test_successful_generation_without_org_id(mock_post, tool):
 def test_successful_generation_with_org_id(mock_post, tool):
     mock_response = MagicMock()
     mock_response.json.return_value = {
-        "url": "https://app.crewai.com/studio/project-456"
+        "url": "https://app.fzxiezuoai.com/studio/project-456"
     }
     mock_post.return_value = mock_response
 
@@ -100,10 +100,10 @@ def test_successful_generation_with_org_id(mock_post, tool):
 
     assert (
         result
-        == "Generated CrewAI Studio project URL: https://app.crewai.com/studio/project-456"
+        == "Generated 12FZ协作AI Studio project URL: https://app.fzxiezuoai.com/studio/project-456"
     )
     mock_post.assert_called_once_with(
-        "https://app.crewai.com/crewai_plus/api/v1/studio",
+        "https://app.fzxiezuoai.com/crewai_plus/api/v1/studio",
         headers={
             "Authorization": "Bearer test_token",
             "Content-Type": "application/json",
@@ -118,14 +118,14 @@ def test_successful_generation_with_org_id(mock_post, tool):
 def test_custom_base_url_usage(mock_post, custom_url_tool):
     mock_response = MagicMock()
     mock_response.json.return_value = {
-        "url": "https://custom.crewai.com/studio/project-789"
+        "url": "https://custom.fzxiezuoai.com/studio/project-789"
     }
     mock_post.return_value = mock_response
 
     custom_url_tool.run(prompt="Create automation")
 
     mock_post.assert_called_once_with(
-        "https://custom.crewai.com/crewai_plus/api/v1/studio",
+        "https://custom.fzxiezuoai.com/crewai_plus/api/v1/studio",
         headers={
             "Authorization": "Bearer test_token",
             "Content-Type": "application/json",
@@ -161,7 +161,7 @@ def test_api_response_missing_url(mock_post, tool):
 
     result = tool.run(prompt="Create automation")
 
-    assert result == "Generated CrewAI Studio project URL: None"
+    assert result == "Generated 12FZ协作AI Studio project URL: None"
 
 
 def test_authorization_header_construction(tool):

@@ -5,14 +5,14 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
-from crewai_cli.version import get_crewai_version as _get_ver
-from crewai_cli.version import (
+from fzxiezuoai_cli.version import get_crewai_version as _get_ver
+from fzxiezuoai_cli.version import (
     get_crewai_version,
     get_latest_version_from_pypi,
     is_current_version_yanked,
     is_newer_version_available,
 )
-from crewai_core.version import (
+from fzxiezuoai_core.version import (
     _find_latest_non_yanked_version,
     _get_cache_file,
     _is_cache_valid,
@@ -35,7 +35,7 @@ class TestVersionChecking:
     """Test version checking utilities."""
 
     def test_get_crewai_version(self) -> None:
-        """Test getting current crewai version."""
+        """Test getting current fzxiezuoai version."""
         version = get_crewai_version()
         assert isinstance(version, str)
         assert len(version) > 0
@@ -62,8 +62,8 @@ class TestVersionChecking:
         cache_data = {"version": "1.0.0"}
         assert _is_cache_valid(cache_data) is False
 
-    @patch("crewai_core.version.Path.exists")
-    @patch("crewai_core.version.request.urlopen")
+    @patch("fzxiezuoai_core.version.Path.exists")
+    @patch("fzxiezuoai_core.version.request.urlopen")
     def test_get_latest_version_from_pypi_success(
         self, mock_urlopen: MagicMock, mock_exists: MagicMock
     ) -> None:
@@ -84,8 +84,8 @@ class TestVersionChecking:
         version = get_latest_version_from_pypi()
         assert version == "2.0.0"
 
-    @patch("crewai_core.version.Path.exists")
-    @patch("crewai_core.version.request.urlopen")
+    @patch("fzxiezuoai_core.version.Path.exists")
+    @patch("fzxiezuoai_core.version.request.urlopen")
     def test_get_latest_version_from_pypi_failure(
         self, mock_urlopen: MagicMock, mock_exists: MagicMock
     ) -> None:
@@ -99,8 +99,8 @@ class TestVersionChecking:
         version = get_latest_version_from_pypi()
         assert version is None
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
     def test_is_newer_version_available_true(
         self, mock_latest: MagicMock, mock_current: MagicMock
     ) -> None:
@@ -113,8 +113,8 @@ class TestVersionChecking:
         assert current == "1.0.0"
         assert latest == "2.0.0"
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
     def test_is_newer_version_available_false(
         self, mock_latest: MagicMock, mock_current: MagicMock
     ) -> None:
@@ -127,8 +127,8 @@ class TestVersionChecking:
         assert current == "2.0.0"
         assert latest == "2.0.0"
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
     def test_is_newer_version_available_with_none_latest(
         self, mock_latest: MagicMock, mock_current: MagicMock
     ) -> None:
@@ -262,8 +262,8 @@ class TestIsVersionYanked:
 class TestIsCurrentVersionYanked:
     """Test is_current_version_yanked public function."""
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_reads_from_valid_cache(
         self, mock_cache_file: MagicMock, mock_version: MagicMock, tmp_path: Path
     ) -> None:
@@ -284,8 +284,8 @@ class TestIsCurrentVersionYanked:
         assert is_yanked is True
         assert reason == "bad release"
 
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_not_yanked_from_cache(
         self, mock_cache_file: MagicMock, mock_version: MagicMock, tmp_path: Path
     ) -> None:
@@ -306,9 +306,9 @@ class TestIsCurrentVersionYanked:
         assert is_yanked is False
         assert reason == ""
 
-    @patch("crewai_core.version.get_latest_version_from_pypi")
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_triggers_fetch_on_stale_cache(
         self,
         mock_cache_file: MagicMock,
@@ -348,9 +348,9 @@ class TestIsCurrentVersionYanked:
         assert is_yanked is False
         mock_fetch.assert_called_once()
 
-    @patch("crewai_core.version.get_latest_version_from_pypi")
-    @patch("crewai_core.version.get_crewai_version")
-    @patch("crewai_core.version._get_cache_file")
+    @patch("fzxiezuoai_core.version.get_latest_version_from_pypi")
+    @patch("fzxiezuoai_core.version.get_crewai_version")
+    @patch("fzxiezuoai_core.version._get_cache_file")
     def test_returns_false_on_fetch_failure(
         self,
         mock_cache_file: MagicMock,
@@ -370,5 +370,5 @@ class TestIsCurrentVersionYanked:
 
 
 
-# TestConsoleFormatterVersionCheck tests remain in lib/crewai/tests/cli/test_version.py
-# as they depend on crewai.events.utils.console_formatter (core package).
+# TestConsoleFormatterVersionCheck tests remain in lib/fzxiezuoai/tests/cli/test_version.py
+# as they depend on fzxiezuoai.events.utils.console_formatter (core package).

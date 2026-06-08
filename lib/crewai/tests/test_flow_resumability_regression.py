@@ -7,8 +7,8 @@ These tests ensure that:
 
 from typing import Dict
 
-from crewai.flow.flow import Flow, listen, router, start
-from crewai.flow.persistence.sqlite import SQLiteFlowPersistence
+from fzxiezuoai.flow.flow import Flow, listen, router, start
+from fzxiezuoai.flow.persistence.sqlite import SQLiteFlowPersistence
 
 
 def test_hitl_resumption_skips_completed_listeners(tmp_path):

@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from crewai.utilities.training_handler import CrewTrainingHandler
+from fzxiezuoai.utilities.training_handler import CrewTrainingHandler
 
 
 class InternalCrewTrainingHandler(unittest.TestCase):
@@ -56,7 +56,7 @@ class InternalCrewTrainingHandler(unittest.TestCase):
         handler = CrewTrainingHandler(self.temp_file.name + ".missing")
 
         with patch(
-            "crewai.utilities.file_handler.store_lock",
+            "fzxiezuoai.utilities.file_handler.store_lock",
             side_effect=AssertionError("load() acquired lock for missing file"),
         ):
             assert handler.load() == {}
@@ -66,7 +66,7 @@ class InternalCrewTrainingHandler(unittest.TestCase):
         assert os.path.getsize(self.temp_file.name) == 0
 
         with patch(
-            "crewai.utilities.file_handler.store_lock",
+            "fzxiezuoai.utilities.file_handler.store_lock",
             side_effect=AssertionError("load() short-circuited on size 0"),
         ):
             with self.assertRaises(AssertionError):

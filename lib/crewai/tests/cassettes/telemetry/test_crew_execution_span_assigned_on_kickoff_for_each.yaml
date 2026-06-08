@@ -245,7 +245,7 @@ interactions:
       accept-encoding:
       - ACCEPT-ENCODING-XXX
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -648,7 +648,7 @@ interactions:
       accept-encoding:
       - ACCEPT-ENCODING-XXX
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"
@@ -1678,7 +1678,7 @@ interactions:
       accept-encoding:
       - ACCEPT-ENCODING-XXX
     method: POST
-    uri: https://telemetry.crewai.com:4319/v1/traces
+    uri: https://telemetry.fzxiezuoai.com:4319/v1/traces
   response:
     body:
       string: "\n\0"

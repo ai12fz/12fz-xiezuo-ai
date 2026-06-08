@@ -2,9 +2,9 @@
 
 import pytest
 
-from crewai import Agent, Task, Crew
-from crewai.llm import LLM
-from crewai.llms.providers.gemini.completion import GeminiCompletion
+from fzxiezuoai import Agent, Task, Crew
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.providers.gemini.completion import GeminiCompletion
 
 
 @pytest.mark.vcr()

@@ -2,12 +2,12 @@ from typing import Any, Dict, List
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai.experimental.evaluation.base_evaluator import EvaluationScore
-from crewai.experimental.evaluation.metrics.reasoning_metrics import (
+from fzxiezuoai.experimental.evaluation.base_evaluator import EvaluationScore
+from fzxiezuoai.experimental.evaluation.metrics.reasoning_metrics import (
     ReasoningEfficiencyEvaluator,
 )
-from crewai.tasks.task_output import TaskOutput
-from crewai.utilities.llm_utils import LLM
+from fzxiezuoai.tasks.task_output import TaskOutput
+from fzxiezuoai.utilities.llm_utils import LLM
 
 from tests.experimental.evaluation.metrics.test_base_evaluation_metrics import (
     BaseEvaluationMetricsTest,
@@ -56,7 +56,7 @@ class TestReasoningEfficiencyEvaluator(BaseEvaluationMetricsTest):
         assert result.score is None
         assert "Insufficient LLM calls" in result.feedback
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_successful_evaluation(
         self, mock_create_llm, mock_agent, mock_task, mock_output, llm_calls
     ):
@@ -99,7 +99,7 @@ class TestReasoningEfficiencyEvaluator(BaseEvaluationMetricsTest):
 
         mock_llm.call.assert_called_once()
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_parse_error_handling(
         self, mock_create_llm, mock_agent, mock_task, mock_output, llm_calls
     ):
@@ -125,7 +125,7 @@ class TestReasoningEfficiencyEvaluator(BaseEvaluationMetricsTest):
         assert result.score is None
         assert "Failed to parse reasoning efficiency evaluation" in result.feedback
 
-    @patch("crewai.utilities.llm_utils.create_llm")
+    @patch("fzxiezuoai.utilities.llm_utils.create_llm")
     def test_loop_detection(self, mock_create_llm, mock_agent, mock_task, mock_output):
         repetitive_llm_calls = [
             {

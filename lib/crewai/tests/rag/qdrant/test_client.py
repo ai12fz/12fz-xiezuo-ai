@@ -3,9 +3,9 @@
 from unittest.mock import AsyncMock, Mock
 
 import pytest
-from crewai.rag.core.exceptions import ClientMethodMismatchError
-from crewai.rag.qdrant.client import QdrantClient
-from crewai.rag.types import BaseRecord
+from fzxiezuoai.rag.core.exceptions import ClientMethodMismatchError
+from fzxiezuoai.rag.qdrant.client import QdrantClient
+from fzxiezuoai.rag.types import BaseRecord
 from qdrant_client import AsyncQdrantClient
 from qdrant_client import QdrantClient as SyncQdrantClient
 

@@ -1,16 +1,16 @@
 """Tests for FileProcessor class."""
 
-from crewai_files import FileBytes, ImageFile
-from crewai_files.processing.constraints import (
+from fzxiezuoai_files import FileBytes, ImageFile
+from fzxiezuoai_files.processing.constraints import (
     ANTHROPIC_CONSTRAINTS,
     ImageConstraints,
     ProviderConstraints,
 )
-from crewai_files.processing.enums import FileHandling
-from crewai_files.processing.exceptions import (
+from fzxiezuoai_files.processing.enums import FileHandling
+from fzxiezuoai_files.processing.exceptions import (
     FileTooLargeError,
 )
-from crewai_files.processing.processor import FileProcessor
+from fzxiezuoai_files.processing.processor import FileProcessor
 import pytest
 
 

@@ -1,5 +1,5 @@
 import pytest
-from crewai_cli.git import Repository
+from fzxiezuoai_cli.git import Repository
 
 
 @pytest.fixture()

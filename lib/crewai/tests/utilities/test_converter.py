@@ -3,8 +3,8 @@ import json
 import os
 from unittest.mock import MagicMock, Mock, patch
 
-from crewai.llm import LLM
-from crewai.utilities.converter import (
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.utilities.converter import (
     Converter,
     ConverterError,
     convert_to_model,
@@ -72,7 +72,7 @@ def test_convert_to_model_with_valid_json() -> None:
 
 def test_convert_to_model_with_invalid_json() -> None:
     result = '{"name": "John", "age": "thirty"}'
-    with patch("crewai.utilities.converter.handle_partial_json") as mock_handle:
+    with patch("fzxiezuoai.utilities.converter.handle_partial_json") as mock_handle:
         mock_handle.return_value = "Fallback result"
         output = convert_to_model(result, SimpleModel, None, None)
         assert output == "Fallback result"
@@ -191,7 +191,7 @@ def test_handle_partial_json_with_valid_partial() -> None:
 
 def test_handle_partial_json_with_invalid_partial(mock_agent: Mock) -> None:
     result = "No valid JSON here"
-    with patch("crewai.utilities.converter.convert_with_instructions") as mock_convert:
+    with patch("fzxiezuoai.utilities.converter.convert_with_instructions") as mock_convert:
         mock_convert.return_value = "Converted result"
         output = handle_partial_json(result, SimpleModel, False, mock_agent)
         assert output == "Converted result"
@@ -218,15 +218,15 @@ def test_handle_partial_json_falls_through_for_non_json_curly_blocks(
         "type Query {\n  countries: [Country]\n}\n\n"
         "type Country {\n  code: String\n  name: String\n}"
     )
-    with patch("crewai.utilities.converter.convert_with_instructions") as mock_convert:
+    with patch("fzxiezuoai.utilities.converter.convert_with_instructions") as mock_convert:
         mock_convert.return_value = "Converted result"
         output = handle_partial_json(result, SimpleModel, False, mock_agent)
         assert output == "Converted result"
         mock_convert.assert_called_once()
 
 
-@patch("crewai.utilities.converter.create_converter")
-@patch("crewai.utilities.converter.get_conversion_instructions")
+@patch("fzxiezuoai.utilities.converter.create_converter")
+@patch("fzxiezuoai.utilities.converter.get_conversion_instructions")
 def test_convert_with_instructions_success(
     mock_get_instructions: Mock, mock_create_converter: Mock, mock_agent: Mock
 ) -> None:
@@ -243,8 +243,8 @@ def test_convert_with_instructions_success(
     assert output.age == 50
 
 
-@patch("crewai.utilities.converter.create_converter")
-@patch("crewai.utilities.converter.get_conversion_instructions")
+@patch("fzxiezuoai.utilities.converter.create_converter")
+@patch("fzxiezuoai.utilities.converter.get_conversion_instructions")
 def test_convert_with_instructions_failure(
     mock_get_instructions: Mock, mock_create_converter: Mock, mock_agent: Mock
 ) -> None:
@@ -254,7 +254,7 @@ def test_convert_with_instructions_failure(
     mock_create_converter.return_value = mock_converter
 
     result = "Some text to convert"
-    with patch("crewai.utilities.converter.PRINTER") as mock_printer:
+    with patch("fzxiezuoai.utilities.converter.PRINTER") as mock_printer:
         output = convert_with_instructions(result, SimpleModel, False, mock_agent)
         assert output == result
         mock_printer.print.assert_called_once()
@@ -649,7 +649,7 @@ def test_generate_model_description_union_field() -> None:
 
 def test_internal_instructor_with_openai_provider() -> None:
     """Test InternalInstructor with OpenAI provider using registry pattern."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     # Mock LLM with OpenAI provider
     mock_llm = Mock()
@@ -679,7 +679,7 @@ def test_internal_instructor_with_openai_provider() -> None:
 
 def test_internal_instructor_with_anthropic_provider() -> None:
     """Test InternalInstructor with Anthropic provider using registry pattern."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     # Mock LLM with Anthropic provider
     mock_llm = Mock()
@@ -709,7 +709,7 @@ def test_internal_instructor_with_anthropic_provider() -> None:
 
 def test_factory_pattern_registry_extensibility() -> None:
     """Test that the factory pattern registry works with different providers."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     # Test with OpenAI provider
     mock_llm_openai = Mock()
@@ -832,7 +832,7 @@ def test_factory_pattern_registry_extensibility() -> None:
 
 def test_internal_instructor_with_bedrock_provider() -> None:
     """Test InternalInstructor with AWS Bedrock provider using registry pattern."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     # Mock LLM with Bedrock provider
     mock_llm = Mock()
@@ -862,7 +862,7 @@ def test_internal_instructor_with_bedrock_provider() -> None:
 
 def test_internal_instructor_with_gemini_provider() -> None:
     """Test InternalInstructor with Google Gemini provider using registry pattern."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     # Mock LLM with Gemini provider
     mock_llm = Mock()
@@ -892,7 +892,7 @@ def test_internal_instructor_with_gemini_provider() -> None:
 
 def test_internal_instructor_with_azure_provider() -> None:
     """Test InternalInstructor with Azure OpenAI provider using registry pattern."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     mock_llm = Mock()
     mock_llm.is_litellm = False
@@ -921,7 +921,7 @@ def test_internal_instructor_with_azure_provider() -> None:
 
 def test_internal_instructor_unsupported_provider() -> None:
     """Test InternalInstructor with unsupported provider raises appropriate error."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     mock_llm = Mock()
     mock_llm.is_litellm = False
@@ -944,7 +944,7 @@ def test_internal_instructor_unsupported_provider() -> None:
 
 def test_internal_instructor_real_unsupported_provider() -> None:
     """Test InternalInstructor with real unsupported provider using actual instructor library."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     mock_llm = Mock()
     mock_llm.is_litellm = False
@@ -966,7 +966,7 @@ def test_internal_instructor_real_unsupported_provider() -> None:
 
 def test_internal_instructor_forwards_base_url_and_api_key() -> None:
     """base_url and api_key on the LLM must flow into instructor.from_provider."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     mock_llm = Mock()
     mock_llm.is_litellm = False
@@ -989,7 +989,7 @@ def test_internal_instructor_forwards_base_url_and_api_key() -> None:
 
 def test_internal_instructor_omits_unset_base_url_and_api_key() -> None:
     """When base_url/api_key are None, they must not be passed to from_provider."""
-    from crewai.utilities.internal_instructor import InternalInstructor
+    from fzxiezuoai.utilities.internal_instructor import InternalInstructor
 
     mock_llm = Mock()
     mock_llm.is_litellm = False

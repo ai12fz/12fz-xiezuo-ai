@@ -3,8 +3,8 @@ from typing import Any
 
 from pydantic import BaseModel
 
-from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai.tools.base_tool import BaseTool
+from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
+from fzxiezuoai.tools.base_tool import BaseTool
 
 
 class MockAgent(BaseAgent):

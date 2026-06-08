@@ -6,9 +6,9 @@ JSON-serialized, so the checkpoint path must drop them rather than raise.
 
 import pytest
 
-from crewai import Agent, Task
-from crewai.lite_agent import LiteAgent
-from crewai.utilities.guardrail import (
+from fzxiezuoai import Agent, Task
+from fzxiezuoai.lite_agent import LiteAgent
+from fzxiezuoai.utilities.guardrail import (
     serialize_guardrail_for_json,
     serialize_guardrails_for_json,
 )

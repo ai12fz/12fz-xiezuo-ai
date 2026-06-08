@@ -5,8 +5,8 @@ from typing import Any, Callable, Dict
 from unittest.mock import patch
 
 import pytest
-from crewai import Agent, Crew, Task
-from crewai.utilities.crew.crew_context import get_crew_context
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.utilities.crew.crew_context import get_crew_context
 
 
 @pytest.fixture
@@ -44,7 +44,7 @@ def crew_factory(simple_agent_factory, simple_task_factory):
 
 
 class TestCrewThreadSafety:
-    @patch("crewai.Agent.execute_task")
+    @patch("fzxiezuoai.Agent.execute_task")
     def test_parallel_crews_thread_safety(self, mock_execute_task, crew_factory):
         mock_execute_task.return_value = "Task completed"
         num_crews = 5
@@ -128,7 +128,7 @@ class TestCrewThreadSafety:
             )
 
     @pytest.mark.asyncio
-    @patch("crewai.Agent.execute_task")
+    @patch("fzxiezuoai.Agent.execute_task")
     async def test_async_crews_thread_safety(self, mock_execute_task, crew_factory):
         mock_execute_task.return_value = "Task completed"
         num_crews = 5
@@ -168,7 +168,7 @@ class TestCrewThreadSafety:
                 f"Context mismatch for {result['crew_id']}"
             )
 
-    @patch("crewai.Agent.execute_task")
+    @patch("fzxiezuoai.Agent.execute_task")
     def test_concurrent_kickoff_for_each(self, mock_execute_task, crew_factory):
         mock_execute_task.return_value = "Task completed"
         contexts_captured = []
@@ -196,7 +196,7 @@ class TestCrewThreadSafety:
             "Each execution should have unique context"
         )
 
-    @patch("crewai.Agent.execute_task")
+    @patch("fzxiezuoai.Agent.execute_task")
     def test_no_context_leakage_between_crews(self, mock_execute_task, crew_factory):
         mock_execute_task.return_value = "Task completed"
         contexts = []

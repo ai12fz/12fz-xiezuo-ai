@@ -7,8 +7,8 @@ import json
 
 import httpx
 
-from crewai_cli.enterprise.main import EnterpriseConfigureCommand
-from crewai_cli.settings.main import SettingsCommand
+from fzxiezuoai_cli.enterprise.main import EnterpriseConfigureCommand
+from fzxiezuoai_cli.settings.main import SettingsCommand
 import shutil
 
 
@@ -17,7 +17,7 @@ class TestEnterpriseConfigureCommand(unittest.TestCase):
         self.test_dir = Path(tempfile.mkdtemp())
         self.config_path = self.test_dir / "settings.json"
 
-        with patch('crewai_cli.enterprise.main.SettingsCommand') as mock_settings_command_class:
+        with patch('fzxiezuoai_cli.enterprise.main.SettingsCommand') as mock_settings_command_class:
             self.mock_settings_command = Mock(spec=SettingsCommand)
             mock_settings_command_class.return_value = self.mock_settings_command
 
@@ -26,8 +26,8 @@ class TestEnterpriseConfigureCommand(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree(self.test_dir)
 
-    @patch('crewai_cli.enterprise.main.httpx.get')
-    @patch('crewai_cli.enterprise.main.get_crewai_version')
+    @patch('fzxiezuoai_cli.enterprise.main.httpx.get')
+    @patch('fzxiezuoai_cli.enterprise.main.get_crewai_version')
     def test_successful_configuration(self, mock_get_version, mock_requests_get):
         mock_get_version.return_value = "1.0.0"
 
@@ -48,7 +48,7 @@ class TestEnterpriseConfigureCommand(unittest.TestCase):
 
         expected_headers = {
             "Content-Type": "application/json",
-            "User-Agent": "CrewAI-CLI/1.0.0",
+            "User-Agent": "12FZ协作AI-CLI/1.0.0",
             "X-Crewai-Version": "1.0.0",
         }
         mock_requests_get.assert_called_once_with(
@@ -74,8 +74,8 @@ class TestEnterpriseConfigureCommand(unittest.TestCase):
             self.assertEqual(call_args[0], key)
             self.assertEqual(call_args[1], value)
 
-    @patch('crewai_cli.enterprise.main.httpx.get')
-    @patch('crewai_cli.enterprise.main.get_crewai_version')
+    @patch('fzxiezuoai_cli.enterprise.main.httpx.get')
+    @patch('fzxiezuoai_cli.enterprise.main.get_crewai_version')
     def test_http_error_handling(self, mock_get_version, mock_requests_get):
         mock_get_version.return_value = "1.0.0"
 
@@ -90,8 +90,8 @@ class TestEnterpriseConfigureCommand(unittest.TestCase):
         with self.assertRaises(SystemExit):
             self.enterprise_command.configure("https://enterprise.example.com")
 
-    @patch('crewai_cli.enterprise.main.httpx.get')
-    @patch('crewai_cli.enterprise.main.get_crewai_version')
+    @patch('fzxiezuoai_cli.enterprise.main.httpx.get')
+    @patch('fzxiezuoai_cli.enterprise.main.get_crewai_version')
     def test_invalid_json_response(self, mock_get_version, mock_requests_get):
         mock_get_version.return_value = "1.0.0"
 
@@ -104,8 +104,8 @@ class TestEnterpriseConfigureCommand(unittest.TestCase):
         with self.assertRaises(SystemExit):
             self.enterprise_command.configure("https://enterprise.example.com")
 
-    @patch('crewai_cli.enterprise.main.httpx.get')
-    @patch('crewai_cli.enterprise.main.get_crewai_version')
+    @patch('fzxiezuoai_cli.enterprise.main.httpx.get')
+    @patch('fzxiezuoai_cli.enterprise.main.get_crewai_version')
     def test_missing_required_fields(self, mock_get_version, mock_requests_get):
         mock_get_version.return_value = "1.0.0"
 
@@ -120,8 +120,8 @@ class TestEnterpriseConfigureCommand(unittest.TestCase):
         with self.assertRaises(SystemExit):
             self.enterprise_command.configure("https://enterprise.example.com")
 
-    @patch('crewai_cli.enterprise.main.httpx.get')
-    @patch('crewai_cli.enterprise.main.get_crewai_version')
+    @patch('fzxiezuoai_cli.enterprise.main.httpx.get')
+    @patch('fzxiezuoai_cli.enterprise.main.get_crewai_version')
     def test_settings_update_error(self, mock_get_version, mock_requests_get):
         mock_get_version.return_value = "1.0.0"
 

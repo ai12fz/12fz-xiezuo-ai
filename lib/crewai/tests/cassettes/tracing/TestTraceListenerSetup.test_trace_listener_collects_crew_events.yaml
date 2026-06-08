@@ -7,7 +7,7 @@ interactions:
       content-type:
       - application/json
     method: POST
-    uri: https://fake.crewai.com/crewai_plus/api/v1/tracing/batches
+    uri: https://fake.fzxiezuoai.com/crewai_plus/api/v1/tracing/batches
   response:
     body:
       string: '{"trace_id":"test-trace-id-12345","ephemeral_trace_id":"test-ephemeral-id-12345","status":"initialized"}'
@@ -35,13 +35,13 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/0.152.0
+      - 12FZ协作AI-CLI/0.152.0
       X-Crewai-Organization-Id:
       - d3a3d10c-35db-423f-a7a4-c026030ba64d
       X-Crewai-Version:
       - 0.152.0
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/batches
   response:
     body:
       string: "<!DOCTYPE html>\n<html>\n<head>\n  <title>The page you were looking\
@@ -213,7 +213,7 @@ interactions:
       can give a great answer\n..."}, {"role": "user", "content": "\nCurrent Task:
       Say hello to the world\n\nThis is the expected criteria for your final answer:
       hello world\nyou MUST return the actual complete content as the final answer,
-      not a summary.\n\nBegin! This is ..."}], "tools": null, "callbacks": ["<crewai.utilities.token_counter_callback.TokenCalcHandler
+      not a summary.\n\nBegin! This is ..."}], "tools": null, "callbacks": ["<fzxiezuoai.utilities.token_counter_callback.TokenCalcHandler
       object at 0x11c5860f0>"], "available_functions": null}}, {"event_id": "967e03f5-fc65-477f-a1ba-4614acbd0527",
       "timestamp": "2025-08-06T19:30:52.588932+00:00", "type": "llm_call_started",
       "event_data": {"timestamp": "2025-08-06T19:30:52.473897+00:00", "type": "llm_call_started",
@@ -226,7 +226,7 @@ interactions:
       can give a great answer\n..."}, {"role": "user", "content": "\nCurrent Task:
       Say hello to the world\n\nThis is the expected criteria for your final answer:
       hello world\nyou MUST return the actual complete content as the final answer,
-      not a summary.\n\nBegin! This is ..."}], "tools": null, "callbacks": ["<crewai.utilities.token_counter_callback.TokenCalcHandler
+      not a summary.\n\nBegin! This is ..."}], "tools": null, "callbacks": ["<fzxiezuoai.utilities.token_counter_callback.TokenCalcHandler
       object at 0x11c5860f0>"], "available_functions": null}}, {"event_id": "f67f33c0-f9ac-450e-987e-bb48880b9b69",
       "timestamp": "2025-08-06T19:30:52.597813+00:00", "type": "llm_call_completed",
       "event_data": {"timestamp": "2025-08-06T19:30:52.597748+00:00", "type": "llm_call_completed",
@@ -287,13 +287,13 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/0.152.0
+      - 12FZ协作AI-CLI/0.152.0
       X-Crewai-Organization-Id:
       - d3a3d10c-35db-423f-a7a4-c026030ba64d
       X-Crewai-Version:
       - 0.152.0
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing
   response:
     body:
       string: "<!DOCTYPE html>\n<html>\n<head>\n  <title>The page you were looking\

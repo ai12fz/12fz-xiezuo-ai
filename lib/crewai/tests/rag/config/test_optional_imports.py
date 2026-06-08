@@ -1,8 +1,8 @@
 """Tests for optional imports."""
 
 import pytest
-from crewai.rag.config.optional_imports.base import _MissingProvider
-from crewai.rag.config.optional_imports.providers import MissingChromaDBConfig
+from fzxiezuoai.rag.config.optional_imports.base import _MissingProvider
+from fzxiezuoai.rag.config.optional_imports.providers import MissingChromaDBConfig
 
 
 def test_missing_provider_raises_runtime_error():

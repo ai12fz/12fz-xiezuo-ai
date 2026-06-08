@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "aspen",
-  "name": "CrewAI",
+  "name": "12FZ协作AI",
   "colors": {
     "primary": "#EB6658",
     "light": "#F3A78B",
@@ -22,7 +22,7 @@
         "title": "Request a feature",
         "description": "Join the discussion on GitHub to request a new feature",
         "icon": "plus",
-        "href": "https://github.com/crewAIInc/crewAI/issues/new/choose"
+        "href": "https://github.com/crewAIInc/12FZ协作AI/issues/new/choose"
       }
     ]
   },
@@ -34,22 +34,22 @@
           "anchors": [
             {
               "anchor": "Website",
-              "href": "https://crewai.com",
+              "href": "https://fzxiezuoai.com",
               "icon": "globe"
             },
             {
               "anchor": "Forum",
-              "href": "https://community.crewai.com",
+              "href": "https://community.fzxiezuoai.com",
               "icon": "discourse"
             },
             {
               "anchor": "Blog",
-              "href": "https://blog.crewai.com",
+              "href": "https://blog.fzxiezuoai.com",
               "icon": "newspaper"
             },
             {
               "anchor": "CrewGPT",
-              "href": "https://chatgpt.com/g/g-qqTuUWsBY-crewai-assistant",
+              "href": "https://chatgpt.com/g/g-qqTuUWsBY-fzxiezuoai-assistant",
               "icon": "robot"
             }
           ]
@@ -147,7 +147,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -667,7 +667,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -1188,7 +1188,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -2649,7 +2649,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -3146,7 +3146,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -3643,7 +3643,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -4140,7 +4140,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -4637,7 +4637,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -5123,7 +5123,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -5609,7 +5609,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -6096,7 +6096,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -6584,7 +6584,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -7070,7 +7070,7 @@
                         "icon": "shuffle",
                         "pages": [
                           "en/guides/migration/migrating-from-langgraph",
-                          "en/guides/migration/upgrading-crewai"
+                          "en/guides/migration/upgrading-fzxiezuoai"
                         ]
                       }
                     ]
@@ -7476,22 +7476,22 @@
           "anchors": [
             {
               "anchor": "Website",
-              "href": "https://crewai.com",
+              "href": "https://fzxiezuoai.com",
               "icon": "globe"
             },
             {
               "anchor": "Fórum",
-              "href": "https://community.crewai.com",
+              "href": "https://community.fzxiezuoai.com",
               "icon": "discourse"
             },
             {
               "anchor": "Blog",
-              "href": "https://blog.crewai.com",
+              "href": "https://blog.fzxiezuoai.com",
               "icon": "newspaper"
             },
             {
               "anchor": "CrewGPT",
-              "href": "https://chatgpt.com/g/g-qqTuUWsBY-crewai-assistant",
+              "href": "https://chatgpt.com/g/g-qqTuUWsBY-fzxiezuoai-assistant",
               "icon": "robot"
             }
           ]
@@ -14573,22 +14573,22 @@
           "anchors": [
             {
               "anchor": "웹사이트",
-              "href": "https://crewai.com",
+              "href": "https://fzxiezuoai.com",
               "icon": "globe"
             },
             {
               "anchor": "포럼",
-              "href": "https://community.crewai.com",
+              "href": "https://community.fzxiezuoai.com",
               "icon": "discourse"
             },
             {
               "anchor": "블로그",
-              "href": "https://blog.crewai.com",
+              "href": "https://blog.fzxiezuoai.com",
               "icon": "newspaper"
             },
             {
               "anchor": "CrewGPT",
-              "href": "https://chatgpt.com/g/g-qqTuUWsBY-crewai-assistant",
+              "href": "https://chatgpt.com/g/g-qqTuUWsBY-fzxiezuoai-assistant",
               "icon": "robot"
             }
           ]
@@ -21861,22 +21861,22 @@
           "anchors": [
             {
               "anchor": "الموقع",
-              "href": "https://crewai.com",
+              "href": "https://fzxiezuoai.com",
               "icon": "globe"
             },
             {
               "anchor": "المنتدى",
-              "href": "https://community.crewai.com",
+              "href": "https://community.fzxiezuoai.com",
               "icon": "discourse"
             },
             {
               "anchor": "المدوّنة",
-              "href": "https://blog.crewai.com",
+              "href": "https://blog.fzxiezuoai.com",
               "icon": "newspaper"
             },
             {
               "anchor": "CrewGPT",
-              "href": "https://chatgpt.com/g/g-qqTuUWsBY-crewai-assistant",
+              "href": "https://chatgpt.com/g/g-qqTuUWsBY-fzxiezuoai-assistant",
               "icon": "robot"
             }
           ]
@@ -29164,17 +29164,17 @@
     "links": [
       {
         "label": "Start Cloud Trial",
-        "href": "https://app.crewai.com",
+        "href": "https://app.fzxiezuoai.com",
         "icon": "arrow-up-right-from-square"
       }
     ],
     "primary": {
       "type": "github",
-      "href": "https://github.com/crewAIInc/crewAI"
+      "href": "https://github.com/crewAIInc/12FZ协作AI"
     }
   },
   "api": {
-    "baseUrl": "https://your-actual-crew-name.crewai.com",
+    "baseUrl": "https://your-actual-crew-name.fzxiezuoai.com",
     "auth": {
       "method": "bearer",
       "name": "Authorization"
@@ -29186,11 +29186,11 @@
   "seo": {
     "metatags": {
       "og:type": "website",
-      "og:site_name": "CrewAI Documentation",
-      "og:image": "https://docs.crewai.com/images/crew_only_logo.png",
+      "og:site_name": "12FZ协作AI Documentation",
+      "og:image": "https://docs.fzxiezuoai.com/images/crew_only_logo.png",
       "twitter:card": "summary_large_image",
       "twitter:site": "@crewAIInc",
-      "keywords": "AI agents, multi-agent systems, CrewAI, artificial intelligence, automation, Python framework, agent collaboration, AI workflows"
+      "keywords": "AI agents, multi-agent systems, 12FZ协作AI, artificial intelligence, automation, Python framework, agent collaboration, AI workflows"
     }
   },
   "feedback": {
@@ -29295,10 +29295,10 @@
   },
   "footer": {
     "socials": {
-      "website": "https://crewai.com",
+      "website": "https://fzxiezuoai.com",
       "x": "https://x.com/crewAIInc",
-      "github": "https://github.com/crewAIInc/crewAI",
-      "linkedin": "https://www.linkedin.com/company/crewai-inc",
+      "github": "https://github.com/crewAIInc/12FZ协作AI",
+      "linkedin": "https://www.linkedin.com/company/fzxiezuoai-inc",
       "youtube": "https://youtube.com/@crewAIInc",
       "reddit": "https://www.reddit.com/r/crewAIInc/"
     }

@@ -1,15 +1,15 @@
 import threading
 
 import pytest
-from crewai.agent import Agent
-from crewai.crew import Crew
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.agent_events import (
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.agent_events import (
     AgentEvaluationCompletedEvent,
     AgentEvaluationFailedEvent,
     AgentEvaluationStartedEvent,
 )
-from crewai.experimental.evaluation import (
+from fzxiezuoai.experimental.evaluation import (
     EvaluationScore,
     GoalAlignmentEvaluator,
     MetricCategory,
@@ -20,12 +20,12 @@ from crewai.experimental.evaluation import (
     ToolSelectionEvaluator,
     create_default_evaluator,
 )
-from crewai.experimental.evaluation.agent_evaluator import AgentEvaluator
-from crewai.experimental.evaluation.base_evaluator import (
+from fzxiezuoai.experimental.evaluation.agent_evaluator import AgentEvaluator
+from fzxiezuoai.experimental.evaluation.base_evaluator import (
     AgentEvaluationResult,
     BaseEvaluator,
 )
-from crewai.task import Task
+from fzxiezuoai.task import Task
 
 
 class TestAgentEvaluator:

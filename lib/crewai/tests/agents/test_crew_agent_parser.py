@@ -1,10 +1,10 @@
 import pytest
-from crewai.agents import parser
-from crewai.agents.parser import (
+from fzxiezuoai.agents import parser
+from fzxiezuoai.agents.parser import (
     AgentAction,
     AgentFinish,
 )
-from crewai.agents.parser import (
+from fzxiezuoai.agents.parser import (
     OutputParserError as OutputParserException,
 )
 

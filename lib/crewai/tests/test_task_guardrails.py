@@ -2,16 +2,16 @@ from unittest.mock import Mock, patch
 
 import pytest
 
-from crewai import Agent, Task
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.event_types import (
+from fzxiezuoai import Agent, Task
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.event_types import (
     LLMGuardrailCompletedEvent,
     LLMGuardrailStartedEvent,
 )
-from crewai.llm import LLM
-from crewai.tasks.hallucination_guardrail import HallucinationGuardrail
-from crewai.tasks.llm_guardrail import LLMGuardrail
-from crewai.tasks.task_output import TaskOutput
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.tasks.hallucination_guardrail import HallucinationGuardrail
+from fzxiezuoai.tasks.llm_guardrail import LLMGuardrail
+from fzxiezuoai.tasks.task_output import TaskOutput
 
 
 def create_smart_task(**kwargs):
@@ -305,7 +305,7 @@ def test_guardrail_emits_events(sample_agent):
 def test_guardrail_when_an_error_occurs(sample_agent, task_output):
     with (
         patch(
-            "crewai.Agent.kickoff",
+            "fzxiezuoai.Agent.kickoff",
             side_effect=Exception("Unexpected error"),
         ),
         pytest.raises(
@@ -580,7 +580,7 @@ def test_multiple_guardrails_with_llm_guardrails():
         """Callable guardrail."""
         return (True, f"Callable: {result.raw}")
 
-    from crewai import Agent
+    from fzxiezuoai import Agent
 
     agent = Agent(
         role="mixed_guardrail_agent", goal="Test goal", backstory="Test backstory"

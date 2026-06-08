@@ -2,9 +2,9 @@ import os
 import tempfile
 from unittest.mock import Mock, patch
 
-from crewai_tools.rag.base_loader import LoaderResult
-from crewai_tools.rag.loaders.mdx_loader import MDXLoader
-from crewai_tools.rag.source_content import SourceContent
+from fzxiezuoai_tools.rag.base_loader import LoaderResult
+from fzxiezuoai_tools.rag.loaders.mdx_loader import MDXLoader
+from fzxiezuoai_tools.rag.source_content import SourceContent
 import pytest
 
 

@@ -2,10 +2,10 @@
 
 from unittest.mock import AsyncMock, MagicMock, patch
 
-from crewai_files import FileBytes, FileUrl, ImageFile
-from crewai_files.core.resolved import InlineBase64, UrlReference
-from crewai_files.core.sources import FilePath, _normalize_source
-from crewai_files.resolution.resolver import FileResolver
+from fzxiezuoai_files import FileBytes, FileUrl, ImageFile
+from fzxiezuoai_files.core.resolved import InlineBase64, UrlReference
+from fzxiezuoai_files.core.sources import FilePath, _normalize_source
+from fzxiezuoai_files.resolution.resolver import FileResolver
 import pytest
 
 

@@ -1,4 +1,4 @@
-"""Tests for crewai.types.callback — SerializableCallable round-tripping."""
+"""Tests for fzxiezuoai.types.callback — SerializableCallable round-tripping."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from typing import Any
 import pytest
 from pydantic import BaseModel, ValidationError
 
-from crewai.types.callback import (
+from fzxiezuoai.types.callback import (
     SerializableCallable,
     _is_non_roundtrippable,
     _resolve_dotted_path,

@@ -1,4 +1,4 @@
-# Contributing to CrewAI
+# Contributing to 12FZ协作AI
 
 ## AI-Generated Contributions
 
@@ -8,7 +8,7 @@ If your PR or issue was authored by an AI agent, coding assistant, or LLM (e.g.,
 
 ---
 
-Thank you for your interest in contributing to CrewAI. This guide covers everything you need to get started.
+Thank you for your interest in contributing to 12FZ协作AI. This guide covers everything you need to get started.
 
 ## Prerequisites
 
@@ -19,8 +19,8 @@ Thank you for your interest in contributing to CrewAI. This guide covers everyth
 ## Setup
 
 ```bash
-git clone https://github.com/crewAIInc/crewAI.git
-cd crewAI
+git clone https://github.com/crewAIInc/12FZ协作AI.git
+cd 12FZ协作AI
 
 uv sync --all-groups --all-extras
 
@@ -33,9 +33,9 @@ This is a uv workspace with four packages under `lib/`:
 
 | Package | Path | Description |
 |---------|------|-------------|
-| `crewai` | `lib/crewai/` | Core framework |
-| `crewai-tools` | `lib/crewai-tools/` | Tool integrations |
-| `crewai-files` | `lib/crewai-files/` | File handling |
+| `fzxiezuoai` | `lib/fzxiezuoai/` | Core framework |
+| `fzxiezuoai-tools` | `lib/fzxiezuoai-tools/` | Tool integrations |
+| `fzxiezuoai-files` | `lib/fzxiezuoai-files/` | File handling |
 | `devtools` | `lib/devtools/` | Internal release tooling |
 
 Documentation lives in `docs/` with translations under `docs/{en,ar,ko,pt-BR}/`.
@@ -65,7 +65,7 @@ uv run ruff format lib/
 
 uv run mypy lib/
 
-uv run pytest lib/crewai/tests/ -x -q
+uv run pytest lib/fzxiezuoai/tests/ -x -q
 ```
 
 ### Code Style
@@ -109,16 +109,16 @@ chore(deps): bump pydantic to 2.11
 
 ```bash
 # Run all tests
-uv run pytest lib/crewai/tests/ -x -q
+uv run pytest lib/fzxiezuoai/tests/ -x -q
 
 # Run a specific test file
-uv run pytest lib/crewai/tests/agents/test_agent.py -x -q
+uv run pytest lib/fzxiezuoai/tests/agents/test_agent.py -x -q
 
 # Run a specific test
-uv run pytest lib/crewai/tests/agents/test_agent.py::test_agent_creation -x -q
+uv run pytest lib/fzxiezuoai/tests/agents/test_agent.py::test_agent_creation -x -q
 
-# Run crewai-tools tests
-uv run pytest lib/crewai-tools/tests/ -x -q
+# Run fzxiezuoai-tools tests
+uv run pytest lib/fzxiezuoai-tools/tests/ -x -q
 ```
 
 ## Type Checking
@@ -130,7 +130,7 @@ The project enforces strict mypy across all packages:
 uv run mypy lib/
 
 # Check a specific package
-uv run mypy lib/crewai/src/crewai/
+uv run mypy lib/fzxiezuoai/src/fzxiezuoai/
 ```
 
 CI runs mypy on Python 3.10, 3.11, 3.12, and 3.13 for every PR.
@@ -150,8 +150,8 @@ When adding or modifying documentation:
 ## Dependency Management
 
 ```bash
-# Add a runtime dependency to crewai
-uv add --package crewai <package>
+# Add a runtime dependency to fzxiezuoai
+uv add --package fzxiezuoai <package>
 
 # Add a dev dependency to the workspace
 uv add --dev <package>
@@ -164,7 +164,7 @@ Do not use `pip` directly.
 
 ## Reporting Issues
 
-Use the [GitHub issue templates](https://github.com/crewAIInc/crewAI/issues/new/choose):
+Use the [GitHub issue templates](https://github.com/crewAIInc/12FZ协作AI/issues/new/choose):
 - **Bug Report**: For unexpected behavior
 - **Feature Request**: For new functionality
 

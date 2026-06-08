@@ -26,7 +26,7 @@ jobs:
           files_to_ignore: |
             uv.lock
             *.lock
-            lib/crewai/src/crewai/cli/templates/**
+            lib/fzxiezuoai/src/fzxiezuoai/cli/templates/**
             **/*.json
             **/test_durations/**
             **/cassettes/**

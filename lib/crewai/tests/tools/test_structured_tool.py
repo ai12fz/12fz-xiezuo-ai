@@ -1,4 +1,4 @@
-from crewai.tools.structured_tool import CrewStructuredTool
+from fzxiezuoai.tools.structured_tool import CrewStructuredTool
 from pydantic import BaseModel, Field
 import pytest
 
@@ -55,7 +55,7 @@ def test_cache_function_passed_through(basic_function, schema_class):
 
 def test_base_tool_passes_cache_function_to_structured_tool():
     """Test that BaseTool.to_structured_tool propagates cache_function."""
-    from crewai.tools import BaseTool
+    from fzxiezuoai.tools import BaseTool
 
     def no_cache(_args: dict, _result: str) -> bool:
         return False
@@ -186,7 +186,7 @@ def test_default_values_in_schema():
 
 @pytest.fixture
 def custom_tool_decorator():
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool("custom_tool", result_as_answer=True)
     async def custom_tool():
@@ -198,7 +198,7 @@ def custom_tool_decorator():
 
 @pytest.fixture
 def custom_tool():
-    from crewai.tools import BaseTool
+    from fzxiezuoai.tools import BaseTool
 
     class CustomTool(BaseTool):
         name: str = "my_tool"
@@ -212,7 +212,7 @@ def custom_tool():
 
 
 def build_simple_crew(tool):
-    from crewai import Agent, Crew, Task
+    from fzxiezuoai import Agent, Crew, Task
 
     agent1 = Agent(
         role="Simple role",
@@ -248,10 +248,10 @@ def test_async_tool_using_decorator_within_isolated_crew(custom_tool_decorator):
 
 @pytest.mark.vcr()
 def test_async_tool_within_flow(custom_tool):
-    from crewai.flow.flow import Flow
+    from fzxiezuoai.flow.flow import Flow
 
     class StructuredExampleFlow(Flow):
-        from crewai.flow.flow import start
+        from fzxiezuoai.flow.flow import start
 
         @start()
         async def start(self):
@@ -265,10 +265,10 @@ def test_async_tool_within_flow(custom_tool):
 
 @pytest.mark.vcr()
 def test_async_tool_using_decorator_within_flow(custom_tool_decorator):
-    from crewai.flow.flow import Flow
+    from fzxiezuoai.flow.flow import Flow
 
     class StructuredExampleFlow(Flow):
-        from crewai.flow.flow import start
+        from fzxiezuoai.flow.flow import start
 
         @start()
         async def start(self):

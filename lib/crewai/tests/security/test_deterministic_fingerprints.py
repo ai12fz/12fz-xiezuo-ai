@@ -1,9 +1,9 @@
-"""Tests for deterministic fingerprints in CrewAI components."""
+"""Tests for deterministic fingerprints in 12FZ协作AI components."""
 
 
 
-from crewai import Agent, Crew, Task
-from crewai.security import Fingerprint, SecurityConfig
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.security import Fingerprint, SecurityConfig
 
 
 def test_basic_deterministic_fingerprint():

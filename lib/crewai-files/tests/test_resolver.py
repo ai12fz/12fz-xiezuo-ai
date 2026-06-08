@@ -1,9 +1,9 @@
 """Tests for FileResolver."""
 
-from crewai_files import FileBytes, ImageFile
-from crewai_files.cache.upload_cache import UploadCache
-from crewai_files.core.resolved import InlineBase64, InlineBytes
-from crewai_files.resolution.resolver import (
+from fzxiezuoai_files import FileBytes, ImageFile
+from fzxiezuoai_files.cache.upload_cache import UploadCache
+from fzxiezuoai_files.core.resolved import InlineBase64, InlineBytes
+from fzxiezuoai_files.resolution.resolver import (
     FileResolver,
     FileResolverConfig,
     create_resolver,

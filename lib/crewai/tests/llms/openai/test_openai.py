@@ -6,11 +6,11 @@ from unittest.mock import patch, MagicMock
 import openai
 import pytest
 
-from crewai.llm import LLM
-from crewai.llms.providers.openai.completion import OpenAICompletion, ResponsesAPIResult
-from crewai.crew import Crew
-from crewai.agent import Agent
-from crewai.task import Task
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.providers.openai.completion import OpenAICompletion, ResponsesAPIResult
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.task import Task
 
 def test_openai_completion_is_used_when_openai_provider():
     """
@@ -29,7 +29,7 @@ def test_openai_completion_is_used_when_no_provider_prefix():
     """
     llm = LLM(model="gpt-4o")
 
-    from crewai.llms.providers.openai.completion import OpenAICompletion
+    from fzxiezuoai.llms.providers.openai.completion import OpenAICompletion
     assert isinstance(llm, OpenAICompletion)
     assert llm.provider == "openai"
     assert llm.model == "gpt-4o"
@@ -64,7 +64,7 @@ def test_openai_completion_module_is_imported():
     """
     Test that the completion module is properly imported when using OpenAI provider
     """
-    module_name = "crewai.llms.providers.openai.completion"
+    module_name = "fzxiezuoai.llms.providers.openai.completion"
 
     if module_name in sys.modules:
         del sys.modules[module_name]
@@ -83,7 +83,7 @@ def test_native_openai_raises_error_when_initialization_fails():
     Test that LLM raises ImportError when native OpenAI completion fails to initialize.
     This ensures we don't silently fall back when there's a configuration issue.
     """
-    with patch('crewai.llm.LLM._get_native_provider') as mock_get_provider:
+    with patch('fzxiezuoai.llm.LLM._get_native_provider') as mock_get_provider:
 
         class FailingCompletion:
             def __init__(self, *args, **kwargs):
@@ -110,7 +110,7 @@ def test_openai_completion_initialization_parameters():
         api_key="test-key"
     )
 
-    from crewai.llms.providers.openai.completion import OpenAICompletion
+    from fzxiezuoai.llms.providers.openai.completion import OpenAICompletion
     assert isinstance(llm, OpenAICompletion)
     assert llm.model == "gpt-4o"
     assert llm.temperature == 0.7
@@ -243,7 +243,7 @@ def test_openai_completion_with_tools():
     """
     Test that OpenAICompletion.call is invoked with tools when agent has tools
     """
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def sample_tool(query: str) -> str:
@@ -314,7 +314,7 @@ def test_openai_completion_call_returns_usage_metrics():
 def test_openai_raises_error_when_model_not_supported():
     """Test that OpenAICompletion raises ValueError when model not supported"""
 
-    with patch('crewai.llms.providers.openai.completion.OpenAI') as mock_openai_class:
+    with patch('fzxiezuoai.llms.providers.openai.completion.OpenAI') as mock_openai_class:
         mock_client = MagicMock()
         mock_openai_class.return_value = mock_client
 
@@ -1388,7 +1388,7 @@ def test_openai_agent_kickoff_structured_output_with_tools():
     This tests post-tool-call structured output handling for OpenAI models.
     """
     from pydantic import BaseModel, Field
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     class CalculationResult(BaseModel):
         """Structured output for calculation results."""

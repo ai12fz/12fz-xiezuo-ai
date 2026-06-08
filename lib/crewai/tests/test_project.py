@@ -2,12 +2,12 @@ from typing import Any, ClassVar, cast
 from unittest.mock import Mock, create_autospec, patch
 
 import pytest
-from crewai.agent import Agent
-from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai.crew import Crew
-from crewai.llm import LLM
-from crewai.llms.base_llm import BaseLLM
-from crewai.project import (
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.base_llm import BaseLLM
+from fzxiezuoai.project import (
     CrewBase,
     after_kickoff,
     agent,
@@ -16,8 +16,8 @@ from crewai.project import (
     llm,
     task,
 )
-from crewai.task import Task
-from crewai.tools import tool
+from fzxiezuoai.task import Task
+from fzxiezuoai.tools import tool
 
 
 class SimpleCrew:
@@ -415,7 +415,7 @@ class TestAsyncDecoratorSupport:
 
 
 def test_internal_crew_with_mcp():
-    from crewai_tools.adapters.tool_collection import ToolCollection
+    from fzxiezuoai_tools.adapters.tool_collection import ToolCollection
 
     mock_adapter = Mock()
     mock_adapter.tools = ToolCollection([simple_tool, another_simple_tool])
@@ -427,8 +427,8 @@ def test_internal_crew_with_mcp():
     mock_llm = create_autospec(_StubLLM(model="stub"), instance=True)
 
     with (
-        patch("crewai_tools.MCPServerAdapter", return_value=mock_adapter) as adapter_mock,
-        patch("crewai.llm.LLM.__new__", return_value=mock_llm),
+        patch("fzxiezuoai_tools.MCPServerAdapter", return_value=mock_adapter) as adapter_mock,
+        patch("fzxiezuoai.llm.LLM.__new__", return_value=mock_llm),
     ):
         crew = InternalCrewWithMCP()
         assert crew.reporting_analyst().tools == [simple_tool, another_simple_tool]

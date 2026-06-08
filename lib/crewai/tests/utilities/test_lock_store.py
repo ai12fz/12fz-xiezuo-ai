@@ -13,8 +13,8 @@ from unittest import mock
 
 import pytest
 
-import crewai_core.lock_store as lock_store
-from crewai_core.lock_store import lock
+import fzxiezuoai_core.lock_store as lock_store
+from fzxiezuoai_core.lock_store import lock
 
 
 @pytest.fixture(autouse=True)
@@ -58,7 +58,7 @@ def test_uses_file_lock_when_redis_unavailable():
             pass
 
     mock_lock.assert_called_once()
-    assert "crewai:" in mock_lock.call_args.args[0]
+    assert "fzxiezuoai:" in mock_lock.call_args.args[0]
 
 
 def test_uses_redis_lock_when_redis_available(monkeypatch):
@@ -72,7 +72,7 @@ def test_uses_redis_lock_when_redis_available(monkeypatch):
 
     mock_redis_lock.assert_called_once()
     kwargs = mock_redis_lock.call_args.kwargs
-    assert kwargs["channel"].startswith("crewai:")
+    assert kwargs["channel"].startswith("fzxiezuoai:")
     assert kwargs["connection"] is fake_conn
 
 

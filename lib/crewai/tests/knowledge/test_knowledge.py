@@ -4,19 +4,19 @@ from pathlib import Path
 from unittest.mock import patch
 
 import pytest
-from crewai.knowledge.source.crew_docling_source import CrewDoclingSource
-from crewai.knowledge.source.csv_knowledge_source import CSVKnowledgeSource
-from crewai.knowledge.source.excel_knowledge_source import ExcelKnowledgeSource
-from crewai.knowledge.source.json_knowledge_source import JSONKnowledgeSource
-from crewai.knowledge.source.pdf_knowledge_source import PDFKnowledgeSource
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from crewai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
+from fzxiezuoai.knowledge.source.crew_docling_source import CrewDoclingSource
+from fzxiezuoai.knowledge.source.csv_knowledge_source import CSVKnowledgeSource
+from fzxiezuoai.knowledge.source.excel_knowledge_source import ExcelKnowledgeSource
+from fzxiezuoai.knowledge.source.json_knowledge_source import JSONKnowledgeSource
+from fzxiezuoai.knowledge.source.pdf_knowledge_source import PDFKnowledgeSource
+from fzxiezuoai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from fzxiezuoai.knowledge.source.text_file_knowledge_source import TextFileKnowledgeSource
 
 
 @pytest.fixture(autouse=True)
 def mock_vector_db():
     """Mock vector database operations."""
-    with patch("crewai.knowledge.storage.knowledge_storage.KnowledgeStorage") as mock:
+    with patch("fzxiezuoai.knowledge.storage.knowledge_storage.KnowledgeStorage") as mock:
         instance = mock.return_value
         instance.query.return_value = [
             {
@@ -402,7 +402,7 @@ def test_pdf_knowledge_source(mock_vector_db):
     )
     mock_vector_db.sources = [pdf_source]
     mock_vector_db.query.return_value = [
-        {"content": "crewai create crew latest-ai-development", "score": 0.9}
+        {"content": "fzxiezuoai create crew latest-ai-development", "score": 0.9}
     ]
 
     # Perform a query
@@ -410,7 +410,7 @@ def test_pdf_knowledge_source(mock_vector_db):
     results = mock_vector_db.query(query)
 
     assert any(
-        "crewai create crew latest-ai-development" in result["content"].lower()
+        "fzxiezuoai create crew latest-ai-development" in result["content"].lower()
         for result in results
     )
     mock_vector_db.query.assert_called_once()
@@ -567,8 +567,8 @@ def test_hash_based_id_generation_without_doc_id(mock_vector_db):
     """Test that documents without doc_id generate hash-based IDs. Duplicates are deduplicated before upsert."""
     import hashlib
     import json
-    from crewai.rag.chromadb.utils import _prepare_documents_for_chromadb
-    from crewai.rag.types import BaseRecord
+    from fzxiezuoai.rag.chromadb.utils import _prepare_documents_for_chromadb
+    from fzxiezuoai.rag.types import BaseRecord
 
     documents: list[BaseRecord] = [
         {"content": "First document content", "metadata": {"source": "test1", "category": "research"}},
@@ -612,8 +612,8 @@ def test_hash_based_id_generation_without_doc_id(mock_vector_db):
 
 def test_hash_based_id_generation_with_doc_id_in_metadata(mock_vector_db):
     """Test that documents with doc_id in metadata use the doc_id directly, not hash-based."""
-    from crewai.rag.chromadb.utils import _prepare_documents_for_chromadb
-    from crewai.rag.types import BaseRecord
+    from fzxiezuoai.rag.chromadb.utils import _prepare_documents_for_chromadb
+    from fzxiezuoai.rag.types import BaseRecord
 
     documents_with_doc_id: list[BaseRecord] = [
         {"content": "First document", "metadata": {"doc_id": "custom-id-1", "source": "test1"}},

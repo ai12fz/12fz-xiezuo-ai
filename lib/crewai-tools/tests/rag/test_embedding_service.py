@@ -6,7 +6,7 @@ import os
 import pytest
 from unittest.mock import Mock, patch
 
-from crewai_tools.rag.embedding_service import EmbeddingService, EmbeddingConfig
+from fzxiezuoai_tools.rag.embedding_service import EmbeddingService, EmbeddingConfig
 
 
 class TestEmbeddingConfig:
@@ -76,7 +76,7 @@ class TestEmbeddingService:
         api_key = service._get_default_api_key("unknown-provider")
         assert api_key is None
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_initialization_success(self, mock_build_embedder):
         """Test successful initialization."""
         mock_embedding_function = Mock()
@@ -99,15 +99,15 @@ class TestEmbeddingService:
         assert call_args["config"]["api_key"] == "test-key"
         assert call_args["config"]["model_name"] == "text-embedding-3-small"
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_initialization_import_error(self, mock_build_embedder):
         """Test initialization with import error."""
-        mock_build_embedder.side_effect = ImportError("CrewAI not installed")
+        mock_build_embedder.side_effect = ImportError("12FZ协作AI not installed")
 
-        with pytest.raises(ImportError, match="CrewAI embedding providers not available"):
+        with pytest.raises(ImportError, match="12FZ协作AI embedding providers not available"):
             EmbeddingService(provider="openai", model="test-model", api_key="test-key")
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_embed_text_success(self, mock_build_embedder):
         """Test successful text embedding."""
         mock_embedding_function = Mock()
@@ -121,7 +121,7 @@ class TestEmbeddingService:
         assert result == [0.1, 0.2, 0.3]
         mock_embedding_function.assert_called_once_with(["test text"])
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_embed_text_empty_input(self, mock_build_embedder):
         """Test embedding empty text."""
         mock_embedding_function = Mock()
@@ -138,7 +138,7 @@ class TestEmbeddingService:
         # Embedding function should not be called for empty text
         mock_embedding_function.assert_not_called()
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_embed_batch_success(self, mock_build_embedder):
         """Test successful batch embedding."""
         mock_embedding_function = Mock()
@@ -153,7 +153,7 @@ class TestEmbeddingService:
         assert result == [[0.1, 0.2], [0.3, 0.4], [0.5, 0.6]]
         mock_embedding_function.assert_called_once_with(texts)
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_embed_batch_empty_input(self, mock_build_embedder):
         """Test batch embedding with empty input."""
         mock_embedding_function = Mock()
@@ -172,7 +172,7 @@ class TestEmbeddingService:
         # Embedding function should not be called for empty input
         mock_embedding_function.assert_not_called()
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_validate_connection(self, mock_build_embedder):
         """Test connection validation."""
         mock_embedding_function = Mock()
@@ -186,7 +186,7 @@ class TestEmbeddingService:
         mock_embedding_function.side_effect = Exception("Connection failed")
         assert service.validate_connection() is False
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_get_service_info(self, mock_build_embedder):
         """Test getting service information."""
         mock_embedding_function = Mock()
@@ -205,7 +205,7 @@ class TestEmbeddingService:
 
     def test_create_openai_service(self):
         """Test OpenAI service creation."""
-        with patch('crewai.rag.embeddings.factory.build_embedder'):
+        with patch('fzxiezuoai.rag.embeddings.factory.build_embedder'):
             service = EmbeddingService.create_openai_service(
                 model="text-embedding-3-large",
                 api_key="test-key"
@@ -217,7 +217,7 @@ class TestEmbeddingService:
 
     def test_create_voyage_service(self):
         """Test Voyage AI service creation."""
-        with patch('crewai.rag.embeddings.factory.build_embedder'):
+        with patch('fzxiezuoai.rag.embeddings.factory.build_embedder'):
             service = EmbeddingService.create_voyage_service(
                 model="voyage-large-2",
                 api_key="test-key"
@@ -229,7 +229,7 @@ class TestEmbeddingService:
 
     def test_create_cohere_service(self):
         """Test Cohere service creation."""
-        with patch('crewai.rag.embeddings.factory.build_embedder'):
+        with patch('fzxiezuoai.rag.embeddings.factory.build_embedder'):
             service = EmbeddingService.create_cohere_service(
                 model="embed-multilingual-v3.0",
                 api_key="test-key"
@@ -241,7 +241,7 @@ class TestEmbeddingService:
 
     def test_create_gemini_service(self):
         """Test Gemini service creation."""
-        with patch('crewai.rag.embeddings.factory.build_embedder'):
+        with patch('fzxiezuoai.rag.embeddings.factory.build_embedder'):
             service = EmbeddingService.create_gemini_service(
                 model="models/embedding-001",
                 api_key="test-key"
@@ -255,7 +255,7 @@ class TestEmbeddingService:
 class TestProviderConfigurations:
     """Test provider-specific configurations."""
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_openai_config(self, mock_build_embedder):
         """Test OpenAI configuration mapping."""
         mock_build_embedder.return_value = Mock()
@@ -273,7 +273,7 @@ class TestProviderConfigurations:
         assert call_args["config"]["model_name"] == "text-embedding-3-small"
         assert call_args["config"]["dimensions"] == 1024
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_voyageai_config(self, mock_build_embedder):
         """Test Voyage AI configuration mapping."""
         mock_build_embedder.return_value = Mock()
@@ -295,7 +295,7 @@ class TestProviderConfigurations:
         assert call_args["config"]["max_retries"] == 5
         assert call_args["config"]["input_type"] == "document"
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_cohere_config(self, mock_build_embedder):
         """Test Cohere configuration mapping."""
         mock_build_embedder.return_value = Mock()
@@ -311,7 +311,7 @@ class TestProviderConfigurations:
         assert call_args["config"]["api_key"] == "test-key"
         assert call_args["config"]["model_name"] == "embed-english-v3.0"
 
-    @patch('crewai.rag.embeddings.factory.build_embedder')
+    @patch('fzxiezuoai.rag.embeddings.factory.build_embedder')
     def test_gemini_config(self, mock_build_embedder):
         """Test Gemini configuration mapping."""
         mock_build_embedder.return_value = Mock()

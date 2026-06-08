@@ -1,20 +1,20 @@
 """Tests for backward compatibility of embedding provider configurations."""
 
-from crewai.rag.embeddings.factory import build_embedder, PROVIDER_PATHS
-from crewai.rag.embeddings.providers.openai.openai_provider import OpenAIProvider
-from crewai.rag.embeddings.providers.cohere.cohere_provider import CohereProvider
-from crewai.rag.embeddings.providers.google.generative_ai import GenerativeAiProvider
-from crewai.rag.embeddings.providers.google.vertex import VertexAIProvider
-from crewai.rag.embeddings.providers.microsoft.azure import AzureProvider
-from crewai.rag.embeddings.providers.jina.jina_provider import JinaProvider
-from crewai.rag.embeddings.providers.ollama.ollama_provider import OllamaProvider
-from crewai.rag.embeddings.providers.aws.bedrock import BedrockProvider
-from crewai.rag.embeddings.providers.text2vec.text2vec_provider import Text2VecProvider
-from crewai.rag.embeddings.providers.sentence_transformer.sentence_transformer_provider import (
+from fzxiezuoai.rag.embeddings.factory import build_embedder, PROVIDER_PATHS
+from fzxiezuoai.rag.embeddings.providers.openai.openai_provider import OpenAIProvider
+from fzxiezuoai.rag.embeddings.providers.cohere.cohere_provider import CohereProvider
+from fzxiezuoai.rag.embeddings.providers.google.generative_ai import GenerativeAiProvider
+from fzxiezuoai.rag.embeddings.providers.google.vertex import VertexAIProvider
+from fzxiezuoai.rag.embeddings.providers.microsoft.azure import AzureProvider
+from fzxiezuoai.rag.embeddings.providers.jina.jina_provider import JinaProvider
+from fzxiezuoai.rag.embeddings.providers.ollama.ollama_provider import OllamaProvider
+from fzxiezuoai.rag.embeddings.providers.aws.bedrock import BedrockProvider
+from fzxiezuoai.rag.embeddings.providers.text2vec.text2vec_provider import Text2VecProvider
+from fzxiezuoai.rag.embeddings.providers.sentence_transformer.sentence_transformer_provider import (
     SentenceTransformerProvider,
 )
-from crewai.rag.embeddings.providers.instructor.instructor_provider import InstructorProvider
-from crewai.rag.embeddings.providers.openclip.openclip_provider import OpenCLIPProvider
+from fzxiezuoai.rag.embeddings.providers.instructor.instructor_provider import InstructorProvider
+from fzxiezuoai.rag.embeddings.providers.openclip.openclip_provider import OpenCLIPProvider
 
 
 class TestGoogleProviderAlias:
@@ -165,7 +165,7 @@ class TestFactoryBackwardCompatibility:
 
         from unittest.mock import patch, MagicMock
 
-        with patch("crewai.rag.embeddings.factory.import_and_validate_definition") as mock_import:
+        with patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition") as mock_import:
             mock_provider_class = MagicMock()
             mock_provider_instance = MagicMock()
             mock_import.return_value = mock_provider_class
@@ -174,7 +174,7 @@ class TestFactoryBackwardCompatibility:
             build_embedder(config)
 
             mock_import.assert_called_once_with(
-                "crewai.rag.embeddings.providers.google.generative_ai.GenerativeAiProvider"
+                "fzxiezuoai.rag.embeddings.providers.google.generative_ai.GenerativeAiProvider"
             )
 
     def test_factory_with_model_key_openai(self):
@@ -189,7 +189,7 @@ class TestFactoryBackwardCompatibility:
 
         from unittest.mock import patch, MagicMock
 
-        with patch("crewai.rag.embeddings.factory.import_and_validate_definition") as mock_import:
+        with patch("fzxiezuoai.rag.embeddings.factory.import_and_validate_definition") as mock_import:
             mock_provider_class = MagicMock()
             mock_provider_instance = MagicMock()
             mock_import.return_value = mock_provider_class

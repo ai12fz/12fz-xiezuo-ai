@@ -2,7 +2,7 @@
 
 import pytest
 
-from crewai.llm import LLM
+from fzxiezuoai.llm import LLM
 
 
 @pytest.mark.asyncio

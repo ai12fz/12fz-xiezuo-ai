@@ -516,7 +516,7 @@ interactions:
       authorization:
       - AUTHORIZATION-XXX
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches
   response:
     body:
       string: '{"id":"425b002f-eade-4d88-abd9-f8e2b6db41a2","ephemeral_trace_id":"ae4bd8bf-d84e-4aa4-8e4b-ff974008db4b","execution_type":"crew","crew_name":"crew","flow_name":null,"status":"running","duration_ms":null,"crewai_version":"1.6.1","total_events":0,"execution_context":{"crew_fingerprint":null,"crew_name":"crew","flow_name":null,"crewai_version":"1.6.1","privacy_level":"standard"},"created_at":"2025-12-05T00:45:52.443Z","updated_at":"2025-12-05T00:45:52.443Z","access_code":"TRACE-640dc12fc3","user_identifier":null}'

@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import json
 import uuid
 
-from crewai.security import Fingerprint
+from fzxiezuoai.security import Fingerprint
 import pytest
 
 

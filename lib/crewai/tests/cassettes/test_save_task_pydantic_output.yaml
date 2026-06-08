@@ -149,7 +149,7 @@ interactions:
       accept-encoding:
       - ACCEPT-ENCODING-XXX
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches
   response:
     body:
       string: '{"id":"25f0f0b3-90bb-4e2a-bde5-817920201bf1","ephemeral_trace_id":"c682f49d-bb6b-49d9-84b7-06e1881d37cd","execution_type":"crew","crew_name":"crew","flow_name":null,"status":"running","duration_ms":null,"crewai_version":"1.4.1","total_events":0,"execution_context":{"crew_fingerprint":null,"crew_name":"crew","flow_name":null,"crewai_version":"1.4.1","privacy_level":"standard"},"created_at":"2025-11-15T21:20:09.594Z","updated_at":"2025-11-15T21:20:09.594Z","access_code":"TRACE-1fb0209738","user_identifier":null}'

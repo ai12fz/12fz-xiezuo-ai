@@ -4,7 +4,7 @@ import sys
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai.utilities.import_utils import (
+from fzxiezuoai.utilities.import_utils import (
     OptionalDependencyError,
     import_and_validate_definition,
     require,

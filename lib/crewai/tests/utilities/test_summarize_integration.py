@@ -9,11 +9,11 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from crewai.agent import Agent
-from crewai.crew import Crew
-from crewai.llm import LLM
-from crewai.task import Task
-from crewai.utilities.agent_utils import summarize_messages
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.task import Task
+from fzxiezuoai.utilities.agent_utils import summarize_messages
 
 
 def _build_conversation_messages(

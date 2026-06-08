@@ -3,14 +3,14 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai.knowledge.storage.knowledge_storage import (  # type: ignore[import-untyped]
+from fzxiezuoai.knowledge.storage.knowledge_storage import (  # type: ignore[import-untyped]
     KnowledgeStorage,
 )
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
-@patch("crewai.knowledge.storage.knowledge_storage.create_client")
-@patch("crewai.knowledge.storage.knowledge_storage.build_embedder")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.create_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.build_embedder")
 def test_knowledge_storage_uses_rag_client(
     mock_get_embedding: MagicMock,
     mock_create_client: MagicMock,
@@ -48,7 +48,7 @@ def test_knowledge_storage_uses_rag_client(
     assert "content" in results[0]
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_collection_name_prefixing(mock_get_client: MagicMock) -> None:
     """Test that collection names are properly prefixed."""
     mock_client = MagicMock()
@@ -70,7 +70,7 @@ def test_collection_name_prefixing(mock_get_client: MagicMock) -> None:
     assert call_kwargs["collection_name"] == "knowledge"
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_save_documents_integration(mock_get_client: MagicMock) -> None:
     """Test document saving through RAG client."""
     mock_client = MagicMock()
@@ -93,7 +93,7 @@ def test_save_documents_integration(mock_get_client: MagicMock) -> None:
     assert added_docs[1]["content"] == "Document 2 content"
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_reset_integration(mock_get_client: MagicMock) -> None:
     """Test collection reset through RAG client."""
     mock_client = MagicMock()
@@ -107,7 +107,7 @@ def test_reset_integration(mock_get_client: MagicMock) -> None:
     )
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_search_error_handling(mock_get_client: MagicMock) -> None:
     """Test error handling during search operations."""
     mock_client = MagicMock()
@@ -120,8 +120,8 @@ def test_search_error_handling(mock_get_client: MagicMock) -> None:
     assert results == []
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
-@patch("crewai.knowledge.storage.knowledge_storage.build_embedder")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.build_embedder")
 def test_embedding_configuration_flow(
     mock_get_embedding: MagicMock, mock_get_client: MagicMock
 ) -> None:
@@ -140,7 +140,7 @@ def test_embedding_configuration_flow(
     mock_get_embedding.assert_called_once_with(storage.embedder)
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_query_list_conversion(mock_get_client: MagicMock) -> None:
     """Test that query list is properly converted to string."""
     mock_client = MagicMock()
@@ -159,7 +159,7 @@ def test_query_list_conversion(mock_get_client: MagicMock) -> None:
     assert call_kwargs["query"] == "query one query two"
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_metadata_filter_handling(mock_get_client: MagicMock) -> None:
     """Test metadata filter parameter handling."""
     mock_client = MagicMock()
@@ -181,7 +181,7 @@ def test_metadata_filter_handling(mock_get_client: MagicMock) -> None:
     assert call_kwargs["metadata_filter"] is None
 
 
-@patch("crewai.knowledge.storage.knowledge_storage.get_rag_client")
+@patch("fzxiezuoai.knowledge.storage.knowledge_storage.get_rag_client")
 def test_dimension_mismatch_error_handling(mock_get_client: MagicMock) -> None:
     """Test specific handling of dimension mismatch errors."""
     mock_client = MagicMock()

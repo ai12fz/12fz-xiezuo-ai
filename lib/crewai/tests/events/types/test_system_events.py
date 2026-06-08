@@ -5,8 +5,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.system_events import (
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.system_events import (
     SIGNAL_EVENT_TYPES,
     SignalEvent,
     SignalType,

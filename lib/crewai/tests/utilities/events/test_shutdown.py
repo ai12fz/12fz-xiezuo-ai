@@ -9,8 +9,8 @@ import time
 
 import pytest
 
-from crewai.events.base_events import BaseEvent
-from crewai.events.event_bus import CrewAIEventsBus
+from fzxiezuoai.events.base_events import BaseEvent
+from fzxiezuoai.events.event_bus import CrewAIEventsBus
 
 
 class ShutdownTestEvent(BaseEvent):

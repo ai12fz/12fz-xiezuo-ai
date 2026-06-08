@@ -11,20 +11,20 @@ import sys
 from typing import Any, cast
 from unittest.mock import ANY, MagicMock, call, patch
 
-from crewai.agent import Agent
-from crewai.agents import CacheHandler
-from crewai.agents.agent_builder.base_agent import BaseAgent
-from crewai.crew import Crew
-from crewai.crews.crew_output import CrewOutput
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.crew_events import (
+from fzxiezuoai.agent import Agent
+from fzxiezuoai.agents import CacheHandler
+from fzxiezuoai.agents.agent_builder.base_agent import BaseAgent
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.crews.crew_output import CrewOutput
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.crew_events import (
     CrewKickoffStartedEvent,
     CrewTestCompletedEvent,
     CrewTestStartedEvent,
     CrewTrainCompletedEvent,
     CrewTrainStartedEvent,
 )
-from crewai.events.types.memory_events import (
+from fzxiezuoai.events.types.memory_events import (
     MemoryQueryCompletedEvent,
     MemoryQueryFailedEvent,
     MemoryQueryStartedEvent,
@@ -34,22 +34,22 @@ from crewai.events.types.memory_events import (
     MemorySaveFailedEvent,
     MemorySaveStartedEvent,
 )
-from crewai.flow import Flow, start
-from crewai.knowledge.knowledge import Knowledge
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
-from crewai.llm import LLM
-from crewai.memory.unified_memory import Memory
-from crewai.process import Process
-from crewai.project import CrewBase, agent, before_kickoff, crew, task
-from crewai.task import Task
-from crewai.tasks.conditional_task import ConditionalTask
-from crewai.tasks.output_format import OutputFormat
-from crewai.tasks.task_output import TaskOutput
-from crewai.tools import BaseTool, tool
-from crewai.tools.agent_tools.add_image_tool import AddImageTool
-from crewai.types.usage_metrics import UsageMetrics
-from crewai.utilities.rpm_controller import RPMController
-from crewai.utilities.task_output_storage_handler import TaskOutputStorageHandler
+from fzxiezuoai.flow import Flow, start
+from fzxiezuoai.knowledge.knowledge import Knowledge
+from fzxiezuoai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.memory.unified_memory import Memory
+from fzxiezuoai.process import Process
+from fzxiezuoai.project import CrewBase, agent, before_kickoff, crew, task
+from fzxiezuoai.task import Task
+from fzxiezuoai.tasks.conditional_task import ConditionalTask
+from fzxiezuoai.tasks.output_format import OutputFormat
+from fzxiezuoai.tasks.task_output import TaskOutput
+from fzxiezuoai.tools import BaseTool, tool
+from fzxiezuoai.tools.agent_tools.add_image_tool import AddImageTool
+from fzxiezuoai.types.usage_metrics import UsageMetrics
+from fzxiezuoai.utilities.rpm_controller import RPMController
+from fzxiezuoai.utilities.task_output_storage_handler import TaskOutputStorageHandler
 from pydantic import BaseModel, Field
 import pydantic_core
 import pytest
@@ -3227,7 +3227,7 @@ def test_replay_task_with_context():
 @pytest.mark.vcr()
 def test_replay_preserves_messages():
     """Test that replay preserves messages from stored task outputs."""
-    from crewai.utilities.types import LLMMessage
+    from fzxiezuoai.utilities.types import LLMMessage
 
     agent = Agent(
         role="Test Agent",
@@ -3308,7 +3308,7 @@ def test_replay_with_context():
     crew = Crew(agents=[agent], tasks=[task1, task2], process=Process.sequential)
 
     with patch(
-        "crewai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
+        "fzxiezuoai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
         return_value=[
             {
                 "task_id": str(task1.id),
@@ -3357,7 +3357,7 @@ def test_replay_with_context_set_to_nullable():
     )
 
     crew = Crew(agents=[agent], tasks=[task1, task2, task3], process=Process.sequential)
-    with patch("crewai.task.Task.execute_sync") as mock_execute_task:
+    with patch("fzxiezuoai.task.Task.execute_sync") as mock_execute_task:
         mock_execute_task.return_value = TaskOutput(
             description="Test Task Output",
             raw="test raw output",
@@ -3393,7 +3393,7 @@ def test_replay_with_invalid_task_id():
     crew = Crew(agents=[agent], tasks=[task1, task2], process=Process.sequential)
 
     with patch(
-        "crewai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
+        "fzxiezuoai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
         return_value=[
             {
                 "task_id": str(task1.id),
@@ -3459,7 +3459,7 @@ def test_replay_interpolates_inputs_properly(mock_interpolate_inputs):
     crew.kickoff(inputs={"name": "John"})
 
     with patch(
-        "crewai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
+        "fzxiezuoai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
         return_value=[
             {
                 "task_id": str(task1.id),
@@ -3515,7 +3515,7 @@ def test_replay_setup_context():
     task1.output = context_output
     crew = Crew(agents=[agent], tasks=[task1, task2], process=Process.sequential)
     with patch(
-        "crewai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
+        "fzxiezuoai.utilities.task_output_storage_handler.TaskOutputStorageHandler.load",
         return_value=[
             {
                 "task_id": str(task1.id),
@@ -4752,8 +4752,8 @@ def test_crew_kickoff_started_emits_display_name(
     researcher, writer, explicit_name, expected
 ):
     """Kickoff events should use the decorator-provided display name when implicit."""
-    from crewai.crews.utils import prepare_kickoff
-    from crewai.project import CrewBase, agent, crew, task
+    from fzxiezuoai.crews.utils import prepare_kickoff
+    from fzxiezuoai.project import CrewBase, agent, crew, task
 
     @CrewBase
     class ResearchAutomation:
@@ -4798,12 +4798,12 @@ def test_crew_kickoff_started_emits_display_name(
 def test_prepare_kickoff_binds_task_only_agent_to_crew():
     """Agents referenced only via task.agent must get .crew set during prepare_kickoff.
 
-    Regression for crewAIInc/crewAI#5534: when Crew is built without
+    Regression for crewAIInc/12FZ协作AI#5534: when Crew is built without
     agents=[...], multimodal input_files were silently dropped because the
     agent's .crew attribute was never assigned, gating file lookup off in
     Task and CrewAgentExecutor.
     """
-    from crewai.crews.utils import prepare_kickoff
+    from fzxiezuoai.crews.utils import prepare_kickoff
 
     task_only_agent = Agent(
         role="Solo",

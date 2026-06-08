@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from crewai_tools.tools.rag.rag_tool import RagTool
+from fzxiezuoai_tools.tools.rag.rag_tool import RagTool
 
 
 @pytest.fixture()
@@ -21,8 +21,8 @@ def mock_rag_client() -> MagicMock:
 @pytest.fixture()
 def tool(mock_rag_client: MagicMock) -> RagTool:
     with (
-        patch("crewai_tools.adapters.crewai_rag_adapter.get_rag_client", return_value=mock_rag_client),
-        patch("crewai_tools.adapters.crewai_rag_adapter.create_client", return_value=mock_rag_client),
+        patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.get_rag_client", return_value=mock_rag_client),
+        patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client", return_value=mock_rag_client),
     ):
         return RagTool()
 

@@ -1,7 +1,7 @@
 """Tests for ChromaDB utility functions."""
 
-from crewai.rag.chromadb.types import PreparedDocuments
-from crewai.rag.chromadb.utils import (
+from fzxiezuoai.rag.chromadb.types import PreparedDocuments
+from fzxiezuoai.rag.chromadb.utils import (
     MAX_COLLECTION_LENGTH,
     MIN_COLLECTION_LENGTH,
     _create_batch_slice,
@@ -9,7 +9,7 @@ from crewai.rag.chromadb.utils import (
     _prepare_documents_for_chromadb,
     _sanitize_collection_name,
 )
-from crewai.rag.types import BaseRecord
+from fzxiezuoai.rag.types import BaseRecord
 
 
 class TestChromaDBUtils:

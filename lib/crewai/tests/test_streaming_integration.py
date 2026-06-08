@@ -2,9 +2,9 @@
 
 import pytest
 
-from crewai import Agent, Crew, Task
-from crewai.flow.flow import Flow, start
-from crewai.types.streaming import CrewStreamingOutput, FlowStreamingOutput
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.flow.flow import Flow, start
+from fzxiezuoai.types.streaming import CrewStreamingOutput, FlowStreamingOutput
 
 
 @pytest.fixture

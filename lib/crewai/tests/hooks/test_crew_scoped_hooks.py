@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from unittest.mock import Mock
 
-from crewai import Agent, Crew
-from crewai.hooks import (
+from fzxiezuoai import Agent, Crew
+from fzxiezuoai.hooks import (
     LLMCallHookContext,
     ToolCallHookContext,
     before_llm_call,
@@ -13,14 +13,14 @@ from crewai.hooks import (
     get_before_llm_call_hooks,
     get_before_tool_call_hooks,
 )
-from crewai.project import CrewBase, agent, crew
+from fzxiezuoai.project import CrewBase, agent, crew
 import pytest
 
 
 @pytest.fixture(autouse=True)
 def clear_hooks():
     """Clear global hooks before and after each test."""
-    from crewai.hooks import llm_hooks, tool_hooks
+    from fzxiezuoai.hooks import llm_hooks, tool_hooks
 
     original_before_llm = llm_hooks._before_llm_call_hooks.copy()
     original_before_tool = tool_hooks._before_tool_call_hooks.copy()

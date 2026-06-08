@@ -1,8 +1,8 @@
 import json
 from unittest import mock
 
-from crewai.tools.base_tool import BaseTool, EnvVar
-from crewai_tools.generate_tool_specs import ToolSpecExtractor
+from fzxiezuoai.tools.base_tool import BaseTool, EnvVar
+from fzxiezuoai_tools.generate_tool_specs import ToolSpecExtractor
 from pydantic import BaseModel, Field
 import pytest
 
@@ -83,8 +83,8 @@ def test_unwrap_schema(extractor):
 @pytest.fixture
 def mock_tool_extractor(extractor):
     with (
-        mock.patch("crewai_tools.generate_tool_specs.dir", return_value=["MockTool"]),
-        mock.patch("crewai_tools.generate_tool_specs.getattr", return_value=MockTool),
+        mock.patch("fzxiezuoai_tools.generate_tool_specs.dir", return_value=["MockTool"]),
+        mock.patch("fzxiezuoai_tools.generate_tool_specs.getattr", return_value=MockTool),
     ):
         extractor.extract_all_tools()
         assert len(extractor.tools_spec) == 1
@@ -218,11 +218,11 @@ def test_intermediate_base_fields_preserved_for_derived_tool(extractor):
     fields are excluded."""
     with (
         mock.patch(
-            "crewai_tools.generate_tool_specs.dir",
+            "fzxiezuoai_tools.generate_tool_specs.dir",
             return_value=["MockDerivedTool"],
         ),
         mock.patch(
-            "crewai_tools.generate_tool_specs.getattr",
+            "fzxiezuoai_tools.generate_tool_specs.getattr",
             return_value=MockDerivedTool,
         ),
     ):
@@ -252,8 +252,8 @@ def test_future_base_tool_field_auto_excluded(extractor):
     the ignored list. This test verifies the allowlist approach works
     by checking that ONLY non-BaseTool fields appear."""
     with (
-        mock.patch("crewai_tools.generate_tool_specs.dir", return_value=["MockTool"]),
-        mock.patch("crewai_tools.generate_tool_specs.getattr", return_value=MockTool),
+        mock.patch("fzxiezuoai_tools.generate_tool_specs.dir", return_value=["MockTool"]),
+        mock.patch("fzxiezuoai_tools.generate_tool_specs.getattr", return_value=MockTool),
     ):
         extractor.extract_all_tools()
         tool_info = extractor.tools_spec[0]

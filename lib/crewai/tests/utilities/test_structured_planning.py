@@ -10,10 +10,10 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from crewai import Agent, PlanningConfig, Task
-from crewai.llm import LLM
-from crewai.utilities.planning_types import PlanStep, TodoItem, TodoList
-from crewai.utilities.reasoning_handler import (
+from fzxiezuoai import Agent, PlanningConfig, Task
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.utilities.planning_types import PlanStep, TodoItem, TodoList
+from fzxiezuoai.utilities.reasoning_handler import (
     FUNCTION_SCHEMA,
     AgentReasoning,
     ReasoningPlan,
@@ -315,7 +315,7 @@ class TestTodoCreationFromPlan:
 # Common test tools used across provider tests
 def create_research_tools():
     """Create research tools for testing structured planning."""
-    from crewai.tools import tool
+    from fzxiezuoai.tools import tool
 
     @tool
     def web_search(query: str) -> str:

@@ -7,13 +7,13 @@ from pathlib import Path
 
 import pytest
 
-from crewai import Agent, Crew, LLM, Task
-from crewai.flow.flow import Flow, listen, start
-from crewai_files import AudioFile, File, ImageFile, PDFFile, TextFile, VideoFile
+from fzxiezuoai import Agent, Crew, LLM, Task
+from fzxiezuoai.flow.flow import Flow, listen, start
+from fzxiezuoai_files import AudioFile, File, ImageFile, PDFFile, TextFile, VideoFile
 
 
 TEST_FIXTURES_DIR = (
-    Path(__file__).parent.parent.parent / "crewai-files" / "tests" / "fixtures"
+    Path(__file__).parent.parent.parent / "fzxiezuoai-files" / "tests" / "fixtures"
 )
 TEST_IMAGE_PATH = TEST_FIXTURES_DIR / "revenue_chart.png"
 TEST_TEXT_PATH = TEST_FIXTURES_DIR / "review_guidelines.txt"

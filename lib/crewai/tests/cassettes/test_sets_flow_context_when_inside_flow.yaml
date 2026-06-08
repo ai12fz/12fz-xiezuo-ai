@@ -18,11 +18,11 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/1.0.0
+      - 12FZ协作AI-CLI/1.0.0
       X-Crewai-Version:
       - 1.0.0
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches
   response:
     body:
       string: '{"id":"fe167fd8-d9b8-4faa-bb28-ed13f10e8d2e","ephemeral_trace_id":"fabb9e5b-b761-4b21-8514-cd4d3c937d09","execution_type":"flow","crew_name":null,"flow_name":"MyFlow","status":"running","duration_ms":null,"crewai_version":"1.0.0","total_events":0,"execution_context":{"crew_fingerprint":null,"crew_name":null,"flow_name":"MyFlow","crewai_version":"1.0.0","privacy_level":"standard"},"created_at":"2025-10-21T14:26:38.410Z","updated_at":"2025-10-21T14:26:38.410Z","access_code":"TRACE-8b1efdc7b5","user_identifier":null}'
@@ -38,8 +38,8 @@ interactions:
       cache-control:
       - no-store
       content-security-policy:
-      - 'default-src ''self'' *.app.crewai.com app.crewai.com; script-src ''self''
-        ''unsafe-inline'' *.app.crewai.com app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts
+      - 'default-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com; script-src ''self''
+        ''unsafe-inline'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts
         https://www.gstatic.com https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
@@ -50,22 +50,22 @@ interactions:
         https://js.hs-analytics.net https://js.hs-banner.com https://js.hsadspixel.net
         https://js.hscollectedforms.net https://js.usemessages.com https://snap.licdn.com
         https://static.cloudflareinsights.com https://static.reo.dev https://www.google-analytics.com
-        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.crewai.com
-        app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
-        *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
+        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.fzxiezuoai.com
+        app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
         https://cdn.jsdelivr.net https://forms.hsforms.com https://track.hubspot.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://www.google.com
-        https://www.google.com.br; font-src ''self'' data: *.app.crewai.com app.crewai.com;
-        connect-src ''self'' *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com
+        https://www.google.com.br; font-src ''self'' data: *.app.fzxiezuoai.com app.fzxiezuoai.com;
+        connect-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ https://*.sentry.io
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ https://*.sentry.io
         https://www.google-analytics.com https://edge.fullstory.com https://rs.fullstory.com
         https://api.hubspot.com https://forms.hscollectedforms.net https://api.hubapi.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://google.com/pagead/form-data/16713662509
         https://google.com/ccm/form-data/16713662509 https://www.google.com/ccm/collect
-        https://worker-actionkit.tools.crewai.com https://api.reo.dev; frame-src ''self''
-        *.app.crewai.com app.crewai.com https://connect.useparagon.com/ https://zeus.tools.crewai.com
-        https://zeus.useparagon.com/* https://connect.tools.crewai.com/ https://docs.google.com
+        https://worker-actionkit.tools.fzxiezuoai.com https://api.reo.dev; frame-src ''self''
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.tools.fzxiezuoai.com
+        https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/ https://docs.google.com
         https://drive.google.com https://slides.google.com https://accounts.google.com
         https://*.google.com https://app.hubspot.com/ https://td.doubleclick.net https://www.googletagmanager.com/
         https://www.youtube.com https://share.descript.com'
@@ -125,10 +125,10 @@ interactions:
       specialized in technology, software engineering, AI and startups. You work as
       a freelancer and is now working on doing research and analysis for a new customer.\",
       ''cache'': True, ''verbose'': False, ''max_rpm'': None, ''allow_delegation'':
-      False, ''tools'': [], ''max_iter'': 25, ''agent_executor'': <crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b973fe0>, ''llm'': <crewai.llms.providers.openai.completion.OpenAICompletion
+      False, ''tools'': [], ''max_iter'': 25, ''agent_executor'': <fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b973fe0>, ''llm'': <fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b910290>, ''crew'': None, ''i18n'': {''prompt_file'': None}, ''cache_handler'':
-      {}, ''tools_handler'': <crewai.agents.tools_handler.ToolsHandler object at 0x12b9934d0>,
+      {}, ''tools_handler'': <fzxiezuoai.agents.tools_handler.ToolsHandler object at 0x12b9934d0>,
       ''tools_results'': [], ''max_tokens'': None, ''knowledge'': None, ''knowledge_sources'':
       None, ''knowledge_storage'': None, ''security_config'': {''fingerprint'': {''metadata'':
       {}}}, ''callbacks'': [], ''adapted_agent'': False, ''knowledge_config'': None,
@@ -148,10 +148,10 @@ interactions:
       engineering, AI and startups. You work as a freelancer and are now working on
       writing content for a new customer.\", ''cache'': True, ''verbose'': False,
       ''max_rpm'': None, ''allow_delegation'': False, ''tools'': [], ''max_iter'':
-      25, ''agent_executor'': <crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b7bbbf0>, ''llm'': <crewai.llms.providers.openai.completion.OpenAICompletion
+      25, ''agent_executor'': <fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b7bbbf0>, ''llm'': <fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b9903b0>, ''crew'': None, ''i18n'': {''prompt_file'': None}, ''cache_handler'':
-      {}, ''tools_handler'': <crewai.agents.tools_handler.ToolsHandler object at 0x12b631bb0>,
+      {}, ''tools_handler'': <fzxiezuoai.agents.tools_handler.ToolsHandler object at 0x12b631bb0>,
       ''tools_results'': [], ''max_tokens'': None, ''knowledge'': None, ''knowledge_sources'':
       None, ''knowledge_storage'': None, ''security_config'': {''fingerprint'': {''metadata'':
       {}}}, ''callbacks'': [], ''adapted_agent'': False, ''knowledge_config'': None,
@@ -168,10 +168,10 @@ interactions:
       specialized in technology, software engineering, AI and startups. You work as
       a freelancer and is now working on doing research and analysis for a new customer.\"",
       "cache": "True", "verbose": "False", "max_rpm": "None", "allow_delegation":
-      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b973fe0>", "llm": "<crewai.llms.providers.openai.completion.OpenAICompletion
+      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b973fe0>", "llm": "<fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b910290>", "crew": "None", "i18n": "{''prompt_file'': None}",
-      "cache_handler": "{}", "tools_handler": "<crewai.agents.tools_handler.ToolsHandler
+      "cache_handler": "{}", "tools_handler": "<fzxiezuoai.agents.tools_handler.ToolsHandler
       object at 0x12b9934d0>", "tools_results": "[]", "max_tokens": "None", "knowledge":
       "None", "knowledge_sources": "None", "knowledge_storage": "None", "security_config":
       "{''fingerprint'': {''metadata'': {}}}", "callbacks": "[]", "adapted_agent":
@@ -181,10 +181,10 @@ interactions:
       a senior writer, specialized in technology, software engineering, AI and startups.
       You work as a freelancer and are now working on writing content for a new customer.\"",
       "cache": "True", "verbose": "False", "max_rpm": "None", "allow_delegation":
-      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b7bbbf0>", "llm": "<crewai.llms.providers.openai.completion.OpenAICompletion
+      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b7bbbf0>", "llm": "<fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b9903b0>", "crew": "None", "i18n": "{''prompt_file'': None}",
-      "cache_handler": "{}", "tools_handler": "<crewai.agents.tools_handler.ToolsHandler
+      "cache_handler": "{}", "tools_handler": "<fzxiezuoai.agents.tools_handler.ToolsHandler
       object at 0x12b631bb0>", "tools_results": "[]", "max_tokens": "None", "knowledge":
       "None", "knowledge_sources": "None", "knowledge_storage": "None", "security_config":
       "{''fingerprint'': {''metadata'': {}}}", "callbacks": "[]", "adapted_agent":
@@ -213,10 +213,10 @@ interactions:
       specialized in technology, software engineering, AI and startups. You work as
       a freelancer and is now working on doing research and analysis for a new customer.\",
       ''cache'': True, ''verbose'': False, ''max_rpm'': None, ''allow_delegation'':
-      False, ''tools'': [], ''max_iter'': 25, ''agent_executor'': <crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b973fe0>, ''llm'': <crewai.llms.providers.openai.completion.OpenAICompletion
+      False, ''tools'': [], ''max_iter'': 25, ''agent_executor'': <fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b973fe0>, ''llm'': <fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b910290>, ''crew'': None, ''i18n'': {''prompt_file'': None}, ''cache_handler'':
-      {}, ''tools_handler'': <crewai.agents.tools_handler.ToolsHandler object at 0x12b9934d0>,
+      {}, ''tools_handler'': <fzxiezuoai.agents.tools_handler.ToolsHandler object at 0x12b9934d0>,
       ''tools_results'': [], ''max_tokens'': None, ''knowledge'': None, ''knowledge_sources'':
       None, ''knowledge_storage'': None, ''security_config'': {''fingerprint'': {''metadata'':
       {}}}, ''callbacks'': [], ''adapted_agent'': False, ''knowledge_config'': None,
@@ -236,10 +236,10 @@ interactions:
       engineering, AI and startups. You work as a freelancer and are now working on
       writing content for a new customer.\", ''cache'': True, ''verbose'': False,
       ''max_rpm'': None, ''allow_delegation'': False, ''tools'': [], ''max_iter'':
-      25, ''agent_executor'': <crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b7bbbf0>, ''llm'': <crewai.llms.providers.openai.completion.OpenAICompletion
+      25, ''agent_executor'': <fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b7bbbf0>, ''llm'': <fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b9903b0>, ''crew'': None, ''i18n'': {''prompt_file'': None}, ''cache_handler'':
-      {}, ''tools_handler'': <crewai.agents.tools_handler.ToolsHandler object at 0x12b631bb0>,
+      {}, ''tools_handler'': <fzxiezuoai.agents.tools_handler.ToolsHandler object at 0x12b631bb0>,
       ''tools_results'': [], ''max_tokens'': None, ''knowledge'': None, ''knowledge_sources'':
       None, ''knowledge_storage'': None, ''security_config'': {''fingerprint'': {''metadata'':
       {}}}, ''callbacks'': [], ''adapted_agent'': False, ''knowledge_config'': None,
@@ -256,10 +256,10 @@ interactions:
       specialized in technology, software engineering, AI and startups. You work as
       a freelancer and is now working on doing research and analysis for a new customer.\"",
       "cache": "True", "verbose": "False", "max_rpm": "None", "allow_delegation":
-      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b973fe0>", "llm": "<crewai.llms.providers.openai.completion.OpenAICompletion
+      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b973fe0>", "llm": "<fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b910290>", "crew": "None", "i18n": "{''prompt_file'': None}",
-      "cache_handler": "{}", "tools_handler": "<crewai.agents.tools_handler.ToolsHandler
+      "cache_handler": "{}", "tools_handler": "<fzxiezuoai.agents.tools_handler.ToolsHandler
       object at 0x12b9934d0>", "tools_results": "[]", "max_tokens": "None", "knowledge":
       "None", "knowledge_sources": "None", "knowledge_storage": "None", "security_config":
       "{''fingerprint'': {''metadata'': {}}}", "callbacks": "[]", "adapted_agent":
@@ -269,10 +269,10 @@ interactions:
       a senior writer, specialized in technology, software engineering, AI and startups.
       You work as a freelancer and are now working on writing content for a new customer.\"",
       "cache": "True", "verbose": "False", "max_rpm": "None", "allow_delegation":
-      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<crewai.agents.crew_agent_executor.CrewAgentExecutor
-      object at 0x12b7bbbf0>", "llm": "<crewai.llms.providers.openai.completion.OpenAICompletion
+      "False", "tools": "[]", "max_iter": "25", "agent_executor": "<fzxiezuoai.agents.crew_agent_executor.CrewAgentExecutor
+      object at 0x12b7bbbf0>", "llm": "<fzxiezuoai.llms.providers.openai.completion.OpenAICompletion
       object at 0x12b9903b0>", "crew": "None", "i18n": "{''prompt_file'': None}",
-      "cache_handler": "{}", "tools_handler": "<crewai.agents.tools_handler.ToolsHandler
+      "cache_handler": "{}", "tools_handler": "<fzxiezuoai.agents.tools_handler.ToolsHandler
       object at 0x12b631bb0>", "tools_results": "[]", "max_tokens": "None", "knowledge":
       "None", "knowledge_sources": "None", "knowledge_storage": "None", "security_config":
       "{''fingerprint'': {''metadata'': {}}}", "callbacks": "[]", "adapted_agent":
@@ -300,11 +300,11 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/1.0.0
+      - 12FZ协作AI-CLI/1.0.0
       X-Crewai-Version:
       - 1.0.0
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches/fabb9e5b-b761-4b21-8514-cd4d3c937d09/events
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches/fabb9e5b-b761-4b21-8514-cd4d3c937d09/events
   response:
     body:
       string: '{"events_created":4,"ephemeral_trace_batch_id":"fe167fd8-d9b8-4faa-bb28-ed13f10e8d2e"}'
@@ -320,8 +320,8 @@ interactions:
       cache-control:
       - no-store
       content-security-policy:
-      - 'default-src ''self'' *.app.crewai.com app.crewai.com; script-src ''self''
-        ''unsafe-inline'' *.app.crewai.com app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts
+      - 'default-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com; script-src ''self''
+        ''unsafe-inline'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts
         https://www.gstatic.com https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
@@ -332,22 +332,22 @@ interactions:
         https://js.hs-analytics.net https://js.hs-banner.com https://js.hsadspixel.net
         https://js.hscollectedforms.net https://js.usemessages.com https://snap.licdn.com
         https://static.cloudflareinsights.com https://static.reo.dev https://www.google-analytics.com
-        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.crewai.com
-        app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
-        *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
+        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.fzxiezuoai.com
+        app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
         https://cdn.jsdelivr.net https://forms.hsforms.com https://track.hubspot.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://www.google.com
-        https://www.google.com.br; font-src ''self'' data: *.app.crewai.com app.crewai.com;
-        connect-src ''self'' *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com
+        https://www.google.com.br; font-src ''self'' data: *.app.fzxiezuoai.com app.fzxiezuoai.com;
+        connect-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ https://*.sentry.io
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ https://*.sentry.io
         https://www.google-analytics.com https://edge.fullstory.com https://rs.fullstory.com
         https://api.hubspot.com https://forms.hscollectedforms.net https://api.hubapi.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://google.com/pagead/form-data/16713662509
         https://google.com/ccm/form-data/16713662509 https://www.google.com/ccm/collect
-        https://worker-actionkit.tools.crewai.com https://api.reo.dev; frame-src ''self''
-        *.app.crewai.com app.crewai.com https://connect.useparagon.com/ https://zeus.tools.crewai.com
-        https://zeus.useparagon.com/* https://connect.tools.crewai.com/ https://docs.google.com
+        https://worker-actionkit.tools.fzxiezuoai.com https://api.reo.dev; frame-src ''self''
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.tools.fzxiezuoai.com
+        https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/ https://docs.google.com
         https://drive.google.com https://slides.google.com https://accounts.google.com
         https://*.google.com https://app.hubspot.com/ https://td.doubleclick.net https://www.googletagmanager.com/
         https://www.youtube.com https://share.descript.com'
@@ -394,11 +394,11 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - CrewAI-CLI/1.0.0
+      - 12FZ协作AI-CLI/1.0.0
       X-Crewai-Version:
       - 1.0.0
     method: PATCH
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches/fabb9e5b-b761-4b21-8514-cd4d3c937d09/finalize
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches/fabb9e5b-b761-4b21-8514-cd4d3c937d09/finalize
   response:
     body:
       string: '{"id":"fe167fd8-d9b8-4faa-bb28-ed13f10e8d2e","ephemeral_trace_id":"fabb9e5b-b761-4b21-8514-cd4d3c937d09","execution_type":"flow","crew_name":null,"flow_name":"MyFlow","status":"completed","duration_ms":856,"crewai_version":"1.0.0","total_events":4,"execution_context":{"crew_name":null,"flow_name":"MyFlow","privacy_level":"standard","crewai_version":"1.0.0","crew_fingerprint":null},"created_at":"2025-10-21T14:26:38.410Z","updated_at":"2025-10-21T14:26:39.268Z","access_code":"TRACE-8b1efdc7b5","user_identifier":null}'
@@ -414,8 +414,8 @@ interactions:
       cache-control:
       - no-store
       content-security-policy:
-      - 'default-src ''self'' *.app.crewai.com app.crewai.com; script-src ''self''
-        ''unsafe-inline'' *.app.crewai.com app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts
+      - 'default-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com; script-src ''self''
+        ''unsafe-inline'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts
         https://www.gstatic.com https://run.pstmn.io https://apis.google.com https://apis.google.com/js/api.js
         https://accounts.google.com https://accounts.google.com/gsi/client https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css.map
         https://*.google.com https://docs.google.com https://slides.google.com https://js.hs-scripts.com
@@ -426,22 +426,22 @@ interactions:
         https://js.hs-analytics.net https://js.hs-banner.com https://js.hsadspixel.net
         https://js.hscollectedforms.net https://js.usemessages.com https://snap.licdn.com
         https://static.cloudflareinsights.com https://static.reo.dev https://www.google-analytics.com
-        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.crewai.com
-        app.crewai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
-        *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com https://dashboard.tools.crewai.com
+        https://share.descript.com/; style-src ''self'' ''unsafe-inline'' *.app.fzxiezuoai.com
+        app.fzxiezuoai.com https://cdn.jsdelivr.net/npm/apexcharts; img-src ''self'' data:
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com https://dashboard.tools.fzxiezuoai.com
         https://cdn.jsdelivr.net https://forms.hsforms.com https://track.hubspot.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://www.google.com
-        https://www.google.com.br; font-src ''self'' data: *.app.crewai.com app.crewai.com;
-        connect-src ''self'' *.app.crewai.com app.crewai.com https://zeus.tools.crewai.com
+        https://www.google.com.br; font-src ''self'' data: *.app.fzxiezuoai.com app.fzxiezuoai.com;
+        connect-src ''self'' *.app.fzxiezuoai.com app.fzxiezuoai.com https://zeus.tools.fzxiezuoai.com
         https://connect.useparagon.com/ https://zeus.useparagon.com/* https://*.useparagon.com/*
-        https://run.pstmn.io https://connect.tools.crewai.com/ https://*.sentry.io
+        https://run.pstmn.io https://connect.tools.fzxiezuoai.com/ https://*.sentry.io
         https://www.google-analytics.com https://edge.fullstory.com https://rs.fullstory.com
         https://api.hubspot.com https://forms.hscollectedforms.net https://api.hubapi.com
         https://px.ads.linkedin.com https://px4.ads.linkedin.com https://google.com/pagead/form-data/16713662509
         https://google.com/ccm/form-data/16713662509 https://www.google.com/ccm/collect
-        https://worker-actionkit.tools.crewai.com https://api.reo.dev; frame-src ''self''
-        *.app.crewai.com app.crewai.com https://connect.useparagon.com/ https://zeus.tools.crewai.com
-        https://zeus.useparagon.com/* https://connect.tools.crewai.com/ https://docs.google.com
+        https://worker-actionkit.tools.fzxiezuoai.com https://api.reo.dev; frame-src ''self''
+        *.app.fzxiezuoai.com app.fzxiezuoai.com https://connect.useparagon.com/ https://zeus.tools.fzxiezuoai.com
+        https://zeus.useparagon.com/* https://connect.tools.fzxiezuoai.com/ https://docs.google.com
         https://drive.google.com https://slides.google.com https://accounts.google.com
         https://*.google.com https://app.hubspot.com/ https://td.doubleclick.net https://www.googletagmanager.com/
         https://www.youtube.com https://share.descript.com'

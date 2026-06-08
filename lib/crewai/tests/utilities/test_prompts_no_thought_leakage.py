@@ -12,9 +12,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from crewai import Agent, Crew, Task
-from crewai.llm import LLM
-from crewai.utilities.prompts import Prompts
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.utilities.prompts import Prompts
 
 
 class TestNoToolsPromptGeneration:

@@ -5,8 +5,8 @@ import pytest
 from click.testing import CliRunner
 import httpx
 
-from crewai_cli.organization.main import OrganizationCommand
-from crewai_cli.cli import org_list, switch, current
+from fzxiezuoai_cli.organization.main import OrganizationCommand
+from fzxiezuoai_cli.cli import org_list, switch, current
 
 
 @pytest.fixture
@@ -23,13 +23,13 @@ def org_command():
 
 @pytest.fixture
 def mock_settings():
-    with patch("crewai_cli.organization.main.Settings") as mock_settings_class:
+    with patch("fzxiezuoai_cli.organization.main.Settings") as mock_settings_class:
         mock_settings_instance = MagicMock()
         mock_settings_class.return_value = mock_settings_instance
         yield mock_settings_instance
 
 
-@patch("crewai_cli.cli.OrganizationCommand")
+@patch("fzxiezuoai_cli.cli.OrganizationCommand")
 def test_org_list_command(mock_org_command_class, runner):
     mock_org_instance = MagicMock()
     mock_org_command_class.return_value = mock_org_instance
@@ -41,7 +41,7 @@ def test_org_list_command(mock_org_command_class, runner):
     mock_org_instance.list.assert_called_once()
 
 
-@patch("crewai_cli.cli.OrganizationCommand")
+@patch("fzxiezuoai_cli.cli.OrganizationCommand")
 def test_org_switch_command(mock_org_command_class, runner):
     mock_org_instance = MagicMock()
     mock_org_command_class.return_value = mock_org_instance
@@ -53,7 +53,7 @@ def test_org_switch_command(mock_org_command_class, runner):
     mock_org_instance.switch.assert_called_once_with("test-id")
 
 
-@patch("crewai_cli.cli.OrganizationCommand")
+@patch("fzxiezuoai_cli.cli.OrganizationCommand")
 def test_org_current_command(mock_org_command_class, runner):
     mock_org_instance = MagicMock()
     mock_org_command_class.return_value = mock_org_instance
@@ -71,8 +71,8 @@ class TestOrganizationCommand(unittest.TestCase):
             self.org_command = OrganizationCommand()
             self.org_command.plus_api_client = MagicMock()
 
-    @patch("crewai_cli.organization.main.console")
-    @patch("crewai_cli.organization.main.Table")
+    @patch("fzxiezuoai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.Table")
     def test_list_organizations_success(self, mock_table, mock_console):
         mock_response = MagicMock()
         mock_response.raise_for_status = MagicMock()
@@ -96,7 +96,7 @@ class TestOrganizationCommand(unittest.TestCase):
             [call("Org 1", "org-123"), call("Org 2", "org-456")]
         )
 
-    @patch("crewai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.console")
     def test_list_organizations_empty(self, mock_console):
         mock_response = MagicMock()
         mock_response.raise_for_status = MagicMock()
@@ -111,7 +111,7 @@ class TestOrganizationCommand(unittest.TestCase):
             "You don't belong to any organizations yet.", style="yellow"
         )
 
-    @patch("crewai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.console")
     def test_list_organizations_api_error(self, mock_console):
         self.org_command.plus_api_client = MagicMock()
         self.org_command.plus_api_client.get_organizations.side_effect = (
@@ -126,8 +126,8 @@ class TestOrganizationCommand(unittest.TestCase):
             "Failed to retrieve organization list: API Error", style="bold red"
         )
 
-    @patch("crewai_cli.organization.main.console")
-    @patch("crewai_cli.organization.main.Settings")
+    @patch("fzxiezuoai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.Settings")
     def test_switch_organization_success(self, mock_settings_class, mock_console):
         mock_response = MagicMock()
         mock_response.raise_for_status = MagicMock()
@@ -151,7 +151,7 @@ class TestOrganizationCommand(unittest.TestCase):
             "Successfully switched to Test Org (test-id)", style="bold green"
         )
 
-    @patch("crewai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.console")
     def test_switch_organization_not_found(self, mock_console):
         mock_response = MagicMock()
         mock_response.raise_for_status = MagicMock()
@@ -169,8 +169,8 @@ class TestOrganizationCommand(unittest.TestCase):
             "Organization with id 'non-existent-id' not found.", style="bold red"
         )
 
-    @patch("crewai_cli.organization.main.console")
-    @patch("crewai_cli.organization.main.Settings")
+    @patch("fzxiezuoai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.Settings")
     def test_current_organization_with_org(self, mock_settings_class, mock_console):
         mock_settings_instance = MagicMock()
         mock_settings_instance.org_name = "Test Org"
@@ -184,8 +184,8 @@ class TestOrganizationCommand(unittest.TestCase):
             "Currently logged in to organization Test Org (test-id)", style="bold green"
         )
 
-    @patch("crewai_cli.organization.main.console")
-    @patch("crewai_cli.organization.main.Settings")
+    @patch("fzxiezuoai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.Settings")
     def test_current_organization_without_org(self, mock_settings_class, mock_console):
         mock_settings_instance = MagicMock()
         mock_settings_instance.org_uuid = None
@@ -198,7 +198,7 @@ class TestOrganizationCommand(unittest.TestCase):
             "You're not currently logged in to any organization.", style="yellow"
         )
 
-    @patch("crewai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.console")
     def test_list_organizations_unauthorized(self, mock_console):
         mock_response = MagicMock()
         mock_http_error = httpx.HTTPStatusError(
@@ -214,11 +214,11 @@ class TestOrganizationCommand(unittest.TestCase):
 
         self.org_command.plus_api_client.get_organizations.assert_called_once()
         mock_console.print.assert_called_once_with(
-            "You are not logged in to any organization. Use 'crewai login' to login.",
+            "You are not logged in to any organization. Use 'fzxiezuoai login' to login.",
             style="bold red",
         )
 
-    @patch("crewai_cli.organization.main.console")
+    @patch("fzxiezuoai_cli.organization.main.console")
     def test_switch_organization_unauthorized(self, mock_console):
         mock_response = MagicMock()
         mock_http_error = httpx.HTTPStatusError(
@@ -234,6 +234,6 @@ class TestOrganizationCommand(unittest.TestCase):
 
         self.org_command.plus_api_client.get_organizations.assert_called_once()
         mock_console.print.assert_called_once_with(
-            "You are not logged in to any organization. Use 'crewai login' to login.",
+            "You are not logged in to any organization. Use 'fzxiezuoai login' to login.",
             style="bold red",
         )

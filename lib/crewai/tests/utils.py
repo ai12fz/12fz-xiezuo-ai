@@ -1,4 +1,4 @@
-"""Test utilities for CrewAI tests."""
+"""Test utilities for 12FZ协作AI tests."""
 
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
@@ -13,7 +13,7 @@ def wait_for_event_handlers(timeout: float = 5.0) -> None:
     Args:
         timeout: Maximum time to wait in seconds.
     """
-    from crewai.events.event_bus import crewai_event_bus
+    from fzxiezuoai.events.event_bus import crewai_event_bus
 
     loop = getattr(crewai_event_bus, "_loop", None)
 

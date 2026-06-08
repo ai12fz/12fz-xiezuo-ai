@@ -5,17 +5,17 @@ import threading
 import time
 from unittest.mock import MagicMock, patch
 
-from crewai import Agent, Task
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.types.tool_usage_events import (
+from fzxiezuoai import Agent, Task
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.types.tool_usage_events import (
     ToolSelectionErrorEvent,
     ToolUsageErrorEvent,
     ToolUsageFinishedEvent,
     ToolUsageStartedEvent,
     ToolValidateInputErrorEvent,
 )
-from crewai.tools import BaseTool
-from crewai.tools.tool_usage import ToolUsage
+from fzxiezuoai.tools import BaseTool
+from fzxiezuoai.tools.tool_usage import ToolUsage
 from pydantic import BaseModel, Field
 import pytest
 
@@ -690,7 +690,7 @@ def test_tool_usage_finished_event_with_cached_result():
 
 
 def test_tool_error_does_not_emit_finished_event():
-    from crewai.tools.tool_calling import ToolCalling
+    from fzxiezuoai.tools.tool_calling import ToolCalling
 
     class FailingTool(BaseTool):
         name: str = "Failing Tool"

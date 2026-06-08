@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from crewai import LLM, Agent, Crew, Task
+from fzxiezuoai import LLM, Agent, Crew, Task
 
 
 @pytest.mark.skip(reason="Only run manually with valid API keys")

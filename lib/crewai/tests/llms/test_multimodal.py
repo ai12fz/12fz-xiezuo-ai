@@ -6,23 +6,23 @@ from unittest.mock import patch
 
 import pytest
 
-from crewai.llm import LLM
-from crewai_files import ImageFile, PDFFile, TextFile, format_multimodal_content
+from fzxiezuoai.llm import LLM
+from fzxiezuoai_files import ImageFile, PDFFile, TextFile, format_multimodal_content
 
 try:
-    from crewai.llms.providers.anthropic.completion import AnthropicCompletion
+    from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
     HAS_ANTHROPIC = True
 except ImportError:
     HAS_ANTHROPIC = False
 
 try:
-    from crewai.llms.providers.azure.completion import AzureCompletion
+    from fzxiezuoai.llms.providers.azure.completion import AzureCompletion
     HAS_AZURE = True
 except ImportError:
     HAS_AZURE = False
 
 try:
-    from crewai.llms.providers.bedrock.completion import BedrockCompletion
+    from fzxiezuoai.llms.providers.bedrock.completion import BedrockCompletion
     HAS_BEDROCK = True
 except ImportError:
     HAS_BEDROCK = False
@@ -324,7 +324,7 @@ class TestBaseLLMMultimodal:
 
     def test_base_supports_multimodal_false(self) -> None:
         """Test base implementation returns False."""
-        from crewai.llms.base_llm import BaseLLM
+        from fzxiezuoai.llms.base_llm import BaseLLM
 
         class TestLLM(BaseLLM):
             def call(self, messages, tools=None, callbacks=None):
@@ -335,7 +335,7 @@ class TestBaseLLMMultimodal:
 
     def test_base_format_text_content(self) -> None:
         """Test base text formatting uses OpenAI/Anthropic style."""
-        from crewai.llms.base_llm import BaseLLM
+        from fzxiezuoai.llms.base_llm import BaseLLM
 
         class TestLLM(BaseLLM):
             def call(self, messages, tools=None, callbacks=None):

@@ -5,8 +5,8 @@ from __future__ import annotations
 from typing import Any
 from unittest.mock import patch
 
-from crewai.events.event_bus import _replaying, crewai_event_bus, is_replaying
-from crewai.events.types.flow_events import (
+from fzxiezuoai.events.event_bus import _replaying, crewai_event_bus, is_replaying
+from fzxiezuoai.events.types.flow_events import (
     MethodExecutionFinishedEvent,
     MethodExecutionStartedEvent,
 )
@@ -91,8 +91,8 @@ class TestCheckpointListenerOptsOut:
     """CheckpointListener must early-return during replay."""
 
     def test_checkpoint_not_written_on_replay(self) -> None:
-        from crewai.state.checkpoint_config import CheckpointConfig
-        from crewai.state.checkpoint_listener import _on_any_event
+        from fzxiezuoai.state.checkpoint_config import CheckpointConfig
+        from fzxiezuoai.state.checkpoint_listener import _on_any_event
 
         class FlowLike:
             entity_type = "flow"
@@ -100,7 +100,7 @@ class TestCheckpointListenerOptsOut:
 
         ev = _make_started("m", "id-1", 1)
 
-        with patch("crewai.state.checkpoint_listener._do_checkpoint") as do_cp:
+        with patch("fzxiezuoai.state.checkpoint_listener._do_checkpoint") as do_cp:
             token = _replaying.set(True)
             try:
                 _on_any_event(FlowLike(), ev, state=None)
@@ -113,8 +113,8 @@ class TestFlowResumeReplaysEvents:
     """End-to-end: a resumed flow emits MethodExecution* events for completed methods."""
 
     def test_resume_dispatches_completed_method_events(self, tmp_path) -> None:
-        from crewai.flow.flow import Flow, listen, start
-        from crewai.flow.persistence.sqlite import SQLiteFlowPersistence
+        from fzxiezuoai.flow.flow import Flow, listen, start
+        from fzxiezuoai.flow.persistence.sqlite import SQLiteFlowPersistence
 
         db_path = tmp_path / "flows.db"
         persistence = SQLiteFlowPersistence(str(db_path))

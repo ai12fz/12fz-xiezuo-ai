@@ -27,7 +27,7 @@ interactions:
       content-type:
       - application/json
       host:
-      - crewai-azure-openai.openai.azure.com
+      - fzxiezuoai-azure-openai.openai.azure.com
       x-stainless-arch:
       - X-STAINLESS-ARCH-XXX
       x-stainless-async:
@@ -106,7 +106,7 @@ interactions:
       content-type:
       - application/json
       host:
-      - crewai-azure-openai.openai.azure.com
+      - fzxiezuoai-azure-openai.openai.azure.com
       x-stainless-arch:
       - X-STAINLESS-ARCH-XXX
       x-stainless-async:
@@ -196,7 +196,7 @@ interactions:
       content-type:
       - application/json
       host:
-      - crewai-azure-openai.openai.azure.com
+      - fzxiezuoai-azure-openai.openai.azure.com
       x-stainless-arch:
       - X-STAINLESS-ARCH-XXX
       x-stainless-async:

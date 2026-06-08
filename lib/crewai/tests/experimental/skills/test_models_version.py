@@ -6,7 +6,7 @@ top-level frontmatter field.
 
 from __future__ import annotations
 
-from crewai.skills.models import SkillFrontmatter
+from fzxiezuoai.skills.models import SkillFrontmatter
 
 
 class TestSkillFrontmatterVersion:

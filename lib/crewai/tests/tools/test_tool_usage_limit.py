@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import MagicMock
 
-from crewai.tools import BaseTool, tool
-from crewai.tools.tool_usage import ToolUsage
+from fzxiezuoai.tools import BaseTool, tool
+from fzxiezuoai.tools.tool_usage import ToolUsage
 
 
 def test_tool_usage_limit():

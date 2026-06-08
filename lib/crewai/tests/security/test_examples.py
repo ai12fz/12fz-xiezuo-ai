@@ -1,7 +1,7 @@
 """Test for the examples in the fingerprinting documentation."""
 
-from crewai import Agent, Crew, Task
-from crewai.security import Fingerprint, SecurityConfig
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.security import Fingerprint, SecurityConfig
 
 
 def test_basic_usage_examples():

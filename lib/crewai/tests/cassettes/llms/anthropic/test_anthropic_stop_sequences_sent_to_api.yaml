@@ -17,7 +17,7 @@ interactions:
       accept-encoding:
       - ACCEPT-ENCODING-XXX
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/batches
   response:
     body:
       string: '{"error":"bad_credentials","message":"Bad credentials"}'

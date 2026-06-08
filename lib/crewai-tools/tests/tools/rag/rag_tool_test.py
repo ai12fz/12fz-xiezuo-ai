@@ -5,8 +5,8 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from crewai_tools.adapters.crewai_rag_adapter import CrewAIRagAdapter
-from crewai_tools.tools.rag.rag_tool import RagTool
+from fzxiezuoai_tools.adapters.crewai_rag_adapter import CrewAIRagAdapter
+from fzxiezuoai_tools.tools.rag.rag_tool import RagTool
 
 
 @pytest.fixture(autouse=True)
@@ -18,12 +18,12 @@ def allow_tmp_paths(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("CREWAI_TOOLS_ALLOW_UNSAFE_PATHS", "true")
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.get_rag_client")
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.get_rag_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_initialization(
     mock_create_client: Mock, mock_get_rag_client: Mock
 ) -> None:
-    """Test that RagTool initializes with CrewAI adapter by default."""
+    """Test that RagTool initializes with 12FZ协作AI adapter by default."""
     mock_client = MagicMock()
     mock_client.get_or_create_collection = MagicMock(return_value=None)
     mock_get_rag_client.return_value = mock_client
@@ -41,8 +41,8 @@ def test_rag_tool_initialization(
     assert adapter._client is not None
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.get_rag_client")
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.get_rag_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_add_and_query(
     mock_create_client: Mock, mock_get_rag_client: Mock
 ) -> None:
@@ -85,8 +85,8 @@ def test_rag_tool_add_and_query(
     assert "Machine learning" in result
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.get_rag_client")
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.get_rag_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_with_file(
     mock_create_client: Mock, mock_get_rag_client: Mock
 ) -> None:
@@ -125,8 +125,8 @@ def test_rag_tool_with_file(
         assert "Python is a programming language" in result
 
 
-@patch("crewai_tools.tools.rag.rag_tool.build_embedder")
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.tools.rag.rag_tool.build_embedder")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_with_custom_embeddings(
     mock_create_client: Mock, mock_build_embedder: Mock
 ) -> None:
@@ -164,8 +164,8 @@ def test_rag_tool_with_custom_embeddings(
     mock_build_embedder.assert_called()
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.get_rag_client")
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.get_rag_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_no_results(
     mock_create_client: Mock, mock_get_rag_client: Mock
 ) -> None:
@@ -186,7 +186,7 @@ def test_rag_tool_no_results(
     assert "No relevant content found" in result
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_with_azure_config_without_env_vars(
     mock_create_client: Mock,
 ) -> None:
@@ -206,7 +206,7 @@ def test_rag_tool_with_azure_config_without_env_vars(
 
     # Patch the embedding function builder to avoid actual API calls
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
 
@@ -235,7 +235,7 @@ def test_rag_tool_with_azure_config_without_env_vars(
         assert isinstance(tool.adapter, CrewAIRagAdapter)
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_with_openai_config_without_env_vars(
     mock_create_client: Mock,
 ) -> None:
@@ -248,7 +248,7 @@ def test_rag_tool_with_openai_config_without_env_vars(
     mock_create_client.return_value = mock_client
 
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
 
@@ -271,7 +271,7 @@ def test_rag_tool_with_openai_config_without_env_vars(
         assert isinstance(tool.adapter, CrewAIRagAdapter)
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_rag_tool_config_with_qdrant_and_azure_embeddings(
     mock_create_client: Mock,
 ) -> None:
@@ -284,7 +284,7 @@ def test_rag_tool_config_with_qdrant_and_azure_embeddings(
     mock_create_client.return_value = mock_client
 
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
 

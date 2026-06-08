@@ -1,6 +1,6 @@
 """Tests for click dependency compatibility.
 
-Regression tests for https://github.com/crewAIInc/crewAI/issues/6002
+Regression tests for https://github.com/crewAIInc/12FZ协作AI/issues/6002
 The click dependency was previously pinned to ~=8.1.7 (i.e. >=8.1.7,<8.2.0)
 which prevented users from upgrading to click 8.2+ as required by their
 security policies. The constraint has been widened to >=8.1.7,<9 to allow
@@ -39,7 +39,7 @@ def _get_click_requirement_from_pyproject(package_dir: str) -> Requirement:
 @pytest.mark.parametrize(
     "package_dir",
     [
-        "lib/crewai",
+        "lib/fzxiezuoai",
         "lib/cli",
         "lib/devtools",
     ],
@@ -56,7 +56,7 @@ def test_click_constraint_allows_8_3_3(package_dir: str):
 @pytest.mark.parametrize(
     "package_dir",
     [
-        "lib/crewai",
+        "lib/fzxiezuoai",
         "lib/cli",
         "lib/devtools",
     ],
@@ -72,7 +72,7 @@ def test_click_constraint_allows_8_1_7(package_dir: str):
 @pytest.mark.parametrize(
     "package_dir",
     [
-        "lib/crewai",
+        "lib/fzxiezuoai",
         "lib/cli",
         "lib/devtools",
     ],
@@ -104,9 +104,9 @@ def test_cli_runner_works_with_installed_click():
         click.echo(f"Hello {name}!")
 
     runner = CliRunner()
-    result = runner.invoke(hello, ["--name", "crewai"])
+    result = runner.invoke(hello, ["--name", "fzxiezuoai"])
     assert result.exit_code == 0
-    assert "Hello crewai!" in result.output
+    assert "Hello fzxiezuoai!" in result.output
 
 
 def test_cli_group_works_with_installed_click():

@@ -1,10 +1,10 @@
 from unittest.mock import MagicMock, Mock, patch
 
-from crewai_tools.adapters.crewai_rag_adapter import CrewAIRagAdapter
-from crewai_tools.tools.txt_search_tool.txt_search_tool import TXTSearchTool
+from fzxiezuoai_tools.adapters.crewai_rag_adapter import CrewAIRagAdapter
+from fzxiezuoai_tools.tools.txt_search_tool.txt_search_tool import TXTSearchTool
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_txt_search_tool_with_azure_config_without_env_vars(
     mock_create_client: Mock,
 ) -> None:
@@ -17,7 +17,7 @@ def test_txt_search_tool_with_azure_config_without_env_vars(
     mock_create_client.return_value = mock_client
 
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
         config = {
@@ -42,7 +42,7 @@ def test_txt_search_tool_with_azure_config_without_env_vars(
         assert tool.name == "Search a txt's content"
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_txt_search_tool_with_openai_config_without_env_vars(
     mock_create_client: Mock,
 ) -> None:
@@ -55,7 +55,7 @@ def test_txt_search_tool_with_openai_config_without_env_vars(
     mock_create_client.return_value = mock_client
 
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
         config = {
@@ -74,7 +74,7 @@ def test_txt_search_tool_with_openai_config_without_env_vars(
         assert isinstance(tool.adapter, CrewAIRagAdapter)
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_txt_search_tool_with_cohere_config(mock_create_client: Mock) -> None:
     """Test TXTSearchTool with Cohere embedding provider."""
     mock_embedding_func = MagicMock()
@@ -85,7 +85,7 @@ def test_txt_search_tool_with_cohere_config(mock_create_client: Mock) -> None:
     mock_create_client.return_value = mock_client
 
     with patch(
-        "crewai_tools.tools.rag.rag_tool.build_embedder",
+        "fzxiezuoai_tools.tools.rag.rag_tool.build_embedder",
         return_value=mock_embedding_func,
     ):
         config = {

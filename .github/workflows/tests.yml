@@ -88,7 +88,7 @@ jobs:
           #   DURATIONS_ARG="--durations-path=${DURATION_FILE}"
           # fi
 
-          cd lib/crewai && uv run pytest \
+          cd lib/fzxiezuoai && uv run pytest \
             -vv \
             --splits 8 \
             --group ${{ matrix.group }} \
@@ -98,7 +98,7 @@ jobs:
 
       - name: Run tool tests (group ${{ matrix.group }} of 8)
         run: |
-          cd lib/crewai-tools && uv run pytest \
+          cd lib/fzxiezuoai-tools && uv run pytest \
             -vv \
             --splits 8 \
             --group ${{ matrix.group }} \

@@ -3,7 +3,7 @@ from unittest.mock import MagicMock, patch
 import urllib.error
 import xml.etree.ElementTree as ET
 
-from crewai_tools import ArxivPaperTool
+from fzxiezuoai_tools import ArxivPaperTool
 import pytest
 
 

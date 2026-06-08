@@ -4,8 +4,8 @@ from unittest.mock import MagicMock, patch
 import zipfile
 
 from click.testing import CliRunner
-from crewai_cli.cli import template_add, template_list
-from crewai_cli.remote_template.main import TemplateCommand
+from fzxiezuoai_cli.cli import template_add, template_list
+from fzxiezuoai_cli.remote_template.main import TemplateCommand
 import httpx
 import pytest
 
@@ -19,7 +19,7 @@ SAMPLE_REPOS = [
     {"name": "template_deep_research", "description": "Deep research template", "private": False},
     {"name": "template_pull_request_review", "description": "PR review template", "private": False},
     {"name": "template_conversational_example", "description": "Conversational demo", "private": False},
-    {"name": "crewai", "description": "Main repo", "private": False},
+    {"name": "fzxiezuoai", "description": "Main repo", "private": False},
     {"name": "marketplace-crew-template", "description": "Marketplace", "private": False},
 ]
 
@@ -36,7 +36,7 @@ def _make_zipball(files: dict[str, str], top_dir: str = "crewAIInc-template_test
 
 
 
-@patch("crewai_cli.cli.TemplateCommand")
+@patch("fzxiezuoai_cli.cli.TemplateCommand")
 def test_template_list_command(mock_cls, runner):
     mock_instance = MagicMock()
     mock_cls.return_value = mock_instance
@@ -48,7 +48,7 @@ def test_template_list_command(mock_cls, runner):
     mock_instance.list_templates.assert_called_once()
 
 
-@patch("crewai_cli.cli.TemplateCommand")
+@patch("fzxiezuoai_cli.cli.TemplateCommand")
 def test_template_add_command(mock_cls, runner):
     mock_instance = MagicMock()
     mock_cls.return_value = mock_instance
@@ -60,7 +60,7 @@ def test_template_add_command(mock_cls, runner):
     mock_instance.add_template.assert_called_once_with("deep_research", None)
 
 
-@patch("crewai_cli.cli.TemplateCommand")
+@patch("fzxiezuoai_cli.cli.TemplateCommand")
 def test_template_add_with_output_dir(mock_cls, runner):
     mock_instance = MagicMock()
     mock_cls.return_value = mock_instance
@@ -81,7 +81,7 @@ class TestTemplateCommand:
             instance._telemetry = MagicMock()
             return instance
 
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_fetch_templates_filters_by_prefix(self, mock_get, cmd):
         mock_response = MagicMock()
         mock_response.json.return_value = SAMPLE_REPOS
@@ -96,7 +96,7 @@ class TestTemplateCommand:
         assert len(templates) == 3
         assert all(t["name"].startswith("template_") for t in templates)
 
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_fetch_templates_excludes_private(self, mock_get, cmd):
         repos = [
             {"name": "template_private_one", "description": "", "private": True},
@@ -115,15 +115,15 @@ class TestTemplateCommand:
         assert len(templates) == 1
         assert templates[0]["name"] == "template_public_one"
 
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_fetch_templates_api_error(self, mock_get, cmd):
         mock_get.side_effect = httpx.HTTPError("connection error")
 
         with pytest.raises(SystemExit):
             cmd._fetch_templates()
 
-    @patch("crewai_cli.remote_template.main.click.prompt", return_value="q")
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.click.prompt", return_value="q")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_list_templates_prints_output(self, mock_get, mock_prompt, cmd):
         mock_response = MagicMock()
         mock_response.json.return_value = SAMPLE_REPOS
@@ -133,11 +133,11 @@ class TestTemplateCommand:
         mock_empty.raise_for_status = MagicMock()
         mock_get.side_effect = [mock_response, mock_empty]
 
-        with patch("crewai_cli.remote_template.main.console") as mock_console:
+        with patch("fzxiezuoai_cli.remote_template.main.console") as mock_console:
             cmd.list_templates()
             assert mock_console.print.call_count > 0
 
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_resolve_repo_name_with_prefix(self, mock_get, cmd):
         mock_response = MagicMock()
         mock_response.json.return_value = SAMPLE_REPOS
@@ -150,7 +150,7 @@ class TestTemplateCommand:
         result = cmd._resolve_repo_name("template_deep_research")
         assert result == "template_deep_research"
 
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_resolve_repo_name_without_prefix(self, mock_get, cmd):
         mock_response = MagicMock()
         mock_response.json.return_value = SAMPLE_REPOS
@@ -163,7 +163,7 @@ class TestTemplateCommand:
         result = cmd._resolve_repo_name("deep_research")
         assert result == "template_deep_research"
 
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_resolve_repo_name_not_found(self, mock_get, cmd):
         mock_response = MagicMock()
         mock_response.json.return_value = SAMPLE_REPOS
@@ -218,7 +218,7 @@ class TestTemplateCommand:
 
     @patch.object(TemplateCommand, "_extract_zip")
     @patch.object(TemplateCommand, "_download_zip")
-    @patch("crewai_cli.remote_template.main.click.prompt", return_value="my_project")
+    @patch("fzxiezuoai_cli.remote_template.main.click.prompt", return_value="my_project")
     @patch.object(TemplateCommand, "_resolve_repo_name")
     def test_add_template_dir_exists_prompts_rename(self, mock_resolve, mock_prompt, mock_download, mock_extract, cmd, tmp_path):
         mock_resolve.return_value = "template_deep_research"
@@ -233,7 +233,7 @@ class TestTemplateCommand:
         mock_extract.assert_called_once_with(b"fake-zip-bytes", expected_dest)
 
     @patch.object(TemplateCommand, "_resolve_repo_name")
-    @patch("crewai_cli.remote_template.main.click.prompt", return_value="q")
+    @patch("fzxiezuoai_cli.remote_template.main.click.prompt", return_value="q")
     def test_add_template_dir_exists_quit(self, mock_prompt, mock_resolve, cmd, tmp_path):
         mock_resolve.return_value = "template_deep_research"
         existing = tmp_path / "deep_research"
@@ -243,8 +243,8 @@ class TestTemplateCommand:
         cmd.add_template("deep_research")
 
     @patch.object(TemplateCommand, "_install_repo")
-    @patch("crewai_cli.remote_template.main.click.prompt", return_value="2")
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.click.prompt", return_value="2")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_list_templates_selects_and_installs(self, mock_get, mock_prompt, mock_install, cmd):
         mock_response = MagicMock()
         mock_response.json.return_value = SAMPLE_REPOS
@@ -254,15 +254,15 @@ class TestTemplateCommand:
         mock_empty.raise_for_status = MagicMock()
         mock_get.side_effect = [mock_response, mock_empty]
 
-        with patch("crewai_cli.remote_template.main.console"):
+        with patch("fzxiezuoai_cli.remote_template.main.console"):
             cmd.list_templates()
 
         # Templates are sorted by name; index 1 (choice "2") = template_deep_research
         mock_install.assert_called_once_with("template_deep_research")
 
     @patch.object(TemplateCommand, "_install_repo")
-    @patch("crewai_cli.remote_template.main.click.prompt", return_value="q")
-    @patch("crewai_cli.remote_template.main.httpx.get")
+    @patch("fzxiezuoai_cli.remote_template.main.click.prompt", return_value="q")
+    @patch("fzxiezuoai_cli.remote_template.main.httpx.get")
     def test_list_templates_quit(self, mock_get, mock_prompt, mock_install, cmd):
         mock_response = MagicMock()
         mock_response.json.return_value = SAMPLE_REPOS
@@ -272,7 +272,7 @@ class TestTemplateCommand:
         mock_empty.raise_for_status = MagicMock()
         mock_get.side_effect = [mock_response, mock_empty]
 
-        with patch("crewai_cli.remote_template.main.console"):
+        with patch("fzxiezuoai_cli.remote_template.main.console"):
             cmd.list_templates()
 
         mock_install.assert_not_called()

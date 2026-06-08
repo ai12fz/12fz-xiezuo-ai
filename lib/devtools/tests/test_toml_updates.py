@@ -3,7 +3,7 @@
 from pathlib import Path
 from textwrap import dedent
 
-from crewai_devtools.cli import (
+from fzxiezuoai_devtools.cli import (
     _DEFAULT_WORKSPACE_PACKAGES,
     _pin_crewai_deps,
     _repin_crewai_install,
@@ -84,39 +84,39 @@ class TestPinCrewaiDeps:
         content = dedent("""\
             [project]
             dependencies = [
-                "crewai==1.0.0",
+                "fzxiezuoai==1.0.0",
             ]
         """)
         result = _pin_crewai_deps(content, "2.0.0")
-        assert '"crewai==2.0.0"' in result
+        assert '"fzxiezuoai==2.0.0"' in result
 
     def test_pins_minimum_version(self) -> None:
         content = dedent("""\
             [project]
             dependencies = [
-                "crewai>=1.0.0",
+                "fzxiezuoai>=1.0.0",
             ]
         """)
         result = _pin_crewai_deps(content, "2.0.0")
-        assert '"crewai==2.0.0"' in result
+        assert '"fzxiezuoai==2.0.0"' in result
         assert ">=" not in result
 
     def test_pins_with_tools_extra(self) -> None:
         content = dedent("""\
             [project]
             dependencies = [
-                "crewai[tools]==1.0.0",
+                "fzxiezuoai[tools]==1.0.0",
             ]
         """)
         result = _pin_crewai_deps(content, "2.0.0")
-        assert '"crewai[tools]==2.0.0"' in result
+        assert '"fzxiezuoai[tools]==2.0.0"' in result
 
     def test_leaves_unrelated_deps_alone(self) -> None:
         content = dedent("""\
             [project]
             dependencies = [
                 "requests>=2.0",
-                "crewai==1.0.0",
+                "fzxiezuoai==1.0.0",
                 "click~=8.1",
             ]
         """)
@@ -131,33 +131,33 @@ class TestPinCrewaiDeps:
 
             [project.optional-dependencies]
             tools = [
-                "crewai[tools]>=1.0.0",
+                "fzxiezuoai[tools]>=1.0.0",
             ]
         """)
         result = _pin_crewai_deps(content, "3.0.0")
-        assert '"crewai[tools]==3.0.0"' in result
+        assert '"fzxiezuoai[tools]==3.0.0"' in result
 
     def test_handles_multiple_crewai_entries(self) -> None:
         content = dedent("""\
             [project]
             dependencies = [
-                "crewai==1.0.0",
-                "crewai[tools]==1.0.0",
+                "fzxiezuoai==1.0.0",
+                "fzxiezuoai[tools]==1.0.0",
             ]
         """)
         result = _pin_crewai_deps(content, "2.0.0")
-        assert '"crewai==2.0.0"' in result
-        assert '"crewai[tools]==2.0.0"' in result
+        assert '"fzxiezuoai==2.0.0"' in result
+        assert '"fzxiezuoai[tools]==2.0.0"' in result
 
     def test_preserves_arbitrary_extras(self) -> None:
         content = dedent("""\
             [project]
             dependencies = [
-                "crewai[a2a]==1.0.0",
+                "fzxiezuoai[a2a]==1.0.0",
             ]
         """)
         result = _pin_crewai_deps(content, "2.0.0")
-        assert '"crewai[a2a]==2.0.0"' in result
+        assert '"fzxiezuoai[a2a]==2.0.0"' in result
 
     def test_no_deps_returns_unchanged(self) -> None:
         content = dedent("""\
@@ -171,51 +171,51 @@ class TestPinCrewaiDeps:
         content = dedent("""\
             [project]
             dependencies = [
-                "crewai-tools~=1.0",
+                "fzxiezuoai-tools~=1.0",
             ]
         """)
         result = _pin_crewai_deps(content, "2.0.0")
-        assert '"crewai-tools~=1.0"' in result
+        assert '"fzxiezuoai-tools~=1.0"' in result
 
     def test_skips_crewai_extras_without_pin(self) -> None:
         content = dedent("""\
             [project]
             dependencies = [
-                "crewai[tools]",
+                "fzxiezuoai[tools]",
             ]
         """)
         result = _pin_crewai_deps(content, "2.0.0")
-        assert '"crewai[tools]"' in result
+        assert '"fzxiezuoai[tools]"' in result
         assert "==" not in result
 
 
 class TestRepinCrewaiInstall:
     def test_repins_a2a_extra(self) -> None:
-        result = _repin_crewai_install('uv pip install "crewai[a2a]==1.14.0"', "2.0.0")
-        assert result == 'uv pip install "crewai[a2a]==2.0.0"'
+        result = _repin_crewai_install('uv pip install "fzxiezuoai[a2a]==1.14.0"', "2.0.0")
+        assert result == 'uv pip install "fzxiezuoai[a2a]==2.0.0"'
 
     def test_repins_tools_extra(self) -> None:
-        result = _repin_crewai_install('uv pip install "crewai[tools]==1.0.0"', "3.0.0")
-        assert result == 'uv pip install "crewai[tools]==3.0.0"'
+        result = _repin_crewai_install('uv pip install "fzxiezuoai[tools]==1.0.0"', "3.0.0")
+        assert result == 'uv pip install "fzxiezuoai[tools]==3.0.0"'
 
     def test_leaves_unrelated_commands_alone(self) -> None:
         cmd = "uv pip install requests"
         assert _repin_crewai_install(cmd, "2.0.0") == cmd
 
     def test_handles_multiple_pins(self) -> None:
-        cmd = 'pip install "crewai[a2a]==1.0.0" "crewai[tools]==1.0.0"'
+        cmd = 'pip install "fzxiezuoai[a2a]==1.0.0" "fzxiezuoai[tools]==1.0.0"'
         result = _repin_crewai_install(cmd, "2.0.0")
-        assert result == 'pip install "crewai[a2a]==2.0.0" "crewai[tools]==2.0.0"'
+        assert result == 'pip install "fzxiezuoai[a2a]==2.0.0" "fzxiezuoai[tools]==2.0.0"'
 
     def test_preserves_surrounding_text(self) -> None:
-        cmd = 'echo hello && uv pip install "crewai[a2a]==1.14.0" && echo done'
+        cmd = 'echo hello && uv pip install "fzxiezuoai[a2a]==1.14.0" && echo done'
         result = _repin_crewai_install(cmd, "2.0.0")
         assert (
-            result == 'echo hello && uv pip install "crewai[a2a]==2.0.0" && echo done'
+            result == 'echo hello && uv pip install "fzxiezuoai[a2a]==2.0.0" && echo done'
         )
 
     def test_no_version_specifier_unchanged(self) -> None:
-        cmd = 'pip install "crewai[tools]>=1.0"'
+        cmd = 'pip install "fzxiezuoai[tools]>=1.0"'
         assert _repin_crewai_install(cmd, "2.0.0") == cmd
 
 
@@ -247,65 +247,65 @@ class TestUpdatePyprojectDependencies:
             dedent("""\
             [project]
             dependencies = [
-                "crewai-core==1.0.0",
-                "crewai-cli==1.0.0",
+                "fzxiezuoai-core==1.0.0",
+                "fzxiezuoai-cli==1.0.0",
                 "requests>=2.0",
             ]
 
             [project.optional-dependencies]
             tools = [
-                "crewai-tools==1.0.0",
+                "fzxiezuoai-tools==1.0.0",
             ]
             files = [
-                "crewai-files==1.0.0",
+                "fzxiezuoai-files==1.0.0",
             ]
         """)
         )
 
         assert update_pyproject_dependencies(pyproject, "2.0.0") is True
         result = pyproject.read_text()
-        assert '"crewai-core==2.0.0"' in result
-        assert '"crewai-cli==2.0.0"' in result
-        assert '"crewai-tools==2.0.0"' in result
-        assert '"crewai-files==2.0.0"' in result
+        assert '"fzxiezuoai-core==2.0.0"' in result
+        assert '"fzxiezuoai-cli==2.0.0"' in result
+        assert '"fzxiezuoai-tools==2.0.0"' in result
+        assert '"fzxiezuoai-files==2.0.0"' in result
         assert '"requests>=2.0"' in result
 
-    def test_skips_crewai_files_in_file_processing_extra(self, tmp_path: Path) -> None:
+    def test_skips_fzxiezuoai_files_in_file_processing_extra(self, tmp_path: Path) -> None:
         pyproject = tmp_path / "pyproject.toml"
         pyproject.write_text(
             dedent("""\
             [project.optional-dependencies]
             file-processing = [
-                "crewai-files==1.0.0",
+                "fzxiezuoai-files==1.0.0",
             ]
             other = [
-                "crewai-files==1.0.0",
+                "fzxiezuoai-files==1.0.0",
             ]
         """)
         )
 
         update_pyproject_dependencies(pyproject, "2.0.0")
         result = pyproject.read_text()
-        assert '"crewai-files==1.0.0"' in result
-        assert '"crewai-files==2.0.0"' in result
+        assert '"fzxiezuoai-files==1.0.0"' in result
+        assert '"fzxiezuoai-files==2.0.0"' in result
 
     def test_leaves_bare_crewai_pin_alone(self, tmp_path: Path) -> None:
-        """`crewai==` must not collide with `crewai-core==` etc."""
+        """`fzxiezuoai==` must not collide with `fzxiezuoai-core==` etc."""
         pyproject = tmp_path / "pyproject.toml"
         pyproject.write_text(
             dedent("""\
             [project]
             dependencies = [
-                "crewai==1.0.0",
-                "crewai-core==1.0.0",
+                "fzxiezuoai==1.0.0",
+                "fzxiezuoai-core==1.0.0",
             ]
         """)
         )
 
         update_pyproject_dependencies(pyproject, "2.0.0")
         result = pyproject.read_text()
-        assert '"crewai==2.0.0"' in result
-        assert '"crewai-core==2.0.0"' in result
+        assert '"fzxiezuoai==2.0.0"' in result
+        assert '"fzxiezuoai-core==2.0.0"' in result
 
 
 class TestUpdateTemplateDependencies:
@@ -319,7 +319,7 @@ class TestUpdateTemplateDependencies:
             name = "{{folder_name}}"
             version = "0.1.0"
             dependencies = [
-                "crewai[tools]==1.14.0"
+                "fzxiezuoai[tools]==1.14.0"
             ]
 
             [project.scripts]
@@ -331,17 +331,17 @@ class TestUpdateTemplateDependencies:
 
         assert len(updated) == 1
         content = tpl.read_text()
-        assert '"crewai[tools]==2.0.0"' in content
+        assert '"fzxiezuoai[tools]==2.0.0"' in content
         assert "{{folder_name}}" in content
 
     def test_updates_bare_crewai(self, tmp_path: Path) -> None:
         tpl = tmp_path / "pyproject.toml"
-        tpl.write_text('dependencies = [\n    "crewai==1.0.0"\n]\n')
+        tpl.write_text('dependencies = [\n    "fzxiezuoai==1.0.0"\n]\n')
 
         updated = update_template_dependencies(tmp_path, "3.0.0")
 
         assert len(updated) == 1
-        assert '"crewai==3.0.0"' in tpl.read_text()
+        assert '"fzxiezuoai==3.0.0"' in tpl.read_text()
 
     def test_skips_unrelated_deps(self, tmp_path: Path) -> None:
         tpl = tmp_path / "pyproject.toml"

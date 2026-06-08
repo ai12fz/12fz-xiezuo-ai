@@ -2,10 +2,10 @@ import os
 from typing import Any
 from unittest.mock import patch
 
-from crewai.constants import DEFAULT_LLM_MODEL
-from crewai.llm import LLM
-from crewai.llms.base_llm import BaseLLM
-from crewai.utilities.llm_utils import create_llm
+from fzxiezuoai.constants import DEFAULT_LLM_MODEL
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.base_llm import BaseLLM
+from fzxiezuoai.utilities.llm_utils import create_llm
 import pytest
 
 
@@ -50,7 +50,7 @@ def test_create_llm_with_unknown_object_missing_attributes() -> None:
 
 def test_create_llm_with_none_uses_default_model() -> None:
     with patch.dict(os.environ, {"OPENAI_API_KEY": "fake-key"}, clear=True):
-        with patch("crewai.utilities.llm_utils.DEFAULT_LLM_MODEL", DEFAULT_LLM_MODEL):
+        with patch("fzxiezuoai.utilities.llm_utils.DEFAULT_LLM_MODEL", DEFAULT_LLM_MODEL):
             llm = create_llm(llm_value=None)
             assert isinstance(llm, BaseLLM)
             assert llm.model == DEFAULT_LLM_MODEL
@@ -131,8 +131,8 @@ def test_create_llm_openai_missing_api_key() -> None:
 def test_create_llm_anthropic_missing_dependency() -> None:
     """Test that create_llm raises error when Anthropic dependency is missing"""
     with patch.dict(os.environ, {"ANTHROPIC_API_KEY": "fake-key"}, clear=True):
-        with patch("crewai.llm.LLM.__new__", side_effect=ImportError('Anthropic native provider not available, to install: uv add "crewai[anthropic]"')):
+        with patch("fzxiezuoai.llm.LLM.__new__", side_effect=ImportError('Anthropic native provider not available, to install: uv add "fzxiezuoai[anthropic]"')):
             with pytest.raises(ImportError) as exc_info:
                 create_llm(llm_value="anthropic/claude-3-sonnet")
 
-            assert "Anthropic native provider not available, to install: uv add \"crewai[anthropic]\"" in str(exc_info.value)
+            assert "Anthropic native provider not available, to install: uv add \"fzxiezuoai[anthropic]\"" in str(exc_info.value)

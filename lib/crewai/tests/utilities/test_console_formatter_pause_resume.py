@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock, patch
 from rich.live import Live
-from crewai.events.utils.console_formatter import ConsoleFormatter
+from fzxiezuoai.events.utils.console_formatter import ConsoleFormatter
 
 
 class TestConsoleFormatterPauseResume:
@@ -63,7 +63,7 @@ class TestConsoleFormatterPauseResume:
         formatter.resume_live_updates()
 
         # After resume, streaming should be able to start a new session
-        with patch("crewai.events.utils.console_formatter.Live") as mock_live_class:
+        with patch("fzxiezuoai.events.utils.console_formatter.Live") as mock_live_class:
             mock_live_instance = MagicMock()
             mock_live_class.return_value = mock_live_instance
 
@@ -79,7 +79,7 @@ class TestConsoleFormatterPauseResume:
         formatter = ConsoleFormatter()
         formatter.verbose = True
 
-        with patch("crewai.events.utils.console_formatter.Live") as mock_live_class:
+        with patch("fzxiezuoai.events.utils.console_formatter.Live") as mock_live_class:
             mock_live_instance = MagicMock()
             mock_live_class.return_value = mock_live_instance
 

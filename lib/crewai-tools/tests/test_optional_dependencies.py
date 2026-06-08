@@ -34,13 +34,13 @@ def run_command(cmd, cwd):
 @pytest.mark.skip(reason="Test takes too long in GitHub Actions (>30s timeout) due to dependency installation")
 def test_no_optional_dependencies_in_init(temp_project):
     """
-    Test that crewai-tools can be imported without optional dependencies.
+    Test that fzxiezuoai-tools can be imported without optional dependencies.
 
     The package defines optional dependencies in pyproject.toml, but the base
     package should be importable without any of these optional dependencies
     being installed.
     """
     result = run_command(
-        ["uv", "run", "python", "-c", "import crewai_tools"], temp_project
+        ["uv", "run", "python", "-c", "import fzxiezuoai_tools"], temp_project
     )
     assert result.returncode == 0, f"Import failed with error: {result.stderr}"

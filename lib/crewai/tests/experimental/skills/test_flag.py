@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import pytest
 
-from crewai.experimental.skills._flag import (
+from fzxiezuoai.experimental.skills._flag import (
     ExperimentalFeatureDisabledError,
     require_experimental_skills,
 )
-from crewai.experimental.skills.registry import resolve_registry_ref
+from fzxiezuoai.experimental.skills.registry import resolve_registry_ref
 
 
 def test_require_raises_without_flag(monkeypatch: pytest.MonkeyPatch) -> None:

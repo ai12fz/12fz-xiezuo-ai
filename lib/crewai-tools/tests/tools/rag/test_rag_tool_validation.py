@@ -5,10 +5,10 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 from pydantic import ValidationError
 
-from crewai_tools.tools.rag.rag_tool import RagTool
+from fzxiezuoai_tools.tools.rag.rag_tool import RagTool
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_azure_missing_deployment_id_gives_clear_error(mock_create_client: Mock) -> None:
     """Test that missing deployment_id for Azure gives a clear, focused error message."""
     mock_client = MagicMock()
@@ -40,7 +40,7 @@ def test_azure_missing_deployment_id_gives_clear_error(mock_create_client: Mock)
     assert "huggingface" not in error_msg.lower()
 
 
-@patch("crewai_tools.adapters.crewai_rag_adapter.create_client")
+@patch("fzxiezuoai_tools.adapters.crewai_rag_adapter.create_client")
 def test_valid_azure_config_works(mock_create_client: Mock) -> None:
     """Test that valid Azure config works without errors."""
     mock_client = MagicMock()

@@ -139,7 +139,7 @@ interactions:
         Klaudia Krawiecka, and Christian Schroeder de Witt. The paper provides a comprehensive
         guide to the Plan-then-Execute (P-t-E) architectural pattern for Large Language
         Model agents, focusing on security, predictability, and performance across
-        different implementation frameworks like LangChain, CrewAI, and AutoGen."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":3,"cache_creation_input_tokens":0,"cache_read_input_tokens":73839,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":141,"service_tier":"standard"}}'
+        different implementation frameworks like LangChain, 12FZ协作AI, and AutoGen."}],"stop_reason":"end_turn","stop_sequence":null,"usage":{"input_tokens":3,"cache_creation_input_tokens":0,"cache_read_input_tokens":73839,"cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":0},"output_tokens":141,"service_tier":"standard"}}'
     headers:
       CF-RAY:
       - CF-RAY-XXX

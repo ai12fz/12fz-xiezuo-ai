@@ -22,7 +22,7 @@ interactions:
       accept-encoding:
       - ACCEPT-ENCODING-XXX
     method: POST
-    uri: https://app.crewai.com/crewai_plus/api/v1/tracing/ephemeral/batches
+    uri: https://app.fzxiezuoai.com/crewai_plus/api/v1/tracing/ephemeral/batches
   response:
     body:
       string: '{"id": "00000000-0000-0000-0000-000000000000","ephemeral_trace_id":

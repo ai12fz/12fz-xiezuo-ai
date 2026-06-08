@@ -2,9 +2,9 @@ import hashlib
 import os
 import tempfile
 
-from crewai_tools.rag.base_loader import LoaderResult
-from crewai_tools.rag.loaders.text_loader import TextFileLoader, TextLoader
-from crewai_tools.rag.source_content import SourceContent
+from fzxiezuoai_tools.rag.base_loader import LoaderResult
+from fzxiezuoai_tools.rag.loaders.text_loader import TextFileLoader, TextLoader
+from fzxiezuoai_tools.rag.source_content import SourceContent
 import pytest
 
 

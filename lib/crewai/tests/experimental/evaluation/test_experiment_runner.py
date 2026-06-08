@@ -1,16 +1,16 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-from crewai.crew import Crew
-from crewai.experimental.evaluation.base_evaluator import (
+from fzxiezuoai.crew import Crew
+from fzxiezuoai.experimental.evaluation.base_evaluator import (
     EvaluationScore,
     MetricCategory,
 )
-from crewai.experimental.evaluation.evaluation_display import (
+from fzxiezuoai.experimental.evaluation.evaluation_display import (
     AgentAggregatedEvaluationResult,
 )
-from crewai.experimental.evaluation.experiment.result import ExperimentResults
-from crewai.experimental.evaluation.experiment.runner import ExperimentRunner
+from fzxiezuoai.experimental.evaluation.experiment.result import ExperimentResults
+from fzxiezuoai.experimental.evaluation.experiment.runner import ExperimentRunner
 
 
 class TestExperimentRunner:
@@ -49,7 +49,7 @@ class TestExperimentRunner:
 
         return {"Test Agent": agent_evaluation}
 
-    @patch("crewai.experimental.evaluation.experiment.runner.create_default_evaluator")
+    @patch("fzxiezuoai.experimental.evaluation.experiment.runner.create_default_evaluator")
     def test_run_success(
         self, mock_create_evaluator, mock_crew, mock_evaluator_results
     ):
@@ -108,7 +108,7 @@ class TestExperimentRunner:
         assert mock_evaluator.reset_iterations_results.call_count == 3
         assert mock_evaluator.get_agent_evaluation.call_count == 3
 
-    @patch("crewai.experimental.evaluation.experiment.runner.create_default_evaluator")
+    @patch("fzxiezuoai.experimental.evaluation.experiment.runner.create_default_evaluator")
     def test_run_success_with_unknown_metric(
         self, mock_create_evaluator, mock_crew, mock_evaluator_results
     ):
@@ -138,7 +138,7 @@ class TestExperimentRunner:
         assert "unknown_metric" in result.expected_score.keys()
         assert result.passed is True
 
-    @patch("crewai.experimental.evaluation.experiment.runner.create_default_evaluator")
+    @patch("fzxiezuoai.experimental.evaluation.experiment.runner.create_default_evaluator")
     def test_run_success_with_single_metric_evaluator_and_expected_specific_metric(
         self, mock_create_evaluator, mock_crew, mock_evaluator_results
     ):
@@ -173,7 +173,7 @@ class TestExperimentRunner:
         assert "goal_alignment" in result.expected_score.keys()
         assert result.passed is True
 
-    @patch("crewai.experimental.evaluation.experiment.runner.create_default_evaluator")
+    @patch("fzxiezuoai.experimental.evaluation.experiment.runner.create_default_evaluator")
     def test_run_success_when_expected_metric_is_not_available(
         self, mock_create_evaluator, mock_crew, mock_evaluator_results
     ):

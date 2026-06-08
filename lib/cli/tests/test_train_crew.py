@@ -1,10 +1,10 @@
 import subprocess
 from unittest import mock
 
-from crewai_cli.train_crew import train_crew
+from fzxiezuoai_cli.train_crew import train_crew
 
 
-@mock.patch("crewai_cli.train_crew.subprocess.run")
+@mock.patch("fzxiezuoai_cli.train_crew.subprocess.run")
 def test_train_crew_positive_iterations(mock_subprocess_run):
     n_iterations = 5
     mock_subprocess_run.return_value = subprocess.CompletedProcess(
@@ -24,7 +24,7 @@ def test_train_crew_positive_iterations(mock_subprocess_run):
     )
 
 
-@mock.patch("crewai_cli.train_crew.click")
+@mock.patch("fzxiezuoai_cli.train_crew.click")
 def test_train_crew_zero_iterations(click):
     train_crew(0, "trained_agents_data.pkl")
     click.echo.assert_called_once_with(
@@ -33,7 +33,7 @@ def test_train_crew_zero_iterations(click):
     )
 
 
-@mock.patch("crewai_cli.train_crew.click")
+@mock.patch("fzxiezuoai_cli.train_crew.click")
 def test_train_crew_negative_iterations(click):
     train_crew(-2, "trained_agents_data.pkl")
     click.echo.assert_called_once_with(
@@ -42,8 +42,8 @@ def test_train_crew_negative_iterations(click):
     )
 
 
-@mock.patch("crewai_cli.train_crew.click")
-@mock.patch("crewai_cli.train_crew.subprocess.run")
+@mock.patch("fzxiezuoai_cli.train_crew.click")
+@mock.patch("fzxiezuoai_cli.train_crew.subprocess.run")
 def test_train_crew_called_process_error(mock_subprocess_run, click):
     n_iterations = 5
     mock_subprocess_run.side_effect = subprocess.CalledProcessError(
@@ -71,8 +71,8 @@ def test_train_crew_called_process_error(mock_subprocess_run, click):
     )
 
 
-@mock.patch("crewai_cli.train_crew.click")
-@mock.patch("crewai_cli.train_crew.subprocess.run")
+@mock.patch("fzxiezuoai_cli.train_crew.click")
+@mock.patch("fzxiezuoai_cli.train_crew.subprocess.run")
 def test_train_crew_unexpected_exception(mock_subprocess_run, click):
     n_iterations = 5
     mock_subprocess_run.side_effect = Exception("Unexpected error")

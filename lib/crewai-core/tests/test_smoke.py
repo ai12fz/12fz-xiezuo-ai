@@ -1,11 +1,11 @@
-"""Smoke tests for the crewai-core leaf modules."""
+"""Smoke tests for the fzxiezuoai-core leaf modules."""
 
 from __future__ import annotations
 
 import os
 from pathlib import Path
 
-from crewai_core import (
+from fzxiezuoai_core import (
     constants,
     lock_store,
     paths,
@@ -26,7 +26,7 @@ def test_paths_creates_storage_dir(
 ) -> None:
     monkeypatch.setenv("CREWAI_STORAGE_DIR", str(tmp_path / "store"))
     monkeypatch.setattr(
-        "crewai_core.paths.appdirs.user_data_dir",
+        "fzxiezuoai_core.paths.appdirs.user_data_dir",
         lambda app, author: str(tmp_path / app),
     )
     out = paths.db_storage_path()
@@ -53,14 +53,14 @@ def test_printer_respects_suppression(capsys: pytest.CaptureFixture[str]) -> Non
 
 
 def test_lock_acquires_and_releases() -> None:
-    with lock_store.lock("crewai_core.tests.smoke", timeout=5):
+    with lock_store.lock("fzxiezuoai_core.tests.smoke", timeout=5):
         pass
 
 
 def test_user_data_round_trip(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    monkeypatch.setenv("CREWAI_STORAGE_DIR", "crewai_core_test_user_data")
+    monkeypatch.setenv("CREWAI_STORAGE_DIR", "fzxiezuoai_core_test_user_data")
     monkeypatch.setattr(
-        "crewai_core.paths.appdirs.user_data_dir",
+        "fzxiezuoai_core.paths.appdirs.user_data_dir",
         lambda app, author: str(tmp_path / app),
     )
     user_data.update_user_data({"trace_consent": True, "first_execution_done": True})
@@ -78,9 +78,9 @@ def test_user_data_round_trip(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -
 def test_user_data_decline_blocks(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    monkeypatch.setenv("CREWAI_STORAGE_DIR", "crewai_core_test_decline")
+    monkeypatch.setenv("CREWAI_STORAGE_DIR", "fzxiezuoai_core_test_decline")
     monkeypatch.setattr(
-        "crewai_core.paths.appdirs.user_data_dir",
+        "fzxiezuoai_core.paths.appdirs.user_data_dir",
         lambda app, author: str(tmp_path / app),
     )
     user_data.update_user_data({"trace_consent": False, "first_execution_done": True})

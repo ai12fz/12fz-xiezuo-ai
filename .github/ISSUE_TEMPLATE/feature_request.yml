@@ -1,5 +1,5 @@
 name: Feature request
-description: Suggest a new feature for CrewAI
+description: Suggest a new feature for 12FZ协作AI
 title: "[FEATURE]"
 labels: ["feature-request"]
 assignees: []
@@ -12,7 +12,7 @@ body:
     id: feature-area
     attributes:
       label: Feature Area
-      description: Which area of CrewAI does this feature primarily relate to?
+      description: Which area of 12FZ协作AI does this feature primarily relate to?
       options:
         - Core functionality
         - Agent capabilities

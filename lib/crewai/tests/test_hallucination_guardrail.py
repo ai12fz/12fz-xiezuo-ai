@@ -1,9 +1,9 @@
 from unittest.mock import Mock
 
 import pytest
-from crewai.llm import LLM
-from crewai.tasks.hallucination_guardrail import HallucinationGuardrail
-from crewai.tasks.task_output import TaskOutput
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.tasks.hallucination_guardrail import HallucinationGuardrail
+from fzxiezuoai.tasks.task_output import TaskOutput
 
 
 def test_hallucination_guardrail_initialization():

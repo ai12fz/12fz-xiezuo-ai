@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
-  title: CrewAI 엔터프라이즈 API
+  title: 12FZ协作AI 엔터프라이즈 API
   description: |
-    CrewAI AOP에 배포된 crew와 상호작용하기 위한 REST API입니다.
+    12FZ协作AI AOP에 배포된 crew와 상호작용하기 위한 REST API입니다.
 
     ## 시작하기
     1. **Crew URL 확인**: 대시보드에서 고유한 crew URL을 확인하세요
@@ -11,11 +11,11 @@ info:
     4. **도구로 테스트**: cURL, Postman 등 선호하는 도구로 테스트하세요
   version: 1.0.0
   contact:
-    name: CrewAI 지원
-    email: support@crewai.com
-    url: https://crewai.com
+    name: 12FZ协作AI 지원
+    email: support@fzxiezuoai.com
+    url: https://fzxiezuoai.com
 servers:
-  - url: https://your-actual-crew-name.crewai.com
+  - url: https://your-actual-crew-name.fzxiezuoai.com
     description: 대시보드의 실제 crew URL로 교체하세요
 security:
   - BearerAuth: []

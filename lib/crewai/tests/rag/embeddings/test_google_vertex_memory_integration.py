@@ -10,8 +10,8 @@ end-to-end while testing memory storage separately with a fake embedder.
 import os
 from unittest.mock import patch
 
-from crewai import Agent, Crew, Task
-from crewai.memory.unified_memory import Memory
+from fzxiezuoai import Agent, Crew, Task
+from fzxiezuoai.memory.unified_memory import Memory
 import pytest
 
 
@@ -83,7 +83,7 @@ def test_crew_memory_with_google_vertex_embedder(
     embedding/auth API calls not in the cassette. After kickoff we verify
     memory storage works by calling remember() directly with a fake embedder.
     """
-    from crewai.rag.embeddings.factory import build_embedder
+    from fzxiezuoai.rag.embeddings.factory import build_embedder
 
     embedder = build_embedder(google_vertex_embedder_config)
     memory = Memory(embedder=embedder)
@@ -100,7 +100,7 @@ def test_crew_memory_with_google_vertex_embedder(
     # Mock _save_to_memory during kickoff so it doesn't make embedding API calls
     # that VCR can't replay (GCP metadata auth, embedding endpoints).
     with patch(
-        "crewai.agents.agent_builder.base_agent_executor.BaseAgentExecutor._save_to_memory"
+        "fzxiezuoai.agents.agent_builder.base_agent_executor.BaseAgentExecutor._save_to_memory"
     ):
         result = crew.kickoff()
 
@@ -134,7 +134,7 @@ def test_crew_memory_with_google_vertex_project_id(simple_agent, simple_task) ->
     if not project_id:
         pytest.skip("GOOGLE_CLOUD_PROJECT environment variable not set")
 
-    from crewai.rag.embeddings.factory import build_embedder
+    from fzxiezuoai.rag.embeddings.factory import build_embedder
 
     embedder_config = {
         "provider": "google-vertex",
@@ -158,7 +158,7 @@ def test_crew_memory_with_google_vertex_project_id(simple_agent, simple_task) ->
     assert crew._memory is memory
 
     with patch(
-        "crewai.agents.agent_builder.base_agent_executor.BaseAgentExecutor._save_to_memory"
+        "fzxiezuoai.agents.agent_builder.base_agent_executor.BaseAgentExecutor._save_to_memory"
     ):
         result = crew.kickoff()
 

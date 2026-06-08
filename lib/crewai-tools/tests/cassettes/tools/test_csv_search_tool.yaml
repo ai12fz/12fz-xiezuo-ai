@@ -77,7 +77,7 @@ interactions:
       openai-model:
       - text-embedding-ada-002-v2
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '170'
       openai-version:
@@ -224,7 +224,7 @@ interactions:
       openai-model:
       - text-embedding-ada-002-v2
       openai-organization:
-      - crewai-iuxna1
+      - fzxiezuoai-iuxna1
       openai-processing-ms:
       - '59'
       openai-version:

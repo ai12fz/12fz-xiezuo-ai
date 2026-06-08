@@ -2,7 +2,7 @@
 name: valid-skill
 description: A complete test skill with all optional directories.
 license: Apache-2.0
-compatibility: crewai>=0.1.0
+compatibility: fzxiezuoai>=0.1.0
 metadata:
   author: test
   version: "1.0"

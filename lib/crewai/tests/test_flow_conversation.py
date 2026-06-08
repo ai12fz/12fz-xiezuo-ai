@@ -8,25 +8,25 @@ from uuid import uuid4
 
 from pydantic import BaseModel
 
-from crewai.events.event_bus import crewai_event_bus
-from crewai.events.listeners.tracing.trace_listener import TraceCollectionListener
-from crewai.events.types.flow_events import (
+from fzxiezuoai.events.event_bus import crewai_event_bus
+from fzxiezuoai.events.listeners.tracing.trace_listener import TraceCollectionListener
+from fzxiezuoai.events.types.flow_events import (
     ConversationMessageAddedEvent,
     ConversationRouteSelectedEvent,
     FlowStartedEvent,
     MethodExecutionFinishedEvent,
     MethodExecutionStartedEvent,
 )
-from crewai.events.types.llm_events import LLMCallStartedEvent
-from crewai.experimental import (
+from fzxiezuoai.events.types.llm_events import LLMCallStartedEvent
+from fzxiezuoai.experimental import (
     ConversationConfig,
     ConversationMessage,
     ConversationState,
     RouterConfig,
 )
-from crewai.flow import Flow, ChatState, listen, start
-from crewai.flow.flow_context import current_flow_id, current_flow_name
-from crewai.flow.conversation import (
+from fzxiezuoai.flow import Flow, ChatState, listen, start
+from fzxiezuoai.flow.flow_context import current_flow_id, current_flow_name
+from fzxiezuoai.flow.conversation import (
     append_message,
     get_conversation_messages,
     normalize_kickoff_inputs,
@@ -124,7 +124,7 @@ class TestConversationalFlow:
         ``FlowFinishedEvent`` is emitted at ``finalize_session_traces()``, not
         one per turn. (Each turn still opens its own ``flow_started``.)
         """
-        from crewai.events.types.flow_events import FlowFinishedEvent
+        from fzxiezuoai.events.types.flow_events import FlowFinishedEvent
 
         @ConversationConfig(defer_trace_finalization=True)
         class TraceFlow(ConversationalFlow):
@@ -173,11 +173,11 @@ class TestConversationalFlow:
         flow = ResearchFlow()
 
         with patch.object(flow, "_collapse_to_outcome", return_value="research"):
-            result = flow.handle_turn("research CrewAI")
+            result = flow.handle_turn("research 12FZ协作AI")
 
         assert result == "researched answer"
         assert "conversation_start" in ResearchFlow._start_methods
-        assert flow.state.current_user_message == "research CrewAI"
+        assert flow.state.current_user_message == "research 12FZ协作AI"
         assert flow.state.last_intent == "research"
         assert [message.role for message in flow.state.messages] == [
             "user",
@@ -262,7 +262,7 @@ class TestConversationalFlow:
                 return "clarify"
 
         flow = RoutedFlow()
-        result = flow.handle_turn("research CrewAI")
+        result = flow.handle_turn("research 12FZ协作AI")
 
         assert result == "researched"
         llm.call.assert_called_once()
@@ -367,7 +367,7 @@ class TestConversationalFlow:
         response_format = flow._router_response_format(flow.conversational_config.router)
         llm.call.return_value = response_format(intent="research")
 
-        result = flow.handle_turn("research CrewAI")
+        result = flow.handle_turn("research 12FZ协作AI")
 
         assert result == "researched"
         llm.call.assert_called_once()
@@ -408,7 +408,7 @@ class TestConversationalFlow:
 
         flow = RoutedFlow()
         flow.state.messages = [
-            ConversationMessage(role="user", content="research CrewAI"),
+            ConversationMessage(role="user", content="research 12FZ协作AI"),
             ConversationMessage(role="assistant", content="prior findings"),
         ]
         result = flow.handle_turn("summarize findings")
@@ -691,7 +691,7 @@ class TestConversationalFlow:
                 return "fresh research"
 
         flow = DemoFlow()
-        from crewai.flow.persistence import SQLiteFlowPersistence
+        from fzxiezuoai.flow.persistence import SQLiteFlowPersistence
 
         import tempfile
         from pathlib import Path
@@ -818,7 +818,7 @@ class TestConversationalFlow:
 
         flow = RoutedFlow()
 
-        flow.handle_turn("research CrewAI")
+        flow.handle_turn("research 12FZ协作AI")
         assert flow.state.last_intent == "research"
 
         flow.handle_turn("tell me more about that")
@@ -853,7 +853,7 @@ class TestConversationalFlow:
                 return "researched"
 
         flow = RoutedFlow()
-        result = flow.handle_turn("research CrewAI")
+        result = flow.handle_turn("research 12FZ协作AI")
 
         assert result == "researched"
         assert flow.state.messages[-1].content == "researched"
@@ -882,10 +882,10 @@ class TestConversationalFlow:
         """``Flow`` mixes in ``_ConversationalMixin`` — opt-in subclasses get its methods.
 
         The conversational graph + ``handle_turn`` live on the mixin in
-        ``crewai.experimental.conversational_mixin``; this test confirms
+        ``fzxiezuoai.experimental.conversational_mixin``; this test confirms
         MRO resolution wires them onto a ``Flow`` subclass that opts in.
         """
-        from crewai.experimental.conversational_mixin import _ConversationalMixin
+        from fzxiezuoai.experimental.conversational_mixin import _ConversationalMixin
 
         @ConversationConfig()
         class MyChat(Flow):
@@ -1023,7 +1023,7 @@ class TestConversationalFlow:
 
     def test_deferred_conversation_emits_one_flow_started(self) -> None:
         """Deferred conversational sessions emit one flow_started for the session."""
-        from crewai.events.types.flow_events import FlowStartedEvent
+        from fzxiezuoai.events.types.flow_events import FlowStartedEvent
 
         @ConversationConfig(defer_trace_finalization=True)
         class DeferredFlow(ConversationalFlow):
@@ -1094,7 +1094,7 @@ class TestConversationalFlow:
         single ``finalize_session_traces()`` closes the whole session as
         one trace batch with one terminal event.
         """
-        from crewai.events.types.flow_events import FlowFinishedEvent
+        from fzxiezuoai.events.types.flow_events import FlowFinishedEvent
 
         @ConversationConfig()
         class DeferredFlow(ConversationalFlow):
@@ -1185,7 +1185,7 @@ class TestConversationalFlow:
         ``finalize_session_traces()`` at session end must not emit a second,
         unpaired session-end event (which would confuse tracing).
         """
-        from crewai.events.types.flow_events import FlowFinishedEvent
+        from fzxiezuoai.events.types.flow_events import FlowFinishedEvent
 
         @ConversationConfig(defer_trace_finalization=False)
         class PlainFlow(ConversationalFlow):
@@ -1319,9 +1319,9 @@ class TestDeferTraceFinalization:
 
 class TestDeferredFlowLifecycleEvents:
     def test_flow_finished_without_flow_started_warns(self, capsys) -> None:
-        from crewai.events.event_bus import crewai_event_bus
-        from crewai.events.event_context import restore_event_scope
-        from crewai.events.types.flow_events import FlowFinishedEvent
+        from fzxiezuoai.events.event_bus import crewai_event_bus
+        from fzxiezuoai.events.event_context import restore_event_scope
+        from fzxiezuoai.events.types.flow_events import FlowFinishedEvent
 
         class BareFlow(Flow[ChatState]):
             @start()
@@ -1344,10 +1344,10 @@ class TestDeferredFlowLifecycleEvents:
         assert "Missing starting event" in captured
 
     def test_finalize_batch_is_idempotent(self) -> None:
-        from crewai.events.listeners.tracing.trace_batch_manager import TraceBatchManager
+        from fzxiezuoai.events.listeners.tracing.trace_batch_manager import TraceBatchManager
 
         with patch(
-            "crewai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
+            "fzxiezuoai.events.listeners.tracing.trace_batch_manager.is_tracing_enabled_in_context",
             return_value=True,
         ):
             bm = TraceBatchManager()
@@ -1383,7 +1383,7 @@ class TestDeferredFlowLifecycleEvents:
         first call, so a second call (e.g. a defensive ``try/finally``) does
         not re-emit a session-end event.
         """
-        from crewai.events.types.flow_events import FlowFinishedEvent
+        from fzxiezuoai.events.types.flow_events import FlowFinishedEvent
 
         @ConversationConfig(defer_trace_finalization=True)
         class DeferredFlow(ConversationalFlow):
@@ -1420,7 +1420,7 @@ class TestDeferredFlowLifecycleEvents:
         )
 
     def test_sigint_skips_deferred_session_batch(self) -> None:
-        from crewai.events.listeners.tracing.trace_batch_manager import TraceBatch
+        from fzxiezuoai.events.listeners.tracing.trace_batch_manager import TraceBatch
 
         listener = TraceCollectionListener()
         listener.batch_manager.current_batch = TraceBatch()
@@ -1435,10 +1435,10 @@ class TestDeferredFlowLifecycleEvents:
 
 class TestNestedCrewTracing:
     def test_is_inside_active_flow_context_when_kickoff_running(self) -> None:
-        from crewai.events.listeners.tracing.trace_listener import (
+        from fzxiezuoai.events.listeners.tracing.trace_listener import (
             TraceCollectionListener,
         )
-        from crewai.flow.flow_context import current_flow_id
+        from fzxiezuoai.flow.flow_context import current_flow_id
 
         assert TraceCollectionListener._is_inside_active_flow_context() is False
         token = current_flow_id.set("parent-flow-id")
@@ -1448,10 +1448,10 @@ class TestNestedCrewTracing:
             current_flow_id.reset(token)
 
     def test_nested_crew_completion_skips_finalize(self) -> None:
-        from crewai.events.listeners.tracing.trace_listener import (
+        from fzxiezuoai.events.listeners.tracing.trace_listener import (
             TraceCollectionListener,
         )
-        from crewai.flow.flow_context import current_flow_id
+        from fzxiezuoai.flow.flow_context import current_flow_id
 
         listener = TraceCollectionListener()
         listener.batch_manager.batch_owner_type = "crew"
@@ -1468,10 +1468,10 @@ class TestNestedCrewTracing:
             current_flow_id.reset(token)
 
     def test_flow_owned_batch_skips_finalize_without_flow_context(self) -> None:
-        from crewai.events.listeners.tracing.trace_listener import (
+        from fzxiezuoai.events.listeners.tracing.trace_listener import (
             TraceCollectionListener,
         )
-        from crewai.events.listeners.tracing.trace_batch_manager import TraceBatch
+        from fzxiezuoai.events.listeners.tracing.trace_batch_manager import TraceBatch
 
         listener = TraceCollectionListener()
         listener.batch_manager.batch_owner_type = "flow"

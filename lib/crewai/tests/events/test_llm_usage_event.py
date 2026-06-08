@@ -4,10 +4,10 @@ from unittest.mock import patch
 import pytest
 from pydantic import BaseModel
 
-from crewai.events.event_bus import CrewAIEventsBus
-from crewai.events.types.llm_events import LLMCallCompletedEvent, LLMCallType
-from crewai.llm import LLM
-from crewai.llms.base_llm import BaseLLM
+from fzxiezuoai.events.event_bus import CrewAIEventsBus
+from fzxiezuoai.events.types.llm_events import LLMCallCompletedEvent, LLMCallType
+from fzxiezuoai.llm import LLM
+from fzxiezuoai.llms.base_llm import BaseLLM
 
 
 class TestLLMCallCompletedEventUsageField:
@@ -252,7 +252,7 @@ class TestEmitCallCompletedEventPassesUsage:
 
 class TestUsageMetricsNewFields:
     def test_add_usage_metrics_aggregates_reasoning_and_cache_creation(self):
-        from crewai.types.usage_metrics import UsageMetrics
+        from fzxiezuoai.types.usage_metrics import UsageMetrics
 
         metrics1 = UsageMetrics(
             total_tokens=100,
@@ -284,14 +284,14 @@ class TestUsageMetricsNewFields:
         assert metrics1.successful_requests == 2
 
     def test_new_fields_default_to_zero(self):
-        from crewai.types.usage_metrics import UsageMetrics
+        from fzxiezuoai.types.usage_metrics import UsageMetrics
 
         metrics = UsageMetrics()
         assert metrics.reasoning_tokens == 0
         assert metrics.cache_creation_tokens == 0
 
     def test_model_dump_includes_new_fields(self):
-        from crewai.types.usage_metrics import UsageMetrics
+        from fzxiezuoai.types.usage_metrics import UsageMetrics
 
         metrics = UsageMetrics(reasoning_tokens=10, cache_creation_tokens=5)
         dumped = metrics.model_dump()

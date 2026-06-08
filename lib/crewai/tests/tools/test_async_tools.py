@@ -4,7 +4,7 @@ import asyncio
 
 import pytest
 
-from crewai.tools import BaseTool, tool
+from fzxiezuoai.tools import BaseTool, tool
 
 
 class SyncTool(BaseTool):

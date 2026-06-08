@@ -3,9 +3,9 @@ import os
 import tempfile
 from unittest.mock import Mock, patch
 
-from crewai_tools.rag.base_loader import LoaderResult
-from crewai_tools.rag.loaders.json_loader import JSONLoader
-from crewai_tools.rag.source_content import SourceContent
+from fzxiezuoai_tools.rag.base_loader import LoaderResult
+from fzxiezuoai_tools.rag.loaders.json_loader import JSONLoader
+from fzxiezuoai_tools.rag.source_content import SourceContent
 import pytest
 
 
@@ -141,7 +141,7 @@ class TestJSONLoader:
         assert all(val in result.content for val in ["key", "value", "number", "123"])
         headers = mock_get.call_args[1]["headers"]
         assert "application/json" in headers["Accept"]
-        assert "crewai-tools JSONLoader" in headers["User-Agent"]
+        assert "fzxiezuoai-tools JSONLoader" in headers["User-Agent"]
 
     @patch("requests.get")
     def test_url_response_not_json(self, mock_get):

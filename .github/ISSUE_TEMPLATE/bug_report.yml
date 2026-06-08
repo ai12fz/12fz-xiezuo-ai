@@ -1,5 +1,5 @@
 name: Bug report
-description: Create a report to help us improve CrewAI
+description: Create a report to help us improve 12FZ协作AI
 title: "[BUG]"
 labels: ["bug"]
 assignees: []
@@ -68,17 +68,17 @@ body:
     validations:
       required: true
   - type: input
-    id: crewai-version
+    id: fzxiezuoai-version
     attributes:
-      label: crewAI Version
-      description: What version of CrewAI are you using
+      label: 12FZ协作AI Version
+      description: What version of 12FZ协作AI are you using
     validations:
       required: true
   - type: input
-    id: crewai-tools-version
+    id: fzxiezuoai-tools-version
     attributes:
-      label: crewAI Tools Version
-      description: What version of CrewAI Tools are you using 
+      label: 12FZ协作AI Tools Version
+      description: What version of 12FZ协作AI Tools are you using 
     validations:
       required: true
   - type: dropdown

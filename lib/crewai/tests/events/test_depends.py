@@ -4,8 +4,8 @@ import asyncio
 
 import pytest
 
-from crewai.events import Depends, crewai_event_bus
-from crewai.events.base_events import BaseEvent
+from fzxiezuoai.events import Depends, crewai_event_bus
+from fzxiezuoai.events.base_events import BaseEvent
 
 
 class DependsTestEvent(BaseEvent):
@@ -194,7 +194,7 @@ async def test_independent_handlers_run_concurrently():
 @pytest.mark.asyncio
 async def test_circular_dependency_detection():
     """Test that circular dependencies are detected and raise an error."""
-    from crewai.events.handler_graph import CircularDependencyError, build_execution_plan
+    from fzxiezuoai.events.handler_graph import CircularDependencyError, build_execution_plan
 
     def handler_a(source, event: DependsTestEvent):
         pass

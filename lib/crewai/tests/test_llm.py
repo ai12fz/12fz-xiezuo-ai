@@ -3,17 +3,17 @@ import os
 from time import sleep
 from unittest.mock import MagicMock, patch
 
-from crewai.agents.agent_builder.utilities.base_token_process import TokenProcess
-from crewai.events.event_types import (
+from fzxiezuoai.agents.agent_builder.utilities.base_token_process import TokenProcess
+from fzxiezuoai.events.event_types import (
     LLMCallCompletedEvent,
     LLMStreamChunkEvent,
     ToolUsageErrorEvent,
     ToolUsageFinishedEvent,
     ToolUsageStartedEvent,
 )
-from crewai.llm import CONTEXT_WINDOW_USAGE_RATIO, LLM
-from crewai.llms.providers.anthropic.completion import AnthropicCompletion
-from crewai.utilities.token_counter_callback import TokenCalcHandler
+from fzxiezuoai.llm import CONTEXT_WINDOW_USAGE_RATIO, LLM
+from fzxiezuoai.llms.providers.anthropic.completion import AnthropicCompletion
+from fzxiezuoai.utilities.token_counter_callback import TokenCalcHandler
 from pydantic import BaseModel
 import pytest
 
@@ -220,7 +220,7 @@ def test_validate_call_params_supported():
         a: int
 
     # Patch supports_response_schema to simulate a supported model.
-    with patch("crewai.llm.supports_response_schema", return_value=True):
+    with patch("fzxiezuoai.llm.supports_response_schema", return_value=True):
         llm = LLM(
             model="openrouter/deepseek/deepseek-chat",
             response_format=DummyResponse,
@@ -234,7 +234,7 @@ def test_validate_call_params_not_supported():
         a: int
 
     # Patch supports_response_schema to simulate an unsupported model.
-    with patch("crewai.llm.supports_response_schema", return_value=False):
+    with patch("fzxiezuoai.llm.supports_response_schema", return_value=False):
         llm = LLM(
             model="gemini/gemini-1.5-pro",
             response_format=DummyResponse,
@@ -334,7 +334,7 @@ def test_context_window_validation():
 
     with pytest.raises(ValueError) as excinfo:
         with patch.dict(
-            "crewai.llm.LLM_CONTEXT_WINDOW_SIZES",
+            "fzxiezuoai.llm.LLM_CONTEXT_WINDOW_SIZES",
             {"test-model": 500},
             clear=True,
         ):
@@ -366,7 +366,7 @@ def get_weather_tool_schema():
 
 def test_context_window_exceeded_error_handling():
     """Test that litellm.ContextWindowExceededError is converted to LLMContextLengthExceededError."""
-    from crewai.utilities.exceptions.context_window_exceeding_exception import (
+    from fzxiezuoai.utilities.exceptions.context_window_exceeding_exception import (
         LLMContextLengthExceededError,
     )
     from litellm.exceptions import ContextWindowExceededError
@@ -533,7 +533,7 @@ def assert_event_count(
 
 @pytest.fixture
 def mock_emit() -> MagicMock:
-    from crewai.events.event_bus import CrewAIEventsBus
+    from fzxiezuoai.events.event_bus import CrewAIEventsBus
 
     with patch.object(CrewAIEventsBus, "emit") as mock_emit:
         yield mock_emit
@@ -807,8 +807,8 @@ def test_ollama_does_not_modify_when_last_is_user(ollama_llm):
 
 def test_native_provider_raises_error_when_supported_but_fails():
     """Test that when a native provider is in SUPPORTED_NATIVE_PROVIDERS but fails to instantiate, we raise the error."""
-    with patch("crewai.llm.SUPPORTED_NATIVE_PROVIDERS", ["openai"]):
-        with patch("crewai.llm.LLM._get_native_provider") as mock_get_native:
+    with patch("fzxiezuoai.llm.SUPPORTED_NATIVE_PROVIDERS", ["openai"]):
+        with patch("fzxiezuoai.llm.LLM._get_native_provider") as mock_get_native:
             mock_provider = MagicMock()
             mock_provider.side_effect = ValueError(
                 "Native provider initialization failed"
@@ -824,7 +824,7 @@ def test_native_provider_raises_error_when_supported_but_fails():
 
 def test_native_provider_falls_back_to_litellm_when_not_in_supported_list():
     """Test that when a provider is not in SUPPORTED_NATIVE_PROVIDERS, we fall back to LiteLLM."""
-    with patch("crewai.llm.SUPPORTED_NATIVE_PROVIDERS", ["openai", "anthropic"]):
+    with patch("fzxiezuoai.llm.SUPPORTED_NATIVE_PROVIDERS", ["openai", "anthropic"]):
         llm = LLM(model="groq/llama-3.1-70b-versatile", is_litellm=False)
 
         # Should fall back to LiteLLM
@@ -1154,7 +1154,7 @@ def test_non_streaming_returns_tool_calls_when_text_also_present():
     llm = LLM(model="gpt-4o-mini", is_litellm=True)
     response = _build_response_with_text_and_tool_calls()
 
-    with patch("crewai.llm.litellm.completion", return_value=response):
+    with patch("fzxiezuoai.llm.litellm.completion", return_value=response):
         result = llm.call("anything", available_functions=None)
 
     assert isinstance(result, list)
@@ -1170,7 +1170,7 @@ async def test_non_streaming_async_returns_tool_calls_when_text_also_present():
     async def _ret(*args, **kwargs):
         return response
 
-    with patch("crewai.llm.litellm.acompletion", side_effect=_ret):
+    with patch("fzxiezuoai.llm.litellm.acompletion", side_effect=_ret):
         result = await llm.acall("anything", available_functions=None)
 
     assert isinstance(result, list)

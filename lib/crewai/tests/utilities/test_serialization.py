@@ -2,7 +2,7 @@ from datetime import date, datetime
 from typing import List
 
 import pytest
-from crewai.utilities.serialization import to_serializable, to_string
+from fzxiezuoai.utilities.serialization import to_serializable, to_string
 from pydantic import BaseModel
 
 

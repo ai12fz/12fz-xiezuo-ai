@@ -1,2 +1,2 @@
-"""Tests for CrewAI hooks functionality."""
+"""Tests for 12FZ协作AI hooks functionality."""
 

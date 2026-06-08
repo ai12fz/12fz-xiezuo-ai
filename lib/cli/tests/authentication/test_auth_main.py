@@ -3,8 +3,8 @@ from unittest.mock import MagicMock, call, patch
 
 import pytest
 import httpx
-from crewai_cli.authentication.main import AuthenticationCommand
-from crewai_cli.constants import (
+from fzxiezuoai_cli.authentication.main import AuthenticationCommand
+from fzxiezuoai_cli.constants import (
     CREWAI_ENTERPRISE_DEFAULT_OAUTH2_AUDIENCE,
     CREWAI_ENTERPRISE_DEFAULT_OAUTH2_CLIENT_ID,
     CREWAI_ENTERPRISE_DEFAULT_OAUTH2_DOMAIN,
@@ -14,7 +14,7 @@ from crewai_cli.constants import (
 class TestAuthenticationCommand:
     def setup_method(self):
         # Mock Settings so we always use default constants regardless of local config.
-        with patch("crewai_cli.authentication.main.Settings") as mock_settings:
+        with patch("fzxiezuoai_cli.authentication.main.Settings") as mock_settings:
             instance = mock_settings.return_value
             instance.oauth2_provider = "workos"
             instance.oauth2_domain = CREWAI_ENTERPRISE_DEFAULT_OAUTH2_DOMAIN
@@ -38,12 +38,12 @@ class TestAuthenticationCommand:
             ),
         ],
     )
-    @patch("crewai_cli.authentication.main.AuthenticationCommand._get_device_code")
+    @patch("fzxiezuoai_cli.authentication.main.AuthenticationCommand._get_device_code")
     @patch(
-        "crewai_cli.authentication.main.AuthenticationCommand._display_auth_instructions"
+        "fzxiezuoai_cli.authentication.main.AuthenticationCommand._display_auth_instructions"
     )
-    @patch("crewai_cli.authentication.main.AuthenticationCommand._poll_for_token")
-    @patch("crewai_core.auth.oauth2.console.print")
+    @patch("fzxiezuoai_cli.authentication.main.AuthenticationCommand._poll_for_token")
+    @patch("fzxiezuoai_core.auth.oauth2.console.print")
     def test_login(
         self,
         mock_console_print,
@@ -61,7 +61,7 @@ class TestAuthenticationCommand:
         self.auth_command.login()
 
         mock_console_print.assert_called_once_with(
-            "Signing in to CrewAI AMP...\n", style="bold blue"
+            "Signing in to 12FZ协作AI AMP...\n", style="bold blue"
         )
         mock_get_device.assert_called_once()
         mock_display.assert_called_once_with(
@@ -82,8 +82,8 @@ class TestAuthenticationCommand:
             self.auth_command.oauth2_provider._get_domain() == expected_urls["domain"]
         )
 
-    @patch("crewai_core.auth.oauth2.webbrowser")
-    @patch("crewai_core.auth.oauth2.console.print")
+    @patch("fzxiezuoai_core.auth.oauth2.webbrowser")
+    @patch("fzxiezuoai_core.auth.oauth2.console.print")
     def test_display_auth_instructions(self, mock_console_print, mock_webbrowser):
         device_code_data = {
             "verification_uri_complete": "https://example.com/auth",
@@ -113,8 +113,8 @@ class TestAuthenticationCommand:
         ],
     )
     @pytest.mark.parametrize("has_expiration", [True, False])
-    @patch("crewai_core.auth.oauth2.validate_jwt_token")
-    @patch("crewai_core.auth.oauth2.TokenManager.save_tokens")
+    @patch("fzxiezuoai_core.auth.oauth2.validate_jwt_token")
+    @patch("fzxiezuoai_core.auth.oauth2.TokenManager.save_tokens")
     def test_validate_and_save_token(
         self,
         mock_save_tokens,
@@ -123,8 +123,8 @@ class TestAuthenticationCommand:
         jwt_config,
         has_expiration,
     ):
-        from crewai_cli.authentication.main import Oauth2Settings
-        from crewai_cli.authentication.providers.workos import WorkosProvider
+        from fzxiezuoai_cli.authentication.main import Oauth2Settings
+        from fzxiezuoai_cli.authentication.providers.workos import WorkosProvider
 
         if user_provider == "workos":
             self.auth_command.oauth2_provider = WorkosProvider(
@@ -162,9 +162,9 @@ class TestAuthenticationCommand:
         else:
             mock_save_tokens.assert_called_once_with("test_access_token", 0)
 
-    @patch("crewai_cli.tools.main.ToolCommand")
-    @patch("crewai_cli.authentication.main.Settings")
-    @patch("crewai_core.auth.oauth2.console.print")
+    @patch("fzxiezuoai_cli.tools.main.ToolCommand")
+    @patch("fzxiezuoai_cli.authentication.main.Settings")
+    @patch("fzxiezuoai_core.auth.oauth2.console.print")
     def test_login_to_tool_repository_success(
         self, mock_console_print, mock_settings, mock_tool_command
     ):
@@ -195,8 +195,8 @@ class TestAuthenticationCommand:
         ]
         mock_console_print.assert_has_calls(expected_calls)
 
-    @patch("crewai_cli.tools.main.ToolCommand")
-    @patch("crewai_core.auth.oauth2.console.print")
+    @patch("fzxiezuoai_cli.tools.main.ToolCommand")
+    @patch("fzxiezuoai_core.auth.oauth2.console.print")
     def test_login_to_tool_repository_error(
         self, mock_console_print, mock_tool_command
     ):
@@ -220,13 +220,13 @@ class TestAuthenticationCommand:
                 style="yellow",
             ),
             call(
-                "Other features will work normally, but you may experience limitations with downloading and publishing tools.\nRun [bold]crewai login[/bold] to try logging in again.\n",
+                "Other features will work normally, but you may experience limitations with downloading and publishing tools.\nRun [bold]fzxiezuoai login[/bold] to try logging in again.\n",
                 style="yellow",
             ),
         ]
         mock_console_print.assert_has_calls(expected_calls)
 
-    @patch("crewai_core.auth.oauth2.httpx.post")
+    @patch("fzxiezuoai_core.auth.oauth2.httpx.post")
     def test_get_device_code(self, mock_post):
         mock_response = MagicMock()
         mock_response.json.return_value = {
@@ -262,8 +262,8 @@ class TestAuthenticationCommand:
             "verification_uri_complete": "https://example.com/auth",
         }
 
-    @patch("crewai_core.auth.oauth2.httpx.post")
-    @patch("crewai_core.auth.oauth2.console.print")
+    @patch("fzxiezuoai_core.auth.oauth2.httpx.post")
+    @patch("fzxiezuoai_core.auth.oauth2.console.print")
     def test_poll_for_token_success(self, mock_console_print, mock_post):
         mock_response_success = MagicMock()
         mock_response_success.status_code = 200
@@ -307,12 +307,12 @@ class TestAuthenticationCommand:
             expected_calls = [
                 call("\nWaiting for authentication... ", style="bold blue", end=""),
                 call("Success!", style="bold green"),
-                call("\n[bold green]Welcome to CrewAI AMP![/bold green]\n"),
+                call("\n[bold green]Welcome to 12FZ协作AI AMP![/bold green]\n"),
             ]
             mock_console_print.assert_has_calls(expected_calls)
 
-    @patch("crewai_core.auth.oauth2.httpx.post")
-    @patch("crewai_core.auth.oauth2.console.print")
+    @patch("fzxiezuoai_core.auth.oauth2.httpx.post")
+    @patch("fzxiezuoai_core.auth.oauth2.console.print")
     def test_poll_for_token_timeout(self, mock_console_print, mock_post):
         mock_response_pending = MagicMock()
         mock_response_pending.status_code = 400
@@ -330,7 +330,7 @@ class TestAuthenticationCommand:
             "Timeout: Failed to get the token. Please try again.", style="bold red"
         )
 
-    @patch("crewai_core.auth.oauth2.httpx.post")
+    @patch("fzxiezuoai_core.auth.oauth2.httpx.post")
     def test_poll_for_token_error(self, mock_post):
         """Test the method to poll for token (error path)."""
         mock_response_error = MagicMock()

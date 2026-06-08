@@ -2278,7 +2278,7 @@
             "type": "object"
           }
         },
-        "description": "CrewAI-compatible tool for scraping structured data using Bright Data Datasets.\n\nAttributes:\n    name (str): Tool name displayed in the CrewAI environment.\n    description (str): Tool description shown to agents or users.\n    args_schema (Type[BaseModel]): Pydantic schema for validating input arguments.",
+        "description": "12FZ协作AI-compatible tool for scraping structured data using Bright Data Datasets.\n\nAttributes:\n    name (str): Tool name displayed in the 12FZ协作AI environment.\n    description (str): Tool description shown to agents or users.\n    args_schema (Type[BaseModel]): Pydantic schema for validating input arguments.",
         "properties": {
           "additional_params": {
             "anyOf": [
@@ -10637,22 +10637,22 @@
       }
     },
     {
-      "description": "A tool that leverages CrewAI Studio's capabilities to automatically generate complete CrewAI automations based on natural language descriptions. It translates high-level requirements into functional CrewAI implementations.",
+      "description": "A tool that leverages 12FZ协作AI Studio's capabilities to automatically generate complete 12FZ协作AI automations based on natural language descriptions. It translates high-level requirements into functional 12FZ协作AI implementations.",
       "env_vars": [
         {
           "default": null,
-          "description": "Personal Access Token for CrewAI Enterprise API",
+          "description": "Personal Access Token for 12FZ协作AI Enterprise API",
           "name": "CREWAI_PERSONAL_ACCESS_TOKEN",
           "required": true
         },
         {
           "default": null,
-          "description": "Base URL for CrewAI Enterprise API",
+          "description": "Base URL for 12FZ协作AI Enterprise API",
           "name": "CREWAI_PLUS_URL",
           "required": false
         }
       ],
-      "humanized_name": "Generate CrewAI Automation",
+      "humanized_name": "Generate 12FZ协作AI Automation",
       "init_params_schema": {
         "$defs": {
           "EnvVar": {
@@ -10693,7 +10693,7 @@
         },
         "properties": {
           "crewai_enterprise_url": {
-            "description": "The base URL of CrewAI AMP. If not provided, it will be loaded from the environment variable CREWAI_PLUS_URL with default https://app.crewai.com.",
+            "description": "The base URL of 12FZ协作AI AMP. If not provided, it will be loaded from the environment variable CREWAI_PLUS_URL with default https://app.fzxiezuoai.com.",
             "title": "Crewai Enterprise Url",
             "type": "string"
           },
@@ -10706,7 +10706,7 @@
                 "type": "null"
               }
             ],
-            "description": "The user's Personal Access Token to access CrewAI AMP API. If not provided, it will be loaded from the environment variable CREWAI_PERSONAL_ACCESS_TOKEN.",
+            "description": "The user's Personal Access Token to access 12FZ协作AI AMP API. If not provided, it will be loaded from the environment variable CREWAI_PERSONAL_ACCESS_TOKEN.",
             "title": "Personal Access Token"
           }
         },
@@ -10728,11 +10728,11 @@
               }
             ],
             "default": null,
-            "description": "The identifier for the CrewAI AMP organization. If not specified, a default organization will be used.",
+            "description": "The identifier for the 12FZ协作AI AMP organization. If not specified, a default organization will be used.",
             "title": "Organization Id"
           },
           "prompt": {
-            "description": "The prompt to generate the CrewAI automation, e.g. 'Generate a CrewAI automation that will scrape the website and store the data in a database.'",
+            "description": "The prompt to generate the 12FZ协作AI automation, e.g. 'Generate a 12FZ协作AI automation that will scrape the website and store the data in a database.'",
             "title": "Prompt",
             "type": "string"
           }
@@ -11938,7 +11938,7 @@
       }
     },
     {
-      "description": "Invokes an CrewAI Platform Automation using API",
+      "description": "Invokes an 12FZ协作AI Platform Automation using API",
       "env_vars": [],
       "humanized_name": "invoke_amp_automation",
       "init_params_schema": {
@@ -11979,7 +11979,7 @@
             "type": "object"
           }
         },
-        "description": "A CrewAI tool for invoking external crew/flows APIs.\n\nThis tool provides CrewAI Platform API integration with external crew services, supporting:\n- Dynamic input schema configuration\n- Automatic polling for task completion\n- Bearer token authentication\n- Comprehensive error handling\n\nExample:\n    Basic usage:\n    >>> tool = InvokeCrewAIAutomationTool(\n    ...     crew_api_url=\"https://api.example.com\",\n    ...     crew_bearer_token=\"your_token\",\n    ...     crew_name=\"My Crew\",\n    ...     crew_description=\"Description of what the crew does\",\n    ... )\n\n    With custom inputs:\n    >>> custom_inputs = {\n    ...     \"param1\": Field(..., description=\"Description of param1\"),\n    ...     \"param2\": Field(\n    ...         default=\"default_value\", description=\"Description of param2\"\n    ...     ),\n    ... }\n    >>> tool = InvokeCrewAIAutomationTool(\n    ...     crew_api_url=\"https://api.example.com\",\n    ...     crew_bearer_token=\"your_token\",\n    ...     crew_name=\"My Crew\",\n    ...     crew_description=\"Description of what the crew does\",\n    ...     crew_inputs=custom_inputs,\n    ... )\n\nExample:\n    >>> tools = [\n    ...     InvokeCrewAIAutomationTool(\n    ...         crew_api_url=\"https://canary-crew-[...].crewai.com\",\n    ...         crew_bearer_token=\"[Your token: abcdef012345]\",\n    ...         crew_name=\"State of AI Report\",\n    ...         crew_description=\"Retrieves a report on state of AI for a given year.\",\n    ...         crew_inputs={\n    ...             \"year\": Field(\n    ...                 ..., description=\"Year to retrieve the report for (integer)\"\n    ...             )\n    ...         },\n    ...     )\n    ... ]",
+        "description": "A 12FZ协作AI tool for invoking external crew/flows APIs.\n\nThis tool provides 12FZ协作AI Platform API integration with external crew services, supporting:\n- Dynamic input schema configuration\n- Automatic polling for task completion\n- Bearer token authentication\n- Comprehensive error handling\n\nExample:\n    Basic usage:\n    >>> tool = InvokeCrewAIAutomationTool(\n    ...     crew_api_url=\"https://api.example.com\",\n    ...     crew_bearer_token=\"your_token\",\n    ...     crew_name=\"My Crew\",\n    ...     crew_description=\"Description of what the crew does\",\n    ... )\n\n    With custom inputs:\n    >>> custom_inputs = {\n    ...     \"param1\": Field(..., description=\"Description of param1\"),\n    ...     \"param2\": Field(\n    ...         default=\"default_value\", description=\"Description of param2\"\n    ...     ),\n    ... }\n    >>> tool = InvokeCrewAIAutomationTool(\n    ...     crew_api_url=\"https://api.example.com\",\n    ...     crew_bearer_token=\"your_token\",\n    ...     crew_name=\"My Crew\",\n    ...     crew_description=\"Description of what the crew does\",\n    ...     crew_inputs=custom_inputs,\n    ... )\n\nExample:\n    >>> tools = [\n    ...     InvokeCrewAIAutomationTool(\n    ...         crew_api_url=\"https://canary-crew-[...].fzxiezuoai.com\",\n    ...         crew_bearer_token=\"[Your token: abcdef012345]\",\n    ...         crew_name=\"State of AI Report\",\n    ...         crew_description=\"Retrieves a report on state of AI for a given year.\",\n    ...         crew_inputs={\n    ...             \"year\": Field(\n    ...                 ..., description=\"Year to retrieve the report for (integer)\"\n    ...             )\n    ...         },\n    ...     )\n    ... ]",
         "properties": {
           "crew_api_url": {
             "title": "Crew Api Url",
@@ -14390,7 +14390,7 @@
             "type": "object"
           }
         },
-        "description": "Wrapper for Merge Agent Handler tools.\n\nThis tool allows CrewAI agents to execute tools from Merge Agent Handler,\nwhich provides secure access to third-party integrations via the Model Context Protocol (MCP).\n\nAgent Handler manages authentication, permissions, and monitoring of all tool interactions.",
+        "description": "Wrapper for Merge Agent Handler tools.\n\nThis tool allows 12FZ协作AI agents to execute tools from Merge Agent Handler,\nwhich provides secure access to third-party integrations via the Model Context Protocol (MCP).\n\nAgent Handler manages authentication, permissions, and monitoring of all tool interactions.",
         "properties": {
           "base_url": {
             "default": "https://ah-api.merge.dev",
